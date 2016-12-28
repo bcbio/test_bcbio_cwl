@@ -1,0 +1,51 @@
+details:
+- algorithm:
+    align_split_size: 25000
+    aligner: bwa
+    effects: false
+    nomap_split_size: 50
+    nomap_split_targets: 100
+    realign: false
+    recalibrate: false
+    tools_off:
+    - gemini
+    variant_regions: variant_regions-bam.bed
+    variantcaller:
+    - freebayes
+    - vardict
+  analysis: variant2
+  description: Test2
+  files:
+  - keep:a1d976bc7bcba2b523713fa67695d715+464/6_100326_FC6107FAAXX.bam
+  genome_build: hg19
+  metadata:
+    batch: b1
+    phenotype: normal
+- algorithm:
+    align_split_size: 25000
+    aligner: snap
+    effects: false
+    nomap_split_size: 50
+    nomap_split_targets: 100
+    realign: false
+    recalibrate: false
+    tools_off:
+    - gemini
+    validate: 7_100326_FC6107FAAXX-grade.vcf
+    validate_regions: variant_regions-bam.bed
+    variant_regions: variant_regions-bam.bed
+    variantcaller:
+    - freebayes
+    - vardict
+  analysis: variant2
+  description: Test1
+  files:
+  - keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX.bam
+  genome_build: hg19
+  metadata:
+    batch: b1
+    phenotype: tumor
+fc_date: '2016-12-28'
+fc_name: arvados_testcwl
+upload:
+  dir: ../final

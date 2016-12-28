@@ -1,0 +1,7 @@
+# local runs
+galaxy_config: testdata/automated/universe_wsgi.ini
+resources:
+  default: {cores: 4, memory: 1G}
+  bwa: {cores: 4, memory: 1G}
+  gatk:
+    jvm_opts: [-Xms750m, -Xmx2500m]

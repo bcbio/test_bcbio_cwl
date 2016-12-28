@@ -1,0 +1,24 @@
+version: 7
+
+aliases:
+  human: true
+  snpeff: hg19
+  ensembl: homo_sapiens_vep_83_GRCh37
+
+variation:
+  dbsnp: ../variation/dbsnp_132.vcf.gz
+  train_hapmap: ../variation/hapmap_3.3.vcf.gz
+  train_omni: ../variation/1000G_omni2.5.vcf.gz
+  train_1000g: ../variation/1000G_phase1.snps.high_confidence.vcf.gz
+  train_indels: ../variation/Mills_Devine_2hit.indels.vcf.gz
+  cosmic: ../variation/cosmic-v68-hg19.vcf.gz
+  dbnsfp: ../variation/dbNSFP_v2.5.gz
+  ancestral: ../variation/human_ancestor.fa
+
+rnaseq:
+  transcripts: ../rnaseq/ref-transcripts.gtf
+  transcripts_mask: ../rnaseq/ref-transcripts-mask.gtf
+
+srnaseq:
+  srna_transcripts: ../srnaseq/srna-transcripts.gtf
+  mirbase: ../srnaseq/hairpin.fa

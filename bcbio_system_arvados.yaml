@@ -1,0 +1,9 @@
+# arvados runs
+arvados:
+  reference: f4f11e97ffb51078635a93fed24a07f0+2196
+  input: [a1d976bc7bcba2b523713fa67695d715+464]
+resources:
+  default: {cores: 4, memory: 1G}
+  bwa: {cores: 4, memory: 2G}
+  gatk:
+    jvm_opts: [-Xms750m, -Xmx2500m]

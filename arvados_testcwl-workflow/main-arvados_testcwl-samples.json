@@ -1,0 +1,644 @@
+{
+    "analysis": [
+        "variant2",
+        "variant2"
+    ],
+    "config__algorithm__align_split_size": [
+        25000,
+        25000
+    ],
+    "config__algorithm__aligner": [
+        "bwa",
+        "snap"
+    ],
+    "config__algorithm__archive": [
+        [],
+        []
+    ],
+    "config__algorithm__coverage_interval": [
+        null,
+        null
+    ],
+    "config__algorithm__effects": [
+        "False",
+        "False"
+    ],
+    "config__algorithm__mark_duplicates": [
+        "True",
+        "True"
+    ],
+    "config__algorithm__nomap_split_size": [
+        50,
+        50
+    ],
+    "config__algorithm__nomap_split_targets": [
+        100,
+        100
+    ],
+    "config__algorithm__qc": [
+        [
+            "fastqc",
+            "samtools",
+            "gemini",
+            "qsignature",
+            "coverage",
+            "variants",
+            "picard"
+        ],
+        [
+            "fastqc",
+            "samtools",
+            "gemini",
+            "qsignature",
+            "coverage",
+            "variants",
+            "picard"
+        ]
+    ],
+    "config__algorithm__realign": [
+        "False",
+        "False"
+    ],
+    "config__algorithm__recalibrate": [
+        "False",
+        "False"
+    ],
+    "config__algorithm__tools_off": [
+        [
+            "gemini"
+        ],
+        [
+            "gemini"
+        ]
+    ],
+    "config__algorithm__tools_on": [
+        [],
+        []
+    ],
+    "config__algorithm__validate": [
+        null,
+        {
+            "class": "File",
+            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX-grade.vcf"
+        }
+    ],
+    "config__algorithm__validate_regions": [
+        null,
+        {
+            "class": "File",
+            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed"
+        }
+    ],
+    "config__algorithm__variant_regions": [
+        {
+            "class": "File",
+            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed"
+        },
+        {
+            "class": "File",
+            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed"
+        }
+    ],
+    "config__algorithm__variantcaller": [
+        [
+            "freebayes",
+            "vardict"
+        ],
+        [
+            "freebayes",
+            "vardict"
+        ]
+    ],
+    "description": [
+        "Test2",
+        "Test1"
+    ],
+    "files": [
+        [
+            {
+                "class": "File",
+                "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/6_100326_FC6107FAAXX.bam",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/6_100326_FC6107FAAXX.bam.bai"
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "class": "File",
+                "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX.bam",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX.bam.bai"
+                    }
+                ]
+            }
+        ]
+    ],
+    "genome_build": [
+        "hg19",
+        "hg19"
+    ],
+    "genome_resources__aliases__ensembl": [
+        "homo_sapiens_vep_83_GRCh37",
+        "homo_sapiens_vep_83_GRCh37"
+    ],
+    "genome_resources__aliases__human": [
+        "True",
+        "True"
+    ],
+    "genome_resources__aliases__snpeff": [
+        "hg19",
+        "hg19"
+    ],
+    "genome_resources__rnaseq__transcripts": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rnaseq/ref-transcripts.gtf"
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rnaseq/ref-transcripts.gtf"
+        }
+    ],
+    "genome_resources__rnaseq__transcripts_mask": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rnaseq/ref-transcripts-mask.gtf"
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rnaseq/ref-transcripts-mask.gtf"
+        }
+    ],
+    "genome_resources__variation__ancestral": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/human_ancestor.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/human_ancestor.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/human_ancestor.dict"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/human_ancestor.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/human_ancestor.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/human_ancestor.dict"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__dbnsfp": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/dbNSFP_v2.5.gz"
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/dbNSFP_v2.5.gz"
+        }
+    ],
+    "genome_resources__variation__dbsnp": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/dbsnp_132.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/dbsnp_132.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_1000g": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_hapmap": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_indels": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_omni": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_omni2.5.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_omni2.5.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_omni2.5.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/variation/1000G_omni2.5.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__version": [
+        7,
+        7
+    ],
+    "metadata__batch": [
+        "b1",
+        "b1"
+    ],
+    "metadata__phenotype": [
+        "normal",
+        "tumor"
+    ],
+    "reference__bwa__indexes": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/bwa/hg19.fa.amb",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/bwa/hg19.fa.ann"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/bwa/hg19.fa.bwt"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/bwa/hg19.fa.pac"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/bwa/hg19.fa.sa"
+                }
+            ]
+        },
+        null
+    ],
+    "reference__fasta__base": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19-resources.yaml"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19.dict"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19.fa.fai"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19-resources.yaml"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19.dict"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/seq/hg19.fa.fai"
+                }
+            ]
+        }
+    ],
+    "reference__genome_context": [
+        [
+            {
+                "class": "File",
+                "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "class": "File",
+                "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            }
+        ]
+    ],
+    "reference__rtg": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/mainIndex",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/done"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/format.log"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/nameIndex0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/namedata0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/namepointer0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/progress"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/seqdata0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/seqpointer0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/sequenceIndex0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/summary.txt"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/mainIndex",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/done"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/format.log"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/nameIndex0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/namedata0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/namepointer0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/progress"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/seqdata0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/seqpointer0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/sequenceIndex0"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/rtg/hg19.sdf/summary.txt"
+                }
+            ]
+        }
+    ],
+    "reference__snap__indexes": [
+        null,
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snap/Genome",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snap/GenomeIndex"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snap/GenomeIndexHash"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snap/OverflowTable"
+                }
+            ]
+        }
+    ],
+    "reference__snpeff": [
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snpeff/hg19/snpEffectPredictor.bin",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snpeff/hg19/genes.gtf"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snpeff/hg19/sequences.fa"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snpeff/hg19/snpEffectPredictor.bin",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snpeff/hg19/genes.gtf"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:f4f11e97ffb51078635a93fed24a07f0+2196/hg19/snpeff/hg19/sequences.fa"
+                }
+            ]
+        }
+    ],
+    "rgnames__lane": [
+        "1_2016-12-28_arvados_testcwl",
+        "2_2016-12-28_arvados_testcwl"
+    ],
+    "rgnames__lb": [
+        null,
+        null
+    ],
+    "rgnames__pl": [
+        "illumina",
+        "illumina"
+    ],
+    "rgnames__pu": [
+        "1_2016-12-28_arvados_testcwl",
+        "2_2016-12-28_arvados_testcwl"
+    ],
+    "rgnames__rg": [
+        "Test2",
+        "Test1"
+    ],
+    "rgnames__sample": [
+        "Test2",
+        "Test1"
+    ],
+    "vrn_file": [
+        null,
+        null
+    ]
+}
