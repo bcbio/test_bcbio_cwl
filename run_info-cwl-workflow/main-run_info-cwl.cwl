@@ -6,134 +6,242 @@ hints:
   dockerPull: bcbio/bcbio
 inputs:
 - id: config__algorithm__align_split_size
-  type: long
+  type:
+    items: long
+    type: array
 - id: config__algorithm__validate
-  type: File
+  type:
+    items: File
+    type: array
 - id: reference__fasta__base
-  type: File
+  type:
+    items: File
+    type: array
 - id: reference__rtg
-  type: File
+  type:
+    items: File
+    type: array
 - id: config__algorithm__variantcaller
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 - id: config__algorithm__svcaller
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 - id: genome_resources__rnaseq__transcripts_mask
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__variation__train_1000g
-  type: File
+  type:
+    items: File
+    type: array
 - id: config__algorithm__coverage_interval
-  type: 'null'
+  type:
+    items: 'null'
+    type: array
 - id: genome_resources__rnaseq__gene_bed
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__variation__train_hapmap
-  type: File
+  type:
+    items: File
+    type: array
 - id: rgnames__lb
-  type: 'null'
+  type:
+    items: 'null'
+    type: array
 - id: genome_resources__variation__dbnsfp
-  type: File
+  type:
+    items: File
+    type: array
 - id: rgnames__rg
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__realign
-  type: string
+  type:
+    items: string
+    type: array
 - id: metadata__batch
-  type: string
+  type:
+    items: string
+    type: array
 - id: rgnames__lane
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__nomap_split_targets
-  type: long
+  type:
+    items: long
+    type: array
 - id: reference__bwa__indexes
   type:
-  - 'null'
-  - File
+    items:
+    - 'null'
+    - File
+    type: array
 - id: reference__genome_context
   type:
-    items: File
+    items:
+      items: File
+      type: array
     type: array
 - id: config__algorithm__nomap_split_size
-  type: long
+  type:
+    items: long
+    type: array
 - id: files
+  type:
+    items:
+      items: File
+      type: array
+    type: array
+- id: genome_resources__srnaseq__srna_transcripts
+  type:
+    items: string
+    type: array
+- id: config__algorithm__cwl_reporting
+  type:
+    items:
+    - string
+    - 'null'
+    type: array
+- id: reference__snpeff__hg19
   type:
     items: File
     type: array
-- id: genome_resources__srnaseq__srna_transcripts
-  type: string
-- id: config__algorithm__cwl_reporting
-  type:
-  - string
-  - 'null'
-- id: reference__snpeff__hg19
-  type: File
 - id: description
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__validate_regions
-  type: File
+  type:
+    items: File
+    type: array
 - id: config__algorithm__aligner
-  type: string
+  type:
+    items: string
+    type: array
 - id: genome_resources__variation__train_omni
-  type: File
+  type:
+    items: File
+    type: array
 - id: rgnames__pl
-  type: string
+  type:
+    items: string
+    type: array
 - id: genome_build
-  type: string
+  type:
+    items: string
+    type: array
 - id: rgnames__pu
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__recalibrate
-  type: string
+  type:
+    items: string
+    type: array
 - id: metadata__phenotype
-  type: string
+  type:
+    items: string
+    type: array
 - id: genome_resources__rnaseq__transcripts
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__aliases__human
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__tools_off
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 - id: genome_resources__variation__dbsnp
-  type: File
+  type:
+    items: File
+    type: array
 - id: config__algorithm__mark_duplicates
-  type: string
-- id: genome_resources__variation__ancestral
-  type: File
-- id: vrn_file
-  type: 'null'
-- id: genome_resources__version
-  type: long
-- id: genome_resources__variation__cosmic
-  type: File
-- id: genome_resources__srnaseq__mirbase
-  type: string
-- id: config__algorithm__qc
   type:
     items: string
     type: array
-- id: analysis
-  type: string
-- id: rgnames__sample
-  type: string
-- id: config__algorithm__tools_on
+- id: genome_resources__variation__ancestral
+  type:
+    items: File
+    type: array
+- id: vrn_file
   type:
     items: 'null'
     type: array
+- id: genome_resources__version
+  type:
+    items: long
+    type: array
+- id: genome_resources__variation__cosmic
+  type:
+    items: File
+    type: array
+- id: genome_resources__srnaseq__mirbase
+  type:
+    items: string
+    type: array
+- id: config__algorithm__qc
+  type:
+    items:
+      items: string
+      type: array
+    type: array
+- id: analysis
+  type:
+    items: string
+    type: array
+- id: rgnames__sample
+  type:
+    items: string
+    type: array
+- id: config__algorithm__tools_on
+  type:
+    items:
+      items: 'null'
+      type: array
+    type: array
 - id: config__algorithm__variant_regions
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__aliases__ensembl
-  type: string
+  type:
+    items: string
+    type: array
 - id: reference__snap__indexes
   type:
-  - File
-  - 'null'
+    items:
+    - File
+    - 'null'
+    type: array
 - id: genome_resources__variation__train_indels
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__aliases__snpeff
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__archive
   type:
-    items: 'null'
+    items:
+      items: 'null'
+      type: array
     type: array
 outputs:
 - id: align_bam
