@@ -21,7 +21,7 @@ inputs:
     prefix: sentinel-parallel=
     separate: false
   type: string
-- default: '["config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__seq2c_bed_ready"]'
+- default: '["config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready"]'
   id: sentinel-outputs
   inputBinding:
     itemSeparator: ;;
@@ -29,24 +29,33 @@ inputs:
     prefix: sentinel-outputs=
     separate: false
   type: string
-- id: config__algorithm__variant_regions
+- id: config__algorithm__coverage
   inputBinding:
     itemSeparator: ;;
     position: 2
+    prefix: config__algorithm__coverage=
+    separate: false
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__variant_regions
+  inputBinding:
+    itemSeparator: ;;
+    position: 3
     prefix: config__algorithm__variant_regions=
     separate: false
   type: File
 - id: reference__fasta__base
   inputBinding:
     itemSeparator: ;;
-    position: 3
+    position: 4
     prefix: reference__fasta__base=
     separate: false
   type: File
 - id: description
   inputBinding:
     itemSeparator: ;;
-    position: 4
+    position: 5
     prefix: description=
     separate: false
   type: string
@@ -58,6 +67,18 @@ outputs:
   - File
   - 'null'
 - id: config__algorithm__variant_regions_orig
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage_merged
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage_orig
   type:
   - File
   - 'null'

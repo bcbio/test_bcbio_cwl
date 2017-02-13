@@ -6,126 +6,232 @@ hints:
   dockerPull: bcbio/bcbio
 inputs:
 - id: config__algorithm__align_split_size
-  type: long
+  type:
+    items: long
+    type: array
 - id: config__algorithm__validate
   type:
-  - 'null'
-  - File
+    items:
+    - 'null'
+    - File
+    type: array
 - id: reference__fasta__base
-  type: File
+  type:
+    items: File
+    type: array
 - id: reference__snpeff
-  type: File
+  type:
+    items: File
+    type: array
 - id: config__algorithm__variantcaller
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 - id: reference__snap__indexes
   type:
-  - 'null'
-  - File
+    items:
+    - 'null'
+    - File
+    type: array
 - id: genome_resources__rnaseq__transcripts_mask
-  type: File
-- id: genome_resources__variation__train_1000g
-  type: File
-- id: config__algorithm__coverage_interval
-  type: 'null'
-- id: genome_resources__variation__train_hapmap
-  type: File
-- id: rgnames__lb
-  type: 'null'
-- id: genome_resources__variation__dbnsfp
-  type: File
-- id: rgnames__rg
-  type: string
-- id: config__algorithm__realign
-  type: string
-- id: metadata__batch
-  type: string
-- id: rgnames__lane
-  type: string
-- id: config__algorithm__nomap_split_targets
-  type: long
-- id: reference__bwa__indexes
-  type:
-  - File
-  - 'null'
-- id: config__algorithm__nomap_split_size
-  type: long
-- id: files
   type:
     items: File
     type: array
-- id: description
-  type: string
-- id: config__algorithm__validate_regions
+- id: genome_resources__variation__train_1000g
   type:
-  - 'null'
-  - File
-- id: config__algorithm__aligner
-  type: string
-- id: genome_resources__variation__train_omni
-  type: File
-- id: rgnames__pl
-  type: string
-- id: genome_build
-  type: string
-- id: rgnames__pu
-  type: string
-- id: config__algorithm__recalibrate
-  type: string
-- id: metadata__phenotype
-  type: string
-- id: genome_resources__rnaseq__transcripts
-  type: File
-- id: genome_resources__aliases__human
-  type: string
-- id: config__algorithm__tools_off
+    items: File
+    type: array
+- id: config__algorithm__coverage_interval
+  type:
+    items: 'null'
+    type: array
+- id: genome_resources__variation__train_hapmap
+  type:
+    items: File
+    type: array
+- id: rgnames__lb
+  type:
+    items: 'null'
+    type: array
+- id: genome_resources__variation__dbnsfp
+  type:
+    items: File
+    type: array
+- id: rgnames__rg
   type:
     items: string
     type: array
-- id: genome_resources__variation__dbsnp
-  type: File
-- id: config__algorithm__mark_duplicates
-  type: string
-- id: genome_resources__variation__ancestral
-  type: File
-- id: vrn_file
-  type: 'null'
-- id: genome_resources__version
-  type: long
-- id: genome_resources__variation__cosmic
-  type: File
-- id: reference__genome_context
+- id: config__algorithm__realign
+  type:
+    items: string
+    type: array
+- id: metadata__batch
+  type:
+    items: string
+    type: array
+- id: rgnames__lane
+  type:
+    items: string
+    type: array
+- id: config__algorithm__nomap_split_targets
+  type:
+    items: long
+    type: array
+- id: reference__bwa__indexes
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: config__algorithm__nomap_split_size
+  type:
+    items: long
+    type: array
+- id: files
+  type:
+    items:
+      items: File
+      type: array
+    type: array
+- id: description
+  type:
+    items: string
+    type: array
+- id: config__algorithm__validate_regions
+  type:
+    items:
+    - 'null'
+    - File
+    type: array
+- id: config__algorithm__aligner
+  type:
+    items: string
+    type: array
+- id: genome_resources__variation__train_omni
   type:
     items: File
+    type: array
+- id: rgnames__pl
+  type:
+    items: string
+    type: array
+- id: genome_build
+  type:
+    items: string
+    type: array
+- id: rgnames__pu
+  type:
+    items: string
+    type: array
+- id: config__algorithm__recalibrate
+  type:
+    items: string
+    type: array
+- id: metadata__phenotype
+  type:
+    items: string
+    type: array
+- id: genome_resources__rnaseq__transcripts
+  type:
+    items: File
+    type: array
+- id: genome_resources__aliases__human
+  type:
+    items: string
+    type: array
+- id: config__algorithm__tools_off
+  type:
+    items:
+      items: string
+      type: array
+    type: array
+- id: genome_resources__variation__dbsnp
+  type:
+    items: File
+    type: array
+- id: config__algorithm__mark_duplicates
+  type:
+    items: string
+    type: array
+- id: genome_resources__variation__ancestral
+  type:
+    items: File
+    type: array
+- id: vrn_file
+  type:
+    items: 'null'
+    type: array
+- id: reference__viral
+  type:
+    items:
+      items: 'null'
+      type: array
+    type: array
+- id: genome_resources__version
+  type:
+    items: long
+    type: array
+- id: genome_resources__variation__cosmic
+  type:
+    items: File
+    type: array
+- id: reference__genome_context
+  type:
+    items:
+      items: File
+      type: array
     type: array
 - id: config__algorithm__qc
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 - id: analysis
-  type: string
+  type:
+    items: string
+    type: array
 - id: rgnames__sample
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__tools_on
   type:
-    items: 'null'
+    items:
+      items: 'null'
+      type: array
     type: array
 - id: config__algorithm__effects
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__variant_regions
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__aliases__ensembl
-  type: string
+  type:
+    items: string
+    type: array
 - id: reference__rtg
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__variation__train_indels
-  type: File
+  type:
+    items: File
+    type: array
 - id: genome_resources__aliases__snpeff
-  type: string
+  type:
+    items: string
+    type: array
 - id: config__algorithm__archive
   type:
-    items: 'null'
+    items:
+      items: 'null'
+      type: array
     type: array
 outputs:
 - id: align_bam
@@ -214,6 +320,9 @@ steps:
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
+  - id: config__algorithm__coverage
+  - id: config__algorithm__coverage_merged
+  - id: config__algorithm__coverage_orig
   - id: config__algorithm__seq2c_bed_ready
   run: steps/prep_samples.cwl
   scatter:
@@ -225,14 +334,20 @@ steps:
   in:
   - id: align_bam
     source: alignment/align_bam
-  - id: config__algorithm__variant_regions
-    source: prep_samples/config__algorithm__variant_regions
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
+  - id: config__algorithm__variant_regions
+    source: prep_samples/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
     source: prep_samples/config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
     source: prep_samples/config__algorithm__variant_regions_orig
+  - id: config__algorithm__coverage
+    source: prep_samples/config__algorithm__coverage
+  - id: config__algorithm__coverage_merged
+    source: prep_samples/config__algorithm__coverage_merged
+  - id: config__algorithm__coverage_orig
+    source: prep_samples/config__algorithm__coverage_orig
   - id: config__algorithm__seq2c_bed_ready
     source: prep_samples/config__algorithm__seq2c_bed_ready
   - id: config__algorithm__recalibrate
@@ -246,6 +361,9 @@ steps:
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
+  - id: config__algorithm__coverage
+  - id: config__algorithm__coverage_merged
+  - id: config__algorithm__coverage_orig
   - id: config__algorithm__seq2c_bed_ready
   - id: regions__callable
   - id: regions__sample_callable
@@ -254,10 +372,13 @@ steps:
   run: steps/postprocess_alignment.cwl
   scatter:
   - align_bam
-  - config__algorithm__variant_regions
   - config__algorithm__coverage_interval
+  - config__algorithm__variant_regions
   - config__algorithm__variant_regions_merged
   - config__algorithm__variant_regions_orig
+  - config__algorithm__coverage
+  - config__algorithm__coverage_merged
+  - config__algorithm__coverage_orig
   - config__algorithm__seq2c_bed_ready
   - config__algorithm__recalibrate
   - reference__fasta__base
@@ -506,7 +627,7 @@ steps:
   - id: validate__grading_summary
   - id: validate__grading_plots
   run: steps/summarize_grading_vc.cwl
-- id: pipeline_summary
+- id: qc_to_rec
   in:
   - id: align_bam
     source: alignment/align_bam
@@ -514,40 +635,139 @@ steps:
     source: analysis
   - id: reference__fasta__base
     source: reference__fasta__base
+  - id: genome_build
+    source: genome_build
+  - id: config__algorithm__coverage_interval
+    source: postprocess_alignment/config__algorithm__coverage_interval
+  - id: config__algorithm__tools_on
+    source: config__algorithm__tools_on
+  - id: config__algorithm__tools_off
+    source: config__algorithm__tools_off
   - id: config__algorithm__qc
     source: config__algorithm__qc
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
+  - id: config__algorithm__coverage
+    source: postprocess_alignment/config__algorithm__coverage
+  - id: config__algorithm__coverage_merged
+    source: postprocess_alignment/config__algorithm__coverage_merged
   - id: description
     source: description
   out:
-  - id: summary__qc__samtools
-  - id: summary__qc__fastqc
-  - id: coverage__all
-  - id: coverage__problems
+  - id: qc_rec
+  run: steps/qc_to_rec.cwl
+- id: pipeline_summary
+  in:
+  - id: description
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['description'])
+  - id: reference__fasta__base
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['reference__fasta__base'])
+  - id: config__algorithm__coverage_interval
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__coverage_interval'])
+  - id: genome_build
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['genome_build'])
+  - id: config__algorithm__tools_off
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__tools_off'])
+  - id: config__algorithm__qc
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__qc'])
+  - id: analysis
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['analysis'])
+  - id: config__algorithm__tools_on
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__tools_on'])
+  - id: config__algorithm__variant_regions
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__variant_regions'])
+  - id: align_bam
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['align_bam'])
+  - id: config__algorithm__variant_regions_merged
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__variant_regions_merged'])
+  - id: config__algorithm__coverage
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__coverage'])
+  - id: config__algorithm__coverage_merged
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self['config__algorithm__coverage_merged'])
+  out:
+  - id: summary__qc
+  - id: summary__metrics
   run: steps/pipeline_summary.cwl
   scatter:
-  - align_bam
-  - analysis
-  - reference__fasta__base
-  - config__algorithm__qc
-  - config__algorithm__variant_regions
   - description
+  - reference__fasta__base
+  - config__algorithm__coverage_interval
+  - genome_build
+  - config__algorithm__tools_off
+  - config__algorithm__qc
+  - analysis
+  - config__algorithm__tools_on
+  - config__algorithm__variant_regions
+  - align_bam
+  - config__algorithm__variant_regions_merged
+  - config__algorithm__coverage
+  - config__algorithm__coverage_merged
   scatterMethod: dotproduct
 - id: multiqc_summary
   in:
-  - id: genome_build
-    source: genome_build
-  - id: summary__qc__samtools
-    source: pipeline_summary/summary__qc__samtools
-  - id: summary__qc__fastqc
-    source: pipeline_summary/summary__qc__fastqc
-  - id: reference__fasta__base
-    source: reference__fasta__base
-  - id: config__algorithm__coverage_interval
-    source: postprocess_alignment/config__algorithm__coverage_interval
   - id: description
-    source: description
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['description']; }))
+  - id: reference__fasta__base
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['reference__fasta__base']; }))
+  - id: config__algorithm__coverage_interval
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__coverage_interval'];
+      }))
+  - id: genome_build
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['genome_build']; }))
+  - id: config__algorithm__tools_off
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__tools_off'];
+      }))
+  - id: config__algorithm__qc
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__qc']; }))
+  - id: analysis
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['analysis']; }))
+  - id: config__algorithm__tools_on
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__tools_on']; }))
+  - id: config__algorithm__variant_regions
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__variant_regions'];
+      }))
+  - id: align_bam
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['align_bam']; }))
+  - id: config__algorithm__variant_regions_merged
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__variant_regions_merged'];
+      }))
+  - id: config__algorithm__coverage
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__coverage']; }))
+  - id: config__algorithm__coverage_merged
+    source: qc_to_rec/qc_rec
+    valueFrom: $(self.map(function(x) { return x['config__algorithm__coverage_merged'];
+      }))
+  - id: summary__qc
+    source: pipeline_summary/summary__qc
+  - id: summary__metrics
+    source: pipeline_summary/summary__metrics
   out:
   - id: summary__multiqc
   run: steps/multiqc_summary.cwl

@@ -149,7 +149,7 @@ inputs:
       prefix: config__algorithm__tools_on=
       separate: false
     items:
-      items: 'null'
+      items: string
       type: array
     type: array
 - id: config__algorithm__tools_off
@@ -252,6 +252,10 @@ outputs:
         type:
           items: string
           type: array
+      - name: metadata__phenotype
+        type:
+          items: string
+          type: array
       - name: reference__genome_context
         type:
           items:
@@ -263,10 +267,6 @@ outputs:
           items: File
           type: array
       - name: genome_build
-        type:
-          items: string
-          type: array
-      - name: metadata__phenotype
         type:
           items: string
           type: array
@@ -291,7 +291,7 @@ outputs:
       - name: config__algorithm__tools_on
         type:
           items:
-            items: 'null'
+            items: string
             type: array
           type: array
       - name: config__algorithm__variant_regions

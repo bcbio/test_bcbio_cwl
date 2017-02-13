@@ -24,10 +24,10 @@ details:
      realign: false
      variantcaller: [freebayes, vardict]
      svcaller: [lumpy]
-     #tools_on: [gvcf]
+     tools_on: [qualimap_full]
      tools_off: [gemini]
      variant_regions: testdata/automated/variant_regions-bam.bed
-     #coverage: testdata/automated/coverage_transcripts-bam.bed
+     coverage: testdata/automated/coverage_transcripts-bam.bed
      validate: testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
      validate_regions: testdata/automated/variant_regions-bam.bed
      cwl_reporting: true
@@ -46,7 +46,7 @@ details:
      #variantcaller: gatk-haplotype
      variantcaller: [freebayes, vardict]
      svcaller: [lumpy]
-     #tools_on: [gvcf]
+     tools_on: [gvcf, qualimap_full]
      tools_off: [gemini, vqsr]
      nomap_split_size: 50
      nomap_split_targets: 100

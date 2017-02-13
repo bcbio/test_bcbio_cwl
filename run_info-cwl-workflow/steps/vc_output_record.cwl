@@ -92,11 +92,20 @@ inputs:
       separate: false
     items: string
     type: array
-- id: reference__genome_context
+- id: metadata__phenotype
   type:
     inputBinding:
       itemSeparator: ;;
       position: 9
+      prefix: metadata__phenotype=
+      separate: false
+    items: string
+    type: array
+- id: reference__genome_context
+  type:
+    inputBinding:
+      itemSeparator: ;;
+      position: 10
       prefix: reference__genome_context=
       separate: false
     items:
@@ -107,7 +116,7 @@ inputs:
   type:
     inputBinding:
       itemSeparator: ;;
-      position: 10
+      position: 11
       prefix: config__algorithm__validate_regions=
       separate: false
     items: File
@@ -116,17 +125,8 @@ inputs:
   type:
     inputBinding:
       itemSeparator: ;;
-      position: 11
-      prefix: genome_build=
-      separate: false
-    items: string
-    type: array
-- id: metadata__phenotype
-  type:
-    inputBinding:
-      itemSeparator: ;;
       position: 12
-      prefix: metadata__phenotype=
+      prefix: genome_build=
       separate: false
     items: string
     type: array
@@ -176,7 +176,7 @@ inputs:
       prefix: config__algorithm__tools_on=
       separate: false
     items:
-      items: 'null'
+      items: string
       type: array
     type: array
 - id: config__algorithm__variant_regions
@@ -302,6 +302,10 @@ outputs:
       type:
         items: string
         type: array
+    - name: metadata__phenotype
+      type:
+        items: string
+        type: array
     - name: reference__genome_context
       type:
         items:
@@ -313,10 +317,6 @@ outputs:
         items: File
         type: array
     - name: genome_build
-      type:
-        items: string
-        type: array
-    - name: metadata__phenotype
       type:
         items: string
         type: array
@@ -341,7 +341,7 @@ outputs:
     - name: config__algorithm__tools_on
       type:
         items:
-          items: 'null'
+          items: string
           type: array
         type: array
     - name: config__algorithm__variant_regions

@@ -33,6 +33,10 @@ inputs:
   type:
     items: string
     type: array
+- id: metadata__phenotype
+  type:
+    items: string
+    type: array
 - id: reference__genome_context
   type:
     items:
@@ -44,10 +48,6 @@ inputs:
     items: File
     type: array
 - id: genome_build
-  type:
-    items: string
-    type: array
-- id: metadata__phenotype
   type:
     items: string
     type: array
@@ -72,7 +72,7 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items: 'null'
+      items: string
       type: array
     type: array
 - id: config__algorithm__variant_regions
@@ -128,6 +128,10 @@ outputs:
       type:
         items: string
         type: array
+    - name: metadata__phenotype
+      type:
+        items: string
+        type: array
     - name: reference__genome_context
       type:
         items:
@@ -139,10 +143,6 @@ outputs:
         items: File
         type: array
     - name: genome_build
-      type:
-        items: string
-        type: array
-    - name: metadata__phenotype
       type:
         items: string
         type: array
@@ -167,7 +167,7 @@ outputs:
     - name: config__algorithm__tools_on
       type:
         items:
-          items: 'null'
+          items: string
           type: array
         type: array
     - name: config__algorithm__variant_regions
@@ -259,14 +259,14 @@ steps:
     source: config__algorithm__coverage_interval
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: reference__genome_context
     source: reference__genome_context
   - id: config__algorithm__validate_regions
     source: config__algorithm__validate_regions
   - id: genome_build
     source: genome_build
-  - id: metadata__phenotype
-    source: metadata__phenotype
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
   - id: genome_resources__variation__dbsnp
@@ -304,14 +304,14 @@ steps:
     source: config__algorithm__coverage_interval
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: reference__genome_context
     source: reference__genome_context
   - id: config__algorithm__validate_regions
     source: config__algorithm__validate_regions
   - id: genome_build
     source: genome_build
-  - id: metadata__phenotype
-    source: metadata__phenotype
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
   - id: genome_resources__variation__dbsnp
@@ -355,14 +355,14 @@ steps:
     source: config__algorithm__coverage_interval
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: reference__genome_context
     source: reference__genome_context
   - id: config__algorithm__validate_regions
     source: config__algorithm__validate_regions
   - id: genome_build
     source: genome_build
-  - id: metadata__phenotype
-    source: metadata__phenotype
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
   - id: genome_resources__variation__dbsnp
@@ -404,14 +404,14 @@ steps:
     source: config__algorithm__coverage_interval
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: reference__genome_context
     source: reference__genome_context
   - id: config__algorithm__validate_regions
     source: config__algorithm__validate_regions
   - id: genome_build
     source: genome_build
-  - id: metadata__phenotype
-    source: metadata__phenotype
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
   - id: genome_resources__variation__dbsnp
@@ -451,14 +451,14 @@ steps:
     source: config__algorithm__coverage_interval
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: reference__genome_context
     source: reference__genome_context
   - id: config__algorithm__validate_regions
     source: config__algorithm__validate_regions
   - id: genome_build
     source: genome_build
-  - id: metadata__phenotype
-    source: metadata__phenotype
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
   - id: genome_resources__variation__dbsnp
@@ -501,14 +501,14 @@ steps:
     source: config__algorithm__coverage_interval
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: reference__genome_context
     source: reference__genome_context
   - id: config__algorithm__validate_regions
     source: config__algorithm__validate_regions
   - id: genome_build
     source: genome_build
-  - id: metadata__phenotype
-    source: metadata__phenotype
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
   - id: genome_resources__variation__dbsnp

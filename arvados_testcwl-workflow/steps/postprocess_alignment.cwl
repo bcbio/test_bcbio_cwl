@@ -21,7 +21,7 @@ inputs:
     prefix: sentinel-parallel=
     separate: false
   type: string
-- default: '["config__algorithm__coverage_interval","config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__seq2c_bed_ready","regions__callable","regions__sample_callable","regions__nblock","regions__highdepth"]'
+- default: '["config__algorithm__coverage_interval","config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready","regions__callable","regions__sample_callable","regions__nblock","regions__highdepth"]'
   id: sentinel-outputs
   inputBinding:
     itemSeparator: ;;
@@ -38,20 +38,20 @@ inputs:
   secondaryFiles:
   - .bai
   type: File
-- id: config__algorithm__variant_regions
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: config__algorithm__variant_regions=
-    separate: false
-  type: File
 - id: config__algorithm__coverage_interval
   inputBinding:
     itemSeparator: ;;
-    position: 4
+    position: 3
     prefix: config__algorithm__coverage_interval=
     separate: false
   type: 'null'
+- id: config__algorithm__variant_regions
+  inputBinding:
+    itemSeparator: ;;
+    position: 4
+    prefix: config__algorithm__variant_regions=
+    separate: false
+  type: File
 - id: config__algorithm__variant_regions_merged
   inputBinding:
     itemSeparator: ;;
@@ -70,10 +70,37 @@ inputs:
   type:
   - File
   - 'null'
-- id: config__algorithm__seq2c_bed_ready
+- id: config__algorithm__coverage
   inputBinding:
     itemSeparator: ;;
     position: 7
+    prefix: config__algorithm__coverage=
+    separate: false
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage_merged
+  inputBinding:
+    itemSeparator: ;;
+    position: 8
+    prefix: config__algorithm__coverage_merged=
+    separate: false
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage_orig
+  inputBinding:
+    itemSeparator: ;;
+    position: 9
+    prefix: config__algorithm__coverage_orig=
+    separate: false
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__seq2c_bed_ready
+  inputBinding:
+    itemSeparator: ;;
+    position: 10
     prefix: config__algorithm__seq2c_bed_ready=
     separate: false
   type:
@@ -82,21 +109,21 @@ inputs:
 - id: config__algorithm__recalibrate
   inputBinding:
     itemSeparator: ;;
-    position: 8
+    position: 11
     prefix: config__algorithm__recalibrate=
     separate: false
   type: string
 - id: reference__fasta__base
   inputBinding:
     itemSeparator: ;;
-    position: 9
+    position: 12
     prefix: reference__fasta__base=
     separate: false
   type: File
 - id: description
   inputBinding:
     itemSeparator: ;;
-    position: 10
+    position: 13
     prefix: description=
     separate: false
   type: string
@@ -110,6 +137,18 @@ outputs:
   - File
   - 'null'
 - id: config__algorithm__variant_regions_orig
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage_merged
+  type:
+  - File
+  - 'null'
+- id: config__algorithm__coverage_orig
   type:
   - File
   - 'null'

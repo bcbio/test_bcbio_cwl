@@ -117,11 +117,22 @@ inputs:
       items: string
       type: array
     type: array
-- id: reference__genome_context
+- id: metadata__phenotype
   type:
     inputBinding:
       itemSeparator: ;;
       position: 10
+      prefix: metadata__phenotype=
+      separate: false
+    items:
+      items: string
+      type: array
+    type: array
+- id: reference__genome_context
+  type:
+    inputBinding:
+      itemSeparator: ;;
+      position: 11
       prefix: reference__genome_context=
       separate: false
     items:
@@ -134,7 +145,7 @@ inputs:
   type:
     inputBinding:
       itemSeparator: ;;
-      position: 11
+      position: 12
       prefix: config__algorithm__validate_regions=
       separate: false
     items:
@@ -145,19 +156,8 @@ inputs:
   type:
     inputBinding:
       itemSeparator: ;;
-      position: 12
-      prefix: genome_build=
-      separate: false
-    items:
-      items: string
-      type: array
-    type: array
-- id: metadata__phenotype
-  type:
-    inputBinding:
-      itemSeparator: ;;
       position: 13
-      prefix: metadata__phenotype=
+      prefix: genome_build=
       separate: false
     items:
       items: string
@@ -218,7 +218,7 @@ inputs:
       separate: false
     items:
       items:
-        items: 'null'
+        items: string
         type: array
       type: array
     type: array

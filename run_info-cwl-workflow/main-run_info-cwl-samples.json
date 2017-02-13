@@ -15,6 +15,13 @@
         [],
         []
     ],
+    "config__algorithm__coverage": [
+        {
+            "class": "File",
+            "path": "../testdata/automated/coverage_transcripts-bam.bed"
+        },
+        null
+    ],
     "config__algorithm__coverage_interval": [
         null,
         null
@@ -38,17 +45,18 @@
     "config__algorithm__qc": [
         [
             "fastqc",
+            "qualimap",
             "samtools",
-            "gemini",
             "qsignature",
             "coverage",
             "variants",
-            "picard"
+            "picard",
+            "viral"
         ],
         [
             "fastqc",
+            "qualimap",
             "samtools",
-            "gemini",
             "qsignature",
             "coverage",
             "variants",
@@ -81,8 +89,13 @@
         ]
     ],
     "config__algorithm__tools_on": [
-        [],
-        []
+        [
+            "qualimap_full"
+        ],
+        [
+            "gvcf",
+            "qualimap_full"
+        ]
     ],
     "config__algorithm__validate": [
         {
@@ -629,6 +642,10 @@
                 }
             ]
         }
+    ],
+    "reference__viral": [
+        [],
+        []
     ],
     "rgnames__lane": [
         "Test1",

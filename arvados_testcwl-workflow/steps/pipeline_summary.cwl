@@ -21,7 +21,7 @@ inputs:
     prefix: sentinel-parallel=
     separate: false
   type: string
-- default: '["summary__qc__samtools","summary__qc__fastqc","coverage__all","coverage__problems"]'
+- default: '["summary__qc","summary__metrics"]'
   id: sentinel-outputs
   inputBinding:
     itemSeparator: ;;
@@ -29,62 +29,139 @@ inputs:
     prefix: sentinel-outputs=
     separate: false
   type: string
-- id: align_bam
+- id: description
   inputBinding:
     itemSeparator: ;;
     position: 2
-    prefix: align_bam=
-    separate: false
-  secondaryFiles:
-  - .bai
-  type: File
-- id: analysis
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: analysis=
-    separate: false
-  type: string
-- id: reference__fasta__base
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: reference__fasta__base=
-    separate: false
-  type: File
-- id: config__algorithm__qc
-  inputBinding:
-    itemSeparator: ;;
-    position: 5
-    prefix: config__algorithm__qc=
+    prefix: description=
     separate: false
   type:
     items: string
     type: array
-- id: config__algorithm__variant_regions
+- id: reference__fasta__base
+  inputBinding:
+    itemSeparator: ;;
+    position: 3
+    prefix: reference__fasta__base=
+    separate: false
+  type:
+    items: File
+    type: array
+- id: config__algorithm__coverage_interval
+  inputBinding:
+    itemSeparator: ;;
+    position: 4
+    prefix: config__algorithm__coverage_interval=
+    separate: false
+  type:
+    items: string
+    type: array
+- id: genome_build
+  inputBinding:
+    itemSeparator: ;;
+    position: 5
+    prefix: genome_build=
+    separate: false
+  type:
+    items: string
+    type: array
+- id: config__algorithm__tools_off
   inputBinding:
     itemSeparator: ;;
     position: 6
-    prefix: config__algorithm__variant_regions=
+    prefix: config__algorithm__tools_off=
     separate: false
-  type: File
-- id: description
+  type:
+    items:
+      items: string
+      type: array
+    type: array
+- id: config__algorithm__qc
   inputBinding:
     itemSeparator: ;;
     position: 7
-    prefix: description=
+    prefix: config__algorithm__qc=
     separate: false
-  type: string
+  type:
+    items:
+      items: string
+      type: array
+    type: array
+- id: analysis
+  inputBinding:
+    itemSeparator: ;;
+    position: 8
+    prefix: analysis=
+    separate: false
+  type:
+    items: string
+    type: array
+- id: config__algorithm__tools_on
+  inputBinding:
+    itemSeparator: ;;
+    position: 9
+    prefix: config__algorithm__tools_on=
+    separate: false
+  type:
+    items:
+      items: 'null'
+      type: array
+    type: array
+- id: config__algorithm__variant_regions
+  inputBinding:
+    itemSeparator: ;;
+    position: 10
+    prefix: config__algorithm__variant_regions=
+    separate: false
+  type:
+    items: File
+    type: array
+- id: align_bam
+  inputBinding:
+    itemSeparator: ;;
+    position: 11
+    prefix: align_bam=
+    separate: false
+  type:
+    items: File
+    type: array
+- id: config__algorithm__variant_regions_merged
+  inputBinding:
+    itemSeparator: ;;
+    position: 12
+    prefix: config__algorithm__variant_regions_merged=
+    separate: false
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: config__algorithm__coverage
+  inputBinding:
+    itemSeparator: ;;
+    position: 13
+    prefix: config__algorithm__coverage=
+    separate: false
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: config__algorithm__coverage_merged
+  inputBinding:
+    itemSeparator: ;;
+    position: 14
+    prefix: config__algorithm__coverage_merged=
+    separate: false
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
 outputs:
-- id: summary__qc__samtools
-  type: File
-- id: summary__qc__fastqc
-  type: File
-- id: coverage__all
+- id: summary__qc
   type:
   - File
   - 'null'
-- id: coverage__problems
-  type:
-  - File
-  - 'null'
+- id: summary__metrics
+  type: string

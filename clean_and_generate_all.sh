@@ -21,9 +21,12 @@ rm -rf multiqc*
 rm -f qc-coverage-report-run.R
 rm -f report-ready.Rmd
 rm -f Test*sort.bam*
+rm -f seqbuster*
+rm -f Test*bcbio.txt
+rm -f metrics.tsv
 bash run_generate_cwltool.sh
 bash run_generate_arvados.sh
-bash run_generate_nextflow.sh
+#bash run_generate_nextflow.sh
 bash run_generate_wdl.sh
 rm -rf inputs
 rm -rf upload
