@@ -45,7 +45,7 @@ details:
   metadata:
     batch: b1
     phenotype: tumor
-fc_date: '2017-02-13'
+fc_date: '2017-02-14'
 fc_name: arvados_testcwl
 upload:
   dir: ../final

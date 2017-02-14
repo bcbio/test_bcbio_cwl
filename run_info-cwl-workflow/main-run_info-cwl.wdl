@@ -57,6 +57,38 @@ workflow main_run_info_cwl {
     Array[String] genome_resources__aliases__snpeff
     Array[Array[String]] config__algorithm__archive
     
+    scatter (config__algorithm__coverage_local in config__algorithm__coverage
+             reference__fasta__base_local in reference__fasta__base
+             config__algorithm__variant_regions_local in config__algorithm__variant_regions
+             description_local in description) {
+  
+      call prep_samples {
+          input: config__algorithm__coverage=config__algorithm__coverage_local, 
+            config__algorithm__variant_regions=config__algorithm__variant_regions_local, 
+            reference__fasta__base=reference__fasta__base_local, 
+            description=description_local
+      }
+  
+    }
+
+
+    call qc_to_rec {
+        input: align_bam=alignment.align_bam, 
+          analysis=analysis, 
+          reference__fasta__base=reference__fasta__base, 
+          genome_build=genome_build, 
+          config__algorithm__coverage_interval=postprocess_alignment.config__algorithm__coverage_interval, 
+          config__algorithm__tools_on=config__algorithm__tools_on, 
+          config__algorithm__tools_off=config__algorithm__tools_off, 
+          config__algorithm__qc=config__algorithm__qc, 
+          config__algorithm__variant_regions=postprocess_alignment.config__algorithm__variant_regions, 
+          config__algorithm__variant_regions_merged=postprocess_alignment.config__algorithm__variant_regions_merged, 
+          config__algorithm__coverage=postprocess_alignment.config__algorithm__coverage, 
+          config__algorithm__coverage_merged=postprocess_alignment.config__algorithm__coverage_merged, 
+          description=description
+    }
+
+
     call batch_for_variantcall {
         input: analysis=analysis, 
           genome_build=genome_build, 
@@ -91,21 +123,6 @@ workflow main_run_info_cwl {
     }
 
 
-    scatter (config__algorithm__coverage_local in config__algorithm__coverage
-             reference__fasta__base_local in reference__fasta__base
-             config__algorithm__variant_regions_local in config__algorithm__variant_regions
-             description_local in description) {
-  
-      call prep_samples {
-          input: config__algorithm__coverage=config__algorithm__coverage_local, 
-            config__algorithm__variant_regions=config__algorithm__variant_regions_local, 
-            reference__fasta__base=reference__fasta__base_local, 
-            description=description_local
-      }
-  
-    }
-
-
     scatter (qc_rec_local in qc_to_rec.qc_rec) {
   
       call pipeline_summary {
@@ -127,20 +144,32 @@ workflow main_run_info_cwl {
     }
 
 
-    call qc_to_rec {
-        input: align_bam=alignment.align_bam, 
-          analysis=analysis, 
-          reference__fasta__base=reference__fasta__base, 
-          genome_build=genome_build, 
-          config__algorithm__coverage_interval=postprocess_alignment.config__algorithm__coverage_interval, 
-          config__algorithm__tools_on=config__algorithm__tools_on, 
-          config__algorithm__tools_off=config__algorithm__tools_off, 
-          config__algorithm__qc=config__algorithm__qc, 
-          config__algorithm__variant_regions=postprocess_alignment.config__algorithm__variant_regions, 
-          config__algorithm__variant_regions_merged=postprocess_alignment.config__algorithm__variant_regions_merged, 
-          config__algorithm__coverage=postprocess_alignment.config__algorithm__coverage, 
-          config__algorithm__coverage_merged=postprocess_alignment.config__algorithm__coverage_merged, 
-          description=description
+    call summarize_grading_vc {
+        input: description=variantcall.vc_rec.description, 
+          vrn_file=variantcall.vc_rec.vrn_file, 
+          config__algorithm__validate=variantcall.vc_rec.config__algorithm__validate, 
+          reference__fasta__base=variantcall.vc_rec.reference__fasta__base, 
+          reference__rtg=variantcall.vc_rec.reference__rtg, 
+          config__algorithm__variantcaller=variantcall.vc_rec.config__algorithm__variantcaller, 
+          config__algorithm__coverage_interval=variantcall.vc_rec.config__algorithm__coverage_interval, 
+          metadata__batch=variantcall.vc_rec.metadata__batch, 
+          metadata__phenotype=variantcall.vc_rec.metadata__phenotype, 
+          reference__genome_context=variantcall.vc_rec.reference__genome_context, 
+          config__algorithm__validate_regions=variantcall.vc_rec.config__algorithm__validate_regions, 
+          genome_build=variantcall.vc_rec.genome_build, 
+          config__algorithm__tools_off=variantcall.vc_rec.config__algorithm__tools_off, 
+          genome_resources__variation__dbsnp=variantcall.vc_rec.genome_resources__variation__dbsnp, 
+          genome_resources__variation__cosmic=variantcall.vc_rec.genome_resources__variation__cosmic, 
+          analysis=variantcall.vc_rec.analysis, 
+          config__algorithm__tools_on=variantcall.vc_rec.config__algorithm__tools_on, 
+          config__algorithm__variant_regions=variantcall.vc_rec.config__algorithm__variant_regions, 
+          align_bam=variantcall.vc_rec.align_bam, 
+          regions__callable=variantcall.vc_rec.regions__callable, 
+          config__algorithm__callable_regions=variantcall.vc_rec.config__algorithm__callable_regions, 
+          validate__summary=variantcall.vc_rec.validate__summary, 
+          validate__tp=variantcall.vc_rec.validate__tp, 
+          validate__fp=variantcall.vc_rec.validate__fp, 
+          validate__fn=variantcall.vc_rec.validate__fn
     }
 
 
@@ -191,35 +220,6 @@ workflow main_run_info_cwl {
             description=description_local
       }
   
-    }
-
-
-    call summarize_grading_vc {
-        input: description=variantcall.vc_rec.description, 
-          vrn_file=variantcall.vc_rec.vrn_file, 
-          config__algorithm__validate=variantcall.vc_rec.config__algorithm__validate, 
-          reference__fasta__base=variantcall.vc_rec.reference__fasta__base, 
-          reference__rtg=variantcall.vc_rec.reference__rtg, 
-          config__algorithm__variantcaller=variantcall.vc_rec.config__algorithm__variantcaller, 
-          config__algorithm__coverage_interval=variantcall.vc_rec.config__algorithm__coverage_interval, 
-          metadata__batch=variantcall.vc_rec.metadata__batch, 
-          metadata__phenotype=variantcall.vc_rec.metadata__phenotype, 
-          reference__genome_context=variantcall.vc_rec.reference__genome_context, 
-          config__algorithm__validate_regions=variantcall.vc_rec.config__algorithm__validate_regions, 
-          genome_build=variantcall.vc_rec.genome_build, 
-          config__algorithm__tools_off=variantcall.vc_rec.config__algorithm__tools_off, 
-          genome_resources__variation__dbsnp=variantcall.vc_rec.genome_resources__variation__dbsnp, 
-          genome_resources__variation__cosmic=variantcall.vc_rec.genome_resources__variation__cosmic, 
-          analysis=variantcall.vc_rec.analysis, 
-          config__algorithm__tools_on=variantcall.vc_rec.config__algorithm__tools_on, 
-          config__algorithm__variant_regions=variantcall.vc_rec.config__algorithm__variant_regions, 
-          align_bam=variantcall.vc_rec.align_bam, 
-          regions__callable=variantcall.vc_rec.regions__callable, 
-          config__algorithm__callable_regions=variantcall.vc_rec.config__algorithm__callable_regions, 
-          validate__summary=variantcall.vc_rec.validate__summary, 
-          validate__tp=variantcall.vc_rec.validate__tp, 
-          validate__fp=variantcall.vc_rec.validate__fp, 
-          validate__fn=variantcall.vc_rec.validate__fn
     }
 
 
@@ -292,6 +292,90 @@ workflow main_run_info_cwl {
 
 }
 
+task prep_samples {
+    String sentinel-parallel
+    String sentinel-outputs
+    File config__algorithm__coverage
+    File config__algorithm__variant_regions
+    File reference__fasta__base
+    String description
+
+    command {
+        bcbio_nextgen.py runfn prep_samples cwl \
+        sentinel-parallel=${default='multi-parallel' sentinel-parallel} \
+        sentinel-outputs=${default='["config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready"]' sentinel-outputs} \
+        config__algorithm__coverage=${config__algorithm__coverage} \
+        config__algorithm__variant_regions=${config__algorithm__variant_regions} \
+        reference__fasta__base=${reference__fasta__base} \
+        description=${description}
+    }
+
+    output {
+        File config__algorithm__variant_regions = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions')
+        File config__algorithm__variant_regions_merged = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_merged')
+        File config__algorithm__variant_regions_orig = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_orig')
+        File config__algorithm__coverage = read_cwl_json('cwl.output.json', 'config__algorithm__coverage')
+        File config__algorithm__coverage_merged = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_merged')
+        File config__algorithm__coverage_orig = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_orig')
+        File config__algorithm__seq2c_bed_ready = read_cwl_json('cwl.output.json', 'config__algorithm__seq2c_bed_ready')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
+        memory: '4096 MB'
+    }
+}
+
+
+task qc_to_rec {
+    String sentinel-parallel
+    String sentinel-outputs
+    Array[File] align_bam
+    Array[String] analysis
+    Array[File] reference__fasta__base
+    Array[String] genome_build
+    Array[String] config__algorithm__coverage_interval
+    Array[Array[String]] config__algorithm__tools_on
+    Array[Array[String]] config__algorithm__tools_off
+    Array[Array[String]] config__algorithm__qc
+    Array[File] config__algorithm__variant_regions
+    Array[File] config__algorithm__variant_regions_merged
+    Array[File] config__algorithm__coverage
+    Array[File] config__algorithm__coverage_merged
+    Array[String] description
+
+    command {
+        bcbio_nextgen.py runfn qc_to_rec cwl \
+        sentinel-parallel=${default='multi-batch' sentinel-parallel} \
+        sentinel-outputs=${default='["qc_rec"]' sentinel-outputs} \
+        align_bam=${sep=';;' align_bam} \
+        analysis=${sep=';;' analysis} \
+        reference__fasta__base=${sep=';;' reference__fasta__base} \
+        genome_build=${sep=';;' genome_build} \
+        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
+        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
+        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
+        config__algorithm__qc=${sep=';;' config__algorithm__qc} \
+        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
+        config__algorithm__variant_regions_merged=${sep=';;' config__algorithm__variant_regions_merged} \
+        config__algorithm__coverage=${sep=';;' config__algorithm__coverage} \
+        config__algorithm__coverage_merged=${sep=';;' config__algorithm__coverage_merged} \
+        description=${sep=';;' description}
+    }
+
+    output {
+        Array[Object] qc_rec = read_cwl_json('cwl.output.json', 'qc_rec')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
+        memory: '4096 MB'
+    }
+}
+
+
 task batch_for_variantcall {
     String sentinel-parallel
     String sentinel-outputs
@@ -348,7 +432,7 @@ task batch_for_variantcall {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
@@ -384,43 +468,7 @@ task combine_sample_regions {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-    }
-}
-
-
-task prep_samples {
-    String sentinel-parallel
-    String sentinel-outputs
-    File config__algorithm__coverage
-    File config__algorithm__variant_regions
-    File reference__fasta__base
-    String description
-
-    command {
-        bcbio_nextgen.py runfn prep_samples cwl \
-        sentinel-parallel=${default='multi-parallel' sentinel-parallel} \
-        sentinel-outputs=${default='["config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready"]' sentinel-outputs} \
-        config__algorithm__coverage=${config__algorithm__coverage} \
-        config__algorithm__variant_regions=${config__algorithm__variant_regions} \
-        reference__fasta__base=${reference__fasta__base} \
-        description=${description}
-    }
-
-    output {
-        File config__algorithm__variant_regions = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions')
-        File config__algorithm__variant_regions_merged = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_merged')
-        File config__algorithm__variant_regions_orig = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_orig')
-        File config__algorithm__coverage = read_cwl_json('cwl.output.json', 'config__algorithm__coverage')
-        File config__algorithm__coverage_merged = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_merged')
-        File config__algorithm__coverage_orig = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_orig')
-        File config__algorithm__seq2c_bed_ready = read_cwl_json('cwl.output.json', 'config__algorithm__seq2c_bed_ready')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
@@ -469,164 +517,7 @@ task pipeline_summary {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-    }
-}
-
-
-task qc_to_rec {
-    String sentinel-parallel
-    String sentinel-outputs
-    Array[File] align_bam
-    Array[String] analysis
-    Array[File] reference__fasta__base
-    Array[String] genome_build
-    Array[String] config__algorithm__coverage_interval
-    Array[Array[String]] config__algorithm__tools_on
-    Array[Array[String]] config__algorithm__tools_off
-    Array[Array[String]] config__algorithm__qc
-    Array[File] config__algorithm__variant_regions
-    Array[File] config__algorithm__variant_regions_merged
-    Array[File] config__algorithm__coverage
-    Array[File] config__algorithm__coverage_merged
-    Array[String] description
-
-    command {
-        bcbio_nextgen.py runfn qc_to_rec cwl \
-        sentinel-parallel=${default='multi-batch' sentinel-parallel} \
-        sentinel-outputs=${default='["qc_rec"]' sentinel-outputs} \
-        align_bam=${sep=';;' align_bam} \
-        analysis=${sep=';;' analysis} \
-        reference__fasta__base=${sep=';;' reference__fasta__base} \
-        genome_build=${sep=';;' genome_build} \
-        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
-        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
-        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
-        config__algorithm__qc=${sep=';;' config__algorithm__qc} \
-        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
-        config__algorithm__variant_regions_merged=${sep=';;' config__algorithm__variant_regions_merged} \
-        config__algorithm__coverage=${sep=';;' config__algorithm__coverage} \
-        config__algorithm__coverage_merged=${sep=';;' config__algorithm__coverage_merged} \
-        description=${sep=';;' description}
-    }
-
-    output {
-        Array[Object] qc_rec = read_cwl_json('cwl.output.json', 'qc_rec')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-    }
-}
-
-
-task multiqc_summary {
-    String sentinel-parallel
-    String sentinel-outputs
-    Array[Array[String]] description
-    Array[Array[File]] reference__fasta__base
-    Array[Array[String]] config__algorithm__coverage_interval
-    Array[Array[String]] genome_build
-    Array[Array[File]] config__algorithm__coverage
-    Array[Array[Array[String]]] config__algorithm__tools_off
-    Array[Array[Array[String]]] config__algorithm__qc
-    Array[Array[String]] analysis
-    Array[Array[Array[String]]] config__algorithm__tools_on
-    Array[Array[File]] config__algorithm__variant_regions
-    Array[Array[File]] align_bam
-    Array[Array[File]] config__algorithm__variant_regions_merged
-    Array[Array[File]] config__algorithm__coverage_merged
-    Array[File] summary__qc
-    Array[String] summary__metrics
-
-    command {
-        bcbio_nextgen.py runfn multiqc_summary cwl \
-        sentinel-parallel=${default='multi-combined' sentinel-parallel} \
-        sentinel-outputs=${default='["summary__multiqc"]' sentinel-outputs} \
-        description=${sep=';;' description} \
-        reference__fasta__base=${sep=';;' reference__fasta__base} \
-        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
-        genome_build=${sep=';;' genome_build} \
-        config__algorithm__coverage=${sep=';;' config__algorithm__coverage} \
-        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
-        config__algorithm__qc=${sep=';;' config__algorithm__qc} \
-        analysis=${sep=';;' analysis} \
-        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
-        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
-        align_bam=${sep=';;' align_bam} \
-        config__algorithm__variant_regions_merged=${sep=';;' config__algorithm__variant_regions_merged} \
-        config__algorithm__coverage_merged=${sep=';;' config__algorithm__coverage_merged} \
-        summary__qc=${sep=';;' summary__qc} \
-        summary__metrics=${sep=';;' summary__metrics}
-    }
-
-    output {
-        Array[File] summary__multiqc = read_cwl_json('cwl.output.json', 'summary__multiqc')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-    }
-}
-
-
-task postprocess_alignment {
-    String sentinel-parallel
-    String sentinel-outputs
-    File align_bam
-    String config__algorithm__coverage_interval
-    File config__algorithm__variant_regions
-    File config__algorithm__variant_regions_merged
-    File config__algorithm__variant_regions_orig
-    File config__algorithm__coverage
-    File config__algorithm__coverage_merged
-    File config__algorithm__coverage_orig
-    File config__algorithm__seq2c_bed_ready
-    String config__algorithm__recalibrate
-    File reference__fasta__base
-    String description
-
-    command {
-        bcbio_nextgen.py runfn postprocess_alignment cwl \
-        sentinel-parallel=${default='multi-parallel' sentinel-parallel} \
-        sentinel-outputs=${default='["config__algorithm__coverage_interval","config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready","regions__callable","regions__sample_callable","regions__nblock","regions__highdepth"]' sentinel-outputs} \
-        align_bam=${align_bam} \
-        config__algorithm__coverage_interval=${config__algorithm__coverage_interval} \
-        config__algorithm__variant_regions=${config__algorithm__variant_regions} \
-        config__algorithm__variant_regions_merged=${config__algorithm__variant_regions_merged} \
-        config__algorithm__variant_regions_orig=${config__algorithm__variant_regions_orig} \
-        config__algorithm__coverage=${config__algorithm__coverage} \
-        config__algorithm__coverage_merged=${config__algorithm__coverage_merged} \
-        config__algorithm__coverage_orig=${config__algorithm__coverage_orig} \
-        config__algorithm__seq2c_bed_ready=${config__algorithm__seq2c_bed_ready} \
-        config__algorithm__recalibrate=${config__algorithm__recalibrate} \
-        reference__fasta__base=${reference__fasta__base} \
-        description=${description}
-    }
-
-    output {
-        String config__algorithm__coverage_interval = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_interval')
-        File config__algorithm__variant_regions = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions')
-        File config__algorithm__variant_regions_merged = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_merged')
-        File config__algorithm__variant_regions_orig = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_orig')
-        File config__algorithm__coverage = read_cwl_json('cwl.output.json', 'config__algorithm__coverage')
-        File config__algorithm__coverage_merged = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_merged')
-        File config__algorithm__coverage_orig = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_orig')
-        File config__algorithm__seq2c_bed_ready = read_cwl_json('cwl.output.json', 'config__algorithm__seq2c_bed_ready')
-        File regions__callable = read_cwl_json('cwl.output.json', 'regions__callable')
-        File regions__sample_callable = read_cwl_json('cwl.output.json', 'regions__sample_callable')
-        File regions__nblock = read_cwl_json('cwl.output.json', 'regions__nblock')
-        File regions__highdepth = read_cwl_json('cwl.output.json', 'regions__highdepth')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
@@ -699,7 +590,116 @@ task summarize_grading_vc {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
+        memory: '4096 MB'
+    }
+}
+
+
+task multiqc_summary {
+    String sentinel-parallel
+    String sentinel-outputs
+    Array[Array[String]] description
+    Array[Array[File]] reference__fasta__base
+    Array[Array[String]] config__algorithm__coverage_interval
+    Array[Array[String]] genome_build
+    Array[Array[File]] config__algorithm__coverage
+    Array[Array[Array[String]]] config__algorithm__tools_off
+    Array[Array[Array[String]]] config__algorithm__qc
+    Array[Array[String]] analysis
+    Array[Array[Array[String]]] config__algorithm__tools_on
+    Array[Array[File]] config__algorithm__variant_regions
+    Array[Array[File]] align_bam
+    Array[Array[File]] config__algorithm__variant_regions_merged
+    Array[Array[File]] config__algorithm__coverage_merged
+    Array[File] summary__qc
+    Array[String] summary__metrics
+
+    command {
+        bcbio_nextgen.py runfn multiqc_summary cwl \
+        sentinel-parallel=${default='multi-combined' sentinel-parallel} \
+        sentinel-outputs=${default='["summary__multiqc"]' sentinel-outputs} \
+        description=${sep=';;' description} \
+        reference__fasta__base=${sep=';;' reference__fasta__base} \
+        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
+        genome_build=${sep=';;' genome_build} \
+        config__algorithm__coverage=${sep=';;' config__algorithm__coverage} \
+        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
+        config__algorithm__qc=${sep=';;' config__algorithm__qc} \
+        analysis=${sep=';;' analysis} \
+        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
+        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
+        align_bam=${sep=';;' align_bam} \
+        config__algorithm__variant_regions_merged=${sep=';;' config__algorithm__variant_regions_merged} \
+        config__algorithm__coverage_merged=${sep=';;' config__algorithm__coverage_merged} \
+        summary__qc=${sep=';;' summary__qc} \
+        summary__metrics=${sep=';;' summary__metrics}
+    }
+
+    output {
+        Array[File] summary__multiqc = read_cwl_json('cwl.output.json', 'summary__multiqc')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
+        memory: '4096 MB'
+    }
+}
+
+
+task postprocess_alignment {
+    String sentinel-parallel
+    String sentinel-outputs
+    File align_bam
+    String config__algorithm__coverage_interval
+    File config__algorithm__variant_regions
+    File config__algorithm__variant_regions_merged
+    File config__algorithm__variant_regions_orig
+    File config__algorithm__coverage
+    File config__algorithm__coverage_merged
+    File config__algorithm__coverage_orig
+    File config__algorithm__seq2c_bed_ready
+    String config__algorithm__recalibrate
+    File reference__fasta__base
+    String description
+
+    command {
+        bcbio_nextgen.py runfn postprocess_alignment cwl \
+        sentinel-parallel=${default='multi-parallel' sentinel-parallel} \
+        sentinel-outputs=${default='["config__algorithm__coverage_interval","config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready","regions__callable","regions__sample_callable","regions__nblock","regions__highdepth"]' sentinel-outputs} \
+        align_bam=${align_bam} \
+        config__algorithm__coverage_interval=${config__algorithm__coverage_interval} \
+        config__algorithm__variant_regions=${config__algorithm__variant_regions} \
+        config__algorithm__variant_regions_merged=${config__algorithm__variant_regions_merged} \
+        config__algorithm__variant_regions_orig=${config__algorithm__variant_regions_orig} \
+        config__algorithm__coverage=${config__algorithm__coverage} \
+        config__algorithm__coverage_merged=${config__algorithm__coverage_merged} \
+        config__algorithm__coverage_orig=${config__algorithm__coverage_orig} \
+        config__algorithm__seq2c_bed_ready=${config__algorithm__seq2c_bed_ready} \
+        config__algorithm__recalibrate=${config__algorithm__recalibrate} \
+        reference__fasta__base=${reference__fasta__base} \
+        description=${description}
+    }
+
+    output {
+        String config__algorithm__coverage_interval = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_interval')
+        File config__algorithm__variant_regions = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions')
+        File config__algorithm__variant_regions_merged = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_merged')
+        File config__algorithm__variant_regions_orig = read_cwl_json('cwl.output.json', 'config__algorithm__variant_regions_orig')
+        File config__algorithm__coverage = read_cwl_json('cwl.output.json', 'config__algorithm__coverage')
+        File config__algorithm__coverage_merged = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_merged')
+        File config__algorithm__coverage_orig = read_cwl_json('cwl.output.json', 'config__algorithm__coverage_orig')
+        File config__algorithm__seq2c_bed_ready = read_cwl_json('cwl.output.json', 'config__algorithm__seq2c_bed_ready')
+        File regions__callable = read_cwl_json('cwl.output.json', 'regions__callable')
+        File regions__sample_callable = read_cwl_json('cwl.output.json', 'regions__sample_callable')
+        File regions__nblock = read_cwl_json('cwl.output.json', 'regions__nblock')
+        File regions__highdepth = read_cwl_json('cwl.output.json', 'regions__highdepth')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
@@ -746,20 +746,20 @@ workflow wf_alignment {
     }
 
 
+    call prep_align_inputs {
+        input: files=files, 
+          config__algorithm__align_split_size=config__algorithm__align_split_size, 
+          config__algorithm__aligner=config__algorithm__aligner, 
+          description=description
+    }
+
+
     call merge_split_alignments {
         input: work_bam=process_alignment.work_bam, 
           align_bam=process_alignment.align_bam, 
           work_bam_plus__disc=process_alignment.work_bam_plus__disc, 
           work_bam_plus__sr=process_alignment.work_bam_plus__sr, 
           hla__fastq=process_alignment.hla__fastq, 
-          description=description
-    }
-
-
-    call prep_align_inputs {
-        input: files=files, 
-          config__algorithm__align_split_size=config__algorithm__align_split_size, 
-          config__algorithm__aligner=config__algorithm__aligner, 
           description=description
     }
 
@@ -822,7 +822,40 @@ task process_alignment {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
+        memory: '4096 MB'
+        disks: 'local-disk 4 HDD'
+    }
+}
+
+
+task prep_align_inputs {
+    String sentinel-parallel
+    String sentinel-outputs
+    Array[File] files
+    Float config__algorithm__align_split_size
+    String config__algorithm__aligner
+    String description
+
+    command {
+        bcbio_nextgen.py runfn prep_align_inputs cwl \
+        sentinel-parallel=${default='single-split' sentinel-parallel} \
+        sentinel-outputs=${default='["files","config__algorithm__quality_format","align_split"]' sentinel-outputs} \
+        files=${sep=';;' files} \
+        config__algorithm__align_split_size=${config__algorithm__align_split_size} \
+        config__algorithm__aligner=${config__algorithm__aligner} \
+        description=${description}
+    }
+
+    output {
+        Array[Array[File]] files = read_cwl_json('cwl.output.json', 'files')
+        Array[String] config__algorithm__quality_format = read_cwl_json('cwl.output.json', 'config__algorithm__quality_format')
+        Array[String] align_split = read_cwl_json('cwl.output.json', 'align_split')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
         memory: '4096 MB'
         disks: 'local-disk 4 HDD'
     }
@@ -860,42 +893,9 @@ task merge_split_alignments {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
         disks: 'local-disk 9 HDD'
-    }
-}
-
-
-task prep_align_inputs {
-    String sentinel-parallel
-    String sentinel-outputs
-    Array[File] files
-    Float config__algorithm__align_split_size
-    String config__algorithm__aligner
-    String description
-
-    command {
-        bcbio_nextgen.py runfn prep_align_inputs cwl \
-        sentinel-parallel=${default='single-split' sentinel-parallel} \
-        sentinel-outputs=${default='["files","config__algorithm__quality_format","align_split"]' sentinel-outputs} \
-        files=${sep=';;' files} \
-        config__algorithm__align_split_size=${config__algorithm__align_split_size} \
-        config__algorithm__aligner=${config__algorithm__aligner} \
-        description=${description}
-    }
-
-    output {
-        Array[Array[File]] files = read_cwl_json('cwl.output.json', 'files')
-        Array[String] config__algorithm__quality_format = read_cwl_json('cwl.output.json', 'config__algorithm__quality_format')
-        Array[String] align_split = read_cwl_json('cwl.output.json', 'align_split')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-        disks: 'local-disk 4 HDD'
     }
 }
 
@@ -923,6 +923,56 @@ workflow wf_variantcall {
     Array[File] regions__callable
     Array[File] config__algorithm__callable_regions
     
+    call get_parallel_regions {
+        input: description=description, 
+          config__algorithm__validate=config__algorithm__validate, 
+          reference__fasta__base=reference__fasta__base, 
+          reference__rtg=reference__rtg, 
+          config__algorithm__variantcaller=config__algorithm__variantcaller, 
+          config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
+          metadata__batch=metadata__batch, 
+          metadata__phenotype=metadata__phenotype, 
+          reference__genome_context=reference__genome_context, 
+          config__algorithm__validate_regions=config__algorithm__validate_regions, 
+          genome_build=genome_build, 
+          config__algorithm__tools_off=config__algorithm__tools_off, 
+          genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
+          genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
+          analysis=analysis, 
+          config__algorithm__tools_on=config__algorithm__tools_on, 
+          config__algorithm__variant_regions=config__algorithm__variant_regions, 
+          align_bam=align_bam, 
+          regions__callable=regions__callable, 
+          config__algorithm__callable_regions=config__algorithm__callable_regions
+    }
+
+
+    call concat_batch_variantcalls {
+        input: description=description, 
+          config__algorithm__validate=config__algorithm__validate, 
+          reference__fasta__base=reference__fasta__base, 
+          reference__rtg=reference__rtg, 
+          config__algorithm__variantcaller=config__algorithm__variantcaller, 
+          config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
+          metadata__batch=metadata__batch, 
+          metadata__phenotype=metadata__phenotype, 
+          reference__genome_context=reference__genome_context, 
+          config__algorithm__validate_regions=config__algorithm__validate_regions, 
+          genome_build=genome_build, 
+          config__algorithm__tools_off=config__algorithm__tools_off, 
+          genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
+          genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
+          analysis=analysis, 
+          config__algorithm__tools_on=config__algorithm__tools_on, 
+          config__algorithm__variant_regions=config__algorithm__variant_regions, 
+          align_bam=align_bam, 
+          regions__callable=regions__callable, 
+          config__algorithm__callable_regions=config__algorithm__callable_regions, 
+          region=variantcall_batch_region.region, 
+          vrn_file_region=variantcall_batch_region.vrn_file_region
+    }
+
+
     call compare_to_rm {
         input: description=description, 
           config__algorithm__validate=config__algorithm__validate, 
@@ -948,52 +998,32 @@ workflow wf_variantcall {
     }
 
 
-    call postprocess_variants {
-        input: description=description, 
-          config__algorithm__validate=config__algorithm__validate, 
-          reference__fasta__base=reference__fasta__base, 
-          reference__rtg=reference__rtg, 
-          config__algorithm__variantcaller=config__algorithm__variantcaller, 
-          config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
-          metadata__batch=metadata__batch, 
-          metadata__phenotype=metadata__phenotype, 
-          reference__genome_context=reference__genome_context, 
-          config__algorithm__validate_regions=config__algorithm__validate_regions, 
-          genome_build=genome_build, 
-          config__algorithm__tools_off=config__algorithm__tools_off, 
-          genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
-          genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
-          analysis=analysis, 
-          config__algorithm__tools_on=config__algorithm__tools_on, 
-          config__algorithm__variant_regions=config__algorithm__variant_regions, 
-          align_bam=align_bam, 
-          regions__callable=regions__callable, 
-          config__algorithm__callable_regions=config__algorithm__callable_regions, 
-          vrn_file=concat_batch_variantcalls.vrn_file
-    }
-
-
-    call get_parallel_regions {
-        input: description=description, 
-          config__algorithm__validate=config__algorithm__validate, 
-          reference__fasta__base=reference__fasta__base, 
-          reference__rtg=reference__rtg, 
-          config__algorithm__variantcaller=config__algorithm__variantcaller, 
-          config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
-          metadata__batch=metadata__batch, 
-          metadata__phenotype=metadata__phenotype, 
-          reference__genome_context=reference__genome_context, 
-          config__algorithm__validate_regions=config__algorithm__validate_regions, 
-          genome_build=genome_build, 
-          config__algorithm__tools_off=config__algorithm__tools_off, 
-          genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
-          genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
-          analysis=analysis, 
-          config__algorithm__tools_on=config__algorithm__tools_on, 
-          config__algorithm__variant_regions=config__algorithm__variant_regions, 
-          align_bam=align_bam, 
-          regions__callable=regions__callable, 
-          config__algorithm__callable_regions=config__algorithm__callable_regions
+    scatter (region_local in get_parallel_regions.region) {
+  
+      call variantcall_batch_region {
+          input: description=description, 
+            config__algorithm__validate=config__algorithm__validate, 
+            reference__fasta__base=reference__fasta__base, 
+            reference__rtg=reference__rtg, 
+            config__algorithm__variantcaller=config__algorithm__variantcaller, 
+            config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
+            metadata__batch=metadata__batch, 
+            metadata__phenotype=metadata__phenotype, 
+            reference__genome_context=reference__genome_context, 
+            config__algorithm__validate_regions=config__algorithm__validate_regions, 
+            genome_build=genome_build, 
+            config__algorithm__tools_off=config__algorithm__tools_off, 
+            genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
+            genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
+            analysis=analysis, 
+            config__algorithm__tools_on=config__algorithm__tools_on, 
+            config__algorithm__variant_regions=config__algorithm__variant_regions, 
+            align_bam=align_bam, 
+            regions__callable=regions__callable, 
+            config__algorithm__callable_regions=config__algorithm__callable_regions, 
+            region=region_local
+      }
+  
     }
 
 
@@ -1026,7 +1056,7 @@ workflow wf_variantcall {
     }
 
 
-    call concat_batch_variantcalls {
+    call postprocess_variants {
         input: description=description, 
           config__algorithm__validate=config__algorithm__validate, 
           reference__fasta__base=reference__fasta__base, 
@@ -1047,37 +1077,7 @@ workflow wf_variantcall {
           align_bam=align_bam, 
           regions__callable=regions__callable, 
           config__algorithm__callable_regions=config__algorithm__callable_regions, 
-          region=variantcall_batch_region.region, 
-          vrn_file_region=variantcall_batch_region.vrn_file_region
-    }
-
-
-    scatter (region_local in get_parallel_regions.region) {
-  
-      call variantcall_batch_region {
-          input: description=description, 
-            config__algorithm__validate=config__algorithm__validate, 
-            reference__fasta__base=reference__fasta__base, 
-            reference__rtg=reference__rtg, 
-            config__algorithm__variantcaller=config__algorithm__variantcaller, 
-            config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
-            metadata__batch=metadata__batch, 
-            metadata__phenotype=metadata__phenotype, 
-            reference__genome_context=reference__genome_context, 
-            config__algorithm__validate_regions=config__algorithm__validate_regions, 
-            genome_build=genome_build, 
-            config__algorithm__tools_off=config__algorithm__tools_off, 
-            genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
-            genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
-            analysis=analysis, 
-            config__algorithm__tools_on=config__algorithm__tools_on, 
-            config__algorithm__variant_regions=config__algorithm__variant_regions, 
-            align_bam=align_bam, 
-            regions__callable=regions__callable, 
-            config__algorithm__callable_regions=config__algorithm__callable_regions, 
-            region=region_local
-      }
-  
+          vrn_file=concat_batch_variantcalls.vrn_file
     }
 
     
@@ -1088,6 +1088,134 @@ workflow wf_variantcall {
      compare_to_rm.validate__fn
 
 }
+
+task get_parallel_regions {
+    String sentinel-parallel
+    String sentinel-outputs
+    Array[String] description
+    Array[File] config__algorithm__validate
+    Array[File] reference__fasta__base
+    Array[File] reference__rtg
+    Array[String] config__algorithm__variantcaller
+    Array[String] config__algorithm__coverage_interval
+    Array[String] metadata__batch
+    Array[String] metadata__phenotype
+    Array[Array[File]] reference__genome_context
+    Array[File] config__algorithm__validate_regions
+    Array[String] genome_build
+    Array[Array[String]] config__algorithm__tools_off
+    Array[File] genome_resources__variation__dbsnp
+    Array[File] genome_resources__variation__cosmic
+    Array[String] analysis
+    Array[Array[String]] config__algorithm__tools_on
+    Array[File] config__algorithm__variant_regions
+    Array[File] align_bam
+    Array[File] regions__callable
+    Array[File] config__algorithm__callable_regions
+
+    command {
+        bcbio_nextgen.py runfn get_parallel_regions cwl \
+        sentinel-parallel=${default='batch-split' sentinel-parallel} \
+        sentinel-outputs=${default='["region"]' sentinel-outputs} \
+        description=${sep=';;' description} \
+        config__algorithm__validate=${sep=';;' config__algorithm__validate} \
+        reference__fasta__base=${sep=';;' reference__fasta__base} \
+        reference__rtg=${sep=';;' reference__rtg} \
+        config__algorithm__variantcaller=${sep=';;' config__algorithm__variantcaller} \
+        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
+        metadata__batch=${sep=';;' metadata__batch} \
+        metadata__phenotype=${sep=';;' metadata__phenotype} \
+        reference__genome_context=${sep=';;' reference__genome_context} \
+        config__algorithm__validate_regions=${sep=';;' config__algorithm__validate_regions} \
+        genome_build=${sep=';;' genome_build} \
+        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
+        genome_resources__variation__dbsnp=${sep=';;' genome_resources__variation__dbsnp} \
+        genome_resources__variation__cosmic=${sep=';;' genome_resources__variation__cosmic} \
+        analysis=${sep=';;' analysis} \
+        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
+        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
+        align_bam=${sep=';;' align_bam} \
+        regions__callable=${sep=';;' regions__callable} \
+        config__algorithm__callable_regions=${sep=';;' config__algorithm__callable_regions}
+    }
+
+    output {
+        Array[String] region = read_cwl_json('cwl.output.json', 'region')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
+        memory: '4096 MB'
+    }
+}
+
+
+task concat_batch_variantcalls {
+    String sentinel-parallel
+    String sentinel-outputs
+    Array[String] description
+    Array[File] config__algorithm__validate
+    Array[File] reference__fasta__base
+    Array[File] reference__rtg
+    Array[String] config__algorithm__variantcaller
+    Array[String] config__algorithm__coverage_interval
+    Array[String] metadata__batch
+    Array[String] metadata__phenotype
+    Array[Array[File]] reference__genome_context
+    Array[File] config__algorithm__validate_regions
+    Array[String] genome_build
+    Array[Array[String]] config__algorithm__tools_off
+    Array[File] genome_resources__variation__dbsnp
+    Array[File] genome_resources__variation__cosmic
+    Array[String] analysis
+    Array[Array[String]] config__algorithm__tools_on
+    Array[File] config__algorithm__variant_regions
+    Array[File] align_bam
+    Array[File] regions__callable
+    Array[File] config__algorithm__callable_regions
+    Array[String] region
+    Array[File] vrn_file_region
+
+    command {
+        bcbio_nextgen.py runfn concat_batch_variantcalls cwl \
+        sentinel-parallel=${default='batch-merge' sentinel-parallel} \
+        sentinel-outputs=${default='["vrn_file"]' sentinel-outputs} \
+        description=${sep=';;' description} \
+        config__algorithm__validate=${sep=';;' config__algorithm__validate} \
+        reference__fasta__base=${sep=';;' reference__fasta__base} \
+        reference__rtg=${sep=';;' reference__rtg} \
+        config__algorithm__variantcaller=${sep=';;' config__algorithm__variantcaller} \
+        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
+        metadata__batch=${sep=';;' metadata__batch} \
+        metadata__phenotype=${sep=';;' metadata__phenotype} \
+        reference__genome_context=${sep=';;' reference__genome_context} \
+        config__algorithm__validate_regions=${sep=';;' config__algorithm__validate_regions} \
+        genome_build=${sep=';;' genome_build} \
+        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
+        genome_resources__variation__dbsnp=${sep=';;' genome_resources__variation__dbsnp} \
+        genome_resources__variation__cosmic=${sep=';;' genome_resources__variation__cosmic} \
+        analysis=${sep=';;' analysis} \
+        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
+        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
+        align_bam=${sep=';;' align_bam} \
+        regions__callable=${sep=';;' regions__callable} \
+        config__algorithm__callable_regions=${sep=';;' config__algorithm__callable_regions} \
+        region=${sep=';;' region} \
+        vrn_file_region=${sep=';;' vrn_file_region}
+    }
+
+    output {
+        File vrn_file = read_cwl_json('cwl.output.json', 'vrn_file')
+    }
+
+    runtime {
+        docker: 'bcbio/bcbio'
+        cpu: '2'
+        memory: '4096 MB'
+    }
+}
+
 
 task compare_to_rm {
     String sentinel-parallel
@@ -1150,13 +1278,13 @@ task compare_to_rm {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
 
 
-task postprocess_variants {
+task variantcall_batch_region {
     String sentinel-parallel
     String sentinel-outputs
     Array[String] description
@@ -1179,12 +1307,12 @@ task postprocess_variants {
     Array[File] align_bam
     Array[File] regions__callable
     Array[File] config__algorithm__callable_regions
-    File vrn_file
+    String region
 
     command {
-        bcbio_nextgen.py runfn postprocess_variants cwl \
-        sentinel-parallel=${default='batch-single' sentinel-parallel} \
-        sentinel-outputs=${default='["vrn_file"]' sentinel-outputs} \
+        bcbio_nextgen.py runfn variantcall_batch_region cwl \
+        sentinel-parallel=${default='batch-parallel' sentinel-parallel} \
+        sentinel-outputs=${default='["vrn_file_region","region"]' sentinel-outputs} \
         description=${sep=';;' description} \
         config__algorithm__validate=${sep=';;' config__algorithm__validate} \
         reference__fasta__base=${sep=';;' reference__fasta__base} \
@@ -1205,78 +1333,17 @@ task postprocess_variants {
         align_bam=${sep=';;' align_bam} \
         regions__callable=${sep=';;' regions__callable} \
         config__algorithm__callable_regions=${sep=';;' config__algorithm__callable_regions} \
-        vrn_file=${vrn_file}
+        region=${region}
     }
 
     output {
-        File vrn_file = read_cwl_json('cwl.output.json', 'vrn_file')
+        File vrn_file_region = read_cwl_json('cwl.output.json', 'vrn_file_region')
+        String region = read_cwl_json('cwl.output.json', 'region')
     }
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-    }
-}
-
-
-task get_parallel_regions {
-    String sentinel-parallel
-    String sentinel-outputs
-    Array[String] description
-    Array[File] config__algorithm__validate
-    Array[File] reference__fasta__base
-    Array[File] reference__rtg
-    Array[String] config__algorithm__variantcaller
-    Array[String] config__algorithm__coverage_interval
-    Array[String] metadata__batch
-    Array[String] metadata__phenotype
-    Array[Array[File]] reference__genome_context
-    Array[File] config__algorithm__validate_regions
-    Array[String] genome_build
-    Array[Array[String]] config__algorithm__tools_off
-    Array[File] genome_resources__variation__dbsnp
-    Array[File] genome_resources__variation__cosmic
-    Array[String] analysis
-    Array[Array[String]] config__algorithm__tools_on
-    Array[File] config__algorithm__variant_regions
-    Array[File] align_bam
-    Array[File] regions__callable
-    Array[File] config__algorithm__callable_regions
-
-    command {
-        bcbio_nextgen.py runfn get_parallel_regions cwl \
-        sentinel-parallel=${default='batch-split' sentinel-parallel} \
-        sentinel-outputs=${default='["region"]' sentinel-outputs} \
-        description=${sep=';;' description} \
-        config__algorithm__validate=${sep=';;' config__algorithm__validate} \
-        reference__fasta__base=${sep=';;' reference__fasta__base} \
-        reference__rtg=${sep=';;' reference__rtg} \
-        config__algorithm__variantcaller=${sep=';;' config__algorithm__variantcaller} \
-        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
-        metadata__batch=${sep=';;' metadata__batch} \
-        metadata__phenotype=${sep=';;' metadata__phenotype} \
-        reference__genome_context=${sep=';;' reference__genome_context} \
-        config__algorithm__validate_regions=${sep=';;' config__algorithm__validate_regions} \
-        genome_build=${sep=';;' genome_build} \
-        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
-        genome_resources__variation__dbsnp=${sep=';;' genome_resources__variation__dbsnp} \
-        genome_resources__variation__cosmic=${sep=';;' genome_resources__variation__cosmic} \
-        analysis=${sep=';;' analysis} \
-        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
-        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
-        align_bam=${sep=';;' align_bam} \
-        regions__callable=${sep=';;' regions__callable} \
-        config__algorithm__callable_regions=${sep=';;' config__algorithm__callable_regions}
-    }
-
-    output {
-        Array[String] region = read_cwl_json('cwl.output.json', 'region')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
@@ -1348,13 +1415,13 @@ task vc_output_record {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }
 
 
-task concat_batch_variantcalls {
+task postprocess_variants {
     String sentinel-parallel
     String sentinel-outputs
     Array[String] description
@@ -1377,12 +1444,11 @@ task concat_batch_variantcalls {
     Array[File] align_bam
     Array[File] regions__callable
     Array[File] config__algorithm__callable_regions
-    Array[String] region
-    Array[File] vrn_file_region
+    File vrn_file
 
     command {
-        bcbio_nextgen.py runfn concat_batch_variantcalls cwl \
-        sentinel-parallel=${default='batch-merge' sentinel-parallel} \
+        bcbio_nextgen.py runfn postprocess_variants cwl \
+        sentinel-parallel=${default='batch-single' sentinel-parallel} \
         sentinel-outputs=${default='["vrn_file"]' sentinel-outputs} \
         description=${sep=';;' description} \
         config__algorithm__validate=${sep=';;' config__algorithm__validate} \
@@ -1404,8 +1470,7 @@ task concat_batch_variantcalls {
         align_bam=${sep=';;' align_bam} \
         regions__callable=${sep=';;' regions__callable} \
         config__algorithm__callable_regions=${sep=';;' config__algorithm__callable_regions} \
-        region=${sep=';;' region} \
-        vrn_file_region=${sep=';;' vrn_file_region}
+        vrn_file=${vrn_file}
     }
 
     output {
@@ -1414,72 +1479,7 @@ task concat_batch_variantcalls {
 
     runtime {
         docker: 'bcbio/bcbio'
-        cpu: '4'
-        memory: '4096 MB'
-    }
-}
-
-
-task variantcall_batch_region {
-    String sentinel-parallel
-    String sentinel-outputs
-    Array[String] description
-    Array[File] config__algorithm__validate
-    Array[File] reference__fasta__base
-    Array[File] reference__rtg
-    Array[String] config__algorithm__variantcaller
-    Array[String] config__algorithm__coverage_interval
-    Array[String] metadata__batch
-    Array[String] metadata__phenotype
-    Array[Array[File]] reference__genome_context
-    Array[File] config__algorithm__validate_regions
-    Array[String] genome_build
-    Array[Array[String]] config__algorithm__tools_off
-    Array[File] genome_resources__variation__dbsnp
-    Array[File] genome_resources__variation__cosmic
-    Array[String] analysis
-    Array[Array[String]] config__algorithm__tools_on
-    Array[File] config__algorithm__variant_regions
-    Array[File] align_bam
-    Array[File] regions__callable
-    Array[File] config__algorithm__callable_regions
-    String region
-
-    command {
-        bcbio_nextgen.py runfn variantcall_batch_region cwl \
-        sentinel-parallel=${default='batch-parallel' sentinel-parallel} \
-        sentinel-outputs=${default='["vrn_file_region","region"]' sentinel-outputs} \
-        description=${sep=';;' description} \
-        config__algorithm__validate=${sep=';;' config__algorithm__validate} \
-        reference__fasta__base=${sep=';;' reference__fasta__base} \
-        reference__rtg=${sep=';;' reference__rtg} \
-        config__algorithm__variantcaller=${sep=';;' config__algorithm__variantcaller} \
-        config__algorithm__coverage_interval=${sep=';;' config__algorithm__coverage_interval} \
-        metadata__batch=${sep=';;' metadata__batch} \
-        metadata__phenotype=${sep=';;' metadata__phenotype} \
-        reference__genome_context=${sep=';;' reference__genome_context} \
-        config__algorithm__validate_regions=${sep=';;' config__algorithm__validate_regions} \
-        genome_build=${sep=';;' genome_build} \
-        config__algorithm__tools_off=${sep=';;' config__algorithm__tools_off} \
-        genome_resources__variation__dbsnp=${sep=';;' genome_resources__variation__dbsnp} \
-        genome_resources__variation__cosmic=${sep=';;' genome_resources__variation__cosmic} \
-        analysis=${sep=';;' analysis} \
-        config__algorithm__tools_on=${sep=';;' config__algorithm__tools_on} \
-        config__algorithm__variant_regions=${sep=';;' config__algorithm__variant_regions} \
-        align_bam=${sep=';;' align_bam} \
-        regions__callable=${sep=';;' regions__callable} \
-        config__algorithm__callable_regions=${sep=';;' config__algorithm__callable_regions} \
-        region=${region}
-    }
-
-    output {
-        File vrn_file_region = read_cwl_json('cwl.output.json', 'vrn_file_region')
-        String region = read_cwl_json('cwl.output.json', 'region')
-    }
-
-    runtime {
-        docker: 'bcbio/bcbio'
-        cpu: '4'
+        cpu: '2'
         memory: '4096 MB'
     }
 }

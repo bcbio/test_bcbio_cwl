@@ -10,7 +10,7 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
 - class: ResourceRequirement
-  coresMin: 4
+  coresMin: 2
   ramMin: 4096
 inputs:
 - default: multi-combined

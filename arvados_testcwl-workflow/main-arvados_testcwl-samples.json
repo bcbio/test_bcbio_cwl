@@ -617,8 +617,8 @@
         []
     ],
     "rgnames__lane": [
-        "1_2017-02-13_arvados_testcwl",
-        "2_2017-02-13_arvados_testcwl"
+        "1_2017-02-14_arvados_testcwl",
+        "2_2017-02-14_arvados_testcwl"
     ],
     "rgnames__lb": [
         null,
@@ -629,8 +629,8 @@
         "illumina"
     ],
     "rgnames__pu": [
-        "1_2017-02-13_arvados_testcwl",
-        "2_2017-02-13_arvados_testcwl"
+        "1_2017-02-14_arvados_testcwl",
+        "2_2017-02-14_arvados_testcwl"
     ],
     "rgnames__rg": [
         "Test2",
