@@ -11,6 +11,7 @@ cwlVersion: v1.0
 hints:
 - class: ResourceRequirement
   coresMin: 2
+  outdirMin: 30724
   ramMin: 4096
   tmpdirMin: 4
 inputs:
