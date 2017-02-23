@@ -1,6 +1,6 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=$(runtime)
+  valueFrom: sentinel-runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -11,7 +11,7 @@ cwlVersion: v1.0
 hints:
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 30729
+  outdirMin: 1033
   ramMin: 4096
   tmpdirMin: 9
 inputs:
@@ -23,7 +23,7 @@ inputs:
     prefix: sentinel-parallel=
     separate: false
   type: string
-- default: '["align_bam","work_bam_plus__disc","work_bam_plus__sr","hla__fastq"]'
+- default: align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq
   id: sentinel-outputs
   inputBinding:
     itemSeparator: ;;
