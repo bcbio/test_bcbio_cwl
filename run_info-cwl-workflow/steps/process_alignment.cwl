@@ -14,6 +14,37 @@ hints:
   outdirMin: 1028
   ramMin: 4096
   tmpdirMin: 4
+- class: SoftwareRequirement
+  packages:
+  - package: bwa
+    specs:
+    - https://anaconda.org/bioconda/bwa
+  - package: bwakit
+    specs:
+    - https://anaconda.org/bioconda/bwakit
+  - package: novoalign
+    specs:
+    - https://anaconda.org/bioconda/novoalign
+  - package: snap-aligner
+    specs:
+    - https://anaconda.org/bioconda/snap-aligner
+    version:
+    - 1.0dev.97
+  - package: samtools
+    specs:
+    - https://anaconda.org/bioconda/samtools
+  - package: sambamba
+    specs:
+    - https://anaconda.org/bioconda/sambamba
+  - package: fgbio
+    specs:
+    - https://anaconda.org/bioconda/fgbio
+  - package: umis
+    specs:
+    - https://anaconda.org/bioconda/umis
+  - package: biobambam
+    specs:
+    - https://anaconda.org/bioconda/biobambam
 inputs:
 - default: single-parallel
   id: sentinel-parallel

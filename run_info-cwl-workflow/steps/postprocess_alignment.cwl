@@ -13,6 +13,20 @@ hints:
   coresMin: 2
   outdirMin: 1024
   ramMin: 4096
+- class: SoftwareRequirement
+  packages:
+  - package: sambamba
+    specs:
+    - https://anaconda.org/bioconda/sambamba
+  - package: goleft
+    specs:
+    - https://anaconda.org/bioconda/goleft
+  - package: bedtools
+    specs:
+    - https://anaconda.org/bioconda/bedtools
+  - package: htslib
+    specs:
+    - https://anaconda.org/bioconda/htslib
 inputs:
 - default: multi-parallel
   id: sentinel-parallel

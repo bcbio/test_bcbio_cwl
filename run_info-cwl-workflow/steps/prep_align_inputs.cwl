@@ -14,6 +14,14 @@ hints:
   outdirMin: 1028
   ramMin: 4096
   tmpdirMin: 4
+- class: SoftwareRequirement
+  packages:
+  - package: bgzip
+    specs:
+    - https://anaconda.org/bioconda/bgzip
+  - package: pbgzip
+    specs:
+    - https://anaconda.org/bioconda/pbgzip
 inputs:
 - default: single-split
   id: sentinel-parallel

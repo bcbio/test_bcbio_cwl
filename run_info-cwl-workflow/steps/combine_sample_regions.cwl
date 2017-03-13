@@ -13,6 +13,14 @@ hints:
   coresMin: 2
   outdirMin: 1024
   ramMin: 4096
+- class: SoftwareRequirement
+  packages:
+  - package: bedtools
+    specs:
+    - https://anaconda.org/bioconda/bedtools
+  - package: htslib
+    specs:
+    - https://anaconda.org/bioconda/htslib
 inputs:
 - default: multi-combined
   id: sentinel-parallel

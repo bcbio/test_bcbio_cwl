@@ -13,6 +13,17 @@ hints:
   coresMin: 2
   outdirMin: 1024
   ramMin: 4096
+- class: SoftwareRequirement
+  packages:
+  - package: htslib
+    specs:
+    - https://anaconda.org/bioconda/htslib
+  - package: pbgzip
+    specs:
+    - https://anaconda.org/bioconda/pbgzip
+  - package: bedtools
+    specs:
+    - https://anaconda.org/bioconda/bedtools
 inputs:
 - default: multi-parallel
   id: sentinel-parallel
@@ -30,36 +41,44 @@ inputs:
     prefix: sentinel-outputs=
     separate: false
   type: string
-- id: config__algorithm__coverage
-  inputBinding:
-    itemSeparator: ;;
-    position: 2
-    prefix: config__algorithm__coverage=
-    separate: false
-  type:
-  - File
-  - 'null'
-- id: config__algorithm__variant_regions
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: config__algorithm__variant_regions=
-    separate: false
-  type: File
-- id: reference__fasta__base
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: reference__fasta__base=
-    separate: false
-  type: File
 - id: description
   inputBinding:
     itemSeparator: ;;
-    position: 5
+    position: 2
     prefix: description=
     separate: false
-  type: string
+  type:
+    items: string
+    type: array
+- id: reference__fasta__base
+  inputBinding:
+    itemSeparator: ;;
+    position: 3
+    prefix: reference__fasta__base=
+    separate: false
+  type:
+    items: File
+    type: array
+- id: config__algorithm__coverage
+  inputBinding:
+    itemSeparator: ;;
+    position: 4
+    prefix: config__algorithm__coverage=
+    separate: false
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: config__algorithm__variant_regions
+  inputBinding:
+    itemSeparator: ;;
+    position: 5
+    prefix: config__algorithm__variant_regions=
+    separate: false
+  type:
+    items: File
+    type: array
 outputs:
 - id: config__algorithm__variant_regions
   type: File

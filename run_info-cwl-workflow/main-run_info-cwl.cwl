@@ -330,7 +330,7 @@ steps:
   - reference__snap__indexes
   - config__algorithm__mark_duplicates
   scatterMethod: dotproduct
-- id: prep_samples
+- id: prep_samples_to_rec
   in:
   - id: config__algorithm__coverage
     source: config__algorithm__coverage
@@ -341,6 +341,23 @@ steps:
   - id: description
     source: description
   out:
+  - id: prep_samples_rec
+  run: steps/prep_samples_to_rec.cwl
+- id: prep_samples
+  in:
+  - id: description
+    source: prep_samples_to_rec/prep_samples_rec
+    valueFrom: $(self['description'])
+  - id: reference__fasta__base
+    source: prep_samples_to_rec/prep_samples_rec
+    valueFrom: $(self['reference__fasta__base'])
+  - id: config__algorithm__coverage
+    source: prep_samples_to_rec/prep_samples_rec
+    valueFrom: $(self['config__algorithm__coverage'])
+  - id: config__algorithm__variant_regions
+    source: prep_samples_to_rec/prep_samples_rec
+    valueFrom: $(self['config__algorithm__variant_regions'])
+  out:
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
@@ -350,10 +367,10 @@ steps:
   - id: config__algorithm__seq2c_bed_ready
   run: steps/prep_samples.cwl
   scatter:
+  - description
+  - reference__fasta__base
   - config__algorithm__coverage
   - config__algorithm__variant_regions
-  - reference__fasta__base
-  - description
   scatterMethod: dotproduct
 - id: postprocess_alignment
   in:

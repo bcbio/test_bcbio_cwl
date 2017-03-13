@@ -14,6 +14,14 @@ hints:
   outdirMin: 1033
   ramMin: 4096
   tmpdirMin: 9
+- class: SoftwareRequirement
+  packages:
+  - package: biobambam
+    specs:
+    - https://anaconda.org/bioconda/biobambam
+  - package: samtools
+    specs:
+    - https://anaconda.org/bioconda/samtools
 inputs:
 - default: single-merge
   id: sentinel-parallel
