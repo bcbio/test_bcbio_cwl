@@ -1,6 +1,6 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -26,19 +26,19 @@ hints:
     - https://anaconda.org/bioconda/bedtools
 inputs:
 - default: multi-parallel
-  id: sentinel-parallel
+  id: sentinel_parallel
   inputBinding:
     itemSeparator: ;;
     position: 0
-    prefix: sentinel-parallel=
+    prefix: sentinel_parallel=
     separate: false
   type: string
 - default: config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready
-  id: sentinel-outputs
+  id: sentinel_outputs
   inputBinding:
     itemSeparator: ;;
     position: 1
-    prefix: sentinel-outputs=
+    prefix: sentinel_outputs=
     separate: false
   type: string
 - id: description

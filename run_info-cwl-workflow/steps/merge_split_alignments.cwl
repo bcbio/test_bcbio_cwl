@@ -1,6 +1,6 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -24,19 +24,19 @@ hints:
     - https://anaconda.org/bioconda/samtools
 inputs:
 - default: single-merge
-  id: sentinel-parallel
+  id: sentinel_parallel
   inputBinding:
     itemSeparator: ;;
     position: 0
-    prefix: sentinel-parallel=
+    prefix: sentinel_parallel=
     separate: false
   type: string
 - default: align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq
-  id: sentinel-outputs
+  id: sentinel_outputs
   inputBinding:
     itemSeparator: ;;
     position: 1
-    prefix: sentinel-outputs=
+    prefix: sentinel_outputs=
     separate: false
   type: string
 - id: work_bam

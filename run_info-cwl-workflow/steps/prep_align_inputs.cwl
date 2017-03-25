@@ -1,6 +1,6 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -16,38 +16,42 @@ hints:
   tmpdirMin: 4
 - class: SoftwareRequirement
   packages:
-  - package: bgzip
-    specs:
-    - https://anaconda.org/bioconda/bgzip
   - package: pbgzip
     specs:
     - https://anaconda.org/bioconda/pbgzip
+  - package: grabix
+    specs:
+    - https://anaconda.org/bioconda/grabix
+  - package: htslib
+    specs:
+    - https://anaconda.org/bioconda/htslib
+  - package: biobambam
+    specs:
+    - https://anaconda.org/bioconda/biobambam
 inputs:
 - default: single-split
-  id: sentinel-parallel
+  id: sentinel_parallel
   inputBinding:
     itemSeparator: ;;
     position: 0
-    prefix: sentinel-parallel=
+    prefix: sentinel_parallel=
     separate: false
   type: string
-- default: files,config__algorithm__quality_format,align_split
-  id: sentinel-outputs
+- default: process_alignment_rec
+  id: sentinel_outputs
   inputBinding:
     itemSeparator: ;;
     position: 1
-    prefix: sentinel-outputs=
+    prefix: sentinel_outputs=
     separate: false
   type: string
-- id: files
+- id: description
   inputBinding:
     itemSeparator: ;;
     position: 2
-    prefix: files=
+    prefix: description=
     separate: false
-  type:
-    items: File
-    type: array
+  type: string
 - id: config__algorithm__align_split_size
   inputBinding:
     itemSeparator: ;;
@@ -55,36 +59,111 @@ inputs:
     prefix: config__algorithm__align_split_size=
     separate: false
   type: long
-- id: config__algorithm__aligner
+- id: reference__fasta__base
   inputBinding:
     itemSeparator: ;;
     position: 4
-    prefix: config__algorithm__aligner=
+    prefix: reference__fasta__base=
     separate: false
-  type: string
-- id: description
+  type: File
+- id: rgnames__lb
   inputBinding:
     itemSeparator: ;;
     position: 5
-    prefix: description=
+    prefix: rgnames__lb=
+    separate: false
+  type: 'null'
+- id: rgnames__rg
+  inputBinding:
+    itemSeparator: ;;
+    position: 6
+    prefix: rgnames__rg=
     separate: false
   type: string
-outputs:
+- id: rgnames__lane
+  inputBinding:
+    itemSeparator: ;;
+    position: 7
+    prefix: rgnames__lane=
+    separate: false
+  type: string
+- id: reference__bwa__indexes
+  inputBinding:
+    itemSeparator: ;;
+    position: 8
+    prefix: reference__bwa__indexes=
+    separate: false
+  type:
+  - 'null'
+  - File
 - id: files
-  secondaryFiles:
-  - .gbi
+  inputBinding:
+    itemSeparator: ;;
+    position: 9
+    prefix: files=
+    separate: false
+  type:
+    items: File
+    type: array
+- id: config__algorithm__aligner
+  inputBinding:
+    itemSeparator: ;;
+    position: 10
+    prefix: config__algorithm__aligner=
+    separate: false
+  type: string
+- id: rgnames__pl
+  inputBinding:
+    itemSeparator: ;;
+    position: 11
+    prefix: rgnames__pl=
+    separate: false
+  type: string
+- id: rgnames__pu
+  inputBinding:
+    itemSeparator: ;;
+    position: 12
+    prefix: rgnames__pu=
+    separate: false
+  type: string
+- id: config__algorithm__mark_duplicates
+  inputBinding:
+    itemSeparator: ;;
+    position: 13
+    prefix: config__algorithm__mark_duplicates=
+    separate: false
+  type: string
+- id: rgnames__sample
+  inputBinding:
+    itemSeparator: ;;
+    position: 14
+    prefix: rgnames__sample=
+    separate: false
+  type: string
+- id: reference__snap__indexes
+  inputBinding:
+    itemSeparator: ;;
+    position: 15
+    prefix: reference__snap__indexes=
+    separate: false
+  type:
+  - File
+  - 'null'
+outputs:
+- id: process_alignment_rec
   type:
     items:
-      items: File
-      type: array
-    type: array
-- id: config__algorithm__quality_format
-  type:
-    items: string
-    type: array
-- id: align_split
-  type:
-    items:
-    - string
-    - 'null'
+      fields:
+      - name: config__algorithm__quality_format
+        type: string
+      - name: align_split
+        type:
+        - string
+        - 'null'
+      - name: files
+        type:
+          items: File
+          type: array
+      name: process_alignment_rec
+      type: record
     type: array

@@ -401,23 +401,23 @@
         null,
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/bwa/hg19.fa.bwt",
+            "path": "../testdata/genomes/hg19/bwa/hg19.fa.amb",
             "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.amb"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.sa"
-                },
                 {
                     "class": "File",
                     "path": "../testdata/genomes/hg19/bwa/hg19.fa.ann"
                 },
                 {
                     "class": "File",
+                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.bwt"
+                },
+                {
+                    "class": "File",
                     "path": "../testdata/genomes/hg19/bwa/hg19.fa.pac"
+                },
+                {
+                    "class": "File",
+                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.sa"
                 }
             ]
         }
@@ -595,7 +595,7 @@
     "reference__snap__indexes": [
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/snap/GenomeIndexHash",
+            "path": "../testdata/genomes/hg19/snap/Genome",
             "secondaryFiles": [
                 {
                     "class": "File",
@@ -603,11 +603,11 @@
                 },
                 {
                     "class": "File",
-                    "path": "../testdata/genomes/hg19/snap/OverflowTable"
+                    "path": "../testdata/genomes/hg19/snap/GenomeIndexHash"
                 },
                 {
                     "class": "File",
-                    "path": "../testdata/genomes/hg19/snap/Genome"
+                    "path": "../testdata/genomes/hg19/snap/OverflowTable"
                 }
             ]
         },

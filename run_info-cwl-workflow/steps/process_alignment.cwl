@@ -1,6 +1,6 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -47,76 +47,74 @@ hints:
     - https://anaconda.org/bioconda/biobambam
 inputs:
 - default: single-parallel
-  id: sentinel-parallel
+  id: sentinel_parallel
   inputBinding:
     itemSeparator: ;;
     position: 0
-    prefix: sentinel-parallel=
+    prefix: sentinel_parallel=
     separate: false
   type: string
 - default: work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr
-  id: sentinel-outputs
+  id: sentinel_outputs
   inputBinding:
     itemSeparator: ;;
     position: 1
-    prefix: sentinel-outputs=
+    prefix: sentinel_outputs=
     separate: false
   type: string
-- id: files
+- id: config__algorithm__quality_format
   inputBinding:
     itemSeparator: ;;
     position: 2
-    prefix: files=
+    prefix: config__algorithm__quality_format=
     separate: false
-  secondaryFiles:
-  - .gbi
-  type:
-    items: File
-    type: array
-- id: reference__fasta__base
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: reference__fasta__base=
-    separate: false
-  type: File
+  type: string
 - id: align_split
   inputBinding:
     itemSeparator: ;;
-    position: 4
+    position: 3
     prefix: align_split=
     separate: false
   type:
   - string
   - 'null'
-- id: rgnames__pl
+- id: files
+  inputBinding:
+    itemSeparator: ;;
+    position: 4
+    prefix: files=
+    separate: false
+  type:
+    items: File
+    type: array
+- id: description
   inputBinding:
     itemSeparator: ;;
     position: 5
-    prefix: rgnames__pl=
+    prefix: description=
     separate: false
   type: string
-- id: rgnames__sample
+- id: config__algorithm__align_split_size
   inputBinding:
     itemSeparator: ;;
     position: 6
-    prefix: rgnames__sample=
+    prefix: config__algorithm__align_split_size=
     separate: false
-  type: string
-- id: rgnames__pu
+  type: long
+- id: reference__fasta__base
   inputBinding:
     itemSeparator: ;;
     position: 7
-    prefix: rgnames__pu=
+    prefix: reference__fasta__base=
     separate: false
-  type: string
-- id: rgnames__lane
+  type: File
+- id: rgnames__lb
   inputBinding:
     itemSeparator: ;;
     position: 8
-    prefix: rgnames__lane=
+    prefix: rgnames__lb=
     separate: false
-  type: string
+  type: 'null'
 - id: rgnames__rg
   inputBinding:
     itemSeparator: ;;
@@ -124,13 +122,13 @@ inputs:
     prefix: rgnames__rg=
     separate: false
   type: string
-- id: rgnames__lb
+- id: rgnames__lane
   inputBinding:
     itemSeparator: ;;
     position: 10
-    prefix: rgnames__lb=
+    prefix: rgnames__lane=
     separate: false
-  type: 'null'
+  type: string
 - id: reference__bwa__indexes
   inputBinding:
     itemSeparator: ;;
@@ -140,43 +138,50 @@ inputs:
   type:
   - 'null'
   - File
-- id: reference__snap__indexes
-  inputBinding:
-    itemSeparator: ;;
-    position: 12
-    prefix: reference__snap__indexes=
-    separate: false
-  type:
-  - File
-  - 'null'
 - id: config__algorithm__aligner
   inputBinding:
     itemSeparator: ;;
-    position: 13
+    position: 12
     prefix: config__algorithm__aligner=
+    separate: false
+  type: string
+- id: rgnames__pl
+  inputBinding:
+    itemSeparator: ;;
+    position: 13
+    prefix: rgnames__pl=
+    separate: false
+  type: string
+- id: rgnames__pu
+  inputBinding:
+    itemSeparator: ;;
+    position: 14
+    prefix: rgnames__pu=
     separate: false
   type: string
 - id: config__algorithm__mark_duplicates
   inputBinding:
     itemSeparator: ;;
-    position: 14
+    position: 15
     prefix: config__algorithm__mark_duplicates=
     separate: false
   type: string
-- id: config__algorithm__quality_format
-  inputBinding:
-    itemSeparator: ;;
-    position: 15
-    prefix: config__algorithm__quality_format=
-    separate: false
-  type: string
-- id: description
+- id: rgnames__sample
   inputBinding:
     itemSeparator: ;;
     position: 16
-    prefix: description=
+    prefix: rgnames__sample=
     separate: false
   type: string
+- id: reference__snap__indexes
+  inputBinding:
+    itemSeparator: ;;
+    position: 17
+    prefix: reference__snap__indexes=
+    separate: false
+  type:
+  - File
+  - 'null'
 outputs:
 - id: work_bam
   type: File

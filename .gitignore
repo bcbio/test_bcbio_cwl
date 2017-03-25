@@ -1,2 +1,9 @@
 *-workflow/*.bak
 *.swp
+*_work
+multiqc_*
+Test*
+*.R
+*.Rmd
+seqbuster_*
+

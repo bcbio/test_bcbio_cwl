@@ -4,7 +4,7 @@ arguments:
 baseCommand:
 - bcbio_nextgen.py
 - runfn
-- multiqc_summary
+- alignment_to_rec
 - cwl
 class: CommandLineTool
 cwlVersion: v1.0
@@ -22,7 +22,7 @@ inputs:
     prefix: sentinel_parallel=
     separate: false
   type: string
-- default: summary__multiqc
+- default: alignment_rec
   id: sentinel_outputs
   inputBinding:
     itemSeparator: ;;
@@ -30,185 +30,177 @@ inputs:
     prefix: sentinel_outputs=
     separate: false
   type: string
-- id: description
+- id: files
   type:
     inputBinding:
       itemSeparator: ;;
       position: 2
-      prefix: description=
+      prefix: files=
       separate: false
     items:
-      items: string
+      items: File
       type: array
+    type: array
+- id: config__algorithm__align_split_size
+  type:
+    inputBinding:
+      itemSeparator: ;;
+      position: 3
+      prefix: config__algorithm__align_split_size=
+      separate: false
+    items: long
     type: array
 - id: reference__fasta__base
   type:
     inputBinding:
       itemSeparator: ;;
-      position: 3
+      position: 4
       prefix: reference__fasta__base=
       separate: false
-    items:
-      items: File
-      type: array
+    items: File
     type: array
-- id: config__algorithm__coverage_interval
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 4
-      prefix: config__algorithm__coverage_interval=
-      separate: false
-    items:
-      items: string
-      type: array
-    type: array
-- id: genome_build
+- id: rgnames__pl
   type:
     inputBinding:
       itemSeparator: ;;
       position: 5
-      prefix: genome_build=
+      prefix: rgnames__pl=
       separate: false
-    items:
-      items: string
-      type: array
+    items: string
     type: array
-- id: config__algorithm__coverage
+- id: rgnames__sample
   type:
     inputBinding:
       itemSeparator: ;;
       position: 6
-      prefix: config__algorithm__coverage=
+      prefix: rgnames__sample=
       separate: false
-    items:
-      items:
-      - File
-      - 'null'
-      type: array
+    items: string
     type: array
-- id: config__algorithm__tools_off
+- id: rgnames__pu
   type:
     inputBinding:
       itemSeparator: ;;
       position: 7
-      prefix: config__algorithm__tools_off=
+      prefix: rgnames__pu=
       separate: false
-    items:
-      items:
-        items: string
-        type: array
-      type: array
+    items: string
     type: array
-- id: config__algorithm__qc
+- id: rgnames__lane
   type:
     inputBinding:
       itemSeparator: ;;
       position: 8
-      prefix: config__algorithm__qc=
+      prefix: rgnames__lane=
       separate: false
-    items:
-      items:
-        items: string
-        type: array
-      type: array
+    items: string
     type: array
-- id: analysis
+- id: rgnames__rg
   type:
     inputBinding:
       itemSeparator: ;;
       position: 9
-      prefix: analysis=
+      prefix: rgnames__rg=
       separate: false
-    items:
-      items: string
-      type: array
+    items: string
     type: array
-- id: config__algorithm__tools_on
+- id: rgnames__lb
   type:
     inputBinding:
       itemSeparator: ;;
       position: 10
-      prefix: config__algorithm__tools_on=
+      prefix: rgnames__lb=
       separate: false
-    items:
-      items:
-        items: string
-        type: array
-      type: array
+    items: 'null'
     type: array
-- id: config__algorithm__variant_regions
+- id: reference__bwa__indexes
   type:
     inputBinding:
       itemSeparator: ;;
       position: 11
-      prefix: config__algorithm__variant_regions=
+      prefix: reference__bwa__indexes=
       separate: false
     items:
-      items: File
-      type: array
+    - 'null'
+    - File
     type: array
-- id: align_bam
+- id: reference__snap__indexes
   type:
     inputBinding:
       itemSeparator: ;;
       position: 12
-      prefix: align_bam=
+      prefix: reference__snap__indexes=
       separate: false
     items:
-      items: File
-      type: array
+    - File
+    - 'null'
     type: array
-- id: config__algorithm__variant_regions_merged
+- id: config__algorithm__aligner
   type:
     inputBinding:
       itemSeparator: ;;
       position: 13
-      prefix: config__algorithm__variant_regions_merged=
+      prefix: config__algorithm__aligner=
       separate: false
-    items:
-      items:
-      - File
-      - 'null'
-      type: array
+    items: string
     type: array
-- id: config__algorithm__coverage_merged
+- id: config__algorithm__mark_duplicates
   type:
     inputBinding:
       itemSeparator: ;;
       position: 14
-      prefix: config__algorithm__coverage_merged=
+      prefix: config__algorithm__mark_duplicates=
       separate: false
-    items:
-      items:
-      - File
-      - 'null'
-      type: array
+    items: string
     type: array
-- id: summary__qc
+- id: description
   type:
     inputBinding:
       itemSeparator: ;;
       position: 15
-      prefix: summary__qc=
-      separate: false
-    items:
-    - File
-    - 'null'
-    type: array
-- id: summary__metrics
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 16
-      prefix: summary__metrics=
+      prefix: description=
       separate: false
     items: string
     type: array
 outputs:
-- id: summary__multiqc
+- id: alignment_rec
   type:
     items:
-    - File
-    - 'null'
+      fields:
+      - name: description
+        type: string
+      - name: config__algorithm__align_split_size
+        type: long
+      - name: reference__fasta__base
+        type: File
+      - name: rgnames__lb
+        type: 'null'
+      - name: rgnames__rg
+        type: string
+      - name: rgnames__lane
+        type: string
+      - name: reference__bwa__indexes
+        type:
+        - 'null'
+        - File
+      - name: files
+        type:
+          items: File
+          type: array
+      - name: config__algorithm__aligner
+        type: string
+      - name: rgnames__pl
+        type: string
+      - name: rgnames__pu
+        type: string
+      - name: config__algorithm__mark_duplicates
+        type: string
+      - name: rgnames__sample
+        type: string
+      - name: reference__snap__indexes
+        type:
+        - File
+        - 'null'
+      name: alignment_rec
+      type: record
     type: array

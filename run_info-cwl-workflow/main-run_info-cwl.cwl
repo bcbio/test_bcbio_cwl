@@ -278,16 +278,12 @@ requirements:
 - class: SubworkflowFeatureRequirement
 - class: InlineJavascriptRequirement
 steps:
-- id: alignment
+- id: alignment_to_rec
   in:
   - id: files
     source: files
   - id: config__algorithm__align_split_size
     source: config__algorithm__align_split_size
-  - id: config__algorithm__aligner
-    source: config__algorithm__aligner
-  - id: description
-    source: description
   - id: reference__fasta__base
     source: reference__fasta__base
   - id: rgnames__pl
@@ -306,8 +302,59 @@ steps:
     source: reference__bwa__indexes
   - id: reference__snap__indexes
     source: reference__snap__indexes
+  - id: config__algorithm__aligner
+    source: config__algorithm__aligner
   - id: config__algorithm__mark_duplicates
     source: config__algorithm__mark_duplicates
+  - id: description
+    source: description
+  out:
+  - id: alignment_rec
+  run: steps/alignment_to_rec.cwl
+- id: alignment
+  in:
+  - id: description
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['description'])
+  - id: config__algorithm__align_split_size
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['config__algorithm__align_split_size'])
+  - id: reference__fasta__base
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['reference__fasta__base'])
+  - id: rgnames__lb
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['rgnames__lb'])
+  - id: rgnames__rg
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['rgnames__rg'])
+  - id: rgnames__lane
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['rgnames__lane'])
+  - id: reference__bwa__indexes
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['reference__bwa__indexes'])
+  - id: files
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['files'])
+  - id: config__algorithm__aligner
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['config__algorithm__aligner'])
+  - id: rgnames__pl
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['rgnames__pl'])
+  - id: rgnames__pu
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['rgnames__pu'])
+  - id: config__algorithm__mark_duplicates
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['config__algorithm__mark_duplicates'])
+  - id: rgnames__sample
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['rgnames__sample'])
+  - id: reference__snap__indexes
+    source: alignment_to_rec/alignment_rec
+    valueFrom: $(self['reference__snap__indexes'])
   out:
   - id: align_bam
   - id: work_bam_plus__disc
@@ -315,20 +362,20 @@ steps:
   - id: hla__fastq
   run: wf-alignment.cwl
   scatter:
-  - files
-  - config__algorithm__align_split_size
-  - config__algorithm__aligner
   - description
+  - config__algorithm__align_split_size
   - reference__fasta__base
-  - rgnames__pl
-  - rgnames__sample
-  - rgnames__pu
-  - rgnames__lane
-  - rgnames__rg
   - rgnames__lb
+  - rgnames__rg
+  - rgnames__lane
   - reference__bwa__indexes
-  - reference__snap__indexes
+  - files
+  - config__algorithm__aligner
+  - rgnames__pl
+  - rgnames__pu
   - config__algorithm__mark_duplicates
+  - rgnames__sample
+  - reference__snap__indexes
   scatterMethod: dotproduct
 - id: prep_samples_to_rec
   in:
@@ -372,7 +419,7 @@ steps:
   - config__algorithm__coverage
   - config__algorithm__variant_regions
   scatterMethod: dotproduct
-- id: postprocess_alignment
+- id: postprocess_alignment_to_rec
   in:
   - id: align_bam
     source: alignment/align_bam
@@ -399,6 +446,47 @@ steps:
   - id: description
     source: description
   out:
+  - id: postprocess_alignment_rec
+  run: steps/postprocess_alignment_to_rec.cwl
+- id: postprocess_alignment
+  in:
+  - id: description
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['description'])
+  - id: reference__fasta__base
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['reference__fasta__base'])
+  - id: config__algorithm__coverage_interval
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__coverage_interval'])
+  - id: config__algorithm__recalibrate
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__recalibrate'])
+  - id: config__algorithm__coverage
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__coverage'])
+  - id: config__algorithm__variant_regions
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__variant_regions'])
+  - id: align_bam
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['align_bam'])
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__variant_regions_merged'])
+  - id: config__algorithm__variant_regions_orig
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__variant_regions_orig'])
+  - id: config__algorithm__coverage_merged
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__coverage_merged'])
+  - id: config__algorithm__coverage_orig
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__coverage_orig'])
+  - id: config__algorithm__seq2c_bed_ready
+    source: postprocess_alignment_to_rec/postprocess_alignment_rec
+    valueFrom: $(self['config__algorithm__seq2c_bed_ready'])
+  out:
   - id: config__algorithm__coverage_interval
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
@@ -413,18 +501,18 @@ steps:
   - id: regions__highdepth
   run: steps/postprocess_alignment.cwl
   scatter:
-  - align_bam
+  - description
+  - reference__fasta__base
   - config__algorithm__coverage_interval
+  - config__algorithm__recalibrate
+  - config__algorithm__coverage
   - config__algorithm__variant_regions
+  - align_bam
   - config__algorithm__variant_regions_merged
   - config__algorithm__variant_regions_orig
-  - config__algorithm__coverage
   - config__algorithm__coverage_merged
   - config__algorithm__coverage_orig
   - config__algorithm__seq2c_bed_ready
-  - config__algorithm__recalibrate
-  - reference__fasta__base
-  - description
   scatterMethod: dotproduct
 - id: combine_sample_regions
   in:
