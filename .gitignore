@@ -6,4 +6,5 @@ Test*
 *.R
 *.Rmd
 seqbuster_*
+target_info.yaml
 

@@ -10,9 +10,9 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
 - class: ResourceRequirement
-  coresMin: 2
+  coresMin: 1
   outdirMin: 1024
-  ramMin: 4096
+  ramMin: 2048
 inputs:
 - default: batch-parallel
   id: sentinel_parallel
@@ -216,7 +216,7 @@ inputs:
       separate: false
     items: File
     type: array
-- id: region
+- id: region_toolinput
   inputBinding:
     itemSeparator: ;;
     position: 22

@@ -10,17 +10,14 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
 - class: ResourceRequirement
-  coresMin: 2
+  coresMin: 1
   outdirMin: 1024
-  ramMin: 4096
+  ramMin: 2048
 - class: SoftwareRequirement
   packages:
   - package: htslib
     specs:
     - https://anaconda.org/bioconda/htslib
-  - package: pbgzip
-    specs:
-    - https://anaconda.org/bioconda/pbgzip
   - package: bedtools
     specs:
     - https://anaconda.org/bioconda/bedtools
@@ -59,7 +56,7 @@ inputs:
   type:
     items: File
     type: array
-- id: config__algorithm__coverage
+- id: config__algorithm__coverage_toolinput
   inputBinding:
     itemSeparator: ;;
     position: 4
@@ -70,7 +67,7 @@ inputs:
     - File
     - 'null'
     type: array
-- id: config__algorithm__variant_regions
+- id: config__algorithm__variant_regions_toolinput
   inputBinding:
     itemSeparator: ;;
     position: 5

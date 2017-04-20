@@ -10,15 +10,12 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
 - class: ResourceRequirement
-  coresMin: 2
+  coresMin: 1
   outdirMin: 1028
-  ramMin: 4096
+  ramMin: 2048
   tmpdirMin: 4
 - class: SoftwareRequirement
   packages:
-  - package: pbgzip
-    specs:
-    - https://anaconda.org/bioconda/pbgzip
   - package: grabix
     specs:
     - https://anaconda.org/bioconda/grabix
