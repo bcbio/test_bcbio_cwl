@@ -26,10 +26,6 @@
         null,
         null
     ],
-    "config__algorithm__cwl_reporting": [
-        "True",
-        null
-    ],
     "config__algorithm__mark_duplicates": [
         "True",
         "True"
@@ -102,20 +98,14 @@
             "class": "File",
             "path": "../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf"
         },
-        {
-            "class": "File",
-            "path": "../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf"
-        }
+        null
     ],
     "config__algorithm__validate_regions": [
         {
             "class": "File",
             "path": "../testdata/automated/variant_regions-bam.bed"
         },
-        {
-            "class": "File",
-            "path": "../testdata/automated/variant_regions-bam.bed"
-        }
+        null
     ],
     "config__algorithm__variant_regions": [
         {

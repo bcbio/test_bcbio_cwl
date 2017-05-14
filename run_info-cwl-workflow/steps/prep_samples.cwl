@@ -44,47 +44,34 @@ inputs:
     prefix: sentinel_outputs=
     separate: false
   type: string
-- id: description
+- default: prep_samples_rec:record
+  id: sentinel_inputs
   inputBinding:
     itemSeparator: ;;
     position: 2
-    prefix: description=
+    prefix: sentinel_inputs=
     separate: false
+  type: string
+- id: prep_samples_rec
   type:
-    items: string
-    type: array
-- id: reference__fasta__base
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: reference__fasta__base=
-    separate: false
-  type:
-    items: File
-    type: array
-- id: config__algorithm__coverage_toolinput
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: config__algorithm__coverage=
-    separate: false
-  type:
-    items:
-    - File
-    - 'null'
-    type: array
-- id: config__algorithm__variant_regions_toolinput
-  inputBinding:
-    itemSeparator: ;;
-    position: 5
-    prefix: config__algorithm__variant_regions=
-    separate: false
-  type:
-    items: File
-    type: array
+    fields:
+    - name: description
+      type: string
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__coverage
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__variant_regions
+      type: File
+    name: prep_samples_rec
+    type: record
 outputs:
 - id: config__algorithm__variant_regions
-  type: File
+  type:
+  - File
+  - 'null'
 - id: config__algorithm__variant_regions_merged
   type:
   - File
@@ -109,3 +96,9 @@ outputs:
   type:
   - File
   - 'null'
+requirements:
+- class: InlineJavascriptRequirement
+- class: InitialWorkDirRequirement
+  listing:
+  - entry: $(JSON.stringify(inputs))
+    entryname: cwl.inputs.json

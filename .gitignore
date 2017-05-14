@@ -7,4 +7,5 @@ Test*
 *.Rmd
 seqbuster_*
 target_info.yaml
-
+grading-summary*.csv
+list-files.txt

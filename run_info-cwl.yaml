@@ -26,11 +26,10 @@ details:
      svcaller: [lumpy]
      tools_on: [qualimap_full]
      tools_off: [gemini]
-     variant_regions: testdata/automated/variant_regions-bam.bed
-     coverage: testdata/automated/coverage_transcripts-bam.bed
      validate: testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
      validate_regions: testdata/automated/variant_regions-bam.bed
-     cwl_reporting: true
+     variant_regions: testdata/automated/variant_regions-bam.bed
+     coverage: testdata/automated/coverage_transcripts-bam.bed
    metadata:
      batch: b1
      phenotype: tumor
@@ -49,8 +48,6 @@ details:
      nomap_split_size: 50
      nomap_split_targets: 100
      variant_regions: testdata/automated/variant_regions-bam.bed
-     validate: testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
-     validate_regions: testdata/automated/variant_regions-bam.bed
    metadata:
      batch: b1
      phenotype: normal

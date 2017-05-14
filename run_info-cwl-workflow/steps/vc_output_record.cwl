@@ -25,7 +25,7 @@ inputs:
     prefix: sentinel_parallel=
     separate: false
   type: string
-- default: vc_rec
+- default: vc_rec:description;vrn_file;config__algorithm__validate;reference__fasta__base;reference__rtg;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__genome_context;config__algorithm__validate_regions;genome_build;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;regions__callable;config__algorithm__callable_regions;validate__summary;validate__tp;validate__fp;validate__fn
   id: sentinel_outputs
   inputBinding:
     itemSeparator: ;;
@@ -33,238 +33,88 @@ inputs:
     prefix: sentinel_outputs=
     separate: false
   type: string
-- id: description
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 2
-      prefix: description=
-      separate: false
-    items: string
-    type: array
-- id: config__algorithm__validate
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 3
-      prefix: config__algorithm__validate=
-      separate: false
-    items: File
-    type: array
-- id: reference__fasta__base
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 4
-      prefix: reference__fasta__base=
-      separate: false
-    items: File
-    type: array
-- id: reference__rtg
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 5
-      prefix: reference__rtg=
-      separate: false
-    items: File
-    type: array
-- id: config__algorithm__variantcaller
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 6
-      prefix: config__algorithm__variantcaller=
-      separate: false
-    items: string
-    type: array
-- id: config__algorithm__coverage_interval
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 7
-      prefix: config__algorithm__coverage_interval=
-      separate: false
-    items: string
-    type: array
-- id: metadata__batch
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 8
-      prefix: metadata__batch=
-      separate: false
-    items: string
-    type: array
-- id: metadata__phenotype
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 9
-      prefix: metadata__phenotype=
-      separate: false
-    items: string
-    type: array
-- id: reference__genome_context
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 10
-      prefix: reference__genome_context=
-      separate: false
-    items:
-      items: File
-      type: array
-    type: array
-- id: config__algorithm__validate_regions
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 11
-      prefix: config__algorithm__validate_regions=
-      separate: false
-    items: File
-    type: array
-- id: genome_build
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 12
-      prefix: genome_build=
-      separate: false
-    items: string
-    type: array
-- id: config__algorithm__tools_off
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 13
-      prefix: config__algorithm__tools_off=
-      separate: false
-    items:
-      items: string
-      type: array
-    type: array
-- id: genome_resources__variation__dbsnp
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 14
-      prefix: genome_resources__variation__dbsnp=
-      separate: false
-    items: File
-    type: array
-- id: genome_resources__variation__cosmic
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 15
-      prefix: genome_resources__variation__cosmic=
-      separate: false
-    items: File
-    type: array
-- id: analysis
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 16
-      prefix: analysis=
-      separate: false
-    items: string
-    type: array
-- id: config__algorithm__tools_on
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 17
-      prefix: config__algorithm__tools_on=
-      separate: false
-    items:
-      items: string
-      type: array
-    type: array
-- id: config__algorithm__variant_regions
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 18
-      prefix: config__algorithm__variant_regions=
-      separate: false
-    items: File
-    type: array
-- id: align_bam
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 19
-      prefix: align_bam=
-      separate: false
-    items: File
-    type: array
-- id: regions__callable
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 20
-      prefix: regions__callable=
-      separate: false
-    items: File
-    type: array
-- id: config__algorithm__callable_regions
-  type:
-    inputBinding:
-      itemSeparator: ;;
-      position: 21
-      prefix: config__algorithm__callable_regions=
-      separate: false
-    items: File
-    type: array
-- id: vrn_file
+- default: batch_rec:record,vrn_file:var,validate__summary:var,validate__tp:var,validate__fp:var,validate__fn:var
+  id: sentinel_inputs
   inputBinding:
     itemSeparator: ;;
-    position: 22
-    prefix: vrn_file=
+    position: 2
+    prefix: sentinel_inputs=
     separate: false
+  type: string
+- id: batch_rec
+  type:
+    items:
+      fields:
+      - name: description
+        type: string
+      - name: config__algorithm__validate
+        type: File
+      - name: reference__fasta__base
+        type: File
+      - name: reference__rtg
+        type: File
+      - name: config__algorithm__variantcaller
+        type: string
+      - name: config__algorithm__coverage_interval
+        type: string
+      - name: metadata__batch
+        type: string
+      - name: metadata__phenotype
+        type: string
+      - name: reference__genome_context
+        type:
+          items: File
+          type: array
+      - name: config__algorithm__validate_regions
+        type: File
+      - name: genome_build
+        type: string
+      - name: config__algorithm__tools_off
+        type:
+          items: string
+          type: array
+      - name: genome_resources__variation__dbsnp
+        type: File
+      - name: genome_resources__variation__cosmic
+        type: File
+      - name: analysis
+        type: string
+      - name: config__algorithm__tools_on
+        type:
+          items: string
+          type: array
+      - name: config__algorithm__variant_regions
+        type: File
+      - name: align_bam
+        type: File
+      - name: regions__callable
+        type: File
+      - name: config__algorithm__callable_regions
+        type: File
+      name: batch_rec
+      type: record
+    type: array
+- id: vrn_file
   secondaryFiles:
   - .tbi
   type: File
 - id: validate__summary
-  inputBinding:
-    itemSeparator: ;;
-    position: 23
-    prefix: validate__summary=
-    separate: false
   type:
   - File
   - 'null'
 - id: validate__tp
-  inputBinding:
-    itemSeparator: ;;
-    position: 24
-    prefix: validate__tp=
-    separate: false
   secondaryFiles:
   - .tbi
   type:
   - File
   - 'null'
 - id: validate__fp
-  inputBinding:
-    itemSeparator: ;;
-    position: 25
-    prefix: validate__fp=
-    separate: false
   secondaryFiles:
   - .tbi
   type:
   - File
   - 'null'
 - id: validate__fn
-  inputBinding:
-    itemSeparator: ;;
-    position: 26
-    prefix: validate__fn=
-    separate: false
   secondaryFiles:
   - .tbi
   type:
@@ -273,120 +123,78 @@ inputs:
 outputs:
 - id: vc_rec
   type:
-    fields:
-    - name: description
-      type:
-        items: string
-        type: array
-    - name: vrn_file
-      type:
-        items: File
-        type: array
-    - name: config__algorithm__validate
-      type:
-        items: File
-        type: array
-    - name: reference__fasta__base
-      type:
-        items: File
-        type: array
-    - name: reference__rtg
-      type:
-        items: File
-        type: array
-    - name: config__algorithm__variantcaller
-      type:
-        items: string
-        type: array
-    - name: config__algorithm__coverage_interval
-      type:
-        items: string
-        type: array
-    - name: metadata__batch
-      type:
-        items: string
-        type: array
-    - name: metadata__phenotype
-      type:
-        items: string
-        type: array
-    - name: reference__genome_context
-      type:
-        items:
+    items:
+      fields:
+      - name: description
+        type: string
+      - name: vrn_file
+        type: File
+      - name: config__algorithm__validate
+        type: File
+      - name: reference__fasta__base
+        type: File
+      - name: reference__rtg
+        type: File
+      - name: config__algorithm__variantcaller
+        type: string
+      - name: config__algorithm__coverage_interval
+        type: string
+      - name: metadata__batch
+        type: string
+      - name: metadata__phenotype
+        type: string
+      - name: reference__genome_context
+        type:
           items: File
           type: array
-        type: array
-    - name: config__algorithm__validate_regions
-      type:
-        items: File
-        type: array
-    - name: genome_build
-      type:
-        items: string
-        type: array
-    - name: config__algorithm__tools_off
-      type:
-        items:
+      - name: config__algorithm__validate_regions
+        type: File
+      - name: genome_build
+        type: string
+      - name: config__algorithm__tools_off
+        type:
           items: string
           type: array
-        type: array
-    - name: genome_resources__variation__dbsnp
-      type:
-        items: File
-        type: array
-    - name: genome_resources__variation__cosmic
-      type:
-        items: File
-        type: array
-    - name: analysis
-      type:
-        items: string
-        type: array
-    - name: config__algorithm__tools_on
-      type:
-        items:
+      - name: genome_resources__variation__dbsnp
+        type: File
+      - name: genome_resources__variation__cosmic
+        type: File
+      - name: analysis
+        type: string
+      - name: config__algorithm__tools_on
+        type:
           items: string
           type: array
-        type: array
-    - name: config__algorithm__variant_regions
-      type:
-        items: File
-        type: array
-    - name: align_bam
-      type:
-        items: File
-        type: array
-    - name: regions__callable
-      type:
-        items: File
-        type: array
-    - name: config__algorithm__callable_regions
-      type:
-        items: File
-        type: array
-    - name: validate__summary
-      type:
-        items:
+      - name: config__algorithm__variant_regions
+        type: File
+      - name: align_bam
+        type: File
+      - name: regions__callable
+        type: File
+      - name: config__algorithm__callable_regions
+        type: File
+      - name: validate__summary
+        type:
         - File
         - 'null'
-        type: array
-    - name: validate__tp
-      type:
-        items:
+      - name: validate__tp
+        type:
         - File
         - 'null'
-        type: array
-    - name: validate__fp
-      type:
-        items:
+      - name: validate__fp
+        type:
         - File
         - 'null'
-        type: array
-    - name: validate__fn
-      type:
-        items:
+      - name: validate__fn
+        type:
         - File
         - 'null'
-        type: array
-    name: vc_rec
-    type: record
+      name: vc_rec
+      type: record
+    type: array
+requirements:
+- class: InlineJavascriptRequirement
+- class: InitialWorkDirRequirement
+  listing:
+  - entry: $(JSON.stringify(inputs))
+    entryname: cwl.inputs.json
