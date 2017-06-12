@@ -8,4 +8,4 @@ Test*
 seqbuster_*
 target_info.yaml
 grading-summary*.csv
-list-files.txt
+list*files.txt
