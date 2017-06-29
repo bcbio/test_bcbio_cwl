@@ -38,7 +38,9 @@ inputs:
     - name: description
       type: string
     - name: config__algorithm__align_split_size
-      type: long
+      type:
+      - 'null'
+      - long
     - name: reference__fasta__base
       type: File
     - name: rgnames__lb

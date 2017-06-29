@@ -4,7 +4,9 @@ hints: []
 inputs:
 - id: config__algorithm__align_split_size
   type:
-    items: long
+    items:
+    - 'null'
+    - long
     type: array
 - id: config__algorithm__validate
   type:
@@ -13,6 +15,9 @@ inputs:
     - 'null'
     type: array
 - id: reference__fasta__base
+  secondaryFiles:
+  - .fai
+  - ^.dict
   type:
     items: File
     type: array
@@ -37,6 +42,8 @@ inputs:
     items: File
     type: array
 - id: genome_resources__variation__train_1000g
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -49,6 +56,8 @@ inputs:
     items: File
     type: array
 - id: genome_resources__variation__train_hapmap
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -85,12 +94,18 @@ inputs:
     items: long
     type: array
 - id: reference__bwa__indexes
+  secondaryFiles:
+  - ^.bwt
+  - ^.pac
+  - ^.sa
   type:
     items:
     - 'null'
     - File
     type: array
 - id: reference__genome_context
+  secondaryFiles:
+  - .tbi
   type:
     items:
       items: File
@@ -101,6 +116,8 @@ inputs:
     items: long
     type: array
 - id: files
+  secondaryFiles:
+  - .bai
   type:
     items:
       items: File
@@ -129,6 +146,8 @@ inputs:
     items: string
     type: array
 - id: genome_resources__variation__train_omni
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -169,6 +188,8 @@ inputs:
       type: array
     type: array
 - id: genome_resources__variation__dbsnp
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -177,6 +198,8 @@ inputs:
     items: string
     type: array
 - id: genome_resources__variation__ancestral
+  secondaryFiles:
+  - .fai
   type:
     items: File
     type: array
@@ -187,7 +210,9 @@ inputs:
 - id: reference__viral
   type:
     items:
-      items: 'null'
+      items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: genome_resources__version
@@ -195,6 +220,8 @@ inputs:
     items: long
     type: array
 - id: genome_resources__variation__cosmic
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -231,12 +258,17 @@ inputs:
     items: string
     type: array
 - id: reference__snap__indexes
+  secondaryFiles:
+  - Index
+  - IndexHash
   type:
     items:
     - File
     - 'null'
     type: array
 - id: genome_resources__variation__train_indels
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -247,7 +279,9 @@ inputs:
 - id: config__algorithm__archive
   type:
     items:
-      items: 'null'
+      items:
+      - 'null'
+      - string
       type: array
     type: array
 outputs:

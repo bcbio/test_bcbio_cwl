@@ -21,6 +21,8 @@ hints:
   ramMin: 2048
 inputs:
 - id: files
+  secondaryFiles:
+  - .bai
   type:
     items:
       items: File
@@ -28,9 +30,14 @@ inputs:
     type: array
 - id: config__algorithm__align_split_size
   type:
-    items: long
+    items:
+    - 'null'
+    - long
     type: array
 - id: reference__fasta__base
+  secondaryFiles:
+  - .fai
+  - ^.dict
   type:
     items: File
     type: array
@@ -59,12 +66,19 @@ inputs:
     items: 'null'
     type: array
 - id: reference__bwa__indexes
+  secondaryFiles:
+  - ^.bwt
+  - ^.pac
+  - ^.sa
   type:
     items:
     - 'null'
     - File
     type: array
 - id: reference__snap__indexes
+  secondaryFiles:
+  - Index
+  - IndexHash
   type:
     items:
     - File
@@ -90,7 +104,9 @@ outputs:
       - name: description
         type: string
       - name: config__algorithm__align_split_size
-        type: long
+        type:
+        - 'null'
+        - long
       - name: reference__fasta__base
         type: File
       - name: rgnames__lb

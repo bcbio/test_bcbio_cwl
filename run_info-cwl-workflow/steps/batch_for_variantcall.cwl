@@ -89,6 +89,9 @@ inputs:
       type: array
     type: array
 - id: reference__fasta__base
+  secondaryFiles:
+  - .fai
+  - ^.dict
   type:
     items: File
     type: array
@@ -97,16 +100,22 @@ inputs:
     items: File
     type: array
 - id: reference__genome_context
+  secondaryFiles:
+  - .tbi
   type:
     items:
       items: File
       type: array
     type: array
 - id: genome_resources__variation__cosmic
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
 - id: genome_resources__variation__dbsnp
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
