@@ -70,6 +70,7 @@ inputs:
     type: array
 - id: reference__bwa__indexes
   secondaryFiles:
+  - ^.ann
   - ^.bwt
   - ^.pac
   - ^.sa
