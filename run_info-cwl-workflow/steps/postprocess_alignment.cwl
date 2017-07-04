@@ -42,7 +42,9 @@ inputs:
     - name: reference__fasta__base
       type: File
     - name: config__algorithm__coverage_interval
-      type: 'null'
+      type:
+      - 'null'
+      - string
     - name: config__algorithm__recalibrate
       type: string
     - name: config__algorithm__coverage

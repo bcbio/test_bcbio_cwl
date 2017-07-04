@@ -38,6 +38,7 @@ inputs:
         type:
         - File
         - 'null'
+        - string
       - name: reference__fasta__base
         type: File
       - name: reference__rtg
@@ -58,6 +59,7 @@ inputs:
         type:
         - File
         - 'null'
+        - string
       - name: genome_build
         type: string
       - name: config__algorithm__tools_off

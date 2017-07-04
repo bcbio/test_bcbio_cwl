@@ -634,8 +634,8 @@
         }
     ],
     "reference__viral": [
-        [],
-        []
+        null,
+        null
     ],
     "rgnames__lane": [
         "Test1",

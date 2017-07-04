@@ -72,11 +72,14 @@ inputs:
     - name: config__algorithm__align_split_size
       type:
       - 'null'
+      - string
       - long
     - name: reference__fasta__base
       type: File
     - name: rgnames__lb
-      type: 'null'
+      type:
+      - 'null'
+      - string
     - name: rgnames__rg
       type: string
     - name: rgnames__lane
@@ -84,6 +87,7 @@ inputs:
     - name: reference__bwa__indexes
       type:
       - 'null'
+      - string
       - File
     - name: files
       type:
@@ -103,6 +107,7 @@ inputs:
       type:
       - File
       - 'null'
+      - string
     name: alignment_rec
     type: record
 - id: process_alignment_rec

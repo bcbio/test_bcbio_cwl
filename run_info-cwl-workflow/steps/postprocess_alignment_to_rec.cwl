@@ -28,7 +28,9 @@ inputs:
     type: array
 - id: config__algorithm__coverage_interval
   type:
-    items: 'null'
+    items:
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__variant_regions
   type:
@@ -97,7 +99,9 @@ outputs:
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__coverage_interval
-        type: 'null'
+        type:
+        - 'null'
+        - string
       - name: config__algorithm__recalibrate
         type: string
       - name: config__algorithm__coverage

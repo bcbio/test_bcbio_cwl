@@ -69,12 +69,14 @@ inputs:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: config__algorithm__validate_regions
   type:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: config__algorithm__tools_on
   type:
@@ -96,6 +98,17 @@ inputs:
     items: File
     type: array
 - id: reference__rtg
+  secondaryFiles:
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/done
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/format.log
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/nameIndex0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namedata0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namepointer0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/progress
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqdata0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqpointer0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/sequenceIndex0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/summary.txt
   type:
     items: File
     type: array
@@ -135,6 +148,7 @@ outputs:
           type:
           - File
           - 'null'
+          - string
         - name: reference__fasta__base
           type: File
         - name: reference__rtg
@@ -155,6 +169,7 @@ outputs:
           type:
           - File
           - 'null'
+          - string
         - name: genome_build
           type: string
         - name: config__algorithm__tools_off

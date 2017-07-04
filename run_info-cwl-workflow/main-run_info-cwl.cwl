@@ -6,6 +6,7 @@ inputs:
   type:
     items:
     - 'null'
+    - string
     - long
     type: array
 - id: config__algorithm__validate
@@ -13,6 +14,7 @@ inputs:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: reference__fasta__base
   secondaryFiles:
@@ -22,6 +24,17 @@ inputs:
     items: File
     type: array
 - id: reference__rtg
+  secondaryFiles:
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/done
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/format.log
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/nameIndex0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namedata0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namepointer0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/progress
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqdata0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqpointer0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/sequenceIndex0
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/summary.txt
   type:
     items: File
     type: array
@@ -49,7 +62,9 @@ inputs:
     type: array
 - id: config__algorithm__coverage_interval
   type:
-    items: 'null'
+    items:
+    - 'null'
+    - string
     type: array
 - id: genome_resources__rnaseq__gene_bed
   type:
@@ -63,7 +78,9 @@ inputs:
     type: array
 - id: rgnames__lb
   type:
-    items: 'null'
+    items:
+    - 'null'
+    - string
     type: array
 - id: genome_resources__variation__dbnsfp
   type:
@@ -101,6 +118,7 @@ inputs:
   type:
     items:
     - 'null'
+    - string
     - File
     type: array
 - id: reference__genome_context
@@ -128,6 +146,8 @@ inputs:
     items: string
     type: array
 - id: reference__snpeff__hg19
+  secondaryFiles:
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/genes.gtf
   type:
     items: File
     type: array
@@ -140,6 +160,7 @@ inputs:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: config__algorithm__aligner
   type:
@@ -172,6 +193,7 @@ inputs:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: genome_resources__rnaseq__transcripts
   type:
@@ -205,15 +227,15 @@ inputs:
     type: array
 - id: vrn_file
   type:
-    items: 'null'
+    items:
+    - 'null'
+    - string
     type: array
 - id: reference__viral
   type:
     items:
-      items:
-      - 'null'
-      - string
-      type: array
+    - 'null'
+    - string
     type: array
 - id: genome_resources__version
   type:
@@ -261,10 +283,12 @@ inputs:
   secondaryFiles:
   - Index
   - IndexHash
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/OverflowTable
   type:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: genome_resources__variation__train_indels
   secondaryFiles:
@@ -309,6 +333,7 @@ requirements:
   envDef:
   - envName: MPLCONFIGDIR
     envValue: .
+- class: InlineJavascriptRequirement
 - class: ScatterFeatureRequirement
 - class: SubworkflowFeatureRequirement
 steps:

@@ -42,6 +42,7 @@ inputs:
       type:
       - File
       - 'null'
+      - string
     - name: config__algorithm__variant_regions
       type: File
     name: prep_samples_rec

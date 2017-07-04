@@ -32,6 +32,7 @@ inputs:
   type:
     items:
     - 'null'
+    - string
     - long
     type: array
 - id: reference__fasta__base
@@ -63,7 +64,9 @@ inputs:
     type: array
 - id: rgnames__lb
   type:
-    items: 'null'
+    items:
+    - 'null'
+    - string
     type: array
 - id: reference__bwa__indexes
   secondaryFiles:
@@ -73,16 +76,19 @@ inputs:
   type:
     items:
     - 'null'
+    - string
     - File
     type: array
 - id: reference__snap__indexes
   secondaryFiles:
   - Index
   - IndexHash
+  - $(self.location.substr(0, self.location.lastIndexOf("/")))/OverflowTable
   type:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: config__algorithm__aligner
   type:
@@ -106,11 +112,14 @@ outputs:
       - name: config__algorithm__align_split_size
         type:
         - 'null'
+        - string
         - long
       - name: reference__fasta__base
         type: File
       - name: rgnames__lb
-        type: 'null'
+        type:
+        - 'null'
+        - string
       - name: rgnames__rg
         type: string
       - name: rgnames__lane
@@ -118,6 +127,7 @@ outputs:
       - name: reference__bwa__indexes
         type:
         - 'null'
+        - string
         - File
       - name: files
         type:
@@ -137,6 +147,7 @@ outputs:
         type:
         - File
         - 'null'
+        - string
       name: alignment_rec
       type: record
     type: array

@@ -25,6 +25,7 @@ inputs:
     items:
     - File
     - 'null'
+    - string
     type: array
 - id: config__algorithm__variant_regions
   type:
@@ -54,6 +55,7 @@ outputs:
         type:
         - File
         - 'null'
+        - string
       - name: config__algorithm__variant_regions
         type: File
       name: prep_samples_rec
