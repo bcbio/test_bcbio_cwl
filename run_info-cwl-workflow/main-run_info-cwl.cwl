@@ -304,10 +304,8 @@ inputs:
 - id: config__algorithm__archive
   type:
     items:
-      items:
-      - 'null'
-      - string
-      type: array
+    - 'null'
+    - string
     type: array
 outputs:
 - id: align_bam

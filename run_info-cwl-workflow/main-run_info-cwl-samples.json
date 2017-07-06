@@ -12,8 +12,8 @@
         "bwa"
     ],
     "config__algorithm__archive": [
-        [],
-        []
+        null,
+        null
     ],
     "config__algorithm__coverage": [
         {
