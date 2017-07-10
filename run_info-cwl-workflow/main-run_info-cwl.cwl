@@ -24,17 +24,6 @@ inputs:
     items: File
     type: array
 - id: reference__rtg
-  secondaryFiles:
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/done
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/format.log
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/nameIndex0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namedata0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namepointer0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/progress
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqdata0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqpointer0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/sequenceIndex0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/summary.txt
   type:
     items: File
     type: array
@@ -92,7 +81,10 @@ inputs:
     type: array
 - id: config__algorithm__realign
   type:
-    items: string
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: metadata__batch
   type:
@@ -111,11 +103,6 @@ inputs:
     items: long
     type: array
 - id: reference__bwa__indexes
-  secondaryFiles:
-  - ^.ann
-  - ^.bwt
-  - ^.pac
-  - ^.sa
   type:
     items:
     - 'null'
@@ -147,8 +134,6 @@ inputs:
     items: string
     type: array
 - id: reference__snpeff__hg19
-  secondaryFiles:
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/genes.gtf
   type:
     items: File
     type: array
@@ -187,7 +172,10 @@ inputs:
     type: array
 - id: config__algorithm__recalibrate
   type:
-    items: string
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: config__algorithm__coverage
   type:
@@ -202,7 +190,10 @@ inputs:
     type: array
 - id: genome_resources__aliases__human
   type:
-    items: string
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: config__algorithm__tools_off
   type:
@@ -218,7 +209,10 @@ inputs:
     type: array
 - id: config__algorithm__mark_duplicates
   type:
-    items: string
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: genome_resources__variation__ancestral
   secondaryFiles:
@@ -281,10 +275,6 @@ inputs:
     items: string
     type: array
 - id: reference__snap__indexes
-  secondaryFiles:
-  - Index
-  - IndexHash
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/OverflowTable
   type:
     items:
     - File
@@ -332,7 +322,6 @@ requirements:
   envDef:
   - envName: MPLCONFIGDIR
     envValue: .
-- class: InlineJavascriptRequirement
 - class: ScatterFeatureRequirement
 - class: SubworkflowFeatureRequirement
 steps:
@@ -568,6 +557,14 @@ steps:
     source: genome_resources__variation__cosmic
   - id: genome_resources__variation__dbsnp
     source: genome_resources__variation__dbsnp
+  - id: genome_resources__aliases__ensembl
+    source: genome_resources__aliases__ensembl
+  - id: genome_resources__aliases__human
+    source: genome_resources__aliases__human
+  - id: genome_resources__aliases__snpeff
+    source: genome_resources__aliases__snpeff
+  - id: reference__snpeff__hg19
+    source: reference__snpeff__hg19
   - id: description
     source: description
   out:

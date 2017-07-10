@@ -55,6 +55,8 @@ inputs:
         type:
           items: File
           type: array
+      - name: reference__snpeff__hg19
+        type: File
       - name: config__algorithm__validate_regions
         type:
         - File
@@ -62,6 +64,11 @@ inputs:
         - string
       - name: genome_build
         type: string
+      - name: genome_resources__aliases__human
+        type:
+        - string
+        - 'null'
+        - boolean
       - name: config__algorithm__tools_off
         type:
           items: string
@@ -78,6 +85,10 @@ inputs:
           type: array
       - name: config__algorithm__variant_regions
         type: File
+      - name: genome_resources__aliases__ensembl
+        type: string
+      - name: genome_resources__aliases__snpeff
+        type: string
       - name: align_bam
         type: File
       - name: regions__sample_callable

@@ -68,7 +68,10 @@ inputs:
     - name: rgnames__pu
       type: string
     - name: config__algorithm__mark_duplicates
-      type: string
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: rgnames__sample
       type: string
     - name: reference__snap__indexes

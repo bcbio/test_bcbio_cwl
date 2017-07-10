@@ -86,9 +86,11 @@
     ],
     "config__algorithm__tools_on": [
         [
+            "gatk4",
             "qualimap_full"
         ],
         [
+            "gatk4",
             "gvcf",
             "qualimap_full"
         ]
@@ -391,25 +393,7 @@
         null,
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/bwa/hg19.fa.amb",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.ann"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.bwt"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.pac"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/bwa/hg19.fa.sa"
-                }
-            ]
+            "path": "../testdata/genomes/hg19/bwa-wf.tar.gz"
         }
     ],
     "reference__fasta__base": [
@@ -491,146 +475,28 @@
     "reference__rtg": [
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/rtg/hg19.sdf/mainIndex",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/done"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/format.log"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/nameIndex0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/namedata0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/namepointer0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/progress"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/seqdata0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/seqpointer0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/sequenceIndex0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/summary.txt"
-                }
-            ]
+            "path": "../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
         },
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/rtg/hg19.sdf/mainIndex",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/done"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/format.log"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/nameIndex0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/namedata0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/namepointer0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/progress"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/seqdata0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/seqpointer0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/sequenceIndex0"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/rtg/hg19.sdf/summary.txt"
-                }
-            ]
+            "path": "../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
         }
     ],
     "reference__snap__indexes": [
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/snap/Genome",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snap/GenomeIndex"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snap/GenomeIndexHash"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snap/OverflowTable"
-                }
-            ]
+            "path": "../testdata/genomes/hg19/snap-wf.tar.gz"
         },
         null
     ],
     "reference__snpeff__hg19": [
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/snpeff/hg19/sequences.fa",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snpeff/hg19/genes.gtf"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snpeff/hg19/snpEffectPredictor.bin"
-                }
-            ]
+            "path": "../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
         },
         {
             "class": "File",
-            "path": "../testdata/genomes/hg19/snpeff/hg19/sequences.fa",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snpeff/hg19/genes.gtf"
-                },
-                {
-                    "class": "File",
-                    "path": "../testdata/genomes/hg19/snpeff/hg19/snpEffectPredictor.bin"
-                }
-            ]
+            "path": "../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
         }
     ],
     "reference__viral": [

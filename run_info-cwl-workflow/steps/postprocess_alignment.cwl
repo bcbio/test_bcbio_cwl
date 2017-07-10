@@ -46,7 +46,10 @@ inputs:
       - 'null'
       - string
     - name: config__algorithm__recalibrate
-      type: string
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: config__algorithm__coverage
       type:
       - File

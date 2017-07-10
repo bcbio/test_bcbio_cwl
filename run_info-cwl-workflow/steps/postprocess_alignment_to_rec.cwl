@@ -76,7 +76,10 @@ inputs:
     type: array
 - id: config__algorithm__recalibrate
   type:
-    items: string
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: reference__fasta__base
   secondaryFiles:
@@ -103,7 +106,10 @@ outputs:
         - 'null'
         - string
       - name: config__algorithm__recalibrate
-        type: string
+        type:
+        - string
+        - 'null'
+        - boolean
       - name: config__algorithm__coverage
         type:
         - File

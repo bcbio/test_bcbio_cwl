@@ -69,11 +69,6 @@ inputs:
     - string
     type: array
 - id: reference__bwa__indexes
-  secondaryFiles:
-  - ^.ann
-  - ^.bwt
-  - ^.pac
-  - ^.sa
   type:
     items:
     - 'null'
@@ -81,10 +76,6 @@ inputs:
     - File
     type: array
 - id: reference__snap__indexes
-  secondaryFiles:
-  - Index
-  - IndexHash
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/OverflowTable
   type:
     items:
     - File
@@ -97,7 +88,10 @@ inputs:
     type: array
 - id: config__algorithm__mark_duplicates
   type:
-    items: string
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: description
   type:
@@ -141,7 +135,10 @@ outputs:
       - name: rgnames__pu
         type: string
       - name: config__algorithm__mark_duplicates
-        type: string
+        type:
+        - string
+        - 'null'
+        - boolean
       - name: rgnames__sample
         type: string
       - name: reference__snap__indexes

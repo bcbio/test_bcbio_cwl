@@ -2,8 +2,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-batch
-- sentinel_outputs=batch_rec:description;config__algorithm__validate;reference__fasta__base;reference__rtg;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__genome_context;config__algorithm__validate_regions;genome_build;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;regions__sample_callable;config__algorithm__callable_regions
-- sentinel_inputs=analysis:var,genome_build:var,align_bam:var,config__algorithm__callable_regions:var,metadata__batch:var,metadata__phenotype:var,regions__sample_callable:var,config__algorithm__variantcaller:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__validate:var,config__algorithm__validate_regions:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,reference__fasta__base:var,reference__rtg:var,reference__genome_context:var,genome_resources__variation__cosmic:var,genome_resources__variation__dbsnp:var,description:var
+- sentinel_outputs=batch_rec:description;config__algorithm__validate;reference__fasta__base;reference__rtg;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__genome_context;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;genome_resources__aliases__ensembl;genome_resources__aliases__snpeff;align_bam;regions__sample_callable;config__algorithm__callable_regions
+- sentinel_inputs=analysis:var,genome_build:var,align_bam:var,config__algorithm__callable_regions:var,metadata__batch:var,metadata__phenotype:var,regions__sample_callable:var,config__algorithm__variantcaller:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__validate:var,config__algorithm__validate_regions:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,reference__fasta__base:var,reference__rtg:var,reference__genome_context:var,genome_resources__variation__cosmic:var,genome_resources__variation__dbsnp:var,genome_resources__aliases__ensembl:var,genome_resources__aliases__human:var,genome_resources__aliases__snpeff:var,reference__snpeff__hg19:var,description:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -98,17 +98,6 @@ inputs:
     items: File
     type: array
 - id: reference__rtg
-  secondaryFiles:
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/done
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/format.log
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/nameIndex0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namedata0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/namepointer0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/progress
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqdata0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/seqpointer0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/sequenceIndex0
-  - $(self.location.substr(0, self.location.lastIndexOf("/")))/summary.txt
   type:
     items: File
     type: array
@@ -129,6 +118,25 @@ inputs:
 - id: genome_resources__variation__dbsnp
   secondaryFiles:
   - .tbi
+  type:
+    items: File
+    type: array
+- id: genome_resources__aliases__ensembl
+  type:
+    items: string
+    type: array
+- id: genome_resources__aliases__human
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
+- id: genome_resources__aliases__snpeff
+  type:
+    items: string
+    type: array
+- id: reference__snpeff__hg19
   type:
     items: File
     type: array
@@ -165,6 +173,8 @@ outputs:
           type:
             items: File
             type: array
+        - name: reference__snpeff__hg19
+          type: File
         - name: config__algorithm__validate_regions
           type:
           - File
@@ -172,6 +182,11 @@ outputs:
           - string
         - name: genome_build
           type: string
+        - name: genome_resources__aliases__human
+          type:
+          - string
+          - 'null'
+          - boolean
         - name: config__algorithm__tools_off
           type:
             items: string
@@ -188,6 +203,10 @@ outputs:
             type: array
         - name: config__algorithm__variant_regions
           type: File
+        - name: genome_resources__aliases__ensembl
+          type: string
+        - name: genome_resources__aliases__snpeff
+          type: string
         - name: align_bam
           type: File
         - name: regions__sample_callable
