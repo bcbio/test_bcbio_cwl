@@ -5,6 +5,11 @@
 workflow alignment {
     AlignmentRec alignment_rec
     
+    call prep_align_inputs {
+        input: alignment_rec=alignment_rec
+    }
+
+
     call merge_split_alignments {
         input: alignment_rec=alignment_rec, 
           work_bam=process_alignment.work_bam, 
@@ -24,11 +29,6 @@ workflow alignment {
   
     }
 
-
-    call prep_align_inputs {
-        input: alignment_rec=alignment_rec
-    }
-
     
    output {
      File align_bam = merge_split_alignments.align_bam
@@ -38,6 +38,31 @@ workflow alignment {
    }
 
 }
+
+task prep_align_inputs {
+    AlignmentRec alignment_rec
+
+    command {
+        bcbio_nextgen.py runfn prep_align_inputs cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=single-split \
+        sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split \
+        sentinel_inputs=alignment_rec:record \
+        ${alignment_rec}
+    }
+
+    output {
+        Array[ProcessAlignmentRec] process_alignment_rec = read_struct('wdl.output.process_alignment_rec.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-align'
+        cpu: '1'
+        memory: '2048 MB'
+        disks: 'local-disk 4 HDD'
+    }
+}
+
 
 task merge_split_alignments {
     AlignmentRec alignment_rec
@@ -49,7 +74,7 @@ task merge_split_alignments {
 
     command {
         bcbio_nextgen.py runfn merge_split_alignments cwl \
-        sentienl_runtime=cores,2,ram,4096MB \
+        sentinel_runtime=cores,2,ram,4096MB \
         sentinel_parallel=single-merge \
         sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq \
         sentinel_inputs=alignment_rec:record,work_bam:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,hla__fastq:var \
@@ -83,7 +108,7 @@ task process_alignment {
 
     command {
         bcbio_nextgen.py runfn process_alignment cwl \
-        sentienl_runtime=cores,2,ram,4096MB \
+        sentinel_runtime=cores,2,ram,4096MB \
         sentinel_parallel=single-parallel \
         sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr \
         sentinel_inputs=alignment_rec:record,process_alignment_rec:record \
@@ -103,31 +128,6 @@ task process_alignment {
         docker: 'quay.io/bcbio/bcbio-align'
         cpu: '2'
         memory: '4096 MB'
-        disks: 'local-disk 4 HDD'
-    }
-}
-
-
-task prep_align_inputs {
-    AlignmentRec alignment_rec
-
-    command {
-        bcbio_nextgen.py runfn prep_align_inputs cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=single-split \
-        sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split \
-        sentinel_inputs=alignment_rec:record \
-        ${alignment_rec}
-    }
-
-    output {
-        Array[ProcessAlignmentRec] process_alignment_rec = read_struct('wdl.output.process_alignment_rec.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
-        cpu: '1'
-        memory: '2048 MB'
         disks: 'local-disk 4 HDD'
     }
 }

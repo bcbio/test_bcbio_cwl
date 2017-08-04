@@ -24,14 +24,18 @@ struct VcRec {
  metadata__batch: String,
  metadata__phenotype: String,
  reference__genome_context: Array[File],
+ reference__snpeff__hg19: File,
  config__algorithm__validate_regions: File,
  genome_build: String,
+ genome_resources__aliases__human: String,
  config__algorithm__tools_off: Array[String],
  genome_resources__variation__dbsnp: File,
  genome_resources__variation__cosmic: File,
  analysis: String,
  config__algorithm__tools_on: Array[String],
  config__algorithm__variant_regions: File,
+ genome_resources__aliases__ensembl: String,
+ genome_resources__aliases__snpeff: String,
  align_bam: File,
  regions__sample_callable: File,
  config__algorithm__callable_regions: File
@@ -52,20 +56,21 @@ struct PostprocessAlignmentRec {
  config__algorithm__seq2c_bed_ready: File
 }
 
-struct QcRec {
+struct AlignmentRec {
  description: String,
+ config__algorithm__align_split_size: String,
  reference__fasta__base: File,
- config__algorithm__coverage_interval: String,
- genome_build: String,
- config__algorithm__coverage: File,
- config__algorithm__tools_off: Array[String],
- config__algorithm__qc: Array[String],
- analysis: String,
- config__algorithm__tools_on: Array[String],
- config__algorithm__variant_regions: File,
- align_bam: File,
- config__algorithm__variant_regions_merged: File,
- config__algorithm__coverage_merged: File
+ rgnames__lb: String,
+ rgnames__rg: String,
+ rgnames__lane: String,
+ reference__bwa__indexes: String,
+ files: Array[File],
+ config__algorithm__aligner: String,
+ rgnames__pl: String,
+ rgnames__pu: String,
+ config__algorithm__mark_duplicates: String,
+ rgnames__sample: String,
+ reference__snap__indexes: File
 }
 
 struct PrepSamplesRec {
@@ -85,34 +90,37 @@ struct BatchRec {
  metadata__batch: String,
  metadata__phenotype: String,
  reference__genome_context: Array[File],
+ reference__snpeff__hg19: File,
  config__algorithm__validate_regions: File,
  genome_build: String,
+ genome_resources__aliases__human: String,
  config__algorithm__tools_off: Array[String],
  genome_resources__variation__dbsnp: File,
  genome_resources__variation__cosmic: File,
  analysis: String,
  config__algorithm__tools_on: Array[String],
  config__algorithm__variant_regions: File,
+ genome_resources__aliases__ensembl: String,
+ genome_resources__aliases__snpeff: String,
  align_bam: File,
  regions__sample_callable: File,
  config__algorithm__callable_regions: File
 }
 
-struct AlignmentRec {
+struct QcRec {
  description: String,
- config__algorithm__align_split_size: Float,
  reference__fasta__base: File,
- rgnames__lb: String,
- rgnames__rg: String,
- rgnames__lane: String,
- reference__bwa__indexes: File,
- files: Array[File],
- config__algorithm__aligner: String,
- rgnames__pl: String,
- rgnames__pu: String,
- config__algorithm__mark_duplicates: String,
- rgnames__sample: String,
- reference__snap__indexes: File
+ config__algorithm__coverage_interval: String,
+ genome_build: String,
+ config__algorithm__coverage: File,
+ config__algorithm__tools_off: Array[String],
+ config__algorithm__qc: Array[String],
+ analysis: String,
+ config__algorithm__tools_on: Array[String],
+ config__algorithm__variant_regions: File,
+ align_bam: File,
+ config__algorithm__variant_regions_merged: File,
+ config__algorithm__coverage_merged: File
 }
 
 struct QcoutRec {
@@ -135,7 +143,7 @@ struct QcoutRec {
 
 
 workflow main_run_info_cwl {
-    Array[Float] config__algorithm__align_split_size
+    Array[String] config__algorithm__align_split_size
     Array[File] config__algorithm__validate
     Array[File] reference__fasta__base
     Array[File] reference__rtg
@@ -154,7 +162,7 @@ workflow main_run_info_cwl {
     Array[String] rgnames__lane
     Array[String] metadata__phenotype
     Array[Float] config__algorithm__nomap_split_targets
-    Array[File] reference__bwa__indexes
+    Array[String] reference__bwa__indexes
     Array[Array[File]] reference__genome_context
     Array[Float] config__algorithm__nomap_split_size
     Array[Array[File]] files
@@ -176,7 +184,7 @@ workflow main_run_info_cwl {
     Array[String] config__algorithm__mark_duplicates
     Array[File] genome_resources__variation__ancestral
     Array[String] vrn_file
-    Array[Array[String]] reference__viral
+    Array[String] reference__viral
     Array[Float] genome_resources__version
     Array[File] genome_resources__variation__cosmic
     Array[String] genome_resources__srnaseq__mirbase
@@ -189,24 +197,8 @@ workflow main_run_info_cwl {
     Array[File] reference__snap__indexes
     Array[File] genome_resources__variation__train_indels
     Array[String] genome_resources__aliases__snpeff
-    Array[Array[String]] config__algorithm__archive
+    Array[String] config__algorithm__archive
     
-    call postprocess_alignment_to_rec {
-        input: align_bam=alignment.align_bam, 
-          config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
-          config__algorithm__variant_regions=prep_samples.config__algorithm__variant_regions, 
-          config__algorithm__variant_regions_merged=prep_samples.config__algorithm__variant_regions_merged, 
-          config__algorithm__variant_regions_orig=prep_samples.config__algorithm__variant_regions_orig, 
-          config__algorithm__coverage=prep_samples.config__algorithm__coverage, 
-          config__algorithm__coverage_merged=prep_samples.config__algorithm__coverage_merged, 
-          config__algorithm__coverage_orig=prep_samples.config__algorithm__coverage_orig, 
-          config__algorithm__seq2c_bed_ready=prep_samples.config__algorithm__seq2c_bed_ready, 
-          config__algorithm__recalibrate=config__algorithm__recalibrate, 
-          reference__fasta__base=reference__fasta__base, 
-          description=description
-    }
-
-
     scatter (qc_rec_local in qc_to_rec.qc_rec) {
   
       call pipeline_summary {
@@ -216,11 +208,8 @@ workflow main_run_info_cwl {
     }
 
 
-    call prep_samples_to_rec {
-        input: config__algorithm__coverage=config__algorithm__coverage, 
-          config__algorithm__variant_regions=config__algorithm__variant_regions, 
-          reference__fasta__base=reference__fasta__base, 
-          description=description
+    call multiqc_summary {
+        input: qcout_rec=pipeline_summary.qcout_rec
     }
 
 
@@ -238,34 +227,6 @@ workflow main_run_info_cwl {
           config__algorithm__coverage=postprocess_alignment.config__algorithm__coverage, 
           config__algorithm__coverage_merged=postprocess_alignment.config__algorithm__coverage_merged, 
           description=description
-    }
-
-
-    call summarize_grading_vc {
-        input: vc_rec=variantcall.vc_rec
-    }
-
-
-    scatter (prep_samples_rec_local in prep_samples_to_rec.prep_samples_rec) {
-  
-      call prep_samples {
-          input: prep_samples_rec=prep_samples_rec_local
-      }
-  
-    }
-
-
-    call multiqc_summary {
-        input: qcout_rec=pipeline_summary.qcout_rec
-    }
-
-
-    scatter (postprocess_alignment_rec_local in postprocess_alignment_to_rec.postprocess_alignment_rec) {
-  
-      call postprocess_alignment {
-          input: postprocess_alignment_rec=postprocess_alignment_rec_local
-      }
-  
     }
 
 
@@ -289,16 +250,10 @@ workflow main_run_info_cwl {
           reference__genome_context=reference__genome_context, 
           genome_resources__variation__cosmic=genome_resources__variation__cosmic, 
           genome_resources__variation__dbsnp=genome_resources__variation__dbsnp, 
-          description=description
-    }
-
-
-    call combine_sample_regions {
-        input: regions__callable=postprocess_alignment.regions__callable, 
-          regions__nblock=postprocess_alignment.regions__nblock, 
-          config__algorithm__nomap_split_size=config__algorithm__nomap_split_size, 
-          config__algorithm__nomap_split_targets=config__algorithm__nomap_split_targets, 
-          reference__fasta__base=reference__fasta__base, 
+          genome_resources__aliases__ensembl=genome_resources__aliases__ensembl, 
+          genome_resources__aliases__human=genome_resources__aliases__human, 
+          genome_resources__aliases__snpeff=genome_resources__aliases__snpeff, 
+          reference__snpeff__hg19=reference__snpeff__hg19, 
           description=description
     }
 
@@ -318,6 +273,63 @@ workflow main_run_info_cwl {
           config__algorithm__aligner=config__algorithm__aligner, 
           config__algorithm__mark_duplicates=config__algorithm__mark_duplicates, 
           description=description
+    }
+
+
+    call postprocess_alignment_to_rec {
+        input: align_bam=alignment.align_bam, 
+          config__algorithm__coverage_interval=config__algorithm__coverage_interval, 
+          config__algorithm__variant_regions=prep_samples.config__algorithm__variant_regions, 
+          config__algorithm__variant_regions_merged=prep_samples.config__algorithm__variant_regions_merged, 
+          config__algorithm__variant_regions_orig=prep_samples.config__algorithm__variant_regions_orig, 
+          config__algorithm__coverage=prep_samples.config__algorithm__coverage, 
+          config__algorithm__coverage_merged=prep_samples.config__algorithm__coverage_merged, 
+          config__algorithm__coverage_orig=prep_samples.config__algorithm__coverage_orig, 
+          config__algorithm__seq2c_bed_ready=prep_samples.config__algorithm__seq2c_bed_ready, 
+          config__algorithm__recalibrate=config__algorithm__recalibrate, 
+          reference__fasta__base=reference__fasta__base, 
+          description=description
+    }
+
+
+    call summarize_grading_vc {
+        input: vc_rec=variantcall.vc_rec
+    }
+
+
+    call prep_samples_to_rec {
+        input: config__algorithm__coverage=config__algorithm__coverage, 
+          config__algorithm__variant_regions=config__algorithm__variant_regions, 
+          reference__fasta__base=reference__fasta__base, 
+          description=description
+    }
+
+
+    scatter (prep_samples_rec_local in prep_samples_to_rec.prep_samples_rec) {
+  
+      call prep_samples {
+          input: prep_samples_rec=prep_samples_rec_local
+      }
+  
+    }
+
+
+    call combine_sample_regions {
+        input: regions__callable=postprocess_alignment.regions__callable, 
+          regions__nblock=postprocess_alignment.regions__nblock, 
+          config__algorithm__nomap_split_size=config__algorithm__nomap_split_size, 
+          config__algorithm__nomap_split_targets=config__algorithm__nomap_split_targets, 
+          reference__fasta__base=reference__fasta__base, 
+          description=description
+    }
+
+
+    scatter (postprocess_alignment_rec_local in postprocess_alignment_to_rec.postprocess_alignment_rec) {
+  
+      call postprocess_alignment {
+          input: postprocess_alignment_rec=postprocess_alignment_rec_local
+      }
+  
     }
 
 
@@ -347,58 +359,12 @@ workflow main_run_info_cwl {
 
 }
 
-task postprocess_alignment_to_rec {
-    Array[File] align_bam
-    Array[String] config__algorithm__coverage_interval
-    Array[File] config__algorithm__variant_regions
-    Array[File] config__algorithm__variant_regions_merged
-    Array[File] config__algorithm__variant_regions_orig
-    Array[File] config__algorithm__coverage
-    Array[File] config__algorithm__coverage_merged
-    Array[File] config__algorithm__coverage_orig
-    Array[File] config__algorithm__seq2c_bed_ready
-    Array[String] config__algorithm__recalibrate
-    Array[File] reference__fasta__base
-    Array[String] description
-
-    command {
-        bcbio_nextgen.py runfn postprocess_alignment_to_rec cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=multi-combined \
-        sentinel_outputs=postprocess_alignment_rec:description;reference__fasta__base;config__algorithm__coverage_interval;config__algorithm__recalibrate;config__algorithm__coverage;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__variant_regions_orig;config__algorithm__coverage_merged;config__algorithm__coverage_orig;config__algorithm__seq2c_bed_ready \
-        sentinel_inputs=align_bam:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__variant_regions_orig:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,config__algorithm__coverage_orig:var,config__algorithm__seq2c_bed_ready:var,config__algorithm__recalibrate:var,reference__fasta__base:var,description:var \
-        ${sep=';;' align_bam} \
-        ${sep=';;' config__algorithm__coverage_interval} \
-        ${sep=';;' config__algorithm__variant_regions} \
-        ${sep=';;' config__algorithm__variant_regions_merged} \
-        ${sep=';;' config__algorithm__variant_regions_orig} \
-        ${sep=';;' config__algorithm__coverage} \
-        ${sep=';;' config__algorithm__coverage_merged} \
-        ${sep=';;' config__algorithm__coverage_orig} \
-        ${sep=';;' config__algorithm__seq2c_bed_ready} \
-        ${sep=';;' config__algorithm__recalibrate} \
-        ${sep=';;' reference__fasta__base} \
-        ${sep=';;' description}
-    }
-
-    output {
-        Array[PostprocessAlignmentRec] postprocess_alignment_rec = read_struct('wdl.output.postprocess_alignment_rec.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-base'
-        cpu: '1'
-        memory: '2048 MB'
-    }
-}
-
-
 task pipeline_summary {
     QcRec qc_rec
 
     command {
         bcbio_nextgen.py runfn pipeline_summary cwl \
-        sentienl_runtime=cores,2,ram,4096MB \
+        sentinel_runtime=cores,2,ram,4096MB \
         sentinel_parallel=multi-parallel \
         sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged \
         sentinel_inputs=qc_rec:record \
@@ -417,30 +383,24 @@ task pipeline_summary {
 }
 
 
-task prep_samples_to_rec {
-    Array[File] config__algorithm__coverage
-    Array[File] config__algorithm__variant_regions
-    Array[File] reference__fasta__base
-    Array[String] description
+task multiqc_summary {
+    Array[QcoutRec] qcout_rec
 
     command {
-        bcbio_nextgen.py runfn prep_samples_to_rec cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
+        bcbio_nextgen.py runfn multiqc_summary cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
         sentinel_parallel=multi-combined \
-        sentinel_outputs=prep_samples_rec:description;reference__fasta__base;config__algorithm__coverage;config__algorithm__variant_regions \
-        sentinel_inputs=config__algorithm__coverage:var,config__algorithm__variant_regions:var,reference__fasta__base:var,description:var \
-        ${sep=';;' config__algorithm__coverage} \
-        ${sep=';;' config__algorithm__variant_regions} \
-        ${sep=';;' reference__fasta__base} \
-        ${sep=';;' description}
+        sentinel_outputs=summary__multiqc \
+        sentinel_inputs=qcout_rec:record \
+        ${write_struct(qcout_rec)}
     }
 
     output {
-        Array[PrepSamplesRec] prep_samples_rec = read_struct('wdl.output.prep_samples_rec.txt')
+        Array[File] summary__multiqc = read_lines('wdl.output.summary__multiqc.txt')
     }
 
     runtime {
-        docker: 'quay.io/bcbio/bcbio-base'
+        docker: 'quay.io/bcbio/bcbio-qc'
         cpu: '1'
         memory: '2048 MB'
     }
@@ -464,7 +424,7 @@ task qc_to_rec {
 
     command {
         bcbio_nextgen.py runfn qc_to_rec cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
+        sentinel_runtime=cores,1,ram,2048MB \
         sentinel_parallel=multi-combined \
         sentinel_outputs=qc_rec:description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged \
         sentinel_inputs=align_bam:var,analysis:var,reference__fasta__base:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,description:var \
@@ -495,120 +455,6 @@ task qc_to_rec {
 }
 
 
-task summarize_grading_vc {
-    Array[Array[VcRec]] vc_rec
-
-    command {
-        bcbio_nextgen.py runfn summarize_grading_vc cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=multi-combined \
-        sentinel_outputs=validate__grading_summary,validate__grading_plots \
-        sentinel_inputs=vc_rec:record \
-        ${write_struct(vc_rec)}
-    }
-
-    output {
-        Array[File] validate__grading_summary = read_lines('wdl.output.validate__grading_summary.txt')
-        Array[Array[File]] validate__grading_plots = read_tsv('wdl.output.validate__grading_plots.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-base'
-        cpu: '1'
-        memory: '2048 MB'
-    }
-}
-
-
-task prep_samples {
-    PrepSamplesRec prep_samples_rec
-
-    command {
-        bcbio_nextgen.py runfn prep_samples cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=multi-parallel \
-        sentinel_outputs=config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready \
-        sentinel_inputs=prep_samples_rec:record \
-        ${write_struct(prep_samples_rec)}
-    }
-
-    output {
-        File config__algorithm__variant_regions = read_string('wdl.output.config__algorithm__variant_regions.txt')
-        File config__algorithm__variant_regions_merged = read_string('wdl.output.config__algorithm__variant_regions_merged.txt')
-        File config__algorithm__variant_regions_orig = read_string('wdl.output.config__algorithm__variant_regions_orig.txt')
-        File config__algorithm__coverage = read_string('wdl.output.config__algorithm__coverage.txt')
-        File config__algorithm__coverage_merged = read_string('wdl.output.config__algorithm__coverage_merged.txt')
-        File config__algorithm__coverage_orig = read_string('wdl.output.config__algorithm__coverage_orig.txt')
-        File config__algorithm__seq2c_bed_ready = read_string('wdl.output.config__algorithm__seq2c_bed_ready.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
-        cpu: '1'
-        memory: '2048 MB'
-    }
-}
-
-
-task multiqc_summary {
-    Array[QcoutRec] qcout_rec
-
-    command {
-        bcbio_nextgen.py runfn multiqc_summary cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=multi-combined \
-        sentinel_outputs=summary__multiqc \
-        sentinel_inputs=qcout_rec:record \
-        ${write_struct(qcout_rec)}
-    }
-
-    output {
-        Array[File] summary__multiqc = read_lines('wdl.output.summary__multiqc.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-qc'
-        cpu: '1'
-        memory: '2048 MB'
-    }
-}
-
-
-task postprocess_alignment {
-    PostprocessAlignmentRec postprocess_alignment_rec
-
-    command {
-        bcbio_nextgen.py runfn postprocess_alignment cwl \
-        sentienl_runtime=cores,2,ram,4096MB \
-        sentinel_parallel=multi-parallel \
-        sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,regions__highdepth \
-        sentinel_inputs=postprocess_alignment_rec:record \
-        ${write_struct(postprocess_alignment_rec)}
-    }
-
-    output {
-        String config__algorithm__coverage_interval = read_string('wdl.output.config__algorithm__coverage_interval.txt')
-        File config__algorithm__variant_regions = read_string('wdl.output.config__algorithm__variant_regions.txt')
-        File config__algorithm__variant_regions_merged = read_string('wdl.output.config__algorithm__variant_regions_merged.txt')
-        File config__algorithm__variant_regions_orig = read_string('wdl.output.config__algorithm__variant_regions_orig.txt')
-        File config__algorithm__coverage = read_string('wdl.output.config__algorithm__coverage.txt')
-        File config__algorithm__coverage_merged = read_string('wdl.output.config__algorithm__coverage_merged.txt')
-        File config__algorithm__coverage_orig = read_string('wdl.output.config__algorithm__coverage_orig.txt')
-        File config__algorithm__seq2c_bed_ready = read_string('wdl.output.config__algorithm__seq2c_bed_ready.txt')
-        File regions__callable = read_string('wdl.output.regions__callable.txt')
-        File regions__sample_callable = read_string('wdl.output.regions__sample_callable.txt')
-        File regions__nblock = read_string('wdl.output.regions__nblock.txt')
-        File regions__highdepth = read_string('wdl.output.regions__highdepth.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
-        cpu: '2'
-        memory: '4096 MB'
-    }
-}
-
-
 task batch_for_variantcall {
     Array[String] analysis
     Array[String] genome_build
@@ -629,14 +475,18 @@ task batch_for_variantcall {
     Array[Array[File]] reference__genome_context
     Array[File] genome_resources__variation__cosmic
     Array[File] genome_resources__variation__dbsnp
+    Array[String] genome_resources__aliases__ensembl
+    Array[String] genome_resources__aliases__human
+    Array[String] genome_resources__aliases__snpeff
+    Array[File] reference__snpeff__hg19
     Array[String] description
 
     command {
         bcbio_nextgen.py runfn batch_for_variantcall cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
+        sentinel_runtime=cores,1,ram,2048MB \
         sentinel_parallel=multi-batch \
-        sentinel_outputs=batch_rec:description;config__algorithm__validate;reference__fasta__base;reference__rtg;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__genome_context;config__algorithm__validate_regions;genome_build;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;regions__sample_callable;config__algorithm__callable_regions \
-        sentinel_inputs=analysis:var,genome_build:var,align_bam:var,config__algorithm__callable_regions:var,metadata__batch:var,metadata__phenotype:var,regions__sample_callable:var,config__algorithm__variantcaller:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__validate:var,config__algorithm__validate_regions:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,reference__fasta__base:var,reference__rtg:var,reference__genome_context:var,genome_resources__variation__cosmic:var,genome_resources__variation__dbsnp:var,description:var \
+        sentinel_outputs=batch_rec:description;config__algorithm__validate;reference__fasta__base;reference__rtg;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__genome_context;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;genome_resources__aliases__ensembl;genome_resources__aliases__snpeff;align_bam;regions__sample_callable;config__algorithm__callable_regions \
+        sentinel_inputs=analysis:var,genome_build:var,align_bam:var,config__algorithm__callable_regions:var,metadata__batch:var,metadata__phenotype:var,regions__sample_callable:var,config__algorithm__variantcaller:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__validate:var,config__algorithm__validate_regions:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,reference__fasta__base:var,reference__rtg:var,reference__genome_context:var,genome_resources__variation__cosmic:var,genome_resources__variation__dbsnp:var,genome_resources__aliases__ensembl:var,genome_resources__aliases__human:var,genome_resources__aliases__snpeff:var,reference__snpeff__hg19:var,description:var \
         ${sep=';;' analysis} \
         ${sep=';;' genome_build} \
         ${sep=';;' align_bam} \
@@ -656,6 +506,10 @@ task batch_for_variantcall {
         ${sep=';;' reference__genome_context} \
         ${sep=';;' genome_resources__variation__cosmic} \
         ${sep=';;' genome_resources__variation__dbsnp} \
+        ${sep=';;' genome_resources__aliases__ensembl} \
+        ${sep=';;' genome_resources__aliases__human} \
+        ${sep=';;' genome_resources__aliases__snpeff} \
+        ${sep=';;' reference__snpeff__hg19} \
         ${sep=';;' description}
     }
 
@@ -671,45 +525,9 @@ task batch_for_variantcall {
 }
 
 
-task combine_sample_regions {
-    Array[File] regions__callable
-    Array[File] regions__nblock
-    Array[Float] config__algorithm__nomap_split_size
-    Array[Float] config__algorithm__nomap_split_targets
-    Array[File] reference__fasta__base
-    Array[String] description
-
-    command {
-        bcbio_nextgen.py runfn combine_sample_regions cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=multi-combined \
-        sentinel_outputs=config__algorithm__callable_regions,config__algorithm__non_callable_regions,config__algorithm__callable_count \
-        sentinel_inputs=regions__callable:var,regions__nblock:var,config__algorithm__nomap_split_size:var,config__algorithm__nomap_split_targets:var,reference__fasta__base:var,description:var \
-        ${sep=';;' regions__callable} \
-        ${sep=';;' regions__nblock} \
-        ${sep=';;' config__algorithm__nomap_split_size} \
-        ${sep=';;' config__algorithm__nomap_split_targets} \
-        ${sep=';;' reference__fasta__base} \
-        ${sep=';;' description}
-    }
-
-    output {
-        Array[File] config__algorithm__callable_regions = read_lines('wdl.output.config__algorithm__callable_regions.txt')
-        Array[File] config__algorithm__non_callable_regions = read_lines('wdl.output.config__algorithm__non_callable_regions.txt')
-        Array[Int] config__algorithm__callable_count = read_lines('wdl.output.config__algorithm__callable_count.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
-        cpu: '1'
-        memory: '2048 MB'
-    }
-}
-
-
 task alignment_to_rec {
     Array[Array[File]] files
-    Array[Float] config__algorithm__align_split_size
+    Array[String] config__algorithm__align_split_size
     Array[File] reference__fasta__base
     Array[String] rgnames__pl
     Array[String] rgnames__sample
@@ -717,7 +535,7 @@ task alignment_to_rec {
     Array[String] rgnames__lane
     Array[String] rgnames__rg
     Array[String] rgnames__lb
-    Array[File] reference__bwa__indexes
+    Array[String] reference__bwa__indexes
     Array[File] reference__snap__indexes
     Array[String] config__algorithm__aligner
     Array[String] config__algorithm__mark_duplicates
@@ -725,7 +543,7 @@ task alignment_to_rec {
 
     command {
         bcbio_nextgen.py runfn alignment_to_rec cwl \
-        sentienl_runtime=cores,1,ram,2048MB \
+        sentinel_runtime=cores,1,ram,2048MB \
         sentinel_parallel=multi-combined \
         sentinel_outputs=alignment_rec:description;config__algorithm__align_split_size;reference__fasta__base;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;rgnames__sample;reference__snap__indexes \
         sentinel_inputs=files:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__bwa__indexes:var,reference__snap__indexes:var,config__algorithm__aligner:var,config__algorithm__mark_duplicates:var,description:var \
@@ -753,6 +571,208 @@ task alignment_to_rec {
         docker: 'quay.io/bcbio/bcbio-base'
         cpu: '1'
         memory: '2048 MB'
+    }
+}
+
+
+task postprocess_alignment_to_rec {
+    Array[File] align_bam
+    Array[String] config__algorithm__coverage_interval
+    Array[File] config__algorithm__variant_regions
+    Array[File] config__algorithm__variant_regions_merged
+    Array[File] config__algorithm__variant_regions_orig
+    Array[File] config__algorithm__coverage
+    Array[File] config__algorithm__coverage_merged
+    Array[File] config__algorithm__coverage_orig
+    Array[File] config__algorithm__seq2c_bed_ready
+    Array[String] config__algorithm__recalibrate
+    Array[File] reference__fasta__base
+    Array[String] description
+
+    command {
+        bcbio_nextgen.py runfn postprocess_alignment_to_rec cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=multi-combined \
+        sentinel_outputs=postprocess_alignment_rec:description;reference__fasta__base;config__algorithm__coverage_interval;config__algorithm__recalibrate;config__algorithm__coverage;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__variant_regions_orig;config__algorithm__coverage_merged;config__algorithm__coverage_orig;config__algorithm__seq2c_bed_ready \
+        sentinel_inputs=align_bam:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__variant_regions_orig:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,config__algorithm__coverage_orig:var,config__algorithm__seq2c_bed_ready:var,config__algorithm__recalibrate:var,reference__fasta__base:var,description:var \
+        ${sep=';;' align_bam} \
+        ${sep=';;' config__algorithm__coverage_interval} \
+        ${sep=';;' config__algorithm__variant_regions} \
+        ${sep=';;' config__algorithm__variant_regions_merged} \
+        ${sep=';;' config__algorithm__variant_regions_orig} \
+        ${sep=';;' config__algorithm__coverage} \
+        ${sep=';;' config__algorithm__coverage_merged} \
+        ${sep=';;' config__algorithm__coverage_orig} \
+        ${sep=';;' config__algorithm__seq2c_bed_ready} \
+        ${sep=';;' config__algorithm__recalibrate} \
+        ${sep=';;' reference__fasta__base} \
+        ${sep=';;' description}
+    }
+
+    output {
+        Array[PostprocessAlignmentRec] postprocess_alignment_rec = read_struct('wdl.output.postprocess_alignment_rec.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-base'
+        cpu: '1'
+        memory: '2048 MB'
+    }
+}
+
+
+task summarize_grading_vc {
+    Array[Array[VcRec]] vc_rec
+
+    command {
+        bcbio_nextgen.py runfn summarize_grading_vc cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=multi-combined \
+        sentinel_outputs=validate__grading_summary,validate__grading_plots \
+        sentinel_inputs=vc_rec:record \
+        ${write_struct(vc_rec)}
+    }
+
+    output {
+        Array[File] validate__grading_summary = read_lines('wdl.output.validate__grading_summary.txt')
+        Array[Array[File]] validate__grading_plots = read_tsv('wdl.output.validate__grading_plots.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-base'
+        cpu: '1'
+        memory: '2048 MB'
+    }
+}
+
+
+task prep_samples_to_rec {
+    Array[File] config__algorithm__coverage
+    Array[File] config__algorithm__variant_regions
+    Array[File] reference__fasta__base
+    Array[String] description
+
+    command {
+        bcbio_nextgen.py runfn prep_samples_to_rec cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=multi-combined \
+        sentinel_outputs=prep_samples_rec:description;reference__fasta__base;config__algorithm__coverage;config__algorithm__variant_regions \
+        sentinel_inputs=config__algorithm__coverage:var,config__algorithm__variant_regions:var,reference__fasta__base:var,description:var \
+        ${sep=';;' config__algorithm__coverage} \
+        ${sep=';;' config__algorithm__variant_regions} \
+        ${sep=';;' reference__fasta__base} \
+        ${sep=';;' description}
+    }
+
+    output {
+        Array[PrepSamplesRec] prep_samples_rec = read_struct('wdl.output.prep_samples_rec.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-base'
+        cpu: '1'
+        memory: '2048 MB'
+    }
+}
+
+
+task prep_samples {
+    PrepSamplesRec prep_samples_rec
+
+    command {
+        bcbio_nextgen.py runfn prep_samples cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=multi-parallel \
+        sentinel_outputs=config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready \
+        sentinel_inputs=prep_samples_rec:record \
+        ${write_struct(prep_samples_rec)}
+    }
+
+    output {
+        File config__algorithm__variant_regions = read_string('wdl.output.config__algorithm__variant_regions.txt')
+        File config__algorithm__variant_regions_merged = read_string('wdl.output.config__algorithm__variant_regions_merged.txt')
+        File config__algorithm__variant_regions_orig = read_string('wdl.output.config__algorithm__variant_regions_orig.txt')
+        File config__algorithm__coverage = read_string('wdl.output.config__algorithm__coverage.txt')
+        File config__algorithm__coverage_merged = read_string('wdl.output.config__algorithm__coverage_merged.txt')
+        File config__algorithm__coverage_orig = read_string('wdl.output.config__algorithm__coverage_orig.txt')
+        File config__algorithm__seq2c_bed_ready = read_string('wdl.output.config__algorithm__seq2c_bed_ready.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-align'
+        cpu: '1'
+        memory: '2048 MB'
+    }
+}
+
+
+task combine_sample_regions {
+    Array[File] regions__callable
+    Array[File] regions__nblock
+    Array[Float] config__algorithm__nomap_split_size
+    Array[Float] config__algorithm__nomap_split_targets
+    Array[File] reference__fasta__base
+    Array[String] description
+
+    command {
+        bcbio_nextgen.py runfn combine_sample_regions cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=multi-combined \
+        sentinel_outputs=config__algorithm__callable_regions,config__algorithm__non_callable_regions,config__algorithm__callable_count \
+        sentinel_inputs=regions__callable:var,regions__nblock:var,config__algorithm__nomap_split_size:var,config__algorithm__nomap_split_targets:var,reference__fasta__base:var,description:var \
+        ${sep=';;' regions__callable} \
+        ${sep=';;' regions__nblock} \
+        ${sep=';;' config__algorithm__nomap_split_size} \
+        ${sep=';;' config__algorithm__nomap_split_targets} \
+        ${sep=';;' reference__fasta__base} \
+        ${sep=';;' description}
+    }
+
+    output {
+        Array[File] config__algorithm__callable_regions = read_lines('wdl.output.config__algorithm__callable_regions.txt')
+        Array[File] config__algorithm__non_callable_regions = read_lines('wdl.output.config__algorithm__non_callable_regions.txt')
+        Array[Int] config__algorithm__callable_count = read_lines('wdl.output.config__algorithm__callable_count.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-align'
+        cpu: '1'
+        memory: '2048 MB'
+    }
+}
+
+
+task postprocess_alignment {
+    PostprocessAlignmentRec postprocess_alignment_rec
+
+    command {
+        bcbio_nextgen.py runfn postprocess_alignment cwl \
+        sentinel_runtime=cores,2,ram,4096MB \
+        sentinel_parallel=multi-parallel \
+        sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,regions__highdepth \
+        sentinel_inputs=postprocess_alignment_rec:record \
+        ${write_struct(postprocess_alignment_rec)}
+    }
+
+    output {
+        String config__algorithm__coverage_interval = read_string('wdl.output.config__algorithm__coverage_interval.txt')
+        File config__algorithm__variant_regions = read_string('wdl.output.config__algorithm__variant_regions.txt')
+        File config__algorithm__variant_regions_merged = read_string('wdl.output.config__algorithm__variant_regions_merged.txt')
+        File config__algorithm__variant_regions_orig = read_string('wdl.output.config__algorithm__variant_regions_orig.txt')
+        File config__algorithm__coverage = read_string('wdl.output.config__algorithm__coverage.txt')
+        File config__algorithm__coverage_merged = read_string('wdl.output.config__algorithm__coverage_merged.txt')
+        File config__algorithm__coverage_orig = read_string('wdl.output.config__algorithm__coverage_orig.txt')
+        File config__algorithm__seq2c_bed_ready = read_string('wdl.output.config__algorithm__seq2c_bed_ready.txt')
+        File regions__callable = read_string('wdl.output.regions__callable.txt')
+        File regions__sample_callable = read_string('wdl.output.regions__sample_callable.txt')
+        File regions__nblock = read_string('wdl.output.regions__nblock.txt')
+        File regions__highdepth = read_string('wdl.output.regions__highdepth.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-align'
+        cpu: '2'
+        memory: '4096 MB'
     }
 }
 

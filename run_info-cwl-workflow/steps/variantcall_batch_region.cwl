@@ -78,7 +78,7 @@ hints:
     specs:
     - https://anaconda.org/bioconda/r
     version:
-    - 3.2.2
+    - 3.3.2
   - package: perl
     specs:
     - https://anaconda.org/bioconda/perl

@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,regions__highdepth
+- sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock
 - sentinel_inputs=postprocess_alignment_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -13,8 +13,8 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
 - class: DockerRequirement
-  dockerImageId: quay.io/bcbio/bcbio-align
-  dockerPull: quay.io/bcbio/bcbio-align
+  dockerImageId: quay.io/bcbio/bcbio-vc
+  dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
   outdirMin: 1024
@@ -45,6 +45,8 @@ inputs:
       type:
       - 'null'
       - string
+    - name: reference__twobit
+      type: File
     - name: config__algorithm__recalibrate
       type:
       - string
@@ -113,10 +115,6 @@ outputs:
   type: File
 - id: regions__nblock
   type: File
-- id: regions__highdepth
-  type:
-  - File
-  - 'null'
 requirements:
 - class: InlineJavascriptRequirement
 - class: InitialWorkDirRequirement

@@ -109,6 +109,10 @@ inputs:
     - string
     - File
     type: array
+- id: reference__twobit
+  type:
+    items: File
+    type: array
 - id: reference__genome_context
   secondaryFiles:
   - .tbi
@@ -311,11 +315,20 @@ outputs:
     - 'null'
     type: array
 - id: validate__grading_summary
-  outputSource: summarize_grading_vc/validate__grading_summary
+  outputSource: summarize_vc/validate__grading_summary
   type:
     items:
     - File
     - 'null'
+    type: array
+- id: variants__calls
+  outputSource: summarize_vc/variants__calls
+  type:
+    items:
+      items:
+      - File
+      - 'null'
+      type: array
     type: array
 requirements:
 - class: EnvVarRequirement
@@ -422,6 +435,8 @@ steps:
     source: prep_samples/config__algorithm__seq2c_bed_ready
   - id: config__algorithm__recalibrate
     source: config__algorithm__recalibrate
+  - id: reference__twobit
+    source: reference__twobit
   - id: reference__fasta__base
     source: reference__fasta__base
   - id: description
@@ -445,7 +460,6 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
-  - id: regions__highdepth
   run: steps/postprocess_alignment.cwl
   scatter:
   - postprocess_alignment_rec
@@ -580,11 +594,12 @@ steps:
   scatter:
   - batch_rec
   scatterMethod: dotproduct
-- id: summarize_grading_vc
+- id: summarize_vc
   in:
   - id: vc_rec
     source: variantcall/vc_rec
   out:
+  - id: variants__calls
   - id: validate__grading_summary
   - id: validate__grading_plots
-  run: steps/summarize_grading_vc.cwl
+  run: steps/summarize_vc.cwl
