@@ -303,7 +303,7 @@ inputs:
     type: array
 outputs:
 - id: align_bam
-  outputSource: alignment/align_bam
+  outputSource: postprocess_alignment/align_bam
   type:
     items: File
     type: array
@@ -326,6 +326,16 @@ outputs:
   type:
     items:
       items:
+      - File
+      - 'null'
+      type: array
+    type: array
+- id: variants__gvcf
+  outputSource: summarize_vc/variants__gvcf
+  type:
+    items:
+    - 'null'
+    - items:
       - File
       - 'null'
       type: array
@@ -417,6 +427,8 @@ steps:
   in:
   - id: align_bam
     source: alignment/align_bam
+  - id: genome_resources__variation__dbsnp
+    source: genome_resources__variation__dbsnp
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
   - id: config__algorithm__variant_regions
@@ -460,6 +472,7 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
+  - id: align_bam
   run: steps/postprocess_alignment.cwl
   scatter:
   - postprocess_alignment_rec
@@ -486,7 +499,7 @@ steps:
 - id: qc_to_rec
   in:
   - id: align_bam
-    source: alignment/align_bam
+    source: postprocess_alignment/align_bam
   - id: analysis
     source: analysis
   - id: reference__fasta__base
@@ -538,7 +551,7 @@ steps:
   - id: genome_build
     source: genome_build
   - id: align_bam
-    source: alignment/align_bam
+    source: postprocess_alignment/align_bam
   - id: config__algorithm__callable_regions
     source: combine_sample_regions/config__algorithm__callable_regions
   - id: metadata__batch
@@ -600,6 +613,7 @@ steps:
     source: variantcall/vc_rec
   out:
   - id: variants__calls
+  - id: variants__gvcf
   - id: validate__grading_summary
   - id: validate__grading_plots
   run: steps/summarize_vc.cwl

@@ -9,6 +9,7 @@
 
 set -eu -o pipefail
 
-#bcbio_vm.py cwlrun toil run_info-cwl-workflow
-bcbio_vm.py cwlrun toil --no-container run_info-cwl-workflow
-# bcbio_vm.py cwlrun toil --no-container run_info-cwl-workflow -- --batchSystem slurm
+PROJECT=somatic
+bcbio_vm.py cwlrun toil $PROJECT-workflow
+#bcbio_vm.py cwlrun toil --no-container $PROJECT-workflow
+# bcbio_vm.py cwlrun toil --no-container $PROJECT-workflow -- --batchSystem slurm

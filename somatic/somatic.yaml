@@ -3,8 +3,6 @@
 # for things like alignment splitting, disambiguation, variant
 # and SV calling.
 ---
-upload:
-  dir: upload
 details:
   #  - algorithm:
   #      aligner: bwa
@@ -16,7 +14,7 @@ details:
   #    analysis: sv
   #    description: Test3
   #    genome_build: hg19
-  #    files: testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
+  #    files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
  - algorithm:
      aligner: snap
      recalibrate: false
@@ -25,32 +23,32 @@ details:
      svcaller: [lumpy]
      tools_on: [gatk4, qualimap_full]
      tools_off: [gemini]
-     validate: testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
-     validate_regions: testdata/automated/variant_regions-bam.bed
-     variant_regions: testdata/automated/variant_regions-bam.bed
-     coverage: testdata/automated/coverage_transcripts-bam.bed
+     validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
+     validate_regions: ../testdata/automated/variant_regions-bam.bed
+     variant_regions: ../testdata/automated/variant_regions-bam.bed
+     coverage: ../testdata/automated/coverage_transcripts-bam.bed
    metadata:
      batch: b1
      phenotype: tumor
    analysis: variant2
    description: Test1
    genome_build: hg19
-   files: testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
+   files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
  - algorithm:
      aligner: bwa
      align_split_size: 25000
      #variantcaller: gatk-haplotype
      variantcaller: [freebayes, vardict]
      svcaller: [lumpy]
-     tools_on: [gatk4, gvcf, qualimap_full]
+     tools_on: [gatk4, qualimap_full]
      tools_off: [gemini, vqsr]
      nomap_split_size: 50
      nomap_split_targets: 100
-     variant_regions: testdata/automated/variant_regions-bam.bed
+     variant_regions: ../testdata/automated/variant_regions-bam.bed
    metadata:
      batch: b1
      phenotype: normal
    analysis: variant2
    description: Test2
    genome_build: hg19
-   files: testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
+   files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam

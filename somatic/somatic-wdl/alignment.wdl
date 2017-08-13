@@ -5,11 +5,6 @@
 workflow alignment {
     AlignmentRec alignment_rec
     
-    call prep_align_inputs {
-        input: alignment_rec=alignment_rec
-    }
-
-
     call merge_split_alignments {
         input: alignment_rec=alignment_rec, 
           work_bam=process_alignment.work_bam, 
@@ -17,6 +12,11 @@ workflow alignment {
           work_bam_plus__disc_toolinput=process_alignment.work_bam_plus__disc, 
           work_bam_plus__sr_toolinput=process_alignment.work_bam_plus__sr, 
           hla__fastq_toolinput=process_alignment.hla__fastq
+    }
+
+
+    call prep_align_inputs {
+        input: alignment_rec=alignment_rec
     }
 
 
@@ -38,31 +38,6 @@ workflow alignment {
    }
 
 }
-
-task prep_align_inputs {
-    AlignmentRec alignment_rec
-
-    command {
-        bcbio_nextgen.py runfn prep_align_inputs cwl \
-        sentinel_runtime=cores,1,ram,2048MB \
-        sentinel_parallel=single-split \
-        sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split \
-        sentinel_inputs=alignment_rec:record \
-        ${alignment_rec}
-    }
-
-    output {
-        Array[ProcessAlignmentRec] process_alignment_rec = read_struct('wdl.output.process_alignment_rec.txt')
-    }
-
-    runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
-        cpu: '1'
-        memory: '2048 MB'
-        disks: 'local-disk 4 HDD'
-    }
-}
-
 
 task merge_split_alignments {
     AlignmentRec alignment_rec
@@ -94,10 +69,35 @@ task merge_split_alignments {
     }
 
     runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
+        docker: 'quay.io/bcbio/bcbio-vc'
         cpu: '2'
         memory: '4096 MB'
         disks: 'local-disk 9 HDD'
+    }
+}
+
+
+task prep_align_inputs {
+    AlignmentRec alignment_rec
+
+    command {
+        bcbio_nextgen.py runfn prep_align_inputs cwl \
+        sentinel_runtime=cores,1,ram,2048MB \
+        sentinel_parallel=single-split \
+        sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split \
+        sentinel_inputs=alignment_rec:record \
+        ${alignment_rec}
+    }
+
+    output {
+        Array[ProcessAlignmentRec] process_alignment_rec = read_struct('wdl.output.process_alignment_rec.txt')
+    }
+
+    runtime {
+        docker: 'quay.io/bcbio/bcbio-vc'
+        cpu: '1'
+        memory: '2048 MB'
+        disks: 'local-disk 4 HDD'
     }
 }
 
@@ -125,7 +125,7 @@ task process_alignment {
     }
 
     runtime {
-        docker: 'quay.io/bcbio/bcbio-align'
+        docker: 'quay.io/bcbio/bcbio-vc'
         cpu: '2'
         memory: '4096 MB'
         disks: 'local-disk 4 HDD'

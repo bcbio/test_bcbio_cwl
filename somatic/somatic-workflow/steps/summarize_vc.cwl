@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=variants__calls,validate__grading_summary,validate__grading_plots
+- sentinel_outputs=variants__calls,variants__gvcf,validate__grading_summary,validate__grading_plots
 - sentinel_inputs=vc_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -115,6 +115,15 @@ outputs:
   type:
     items:
       items:
+      - File
+      - 'null'
+      type: array
+    type: array
+- id: variants__gvcf
+  type:
+    items:
+    - 'null'
+    - items:
       - File
       - 'null'
       type: array

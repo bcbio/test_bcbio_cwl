@@ -27,6 +27,9 @@ hints:
   - package: htslib
     specs:
     - https://anaconda.org/bioconda/htslib
+  - package: gatk4
+    specs:
+    - https://anaconda.org/bioconda/gatk4
 inputs:
 - id: batch_rec
   type:
