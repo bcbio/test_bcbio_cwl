@@ -317,7 +317,8 @@ outputs:
   outputSource: summarize_vc/variants__gvcf
   type:
     items:
-      items:
+    - 'null'
+    - items:
       - File
       - 'null'
       type: array

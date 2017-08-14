@@ -4,6 +4,7 @@
 Test*
 *.R
 *.Rmd
+*.bak
 seqbuster_*
 target_info.yaml
 grading-summary*.csv

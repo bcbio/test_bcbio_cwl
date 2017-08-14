@@ -124,7 +124,8 @@ outputs:
 - id: variants__gvcf
   type:
     items:
-      items:
+    - 'null'
+    - items:
       - File
       - 'null'
       type: array
