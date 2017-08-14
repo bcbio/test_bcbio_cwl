@@ -1,5 +1,5 @@
 #!/bin/bash
 set -eu -o pipefail
 
-PROJECT=somatic
-cwltool2wdl.py $PROJECT-workflow/main-$PROJECT.cwl $PROJECT-workflow/main-$PROJECT-samples.json
+PNAME=somatic
+cwltool2wdl.py $PNAME-workflow/main-$PNAME.cwl $PNAME-workflow/main-$PNAME-samples.json
