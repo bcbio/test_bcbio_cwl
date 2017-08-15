@@ -11,10 +11,6 @@
         "snap",
         "bwa"
     ],
-    "config__algorithm__archive": [
-        "null",
-        "null"
-    ],
     "config__algorithm__coverage": [
         {
             "class": "File",
@@ -59,21 +55,9 @@
             "picard"
         ]
     ],
-    "config__algorithm__realign": [
-        "False",
-        "False"
-    ],
     "config__algorithm__recalibrate": [
         "False",
         "False"
-    ],
-    "config__algorithm__svcaller": [
-        [
-            "lumpy"
-        ],
-        [
-            "lumpy"
-        ]
     ],
     "config__algorithm__tools_off": [
         [
@@ -174,66 +158,6 @@
         "hg19",
         "hg19"
     ],
-    "genome_resources__rnaseq__gene_bed": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
-        }
-    ],
-    "genome_resources__rnaseq__transcripts": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.gtf"
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.gtf"
-        }
-    ],
-    "genome_resources__rnaseq__transcripts_mask": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts-mask.gtf"
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts-mask.gtf"
-        }
-    ],
-    "genome_resources__srnaseq__mirbase": [
-        "../srnaseq/hairpin.fa",
-        "../srnaseq/hairpin.fa"
-    ],
-    "genome_resources__srnaseq__srna_transcripts": [
-        "../srnaseq/srna-transcripts.gtf",
-        "../srnaseq/srna-transcripts.gtf"
-    ],
-    "genome_resources__variation__ancestral": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/human_ancestor.fa",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/human_ancestor.fa.fai"
-                }
-            ]
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/human_ancestor.fa",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/human_ancestor.fa.fai"
-                }
-            ]
-        }
-    ],
     "genome_resources__variation__cosmic": [
         {
             "class": "File",
@@ -254,16 +178,6 @@
                     "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
                 }
             ]
-        }
-    ],
-    "genome_resources__variation__dbnsfp": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/dbNSFP_v2.5.gz"
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/dbNSFP_v2.5.gz"
         }
     ],
     "genome_resources__variation__dbsnp": [
@@ -287,98 +201,6 @@
                 }
             ]
         }
-    ],
-    "genome_resources__variation__train_1000g": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz.tbi"
-                }
-            ]
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/1000G_phase1.snps.high_confidence.vcf.gz.tbi"
-                }
-            ]
-        }
-    ],
-    "genome_resources__variation__train_hapmap": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
-                }
-            ]
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
-                }
-            ]
-        }
-    ],
-    "genome_resources__variation__train_indels": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
-                }
-            ]
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
-                }
-            ]
-        }
-    ],
-    "genome_resources__variation__train_omni": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/1000G_omni2.5.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/1000G_omni2.5.vcf.gz.tbi"
-                }
-            ]
-        },
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/1000G_omni2.5.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/1000G_omni2.5.vcf.gz.tbi"
-                }
-            ]
-        }
-    ],
-    "genome_resources__version": [
-        7,
-        7
     ],
     "metadata__batch": [
         "b1",
@@ -508,10 +330,6 @@
             "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
         }
     ],
-    "reference__viral": [
-        "null",
-        "null"
-    ],
     "rgnames__lane": [
         "Test1",
         "Test2"
@@ -535,9 +353,5 @@
     "rgnames__sample": [
         "Test1",
         "Test2"
-    ],
-    "vrn_file": [
-        "null",
-        "null"
     ]
 }

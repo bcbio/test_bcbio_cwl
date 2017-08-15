@@ -96,7 +96,6 @@ inputs:
 - id: hla__fastq_toolinput
   type:
     items:
-    - File
     - 'null'
     - items: File
       type: array
@@ -120,7 +119,6 @@ outputs:
   - 'null'
 - id: hla__fastq
   type:
-  - File
   - 'null'
   - items: File
     type: array

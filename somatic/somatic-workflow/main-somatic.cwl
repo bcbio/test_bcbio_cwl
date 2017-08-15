@@ -33,37 +33,11 @@ inputs:
       items: string
       type: array
     type: array
-- id: config__algorithm__svcaller
-  type:
-    items:
-      items: string
-      type: array
-    type: array
-- id: genome_resources__rnaseq__transcripts_mask
-  type:
-    items: File
-    type: array
-- id: genome_resources__variation__train_1000g
-  secondaryFiles:
-  - .tbi
-  type:
-    items: File
-    type: array
 - id: config__algorithm__coverage_interval
   type:
     items:
     - 'null'
     - string
-    type: array
-- id: genome_resources__rnaseq__gene_bed
-  type:
-    items: File
-    type: array
-- id: genome_resources__variation__train_hapmap
-  secondaryFiles:
-  - .tbi
-  type:
-    items: File
     type: array
 - id: rgnames__lb
   type:
@@ -71,20 +45,9 @@ inputs:
     - 'null'
     - string
     type: array
-- id: genome_resources__variation__dbnsfp
-  type:
-    items: File
-    type: array
 - id: rgnames__rg
   type:
     items: string
-    type: array
-- id: config__algorithm__realign
-  type:
-    items:
-    - string
-    - 'null'
-    - boolean
     type: array
 - id: metadata__batch
   type:
@@ -133,10 +96,6 @@ inputs:
       items: File
       type: array
     type: array
-- id: genome_resources__srnaseq__srna_transcripts
-  type:
-    items: string
-    type: array
 - id: reference__snpeff__hg19
   type:
     items: File
@@ -155,12 +114,6 @@ inputs:
 - id: config__algorithm__aligner
   type:
     items: string
-    type: array
-- id: genome_resources__variation__train_omni
-  secondaryFiles:
-  - .tbi
-  type:
-    items: File
     type: array
 - id: rgnames__pl
   type:
@@ -188,10 +141,6 @@ inputs:
     - 'null'
     - string
     type: array
-- id: genome_resources__rnaseq__transcripts
-  type:
-    items: File
-    type: array
 - id: genome_resources__aliases__human
   type:
     items:
@@ -218,37 +167,11 @@ inputs:
     - 'null'
     - boolean
     type: array
-- id: genome_resources__variation__ancestral
-  secondaryFiles:
-  - .fai
-  type:
-    items: File
-    type: array
-- id: vrn_file
-  type:
-    items:
-    - 'null'
-    - string
-    type: array
-- id: reference__viral
-  type:
-    items:
-    - 'null'
-    - string
-    type: array
-- id: genome_resources__version
-  type:
-    items: long
-    type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
   - .tbi
   type:
     items: File
-    type: array
-- id: genome_resources__srnaseq__mirbase
-  type:
-    items: string
     type: array
 - id: config__algorithm__qc
   type:
@@ -285,21 +208,9 @@ inputs:
     - 'null'
     - string
     type: array
-- id: genome_resources__variation__train_indels
-  secondaryFiles:
-  - .tbi
-  type:
-    items: File
-    type: array
 - id: genome_resources__aliases__snpeff
   type:
     items: string
-    type: array
-- id: config__algorithm__archive
-  type:
-    items:
-    - 'null'
-    - string
     type: array
 outputs:
 - id: align_bam

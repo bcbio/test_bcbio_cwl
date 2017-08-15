@@ -135,7 +135,6 @@ outputs:
   type: File
 - id: hla__fastq
   type:
-  - File
   - 'null'
   - items: File
     type: array
