@@ -18,7 +18,7 @@ hints:
 - class: ResourceRequirement
   coresMin: 1
   outdirMin: 1024
-  ramMin: 2048
+  ramMin: 2560
 - class: SoftwareRequirement
   packages:
   - package: bcftools
@@ -30,6 +30,9 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
+  - package: gatk
+    specs:
+    - https://anaconda.org/bioconda/gatk
 inputs:
 - id: jointvc_batch_rec
   type:

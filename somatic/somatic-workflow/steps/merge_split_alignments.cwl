@@ -28,6 +28,9 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
+  - package: variantbam
+    specs:
+    - https://anaconda.org/bioconda/variantbam
 inputs:
 - id: alignment_rec
   type:

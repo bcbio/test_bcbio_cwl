@@ -345,6 +345,8 @@ steps:
     source: prep_samples/config__algorithm__seq2c_bed_ready
   - id: config__algorithm__recalibrate
     source: config__algorithm__recalibrate
+  - id: config__algorithm__tools_on
+    source: config__algorithm__tools_on
   - id: reference__twobit
     source: reference__twobit
   - id: reference__fasta__base

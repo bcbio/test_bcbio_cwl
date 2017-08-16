@@ -18,7 +18,7 @@ hints:
 - class: ResourceRequirement
   coresMin: 1
   outdirMin: 1024
-  ramMin: 2048
+  ramMin: 2560
 - class: SoftwareRequirement
   packages:
   - package: bedtools
@@ -27,6 +27,12 @@ hints:
   - package: htslib
     specs:
     - https://anaconda.org/bioconda/htslib
+  - package: gatk4
+    specs:
+    - https://anaconda.org/bioconda/gatk4
+  - package: gatk
+    specs:
+    - https://anaconda.org/bioconda/gatk
 inputs:
 - id: regions__callable
   type:

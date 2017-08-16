@@ -64,6 +64,10 @@ inputs:
       - 'null'
     - name: genome_resources__variation__dbsnp
       type: File
+    - name: config__algorithm__tools_on
+      type:
+        items: string
+        type: array
     - name: config__algorithm__variant_regions
       type:
       - File

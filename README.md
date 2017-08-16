@@ -16,7 +16,16 @@ for detailed instructions about installing bcbio and running workflows.
 - `gvcf_joint` -- Germline joint calling using gVCF intermediates.
 - `arvados` -- Test integration upload and runs on Arvados.
 
-## Quick start
+## Requirements
+
+If you have a working setup on your local machine and use Docker, this
+test directory requires no extra installations. All of the necessary data is
+available in this repository, the CWL files are pre-built, and you don't need an
+external bcbio installation.
+
+Alternative bcbio provides wrapper scripts if you don't have CWL tools installed,
+lack experience running them, want to regenerate the CWL from bcbio YAML files,
+or can't use Docker. To install the wrapper scripts, and optionally bcbio tools:
 
 - [Install bcbio-vm](http://bcbio-nextgen.readthedocs.io/en/latest/contents/cwl.html#getting-started)
   -- this installs `bcbio_vm.py` with wrappers for generating and running CWL,
@@ -28,7 +37,9 @@ for detailed instructions about installing bcbio and running workflows.
   need a
   [separate installation of bcbio and tools](http://bcbio-nextgen.readthedocs.io/en/latest/contents/installation.html#automated)
   available on your PATH. If you're only using this for testing you can install
-  with `--nodata` since the tests are not dependent on external data.
+  bcbio with `--nodata` since the tests are not dependent on external data.
+
+## Running
 
 - Change into a test directory:
 
@@ -43,3 +54,6 @@ for detailed instructions about installing bcbio and running workflows.
   match the type of environment you want to run in (Docker, local, cluster):
 
         bash run_toil.sh
+
+  These scripts use bcbio wrappers around the CWL running tools. You can also
+  run the tools directly without any wrappers.

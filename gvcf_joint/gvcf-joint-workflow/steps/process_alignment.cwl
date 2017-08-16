@@ -63,6 +63,9 @@ hints:
   - package: samblaster
     specs:
     - https://anaconda.org/bioconda/samblaster
+  - package: variantbam
+    specs:
+    - https://anaconda.org/bioconda/variantbam
 inputs:
 - id: alignment_rec
   type:
