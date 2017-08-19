@@ -124,8 +124,12 @@ inputs:
     type: record
 outputs:
 - id: work_bam
+  secondaryFiles:
+  - .bai
   type: File
 - id: align_bam
+  secondaryFiles:
+  - .bai
   type: File
 - id: hla__fastq
   type:

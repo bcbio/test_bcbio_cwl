@@ -73,10 +73,14 @@ inputs:
     name: alignment_rec
     type: record
 - id: work_bam
+  secondaryFiles:
+  - .bai
   type:
     items: File
     type: array
 - id: align_bam_toolinput
+  secondaryFiles:
+  - .bai
   type:
     items: File
     type: array
