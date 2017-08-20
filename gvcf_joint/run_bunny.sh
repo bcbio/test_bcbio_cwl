@@ -7,5 +7,5 @@ mkdir -p $WORK_DIR
 cd $WORK_DIR
 PNAME=gvcf-joint
 
-#rabix -b $WORK_DIR $ORIG_DIR/$PNAME-workflow/main-$PNAME.cwl $ORIG_DIR/$PNAME-workflow/main-$PNAME-samples.json
-rabix --no-container -b $WORK_DIR $ORIG_DIR/$PNAME-workflow/main-$PNAME.cwl $ORIG_DIR/$PNAME-workflow/main-$PNAME-samples.json
+rabix -b $WORK_DIR $ORIG_DIR/$PNAME-workflow/main-$PNAME.cwl $ORIG_DIR/$PNAME-workflow/main-$PNAME-samples.json
+#rabix --no-container -b $WORK_DIR $ORIG_DIR/$PNAME-workflow/main-$PNAME.cwl $ORIG_DIR/$PNAME-workflow/main-$PNAME-samples.json
