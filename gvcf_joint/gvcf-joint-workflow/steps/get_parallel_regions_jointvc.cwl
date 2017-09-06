@@ -51,8 +51,6 @@ inputs:
         - string
       - name: reference__fasta__base
         type: File
-      - name: reference__rtg
-        type: File
       - name: config__algorithm__variantcaller
         type: string
       - name: config__algorithm__coverage_interval
@@ -61,10 +59,6 @@ inputs:
         type: string
       - name: metadata__phenotype
         type: string
-      - name: reference__genome_context
-        type:
-          items: File
-          type: array
       - name: reference__snpeff__hg19
         type: File
       - name: config__algorithm__validate_regions
@@ -87,6 +81,10 @@ inputs:
         type: File
       - name: genome_resources__variation__cosmic
         type: File
+      - name: reference__genome_context
+        type:
+          items: File
+          type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -97,6 +95,8 @@ inputs:
         type: File
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: reference__rtg
+        type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam

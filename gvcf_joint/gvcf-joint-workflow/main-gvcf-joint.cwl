@@ -22,10 +22,6 @@ inputs:
   type:
     items: File
     type: array
-- id: reference__rtg
-  type:
-    items: File
-    type: array
 - id: config__algorithm__variantcaller
   type:
     items:
@@ -72,14 +68,6 @@ inputs:
   type:
     items: File
     type: array
-- id: reference__genome_context
-  secondaryFiles:
-  - .tbi
-  type:
-    items:
-      items: File
-      type: array
-    type: array
 - id: config__algorithm__nomap_split_size
   type:
     items: long
@@ -108,6 +96,10 @@ inputs:
     - string
     type: array
 - id: config__algorithm__aligner
+  type:
+    items: string
+    type: array
+- id: rgnames__pl
   type:
     items: string
     type: array
@@ -165,6 +157,14 @@ inputs:
   type:
     items: File
     type: array
+- id: reference__genome_context
+  secondaryFiles:
+  - .tbi
+  type:
+    items:
+      items: File
+      type: array
+    type: array
 - id: config__algorithm__qc
   type:
     items:
@@ -193,9 +193,9 @@ inputs:
   type:
     items: string
     type: array
-- id: rgnames__pl
+- id: reference__rtg
   type:
-    items: string
+    items: File
     type: array
 - id: genome_resources__aliases__snpeff
   type:

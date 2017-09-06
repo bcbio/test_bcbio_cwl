@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-single
-- sentinel_outputs=jointvc_rec:description;validate__summary;validate__tp;validate__fp;validate__fn;vrn_file;config__algorithm__validate;reference__fasta__base;reference__rtg;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__genome_context;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;genome_resources__aliases__ensembl;genome_resources__aliases__snpeff;align_bam;regions__sample_callable;config__algorithm__callable_regions;vrn_file_joint
+- sentinel_outputs=jointvc_rec:description;validate__summary;validate__tp;validate__fp;validate__fn;vrn_file;config__algorithm__validate;reference__fasta__base;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;reference__genome_context;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;genome_resources__aliases__ensembl;reference__rtg;genome_resources__aliases__snpeff;align_bam;regions__sample_callable;config__algorithm__callable_regions;vrn_file_joint
 - sentinel_inputs=jointvc_batch_rec:record,vrn_file_joint:var
 baseCommand:
 - bcbio_nextgen.py
@@ -51,8 +51,6 @@ inputs:
         - string
       - name: reference__fasta__base
         type: File
-      - name: reference__rtg
-        type: File
       - name: config__algorithm__variantcaller
         type: string
       - name: config__algorithm__coverage_interval
@@ -61,10 +59,6 @@ inputs:
         type: string
       - name: metadata__phenotype
         type: string
-      - name: reference__genome_context
-        type:
-          items: File
-          type: array
       - name: reference__snpeff__hg19
         type: File
       - name: config__algorithm__validate_regions
@@ -87,6 +81,10 @@ inputs:
         type: File
       - name: genome_resources__variation__cosmic
         type: File
+      - name: reference__genome_context
+        type:
+          items: File
+          type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -97,6 +95,8 @@ inputs:
         type: File
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: reference__rtg
+        type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
@@ -144,8 +144,6 @@ outputs:
         - string
       - name: reference__fasta__base
         type: File
-      - name: reference__rtg
-        type: File
       - name: config__algorithm__variantcaller
         type: string
       - name: config__algorithm__coverage_interval
@@ -154,10 +152,6 @@ outputs:
         type: string
       - name: metadata__phenotype
         type: string
-      - name: reference__genome_context
-        type:
-          items: File
-          type: array
       - name: reference__snpeff__hg19
         type: File
       - name: config__algorithm__validate_regions
@@ -180,6 +174,10 @@ outputs:
         type: File
       - name: genome_resources__variation__cosmic
         type: File
+      - name: reference__genome_context
+        type:
+          items: File
+          type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -190,6 +188,8 @@ outputs:
         type: File
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: reference__rtg
+        type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam

@@ -39,6 +39,9 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
+  - package: mosdepth
+    specs:
+    - https://anaconda.org/bioconda/mosdepth
 inputs:
 - id: postprocess_alignment_rec
   type:

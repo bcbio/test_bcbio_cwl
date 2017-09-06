@@ -29,6 +29,8 @@ inputs:
         type: array
     - name: config__algorithm__aligner
       type: string
+    - name: rgnames__pl
+      type: string
     - name: rgnames__pu
       type: string
     - name: config__algorithm__mark_duplicates
@@ -37,8 +39,6 @@ inputs:
       - 'null'
       - boolean
     - name: rgnames__sample
-      type: string
-    - name: rgnames__pl
       type: string
     name: alignment_rec
     type: record

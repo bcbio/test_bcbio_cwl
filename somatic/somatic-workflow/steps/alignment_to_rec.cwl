@@ -2,8 +2,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=alignment_rec:description;config__algorithm__align_split_size;reference__fasta__base;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;rgnames__sample;reference__snap__indexes
-- sentinel_inputs=files:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__bwa__indexes:var,reference__snap__indexes:var,config__algorithm__aligner:var,config__algorithm__mark_duplicates:var,description:var
+- sentinel_outputs=alignment_rec:description;config__algorithm__align_split_size;reference__fasta__base;reference__snap__indexes;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;rgnames__sample
+- sentinel_inputs=files:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__snap__indexes:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__mark_duplicates:var,description:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -68,19 +68,19 @@ inputs:
     - 'null'
     - string
     type: array
-- id: reference__bwa__indexes
-  type:
-    items:
-    - 'null'
-    - string
-    - File
-    type: array
 - id: reference__snap__indexes
   type:
     items:
     - File
     - 'null'
     - string
+    type: array
+- id: reference__bwa__indexes
+  type:
+    items:
+    - 'null'
+    - string
+    - File
     type: array
 - id: config__algorithm__aligner
   type:
@@ -111,6 +111,11 @@ outputs:
         - long
       - name: reference__fasta__base
         type: File
+      - name: reference__snap__indexes
+        type:
+        - File
+        - 'null'
+        - string
       - name: rgnames__lb
         type:
         - 'null'
@@ -141,11 +146,6 @@ outputs:
         - boolean
       - name: rgnames__sample
         type: string
-      - name: reference__snap__indexes
-        type:
-        - File
-        - 'null'
-        - string
       name: alignment_rec
       type: record
     type: array

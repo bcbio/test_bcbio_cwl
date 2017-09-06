@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=alignment_rec:description;config__algorithm__align_split_size;reference__fasta__base;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;files;config__algorithm__aligner;rgnames__pu;config__algorithm__mark_duplicates;rgnames__sample;rgnames__pl
+- sentinel_outputs=alignment_rec:description;config__algorithm__align_split_size;reference__fasta__base;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;rgnames__sample
 - sentinel_inputs=files:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__mark_duplicates:var,description:var
 baseCommand:
 - bcbio_nextgen.py
@@ -115,6 +115,8 @@ outputs:
           type: array
       - name: config__algorithm__aligner
         type: string
+      - name: rgnames__pl
+        type: string
       - name: rgnames__pu
         type: string
       - name: config__algorithm__mark_duplicates
@@ -123,8 +125,6 @@ outputs:
         - 'null'
         - boolean
       - name: rgnames__sample
-        type: string
-      - name: rgnames__pl
         type: string
       name: alignment_rec
       type: record

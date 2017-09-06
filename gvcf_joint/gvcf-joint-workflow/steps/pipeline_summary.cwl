@@ -33,6 +33,9 @@ hints:
   - package: goleft
     specs:
     - https://anaconda.org/bioconda/goleft
+  - package: mosdepth
+    specs:
+    - https://anaconda.org/bioconda/mosdepth
   - package: picard
     specs:
     - https://anaconda.org/bioconda/picard
@@ -51,6 +54,9 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
+  - package: preseq
+    specs:
+    - https://anaconda.org/bioconda/preseq
 inputs:
 - id: qc_rec
   type:

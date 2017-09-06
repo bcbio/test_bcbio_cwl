@@ -248,21 +248,21 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
-                    }
-                ]
-            },
-            {
-                "class": "File",
                 "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
                         "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
                     }
                 ]
             }
@@ -270,21 +270,21 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
-                    }
-                ]
-            },
-            {
-                "class": "File",
                 "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
                         "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
                     }
                 ]
             }

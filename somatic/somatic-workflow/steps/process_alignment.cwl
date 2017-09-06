@@ -79,6 +79,11 @@ inputs:
       - long
     - name: reference__fasta__base
       type: File
+    - name: reference__snap__indexes
+      type:
+      - File
+      - 'null'
+      - string
     - name: rgnames__lb
       type:
       - 'null'
@@ -109,11 +114,6 @@ inputs:
       - boolean
     - name: rgnames__sample
       type: string
-    - name: reference__snap__indexes
-      type:
-      - File
-      - 'null'
-      - string
     name: alignment_rec
     type: record
 - id: process_alignment_rec

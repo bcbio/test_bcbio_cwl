@@ -1,5 +1,6 @@
 # local runs
-galaxy_config: testdata/automated/universe_wsgi.ini
+local:
+  ref: ../testdata/genomes
 resources:
   default: {cores: 2, memory: 2G}
   bwa: {cores: 2, memory: 2G}
