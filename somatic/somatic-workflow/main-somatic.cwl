@@ -36,21 +36,11 @@ inputs:
     - 'null'
     - string
     type: array
-- id: config__algorithm__svcaller
-  type:
-    items:
-      items: string
-      type: array
-    type: array
 - id: config__algorithm__coverage_interval
   type:
     items:
     - 'null'
     - string
-    type: array
-- id: genome_resources__rnaseq__gene_bed
-  type:
-    items: File
     type: array
 - id: rgnames__lb
   type:
@@ -260,11 +250,6 @@ outputs:
       - File
       - 'null'
       type: array
-    type: array
-- id: align_bam
-  outputSource: postprocess_alignment/align_bam
-  type:
-    items: File
     type: array
 requirements:
 - class: EnvVarRequirement
@@ -545,51 +530,3 @@ steps:
   - id: validate__grading_summary
   - id: validate__grading_plots
   run: steps/summarize_vc.cwl
-- id: batch_for_sv
-  in:
-  - id: analysis
-    source: analysis
-  - id: genome_build
-    source: genome_build
-  - id: align_bam
-    source: postprocess_alignment/align_bam
-  - id: work_bam_plus__disc
-    source: alignment/work_bam_plus__disc
-  - id: work_bam_plus__sr
-    source: alignment/work_bam_plus__sr
-  - id: metadata__batch
-    source: metadata__batch
-  - id: metadata__phenotype
-    source: metadata__phenotype
-  - id: config__algorithm__coverage_interval
-    source: postprocess_alignment/config__algorithm__coverage_interval
-  - id: config__algorithm__variant_regions
-    source: postprocess_alignment/config__algorithm__variant_regions
-  - id: config__algorithm__variant_regions_merged
-    source: postprocess_alignment/config__algorithm__variant_regions_merged
-  - id: config__algorithm__svcaller
-    source: config__algorithm__svcaller
-  - id: config__algorithm__tools_on
-    source: config__algorithm__tools_on
-  - id: config__algorithm__tools_off
-    source: config__algorithm__tools_off
-  - id: genome_resources__rnaseq__gene_bed
-    source: genome_resources__rnaseq__gene_bed
-  - id: reference__fasta__base
-    source: reference__fasta__base
-  - id: description
-    source: description
-  out:
-  - id: sv_batch_rec
-  run: steps/batch_for_sv.cwl
-- id: svcall
-  in:
-  - id: sv_batch_rec
-    source: batch_for_sv/sv_batch_rec
-  out:
-  - id: sv__0__variantcaller
-  - id: sv__0__vrn_file
-  run: wf-svcall.cwl
-  scatter:
-  - sv_batch_rec
-  scatterMethod: dotproduct

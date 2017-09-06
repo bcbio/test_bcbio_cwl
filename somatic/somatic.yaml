@@ -9,7 +9,6 @@ details:
      recalibrate: false
      realign: false
      variantcaller: [freebayes, vardict]
-     svcaller: [lumpy]
      tools_on: [gatk4, qualimap_full]
      tools_off: [gemini]
      validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
@@ -28,7 +27,6 @@ details:
      align_split_size: 25000
      #variantcaller: gatk-haplotype
      variantcaller: [freebayes, vardict]
-     svcaller: [lumpy]
      tools_on: [gatk4, qualimap_full]
      tools_off: [gemini, vqsr]
      nomap_split_size: 50
