@@ -17,8 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1024
+  outdirMin: 1026
   ramMin: 2560
+  tmpdirMin: 2
 - class: SoftwareRequirement
   packages:
   - package: bedtools

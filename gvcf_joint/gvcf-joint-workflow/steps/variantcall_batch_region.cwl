@@ -17,8 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1024
+  outdirMin: 1031
   ramMin: 2560
+  tmpdirMin: 7
 - class: SoftwareRequirement
   packages:
   - package: bcftools
@@ -56,6 +57,9 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
+  - package: strelka2
+    specs:
+    - https://anaconda.org/bioconda/strelka2
   - package: vardict
     specs:
     - https://anaconda.org/bioconda/vardict

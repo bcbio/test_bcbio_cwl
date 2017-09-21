@@ -17,8 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1024
+  outdirMin: 1030
   ramMin: 2048
+  tmpdirMin: 6
 inputs:
 - id: files
   secondaryFiles:

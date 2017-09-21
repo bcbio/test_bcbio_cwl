@@ -105,11 +105,13 @@
     "config__algorithm__variantcaller": [
         [
             "freebayes",
-            "vardict"
+            "vardict",
+            "strelka2"
         ],
         [
             "freebayes",
-            "vardict"
+            "vardict",
+            "strelka2"
         ]
     ],
     "description": [

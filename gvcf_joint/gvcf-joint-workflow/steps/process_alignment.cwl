@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1028
+  outdirMin: 1043
   ramMin: 4096
-  tmpdirMin: 4
+  tmpdirMin: 19
 - class: SoftwareRequirement
   packages:
   - package: bwa

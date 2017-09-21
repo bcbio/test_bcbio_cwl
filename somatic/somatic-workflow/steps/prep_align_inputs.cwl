@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1028
+  outdirMin: 1036
   ramMin: 2048
-  tmpdirMin: 4
+  tmpdirMin: 12
 - class: SoftwareRequirement
   packages:
   - package: grabix
