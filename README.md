@@ -14,6 +14,7 @@ for detailed instructions about installing bcbio and running workflows.
   variantcallers. This has work in progress attempts to convert
   to WDL and Nextflow.
 - `gvcf_joint` -- Germline joint calling using gVCF intermediates.
+- `svcall` -- Structural variant calling.
 - `arvados` -- Test integration upload and runs on Arvados.
 
 ## Requirements

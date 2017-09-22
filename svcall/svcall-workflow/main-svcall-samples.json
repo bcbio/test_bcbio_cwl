@@ -1,0 +1,143 @@
+{
+    "analysis": [
+        "variant"
+    ],
+    "config__algorithm__align_split_size": [
+        "null"
+    ],
+    "config__algorithm__aligner": [
+        "bwa"
+    ],
+    "config__algorithm__coverage_interval": [
+        "null"
+    ],
+    "config__algorithm__mark_duplicates": [
+        "True"
+    ],
+    "config__algorithm__nomap_split_size": [
+        250
+    ],
+    "config__algorithm__nomap_split_targets": [
+        200
+    ],
+    "config__algorithm__qc": [
+        [
+            "samtools"
+        ]
+    ],
+    "config__algorithm__recalibrate": [
+        "False"
+    ],
+    "config__algorithm__sv_regions": [
+        {
+            "class": "File",
+            "path": "../../testdata/automated/variant_regions-bam.bed"
+        }
+    ],
+    "config__algorithm__svcaller": [
+        [
+            "manta",
+            "lumpy",
+            "cnvkit"
+        ]
+    ],
+    "config__algorithm__tools_off": [
+        []
+    ],
+    "config__algorithm__tools_on": [
+        []
+    ],
+    "config__algorithm__variant_regions": [
+        "null"
+    ],
+    "description": [
+        "Test1"
+    ],
+    "files": [
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam.bai"
+                    }
+                ]
+            }
+        ]
+    ],
+    "genome_build": [
+        "hg19"
+    ],
+    "genome_resources__rnaseq__gene_bed": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        }
+    ],
+    "genome_resources__variation__dbsnp": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "metadata__batch": [
+        "b1"
+    ],
+    "metadata__phenotype": [
+        "tumor"
+    ],
+    "reference__bwa__indexes": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/bwa-wf.tar.gz"
+        }
+    ],
+    "reference__fasta__base": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/seq/hg19.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/seq/hg19.dict"
+                }
+            ]
+        }
+    ],
+    "reference__twobit": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+        }
+    ],
+    "rgnames__lane": [
+        "Test1"
+    ],
+    "rgnames__lb": [
+        "null"
+    ],
+    "rgnames__pl": [
+        "illumina"
+    ],
+    "rgnames__pu": [
+        "Test1"
+    ],
+    "rgnames__rg": [
+        "Test1"
+    ],
+    "rgnames__sample": [
+        "Test1"
+    ]
+}

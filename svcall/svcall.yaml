@@ -1,0 +1,15 @@
+# Strucural variant calling
+---
+details:
+ - algorithm:
+     aligner: bwa
+     svcaller: [manta, lumpy, cnvkit]
+     sv_regions: ../testdata/automated/variant_regions-bam.bed
+     qc: [samtools]
+   metadata:
+     batch: b1
+     phenotype: tumor
+   analysis: variant
+   description: Test1
+   genome_build: hg19
+   files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
