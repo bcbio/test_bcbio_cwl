@@ -22,6 +22,10 @@ inputs:
   type:
     items: File
     type: array
+- id: rgnames__pu
+  type:
+    items: string
+    type: array
 - id: config__algorithm__variantcaller
   type:
     items:
@@ -104,10 +108,6 @@ inputs:
     items: string
     type: array
 - id: genome_build
-  type:
-    items: string
-    type: array
-- id: rgnames__pu
   type:
     items: string
     type: array

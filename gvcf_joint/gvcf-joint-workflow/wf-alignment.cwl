@@ -13,6 +13,8 @@ inputs:
       - string
     - name: reference__fasta__base
       type: File
+    - name: rgnames__pu
+      type: string
     - name: rgnames__lb
       type:
       - 'null'
@@ -30,8 +32,6 @@ inputs:
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
-      type: string
-    - name: rgnames__pu
       type: string
     - name: config__algorithm__mark_duplicates
       type:

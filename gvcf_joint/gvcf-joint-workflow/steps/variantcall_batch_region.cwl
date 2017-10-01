@@ -2,8 +2,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-parallel
-- sentinel_outputs=vrn_file_region,region
-- sentinel_inputs=batch_rec:record,region:var
+- sentinel_outputs=vrn_file_region,region_block
+- sentinel_inputs=batch_rec:record,region_block:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -16,9 +16,9 @@ hints:
   dockerImageId: quay.io/bcbio/bcbio-vc
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
-  coresMin: 1
+  coresMin: 2
   outdirMin: 1031
-  ramMin: 2560
+  ramMin: 5120
   tmpdirMin: 7
 - class: SoftwareRequirement
   packages:
@@ -57,9 +57,9 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
-  - package: strelka2
+  - package: strelka
     specs:
-    - https://anaconda.org/bioconda/strelka2
+    - https://anaconda.org/bioconda/strelka
   - package: vardict
     specs:
     - https://anaconda.org/bioconda/vardict
@@ -157,15 +157,19 @@ inputs:
       name: batch_rec
       type: record
     type: array
-- id: region_toolinput
-  type: string
+- id: region_block_toolinput
+  type:
+    items: string
+    type: array
 outputs:
 - id: vrn_file_region
   secondaryFiles:
   - .tbi
   type: File
-- id: region
-  type: string
+- id: region_block
+  type:
+    items: string
+    type: array
 requirements:
 - class: InlineJavascriptRequirement
 - class: InitialWorkDirRequirement

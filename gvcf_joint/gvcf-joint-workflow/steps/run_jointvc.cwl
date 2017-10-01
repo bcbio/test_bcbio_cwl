@@ -28,6 +28,9 @@ hints:
   - package: gatk
     specs:
     - https://anaconda.org/bioconda/gatk
+  - package: gvcftools
+    specs:
+    - https://anaconda.org/bioconda/gvcftools
 inputs:
 - id: jointvc_batch_rec
   type:

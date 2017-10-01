@@ -1,10 +1,13 @@
 # gVCF joint variant calling workflow for bcbio testing
 ---
+resources:
+  sentieon:
+    keyfile: /home/chapmanb/.sentieon/Harvard_Chapman_eval.lic
 details:
  - algorithm:
      aligner: bwa
      recalibrate: true
-     variantcaller: gatk-haplotype
+     variantcaller: [gatk-haplotype, strelka2]
      tools_on: [gatk4, gvcf]
      tools_off: [gemini]
      validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
@@ -20,7 +23,7 @@ details:
  - algorithm:
      aligner: bwa
      recalibrate: true
-     variantcaller: gatk-haplotype
+     variantcaller: [gatk-haplotype, strelka2]
      tools_on: [gatk4, gvcf]
      tools_off: [gemini]
      variant_regions: ../testdata/automated/variant_regions-bam.bed

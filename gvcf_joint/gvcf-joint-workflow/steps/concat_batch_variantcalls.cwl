@@ -3,7 +3,7 @@ arguments:
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-merge
 - sentinel_outputs=vrn_file
-- sentinel_inputs=batch_rec:record,region:var,vrn_file_region:var
+- sentinel_inputs=batch_rec:record,region_block:var,vrn_file_region:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -102,9 +102,11 @@ inputs:
       name: batch_rec
       type: record
     type: array
-- id: region
+- id: region_block
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 - id: vrn_file_region
   secondaryFiles:

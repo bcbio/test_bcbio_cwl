@@ -100,10 +100,12 @@
     ],
     "config__algorithm__variantcaller": [
         [
-            "gatk-haplotype"
+            "gatk-haplotype",
+            "strelka2"
         ],
         [
-            "gatk-haplotype"
+            "gatk-haplotype",
+            "strelka2"
         ]
     ],
     "description": [

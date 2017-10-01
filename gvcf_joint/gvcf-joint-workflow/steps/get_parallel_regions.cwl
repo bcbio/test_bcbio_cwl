@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-split
-- sentinel_outputs=region
+- sentinel_outputs=region_block
 - sentinel_inputs=batch_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -92,9 +92,11 @@ inputs:
       type: record
     type: array
 outputs:
-- id: region
+- id: region_block
   type:
-    items: string
+    items:
+      items: string
+      type: array
     type: array
 requirements:
 - class: InlineJavascriptRequirement
