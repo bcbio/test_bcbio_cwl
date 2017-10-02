@@ -38,6 +38,8 @@ inputs:
       fields:
       - name: description
         type: string
+      - name: resources
+        type: string
       - name: validate__summary
         type:
         - File
@@ -71,6 +73,8 @@ inputs:
         type: string
       - name: metadata__phenotype
         type: string
+      - name: reference__twobit
+        type: File
       - name: reference__snpeff__hg19
         type: File
       - name: config__algorithm__validate_regions

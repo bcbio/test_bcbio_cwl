@@ -44,6 +44,8 @@ inputs:
           - 'null'
         - name: description
           type: string
+        - name: resources
+          type: string
         - name: vrn_file
           type: File
         - name: config__algorithm__validate
@@ -61,6 +63,8 @@ inputs:
           type: string
         - name: metadata__phenotype
           type: string
+        - name: reference__twobit
+          type: File
         - name: reference__snpeff__hg19
           type: File
         - name: config__algorithm__validate_regions

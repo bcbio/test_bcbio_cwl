@@ -332,6 +332,10 @@
             "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
         }
     ],
+    "resources": [
+        "{}",
+        "{}"
+    ],
     "rgnames__lane": [
         "Test1",
         "Test2"

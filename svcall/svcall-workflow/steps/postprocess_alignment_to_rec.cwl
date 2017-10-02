@@ -2,8 +2,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=postprocess_alignment_rec:description;reference__fasta__base;config__algorithm__coverage_interval;reference__twobit;config__algorithm__recalibrate;genome_resources__variation__dbsnp;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__variant_regions_orig;config__algorithm__coverage;config__algorithm__coverage_merged;config__algorithm__coverage_orig;config__algorithm__seq2c_bed_ready
-- sentinel_inputs=align_bam:var,genome_resources__variation__dbsnp:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__variant_regions_orig:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,config__algorithm__coverage_orig:var,config__algorithm__seq2c_bed_ready:var,config__algorithm__recalibrate:var,config__algorithm__tools_on:var,reference__twobit:var,reference__fasta__base:var,description:var
+- sentinel_outputs=postprocess_alignment_rec:description;resources;reference__fasta__base;config__algorithm__coverage_interval;reference__twobit;config__algorithm__recalibrate;genome_resources__variation__dbsnp;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__variant_regions_orig;config__algorithm__coverage;config__algorithm__coverage_merged;config__algorithm__coverage_orig;config__algorithm__seq2c_bed_ready
+- sentinel_inputs=align_bam:var,genome_resources__variation__dbsnp:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__variant_regions_orig:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,config__algorithm__coverage_orig:var,config__algorithm__seq2c_bed_ready:var,config__algorithm__recalibrate:var,config__algorithm__tools_on:var,reference__twobit:var,reference__fasta__base:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -111,12 +111,18 @@ inputs:
   type:
     items: string
     type: array
+- id: resources
+  type:
+    items: string
+    type: array
 outputs:
 - id: postprocess_alignment_rec
   type:
     items:
       fields:
       - name: description
+        type: string
+      - name: resources
         type: string
       - name: reference__fasta__base
         type: File

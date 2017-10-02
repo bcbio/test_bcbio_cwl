@@ -49,6 +49,8 @@ inputs:
     fields:
     - name: description
       type: string
+    - name: resources
+      type: string
     - name: reference__fasta__base
       type: File
     - name: config__algorithm__coverage_interval

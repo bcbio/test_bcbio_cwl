@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage;config__algorithm__coverage_merged
+- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage;config__algorithm__coverage_merged
 - sentinel_inputs=qc_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -64,6 +64,8 @@ inputs:
     fields:
     - name: description
       type: string
+    - name: resources
+      type: string
     - name: reference__fasta__base
       type: File
     - name: config__algorithm__coverage_interval
@@ -115,6 +117,8 @@ outputs:
     - name: summary__metrics
       type: string
     - name: description
+      type: string
+    - name: resources
       type: string
     - name: reference__fasta__base
       type: File

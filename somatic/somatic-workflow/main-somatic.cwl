@@ -200,6 +200,10 @@ inputs:
   type:
     items: File
     type: array
+- id: resources
+  type:
+    items: string
+    type: array
 - id: genome_resources__aliases__ensembl
   type:
     items: string
@@ -289,6 +293,8 @@ steps:
     source: config__algorithm__mark_duplicates
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: alignment_rec
   run: steps/alignment_to_rec.cwl
@@ -315,6 +321,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: prep_samples_rec
   run: steps/prep_samples_to_rec.cwl
@@ -366,6 +374,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: postprocess_alignment_rec
   run: steps/postprocess_alignment_to_rec.cwl
@@ -404,6 +414,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: config__algorithm__callable_regions
   - id: config__algorithm__non_callable_regions
@@ -437,6 +449,8 @@ steps:
     source: postprocess_alignment/config__algorithm__coverage_merged
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: qc_rec
   run: steps/qc_to_rec.cwl
@@ -489,6 +503,8 @@ steps:
     source: config__algorithm__tools_off
   - id: reference__fasta__base
     source: reference__fasta__base
+  - id: reference__twobit
+    source: reference__twobit
   - id: reference__rtg
     source: reference__rtg
   - id: reference__genome_context
@@ -507,6 +523,8 @@ steps:
     source: reference__snpeff__hg19
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: batch_rec
   run: steps/batch_for_variantcall.cwl

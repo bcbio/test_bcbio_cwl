@@ -157,6 +157,10 @@ inputs:
     - 'null'
     - string
     type: array
+- id: resources
+  type:
+    items: string
+    type: array
 outputs:
 - id: align_bam
   outputSource: postprocess_alignment/align_bam
@@ -215,6 +219,8 @@ steps:
     source: config__algorithm__mark_duplicates
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: alignment_rec
   run: steps/alignment_to_rec.cwl
@@ -239,6 +245,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: prep_samples_rec
   run: steps/prep_samples_to_rec.cwl
@@ -290,6 +298,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: postprocess_alignment_rec
   run: steps/postprocess_alignment_to_rec.cwl
@@ -328,6 +338,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: config__algorithm__callable_regions
   - id: config__algorithm__non_callable_regions
@@ -361,6 +373,8 @@ steps:
     source: postprocess_alignment/config__algorithm__coverage_merged
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: qc_rec
   run: steps/qc_to_rec.cwl
@@ -417,6 +431,8 @@ steps:
     source: reference__fasta__base
   - id: description
     source: description
+  - id: resources
+    source: resources
   out:
   - id: sv_batch_rec
   run: steps/batch_for_sv.cwl

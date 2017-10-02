@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-single
-- sentinel_outputs=sv_rec:sv__variantcaller;sv__vrn_file;description;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_build;metadata__phenotype;config__algorithm__tools_off;config__algorithm__sv_regions;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;work_bam_plus__disc;work_bam_plus__sr;config__algorithm__variant_regions_merged
+- sentinel_outputs=sv_rec:sv__variantcaller;sv__vrn_file;description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_build;metadata__phenotype;config__algorithm__tools_off;config__algorithm__sv_regions;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;work_bam_plus__disc;work_bam_plus__sr;config__algorithm__variant_regions_merged
 - sentinel_inputs=sv_batch_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -73,6 +73,8 @@ inputs:
       fields:
       - name: description
         type: string
+      - name: resources
+        type: string
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__svcaller
@@ -130,6 +132,8 @@ outputs:
       - name: sv__vrn_file
         type: File
       - name: description
+        type: string
+      - name: resources
         type: string
       - name: reference__fasta__base
         type: File

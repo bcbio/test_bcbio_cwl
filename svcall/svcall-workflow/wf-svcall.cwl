@@ -8,6 +8,8 @@ inputs:
       fields:
       - name: description
         type: string
+      - name: resources
+        type: string
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__svcaller
@@ -66,6 +68,8 @@ outputs:
       - name: sv__vrn_file
         type: File
       - name: description
+        type: string
+      - name: resources
         type: string
       - name: reference__fasta__base
         type: File

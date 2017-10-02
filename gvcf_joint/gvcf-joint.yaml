@@ -1,8 +1,5 @@
 # gVCF joint variant calling workflow for bcbio testing
 ---
-resources:
-  sentieon:
-    keyfile: /home/chapmanb/.sentieon/Harvard_Chapman_eval.lic
 details:
  - algorithm:
      aligner: bwa

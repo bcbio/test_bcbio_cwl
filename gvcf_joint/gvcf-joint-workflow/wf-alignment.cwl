@@ -7,14 +7,14 @@ inputs:
     fields:
     - name: description
       type: string
+    - name: resources
+      type: string
     - name: config__algorithm__align_split_size
       type:
       - 'null'
       - string
     - name: reference__fasta__base
       type: File
-    - name: rgnames__pu
-      type: string
     - name: rgnames__lb
       type:
       - 'null'
@@ -32,6 +32,8 @@ inputs:
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
+      type: string
+    - name: rgnames__pu
       type: string
     - name: config__algorithm__mark_duplicates
       type:

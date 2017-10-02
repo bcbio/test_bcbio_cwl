@@ -2,8 +2,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=qc_rec:description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged
-- sentinel_inputs=align_bam:var,analysis:var,reference__fasta__base:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,description:var
+- sentinel_outputs=qc_rec:description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged
+- sentinel_inputs=align_bam:var,analysis:var,reference__fasta__base:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -88,12 +88,18 @@ inputs:
   type:
     items: string
     type: array
+- id: resources
+  type:
+    items: string
+    type: array
 outputs:
 - id: qc_rec
   type:
     items:
       fields:
       - name: description
+        type: string
+      - name: resources
         type: string
       - name: reference__fasta__base
         type: File
