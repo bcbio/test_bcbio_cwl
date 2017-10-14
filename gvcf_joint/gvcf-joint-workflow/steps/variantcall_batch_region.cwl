@@ -82,7 +82,7 @@ hints:
     specs:
     - https://anaconda.org/bioconda/r
     version:
-    - 3.3.2
+    - 3.4.1
   - package: perl
     specs:
     - https://anaconda.org/bioconda/perl

@@ -77,6 +77,26 @@ inputs:
         type:
         - File
         - 'null'
+      - name: depth__variant_regions__regions
+        type: File
+      - name: depth__variant_regions__dist
+        type: File
+      - name: depth__sv_regions__regions
+        type:
+        - File
+        - 'null'
+      - name: depth__sv_regions__dist
+        type:
+        - File
+        - 'null'
+      - name: depth__coverage__regions
+        type:
+        - File
+        - 'null'
+      - name: depth__coverage__dist
+        type:
+        - File
+        - 'null'
       name: qcout_rec
       type: record
     type: array

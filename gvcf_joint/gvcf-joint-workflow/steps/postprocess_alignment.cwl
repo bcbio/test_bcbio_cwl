@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,align_bam
+- sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,depth__variant_regions__regions,depth__variant_regions__dist,depth__sv_regions__regions,depth__sv_regions__dist,depth__coverage__regions,depth__coverage__dist,align_bam
 - sentinel_inputs=postprocess_alignment_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -57,6 +57,8 @@ inputs:
       type:
       - 'null'
       - string
+    - name: genome_resources__rnaseq__gene_bed
+      type: File
     - name: reference__twobit
       type: File
     - name: config__algorithm__recalibrate
@@ -133,6 +135,26 @@ outputs:
   type: File
 - id: regions__nblock
   type: File
+- id: depth__variant_regions__regions
+  type: File
+- id: depth__variant_regions__dist
+  type: File
+- id: depth__sv_regions__regions
+  type:
+  - File
+  - 'null'
+- id: depth__sv_regions__dist
+  type:
+  - File
+  - 'null'
+- id: depth__coverage__regions
+  type:
+  - File
+  - 'null'
+- id: depth__coverage__dist
+  type:
+  - File
+  - 'null'
 - id: align_bam
   secondaryFiles:
   - .bai

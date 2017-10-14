@@ -395,6 +395,12 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
+  - id: depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+  - id: depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+  - id: depth__coverage__regions
+  - id: depth__coverage__dist
   - id: align_bam
   run: steps/postprocess_alignment.cwl
   scatter:
@@ -439,6 +445,18 @@ steps:
     source: config__algorithm__tools_off
   - id: config__algorithm__qc
     source: config__algorithm__qc
+  - id: depth__variant_regions__regions
+    source: postprocess_alignment/depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+    source: postprocess_alignment/depth__variant_regions__dist
+  - id: depth__sv_regions__regions
+    source: postprocess_alignment/depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+    source: postprocess_alignment/depth__sv_regions__dist
+  - id: depth__coverage__regions
+    source: postprocess_alignment/depth__coverage__regions
+  - id: depth__coverage__dist
+    source: postprocess_alignment/depth__coverage__dist
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged

@@ -154,6 +154,16 @@
         "hg19",
         "hg19"
     ],
+    "genome_resources__rnaseq__gene_bed": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        }
+    ],
     "genome_resources__variation__cosmic": [
         {
             "class": "File",

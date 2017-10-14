@@ -34,6 +34,10 @@ inputs:
     - 'null'
     - string
     type: array
+- id: genome_resources__rnaseq__gene_bed
+  type:
+    items: File
+    type: array
 - id: rgnames__lb
   type:
     items:
@@ -333,8 +337,6 @@ steps:
   in:
   - id: align_bam
     source: alignment/align_bam
-  - id: genome_resources__variation__dbsnp
-    source: genome_resources__variation__dbsnp
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
   - id: config__algorithm__variant_regions
@@ -355,6 +357,10 @@ steps:
     source: config__algorithm__recalibrate
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
+  - id: genome_resources__rnaseq__gene_bed
+    source: genome_resources__rnaseq__gene_bed
+  - id: genome_resources__variation__dbsnp
+    source: genome_resources__variation__dbsnp
   - id: reference__twobit
     source: reference__twobit
   - id: reference__fasta__base
@@ -382,6 +388,12 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
+  - id: depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+  - id: depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+  - id: depth__coverage__regions
+  - id: depth__coverage__dist
   - id: align_bam
   run: steps/postprocess_alignment.cwl
   scatter:
@@ -426,6 +438,18 @@ steps:
     source: config__algorithm__tools_off
   - id: config__algorithm__qc
     source: config__algorithm__qc
+  - id: depth__variant_regions__regions
+    source: postprocess_alignment/depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+    source: postprocess_alignment/depth__variant_regions__dist
+  - id: depth__sv_regions__regions
+    source: postprocess_alignment/depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+    source: postprocess_alignment/depth__sv_regions__dist
+  - id: depth__coverage__regions
+    source: postprocess_alignment/depth__coverage__regions
+  - id: depth__coverage__dist
+    source: postprocess_alignment/depth__coverage__dist
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
