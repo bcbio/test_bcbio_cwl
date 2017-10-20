@@ -42,6 +42,10 @@ inputs:
     - 'null'
     - string
     type: array
+- id: genome_resources__rnaseq__gene_bed
+  type:
+    items: File
+    type: array
 - id: rgnames__lb
   type:
     items:
@@ -222,6 +226,11 @@ outputs:
   type:
     items: File
     type: array
+- id: regions__sample_callable
+  outputSource: postprocess_alignment/regions__sample_callable
+  type:
+    items: File
+    type: array
 - id: summary__multiqc
   outputSource: multiqc_summary/summary__multiqc
   type:
@@ -346,8 +355,6 @@ steps:
   in:
   - id: align_bam
     source: alignment/align_bam
-  - id: genome_resources__variation__dbsnp
-    source: genome_resources__variation__dbsnp
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
   - id: config__algorithm__variant_regions
@@ -368,6 +375,10 @@ steps:
     source: config__algorithm__recalibrate
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
+  - id: genome_resources__rnaseq__gene_bed
+    source: genome_resources__rnaseq__gene_bed
+  - id: genome_resources__variation__dbsnp
+    source: genome_resources__variation__dbsnp
   - id: reference__twobit
     source: reference__twobit
   - id: reference__fasta__base

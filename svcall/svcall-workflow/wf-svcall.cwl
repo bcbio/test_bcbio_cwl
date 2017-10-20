@@ -54,6 +54,22 @@ inputs:
         - 'null'
       - name: config__algorithm__variant_regions_merged
         type: File
+      - name: regions__bins__target
+        type:
+        - File
+        - 'null'
+      - name: regions__bins__antitarget
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__target
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__antitarget
+        type:
+        - File
+        - 'null'
       name: sv_batch_rec
       type: record
     type: array
@@ -115,6 +131,22 @@ outputs:
         - 'null'
       - name: config__algorithm__variant_regions_merged
         type: File
+      - name: regions__bins__target
+        type:
+        - File
+        - 'null'
+      - name: regions__bins__antitarget
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__target
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__antitarget
+        type:
+        - File
+        - 'null'
       name: sv_rec
       type: record
     type: array

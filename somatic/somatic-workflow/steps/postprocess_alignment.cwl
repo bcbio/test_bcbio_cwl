@@ -57,6 +57,8 @@ inputs:
       type:
       - 'null'
       - string
+    - name: genome_resources__rnaseq__gene_bed
+      type: File
     - name: reference__twobit
       type: File
     - name: config__algorithm__recalibrate

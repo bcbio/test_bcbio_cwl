@@ -2,8 +2,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-batch
-- sentinel_outputs=sv_batch_rec:description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_build;metadata__phenotype;config__algorithm__tools_off;config__algorithm__sv_regions;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;work_bam_plus__disc;work_bam_plus__sr;config__algorithm__variant_regions_merged
-- sentinel_inputs=analysis:var,genome_build:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,metadata__batch:var,metadata__phenotype:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__sv_regions:var,config__algorithm__svcaller:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,genome_resources__rnaseq__gene_bed:var,reference__fasta__base:var,description:var,resources:var
+- sentinel_outputs=sv_batch_rec:description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_build;metadata__phenotype;config__algorithm__tools_off;config__algorithm__sv_regions;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;work_bam_plus__disc;work_bam_plus__sr;config__algorithm__variant_regions_merged;regions__bins__target;regions__bins__antitarget;depth__bins__target;depth__bins__antitarget
+- sentinel_inputs=analysis:var,genome_build:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,metadata__batch:var,metadata__phenotype:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__sv_regions:var,config__algorithm__svcaller:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,depth__bins__target:var,depth__bins__antitarget:var,regions__bins__target:var,regions__bins__antitarget:var,genome_resources__rnaseq__gene_bed:var,reference__fasta__base:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -97,6 +97,30 @@ inputs:
       - string
       type: array
     type: array
+- id: depth__bins__target
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: depth__bins__antitarget
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: regions__bins__target
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: regions__bins__antitarget
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
 - id: genome_resources__rnaseq__gene_bed
   type:
     items: File
@@ -170,6 +194,22 @@ outputs:
           - 'null'
         - name: config__algorithm__variant_regions_merged
           type: File
+        - name: regions__bins__target
+          type:
+          - File
+          - 'null'
+        - name: regions__bins__antitarget
+          type:
+          - File
+          - 'null'
+        - name: depth__bins__target
+          type:
+          - File
+          - 'null'
+        - name: depth__bins__antitarget
+          type:
+          - File
+          - 'null'
         name: sv_batch_rec
         type: record
       type: array

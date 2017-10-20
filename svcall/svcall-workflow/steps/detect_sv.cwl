@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-single
-- sentinel_outputs=sv_rec:sv__variantcaller;sv__vrn_file;description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_build;metadata__phenotype;config__algorithm__tools_off;config__algorithm__sv_regions;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;work_bam_plus__disc;work_bam_plus__sr;config__algorithm__variant_regions_merged
+- sentinel_outputs=sv_rec:sv__variantcaller;sv__vrn_file;description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_build;metadata__phenotype;config__algorithm__tools_off;config__algorithm__sv_regions;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;work_bam_plus__disc;work_bam_plus__sr;config__algorithm__variant_regions_merged;regions__bins__target;regions__bins__antitarget;depth__bins__target;depth__bins__antitarget
 - sentinel_inputs=sv_batch_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -62,7 +62,7 @@ hints:
     specs:
     - https://anaconda.org/bioconda/r
     version:
-    - 3.3.2
+    - 3.4.1
   - package: vawk
     specs:
     - https://anaconda.org/bioconda/vawk
@@ -119,6 +119,22 @@ inputs:
         - 'null'
       - name: config__algorithm__variant_regions_merged
         type: File
+      - name: regions__bins__target
+        type:
+        - File
+        - 'null'
+      - name: regions__bins__antitarget
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__target
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__antitarget
+        type:
+        - File
+        - 'null'
       name: sv_batch_rec
       type: record
     type: array
@@ -179,6 +195,22 @@ outputs:
         - 'null'
       - name: config__algorithm__variant_regions_merged
         type: File
+      - name: regions__bins__target
+        type:
+        - File
+        - 'null'
+      - name: regions__bins__antitarget
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__target
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__antitarget
+        type:
+        - File
+        - 'null'
       name: sv_rec
       type: record
     type: array

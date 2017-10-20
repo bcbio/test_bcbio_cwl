@@ -167,6 +167,11 @@ outputs:
   type:
     items: File
     type: array
+- id: regions__sample_callable
+  outputSource: postprocess_alignment/regions__sample_callable
+  type:
+    items: File
+    type: array
 - id: summary__multiqc
   outputSource: multiqc_summary/summary__multiqc
   type:
@@ -270,8 +275,6 @@ steps:
   in:
   - id: align_bam
     source: alignment/align_bam
-  - id: genome_resources__variation__dbsnp
-    source: genome_resources__variation__dbsnp
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
   - id: config__algorithm__variant_regions
@@ -292,6 +295,10 @@ steps:
     source: config__algorithm__recalibrate
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
+  - id: genome_resources__rnaseq__gene_bed
+    source: genome_resources__rnaseq__gene_bed
+  - id: genome_resources__variation__dbsnp
+    source: genome_resources__variation__dbsnp
   - id: reference__twobit
     source: reference__twobit
   - id: reference__fasta__base
@@ -319,6 +326,12 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
+  - id: depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+  - id: depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+  - id: depth__coverage__regions
+  - id: depth__coverage__dist
   - id: align_bam
   run: steps/postprocess_alignment.cwl
   scatter:
@@ -363,6 +376,18 @@ steps:
     source: config__algorithm__tools_off
   - id: config__algorithm__qc
     source: config__algorithm__qc
+  - id: depth__variant_regions__regions
+    source: postprocess_alignment/depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+    source: postprocess_alignment/depth__variant_regions__dist
+  - id: depth__sv_regions__regions
+    source: postprocess_alignment/depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+    source: postprocess_alignment/depth__sv_regions__dist
+  - id: depth__coverage__regions
+    source: postprocess_alignment/depth__coverage__regions
+  - id: depth__coverage__dist
+    source: postprocess_alignment/depth__coverage__dist
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
@@ -395,6 +420,52 @@ steps:
   out:
   - id: summary__multiqc
   run: steps/multiqc_summary.cwl
+- id: calculate_sv_bins
+  in:
+  - id: align_bam
+    source: postprocess_alignment/align_bam
+  - id: reference__fasta__base
+    source: reference__fasta__base
+  - id: metadata__batch
+    source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
+  - id: config__algorithm__callable_regions
+    source: combine_sample_regions/config__algorithm__callable_regions
+  - id: config__algorithm__coverage_interval
+    source: postprocess_alignment/config__algorithm__coverage_interval
+  - id: config__algorithm__sv_regions
+    source: config__algorithm__sv_regions
+  - id: config__algorithm__variant_regions
+    source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
+  - id: config__algorithm__svcaller
+    source: config__algorithm__svcaller
+  - id: depth__variant_regions__regions
+    source: postprocess_alignment/depth__variant_regions__regions
+  - id: genome_resources__rnaseq__gene_bed
+    source: genome_resources__rnaseq__gene_bed
+  - id: description
+    source: description
+  - id: resources
+    source: resources
+  out:
+  - id: sv_bin_rec
+  run: steps/calculate_sv_bins.cwl
+- id: calculate_sv_coverage
+  in:
+  - id: sv_bin_rec
+    source: calculate_sv_bins/sv_bin_rec
+  out:
+  - id: regions__bins__target
+  - id: regions__bins__antitarget
+  - id: depth__bins__target
+  - id: depth__bins__antitarget
+  run: steps/calculate_sv_coverage.cwl
+  scatter:
+  - sv_bin_rec
+  scatterMethod: dotproduct
 - id: batch_for_sv
   in:
   - id: analysis
@@ -425,6 +496,14 @@ steps:
     source: config__algorithm__tools_on
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
+  - id: depth__bins__target
+    source: calculate_sv_coverage/depth__bins__target
+  - id: depth__bins__antitarget
+    source: calculate_sv_coverage/depth__bins__antitarget
+  - id: regions__bins__target
+    source: calculate_sv_coverage/regions__bins__target
+  - id: regions__bins__antitarget
+    source: calculate_sv_coverage/regions__bins__antitarget
   - id: genome_resources__rnaseq__gene_bed
     source: genome_resources__rnaseq__gene_bed
   - id: reference__fasta__base

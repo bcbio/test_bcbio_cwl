@@ -215,6 +215,11 @@ outputs:
   type:
     items: File
     type: array
+- id: regions__sample_callable
+  outputSource: postprocess_alignment/regions__sample_callable
+  type:
+    items: File
+    type: array
 - id: summary__multiqc
   outputSource: multiqc_summary/summary__multiqc
   type:
