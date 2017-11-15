@@ -97,6 +97,10 @@ inputs:
         type:
         - File
         - 'null'
+      - name: depth__coverage__thresholds
+        type:
+        - File
+        - 'null'
       name: qcout_rec
       type: record
     type: array

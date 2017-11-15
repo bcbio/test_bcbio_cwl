@@ -399,6 +399,7 @@ steps:
   - id: depth__sv_regions__dist
   - id: depth__coverage__regions
   - id: depth__coverage__dist
+  - id: depth__coverage__thresholds
   - id: align_bam
   run: steps/postprocess_alignment.cwl
   scatter:
@@ -455,6 +456,8 @@ steps:
     source: postprocess_alignment/depth__coverage__regions
   - id: depth__coverage__dist
     source: postprocess_alignment/depth__coverage__dist
+  - id: depth__coverage__thresholds
+    source: postprocess_alignment/depth__coverage__thresholds
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged

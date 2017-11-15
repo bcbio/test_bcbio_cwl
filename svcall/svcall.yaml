@@ -13,3 +13,15 @@ details:
    description: Test1
    genome_build: hg19
    files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
+ - algorithm:
+     aligner: bwa
+     svcaller: [manta, lumpy, cnvkit]
+     sv_regions: ../testdata/automated/variant_regions-bam.bed
+     qc: [samtools]
+   metadata:
+     batch: b1
+     phenotype: normal
+   analysis: variant
+   description: Test2
+   genome_build: hg19
+   files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam

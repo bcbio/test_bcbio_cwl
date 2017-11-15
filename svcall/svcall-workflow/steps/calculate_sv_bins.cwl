@@ -2,7 +2,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=sv_bin_rec:regions__bins__target;regions__bins__antitarget;description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;metadata__phenotype;config__algorithm__sv_regions;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;depth__variant_regions__regions;config__algorithm__callable_regions
+- sentinel_outputs=sv_bin_rec:regions__bins__target;regions__bins__antitarget;regions__bins__group;description;resources;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;metadata__phenotype;config__algorithm__sv_regions;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;depth__variant_regions__regions;config__algorithm__callable_regions
 - sentinel_inputs=align_bam:var,reference__fasta__base:var,metadata__batch:var,metadata__phenotype:var,config__algorithm__callable_regions:var,config__algorithm__coverage_interval:var,config__algorithm__sv_regions:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__svcaller:var,depth__variant_regions__regions:var,genome_resources__rnaseq__gene_bed:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
@@ -104,6 +104,10 @@ outputs:
       - name: regions__bins__antitarget
         type:
         - File
+        - 'null'
+      - name: regions__bins__group
+        type:
+        - string
         - 'null'
       - name: description
         type: string

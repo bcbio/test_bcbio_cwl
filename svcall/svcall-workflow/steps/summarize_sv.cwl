@@ -27,26 +27,18 @@ inputs:
       items:
         fields:
         - name: sv__variantcaller
-          type: string
+          type:
+          - string
+          - 'null'
         - name: sv__vrn_file
-          type: File
+          type:
+          - File
+          - 'null'
         - name: description
           type: string
         - name: resources
           type: string
-        - name: reference__fasta__base
-          type: File
-        - name: config__algorithm__svcaller
-          type: string
-        - name: config__algorithm__coverage_interval
-          type: string
-        - name: genome_resources__rnaseq__gene_bed
-          type: File
-        - name: metadata__batch
-          type: string
         - name: genome_build
-          type: string
-        - name: metadata__phenotype
           type: string
         - name: config__algorithm__tools_off
           type:
@@ -54,8 +46,6 @@ inputs:
             - 'null'
             - string
             type: array
-        - name: config__algorithm__sv_regions
-          type: File
         - name: analysis
           type: string
         - name: config__algorithm__tools_on
@@ -64,10 +54,6 @@ inputs:
             - 'null'
             - string
             type: array
-        - name: config__algorithm__variant_regions
-          type: File
-        - name: align_bam
-          type: File
         - name: work_bam_plus__disc
           type:
           - File
@@ -76,13 +62,7 @@ inputs:
           type:
           - File
           - 'null'
-        - name: config__algorithm__variant_regions_merged
-          type: File
-        - name: regions__bins__target
-          type:
-          - File
-          - 'null'
-        - name: regions__bins__antitarget
+        - name: depth__bins__normalized
           type:
           - File
           - 'null'
@@ -94,6 +74,42 @@ inputs:
           type:
           - File
           - 'null'
+        - name: regions__bins__target
+          type:
+          - File
+          - 'null'
+        - name: regions__bins__antitarget
+          type:
+          - File
+          - 'null'
+        - name: regions__bins__group
+          type:
+          - string
+          - 'null'
+        - name: reference__fasta__base
+          type: File
+        - name: config__algorithm__svcaller
+          type: string
+        - name: config__algorithm__coverage_interval
+          type: string
+        - name: genome_resources__rnaseq__gene_bed
+          type: File
+        - name: metadata__batch
+          type: string
+        - name: metadata__phenotype
+          type: string
+        - name: config__algorithm__sv_regions
+          type: File
+        - name: config__algorithm__variant_regions
+          type: File
+        - name: align_bam
+          type: File
+        - name: config__algorithm__variant_regions_merged
+          type: File
+        - name: depth__variant_regions__regions
+          type: File
+        - name: config__algorithm__callable_regions
+          type: File
         name: sv_rec
         type: record
       type: array

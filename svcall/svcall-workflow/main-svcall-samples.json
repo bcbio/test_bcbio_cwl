@@ -1,34 +1,49 @@
 {
     "analysis": [
+        "variant",
         "variant"
     ],
     "config__algorithm__align_split_size": [
+        "null",
         "null"
     ],
     "config__algorithm__aligner": [
+        "bwa",
         "bwa"
     ],
     "config__algorithm__coverage_interval": [
+        "null",
         "null"
     ],
     "config__algorithm__mark_duplicates": [
+        "True",
         "True"
     ],
     "config__algorithm__nomap_split_size": [
+        250,
         250
     ],
     "config__algorithm__nomap_split_targets": [
+        200,
         200
     ],
     "config__algorithm__qc": [
         [
             "samtools"
+        ],
+        [
+            "samtools"
         ]
     ],
     "config__algorithm__recalibrate": [
+        "False",
         "False"
     ],
     "config__algorithm__sv_regions": [
+        {
+            "class": "File",
+            "path": "../../testdata/automated/variant_regions-bam.bed"
+        },
         {
             "class": "File",
             "path": "../../testdata/automated/variant_regions-bam.bed"
@@ -39,21 +54,42 @@
             "manta",
             "lumpy",
             "cnvkit"
+        ],
+        [
+            "manta",
+            "lumpy",
+            "cnvkit"
         ]
     ],
     "config__algorithm__tools_off": [
+        [],
         []
     ],
     "config__algorithm__tools_on": [
+        [],
         []
     ],
     "config__algorithm__variant_regions": [
+        "null",
         "null"
     ],
     "description": [
-        "Test1"
+        "Test1",
+        "Test2"
     ],
     "files": [
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam.bai"
+                    }
+                ]
+            }
+        ],
         [
             {
                 "class": "File",
@@ -68,9 +104,14 @@
         ]
     ],
     "genome_build": [
+        "hg19",
         "hg19"
     ],
     "genome_resources__rnaseq__gene_bed": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        },
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
@@ -86,15 +127,31 @@
                     "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
                 }
             ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                }
+            ]
         }
     ],
     "metadata__batch": [
+        "b1",
         "b1"
     ],
     "metadata__phenotype": [
-        "tumor"
+        "tumor",
+        "normal"
     ],
     "reference__bwa__indexes": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/bwa-wf.tar.gz"
+        },
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/bwa-wf.tar.gz"
@@ -114,33 +171,58 @@
                     "path": "../../testdata/genomes/hg19/seq/hg19.dict"
                 }
             ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/seq/hg19.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/seq/hg19.dict"
+                }
+            ]
         }
     ],
     "reference__twobit": [
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
         }
     ],
     "resources": [
+        "{}",
         "{}"
     ],
     "rgnames__lane": [
-        "Test1"
+        "Test1",
+        "Test2"
     ],
     "rgnames__lb": [
+        "null",
         "null"
     ],
     "rgnames__pl": [
+        "illumina",
         "illumina"
     ],
     "rgnames__pu": [
-        "Test1"
+        "Test1",
+        "Test2"
     ],
     "rgnames__rg": [
-        "Test1"
+        "Test1",
+        "Test2"
     ],
     "rgnames__sample": [
-        "Test1"
+        "Test1",
+        "Test2"
     ]
 }

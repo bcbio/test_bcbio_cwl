@@ -332,6 +332,7 @@ steps:
   - id: depth__sv_regions__dist
   - id: depth__coverage__regions
   - id: depth__coverage__dist
+  - id: depth__coverage__thresholds
   - id: align_bam
   run: steps/postprocess_alignment.cwl
   scatter:
@@ -388,6 +389,8 @@ steps:
     source: postprocess_alignment/depth__coverage__regions
   - id: depth__coverage__dist
     source: postprocess_alignment/depth__coverage__dist
+  - id: depth__coverage__thresholds
+    source: postprocess_alignment/depth__coverage__thresholds
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
@@ -458,60 +461,34 @@ steps:
   - id: sv_bin_rec
     source: calculate_sv_bins/sv_bin_rec
   out:
-  - id: regions__bins__target
-  - id: regions__bins__antitarget
-  - id: depth__bins__target
-  - id: depth__bins__antitarget
+  - id: sv_rawcoverage_rec
   run: steps/calculate_sv_coverage.cwl
   scatter:
   - sv_bin_rec
   scatterMethod: dotproduct
+- id: normalize_sv_coverage
+  in:
+  - id: sv_rawcoverage_rec
+    source: calculate_sv_coverage/sv_rawcoverage_rec
+  out:
+  - id: sv_coverage_rec
+  run: steps/normalize_sv_coverage.cwl
 - id: batch_for_sv
   in:
   - id: analysis
     source: analysis
   - id: genome_build
     source: genome_build
-  - id: align_bam
-    source: postprocess_alignment/align_bam
   - id: work_bam_plus__disc
     source: alignment/work_bam_plus__disc
   - id: work_bam_plus__sr
     source: alignment/work_bam_plus__sr
-  - id: metadata__batch
-    source: metadata__batch
-  - id: metadata__phenotype
-    source: metadata__phenotype
-  - id: config__algorithm__coverage_interval
-    source: postprocess_alignment/config__algorithm__coverage_interval
-  - id: config__algorithm__variant_regions
-    source: postprocess_alignment/config__algorithm__variant_regions
-  - id: config__algorithm__variant_regions_merged
-    source: postprocess_alignment/config__algorithm__variant_regions_merged
-  - id: config__algorithm__sv_regions
-    source: config__algorithm__sv_regions
-  - id: config__algorithm__svcaller
-    source: config__algorithm__svcaller
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
-  - id: depth__bins__target
-    source: calculate_sv_coverage/depth__bins__target
-  - id: depth__bins__antitarget
-    source: calculate_sv_coverage/depth__bins__antitarget
-  - id: regions__bins__target
-    source: calculate_sv_coverage/regions__bins__target
-  - id: regions__bins__antitarget
-    source: calculate_sv_coverage/regions__bins__antitarget
-  - id: genome_resources__rnaseq__gene_bed
-    source: genome_resources__rnaseq__gene_bed
-  - id: reference__fasta__base
-    source: reference__fasta__base
-  - id: description
-    source: description
-  - id: resources
-    source: resources
+  - id: sv_coverage_rec
+    source: normalize_sv_coverage/sv_coverage_rec
   out:
   - id: sv_batch_rec
   run: steps/batch_for_sv.cwl
