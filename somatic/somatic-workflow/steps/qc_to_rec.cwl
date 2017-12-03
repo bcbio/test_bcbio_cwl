@@ -17,15 +17,17 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1031
+  outdirMin: 1029
   ramMin: 2048
-  tmpdirMin: 7
+  tmpdirMin: 3
 inputs:
 - id: align_bam
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: analysis
   type:
@@ -44,18 +46,24 @@ inputs:
     type: array
 - id: config__algorithm__coverage_interval
   type:
-    items: string
+    items:
+    - string
+    - 'null'
     type: array
 - id: config__algorithm__tools_on
   type:
     items:
-      items: string
+    - 'null'
+    - string
+    - items: string
       type: array
     type: array
 - id: config__algorithm__tools_off
   type:
     items:
-      items: string
+    - 'null'
+    - string
+    - items: string
       type: array
     type: array
 - id: config__algorithm__qc
@@ -66,11 +74,15 @@ inputs:
     type: array
 - id: depth__variant_regions__regions
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: depth__variant_regions__dist
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: depth__sv_regions__regions
   type:
@@ -104,11 +116,15 @@ inputs:
     type: array
 - id: config__algorithm__variant_regions
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: config__algorithm__variant_regions_merged
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: config__algorithm__coverage
   type:
@@ -142,7 +158,9 @@ outputs:
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: genome_build
         type: string
       - name: config__algorithm__coverage
@@ -151,7 +169,9 @@ outputs:
         - 'null'
       - name: config__algorithm__tools_off
         type:
-          items: string
+        - 'null'
+        - string
+        - items: string
           type: array
       - name: config__algorithm__qc
         type:
@@ -161,22 +181,34 @@ outputs:
         type: string
       - name: config__algorithm__tools_on
         type:
-          items: string
+        - 'null'
+        - string
+        - items: string
           type: array
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__variant_regions_merged
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__coverage_merged
         type:
         - File
         - 'null'
       - name: depth__variant_regions__regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: depth__variant_regions__dist
-        type: File
+        type:
+        - File
+        - 'null'
       - name: depth__sv_regions__regions
         type:
         - File

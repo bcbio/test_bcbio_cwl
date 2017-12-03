@@ -17,16 +17,18 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1030
+  outdirMin: 1028
   ramMin: 2048
-  tmpdirMin: 6
+  tmpdirMin: 2
 inputs:
 - id: files
   secondaryFiles:
   - .bai
   type:
     items:
-      items: File
+    - 'null'
+    - string
+    - items: File
       type: array
     type: array
 - id: config__algorithm__align_split_size
@@ -72,9 +74,9 @@ inputs:
 - id: reference__snap__indexes
   type:
     items:
-    - File
     - 'null'
     - string
+    - File
     type: array
 - id: reference__bwa__indexes
   type:
@@ -85,7 +87,9 @@ inputs:
     type: array
 - id: config__algorithm__aligner
   type:
-    items: string
+    items:
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__mark_duplicates
   type:
@@ -120,9 +124,9 @@ outputs:
         type: File
       - name: reference__snap__indexes
         type:
-        - File
         - 'null'
         - string
+        - File
       - name: rgnames__lb
         type:
         - 'null'
@@ -138,10 +142,14 @@ outputs:
         - File
       - name: files
         type:
-          items: File
+        - 'null'
+        - string
+        - items: File
           type: array
       - name: config__algorithm__aligner
-        type: string
+        type:
+        - 'null'
+        - string
       - name: rgnames__pl
         type: string
       - name: rgnames__pu

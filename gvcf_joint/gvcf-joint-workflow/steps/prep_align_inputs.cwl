@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1035
+  outdirMin: 1032
   ramMin: 2048
-  tmpdirMin: 11
+  tmpdirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: grabix
@@ -81,10 +81,13 @@ outputs:
       fields:
       - name: files
         type:
-          items: File
+        - 'null'
+        - items: File
           type: array
       - name: config__algorithm__quality_format
-        type: string
+        type:
+        - string
+        - 'null'
       - name: align_split
         type:
         - string

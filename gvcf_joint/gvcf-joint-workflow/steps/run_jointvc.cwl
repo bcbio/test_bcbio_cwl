@@ -1,3 +1,5 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -17,9 +19,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1031
+  outdirMin: 1029
   ramMin: 2560
-  tmpdirMin: 7
+  tmpdirMin: 3
 - class: SoftwareRequirement
   packages:
   - package: gatk4
@@ -31,6 +33,7 @@ hints:
   - package: gvcftools
     specs:
     - https://anaconda.org/bioconda/gvcftools
+- class: arv:APIRequirement
 inputs:
 - id: jointvc_batch_rec
   type:
@@ -68,7 +71,9 @@ inputs:
       - name: config__algorithm__variantcaller
         type: string
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: metadata__batch
         type: string
       - name: metadata__phenotype
@@ -108,7 +113,9 @@ inputs:
           items: string
           type: array
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
       - name: reference__rtg
@@ -116,9 +123,13 @@ inputs:
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: jointvc_batch_rec
@@ -130,7 +141,9 @@ outputs:
 - id: vrn_file_region
   secondaryFiles:
   - .tbi
-  type: File
+  type:
+  - File
+  - 'null'
 - id: region
   type: string
 requirements:

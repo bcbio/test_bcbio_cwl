@@ -26,15 +26,17 @@ inputs:
 - id: config__algorithm__variantcaller
   type:
     items:
-      items: string
+    - 'null'
+    - string
+    - items: string
       type: array
     type: array
 - id: reference__snap__indexes
   type:
     items:
-    - File
     - 'null'
     - string
+    - File
     type: array
 - id: config__algorithm__coverage_interval
   type:
@@ -92,7 +94,9 @@ inputs:
   - .bai
   type:
     items:
-      items: File
+    - 'null'
+    - string
+    - items: File
       type: array
     type: array
 - id: reference__snpeff__hg19
@@ -106,13 +110,15 @@ inputs:
 - id: config__algorithm__validate_regions
   type:
     items:
-    - File
     - 'null'
     - string
+    - File
     type: array
 - id: config__algorithm__aligner
   type:
-    items: string
+    items:
+    - 'null'
+    - string
     type: array
 - id: rgnames__pl
   type:
@@ -136,9 +142,9 @@ inputs:
 - id: config__algorithm__coverage
   type:
     items:
-    - File
     - 'null'
     - string
+    - File
     type: array
 - id: genome_resources__aliases__human
   type:
@@ -150,7 +156,9 @@ inputs:
 - id: config__algorithm__tools_off
   type:
     items:
-      items: string
+    - 'null'
+    - string
+    - items: string
       type: array
     type: array
 - id: genome_resources__variation__dbsnp
@@ -165,6 +173,15 @@ inputs:
     - string
     - 'null'
     - boolean
+    type: array
+- id: vrn_file
+  secondaryFiles:
+  - .tbi
+  type:
+    items:
+    - File
+    - 'null'
+    - string
     type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
@@ -197,12 +214,17 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items: string
+    - 'null'
+    - string
+    - items: string
       type: array
     type: array
 - id: config__algorithm__variant_regions
   type:
-    items: File
+    items:
+    - 'null'
+    - string
+    - File
     type: array
 - id: resources
   type:
@@ -224,12 +246,16 @@ outputs:
 - id: align_bam
   outputSource: postprocess_alignment/align_bam
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: regions__sample_callable
   outputSource: postprocess_alignment/regions__sample_callable
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: summary__multiqc
   outputSource: multiqc_summary/summary__multiqc
@@ -424,6 +450,8 @@ steps:
     source: postprocess_alignment/regions__callable
   - id: regions__nblock
     source: postprocess_alignment/regions__nblock
+  - id: metadata__batch
+    source: metadata__batch
   - id: config__algorithm__nomap_split_size
     source: config__algorithm__nomap_split_size
   - id: config__algorithm__nomap_split_targets
@@ -511,6 +539,8 @@ steps:
     source: genome_build
   - id: align_bam
     source: postprocess_alignment/align_bam
+  - id: vrn_file
+    source: vrn_file
   - id: config__algorithm__callable_regions
     source: combine_sample_regions/config__algorithm__callable_regions
   - id: metadata__batch

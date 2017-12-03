@@ -19,18 +19,21 @@ hints:
   coresMin: 1
   outdirMin: 1026
   ramMin: 2048
-  tmpdirMin: 2
+  tmpdirMin: 1
 inputs:
 - id: config__algorithm__coverage
   type:
     items:
-    - File
     - 'null'
     - string
+    - File
     type: array
 - id: config__algorithm__variant_regions
   type:
-    items: File
+    items:
+    - 'null'
+    - string
+    - File
     type: array
 - id: reference__fasta__base
   secondaryFiles:
@@ -60,11 +63,14 @@ outputs:
         type: File
       - name: config__algorithm__coverage
         type:
-        - File
         - 'null'
         - string
+        - File
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - 'null'
+        - string
+        - File
       name: prep_samples_rec
       type: record
     type: array

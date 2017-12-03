@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1031
+  outdirMin: 1029
   ramMin: 2048
-  tmpdirMin: 7
+  tmpdirMin: 3
 inputs:
 - id: batch_rec
   type:
@@ -37,9 +37,13 @@ inputs:
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__variantcaller
-        type: string
+        type:
+        - string
+        - 'null'
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: metadata__batch
         type: string
       - name: metadata__phenotype
@@ -50,9 +54,9 @@ inputs:
         type: File
       - name: config__algorithm__validate_regions
         type:
-        - File
         - 'null'
         - string
+        - File
       - name: genome_build
         type: string
       - name: genome_resources__aliases__human
@@ -62,10 +66,17 @@ inputs:
         - boolean
       - name: config__algorithm__tools_off
         type:
-          items: string
+        - 'null'
+        - string
+        - items: string
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
+      - name: vrn_file
+        type:
+        - File
+        - 'null'
+        - string
       - name: genome_resources__variation__cosmic
         type: File
       - name: reference__genome_context
@@ -76,10 +87,14 @@ inputs:
         type: string
       - name: config__algorithm__tools_on
         type:
-          items: string
+        - 'null'
+        - string
+        - items: string
           type: array
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
       - name: reference__rtg
@@ -87,9 +102,13 @@ inputs:
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: batch_rec

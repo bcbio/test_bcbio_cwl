@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1048
+  outdirMin: 1040
   ramMin: 4096
-  tmpdirMin: 24
+  tmpdirMin: 8
 - class: SoftwareRequirement
   packages:
   - package: biobambam
@@ -48,9 +48,9 @@ inputs:
       type: File
     - name: reference__snap__indexes
       type:
-      - File
       - 'null'
       - string
+      - File
     - name: rgnames__lb
       type:
       - 'null'
@@ -66,10 +66,14 @@ inputs:
       - File
     - name: files
       type:
-        items: File
+      - 'null'
+      - string
+      - items: File
         type: array
     - name: config__algorithm__aligner
-      type: string
+      type:
+      - 'null'
+      - string
     - name: rgnames__pl
       type: string
     - name: rgnames__pu
@@ -87,13 +91,17 @@ inputs:
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: align_bam_toolinput
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: work_bam_plus__disc_toolinput
   secondaryFiles:
@@ -122,7 +130,9 @@ outputs:
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   secondaryFiles:
   - .bai

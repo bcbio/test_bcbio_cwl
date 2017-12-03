@@ -18,9 +18,9 @@ inputs:
       type: File
     - name: reference__snap__indexes
       type:
-      - File
       - 'null'
       - string
+      - File
     - name: rgnames__lb
       type:
       - 'null'
@@ -36,10 +36,14 @@ inputs:
       - File
     - name: files
       type:
-        items: File
+      - 'null'
+      - string
+      - items: File
         type: array
     - name: config__algorithm__aligner
-      type: string
+      type:
+      - 'null'
+      - string
     - name: rgnames__pl
       type: string
     - name: rgnames__pu
@@ -58,7 +62,9 @@ outputs:
   outputSource: merge_split_alignments/align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   outputSource: merge_split_alignments/work_bam_plus__disc
   secondaryFiles:

@@ -17,15 +17,17 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1031
+  outdirMin: 1029
   ramMin: 2048
-  tmpdirMin: 7
+  tmpdirMin: 3
 inputs:
 - id: align_bam
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: config__algorithm__coverage_interval
   type:
@@ -85,7 +87,9 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items: string
+    - 'null'
+    - string
+    - items: string
       type: array
     type: array
 - id: genome_resources__rnaseq__gene_bed
@@ -149,14 +153,18 @@ outputs:
         type: File
       - name: config__algorithm__tools_on
         type:
-          items: string
+        - 'null'
+        - string
+        - items: string
           type: array
       - name: config__algorithm__variant_regions
         type:
         - File
         - 'null'
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__variant_regions_merged
         type:
         - File

@@ -1,17 +1,21 @@
 {
     "analysis": [
         "variant2",
+        "variant2",
         "variant2"
     ],
     "config__algorithm__align_split_size": [
         "null",
+        "null",
         25000
     ],
     "config__algorithm__aligner": [
+        "null",
         "snap",
         "bwa"
     ],
     "config__algorithm__coverage": [
+        "null",
         {
             "class": "File",
             "path": "../../testdata/automated/coverage_transcripts-bam.bed"
@@ -20,21 +24,33 @@
     ],
     "config__algorithm__coverage_interval": [
         "null",
+        "null",
         "null"
     ],
     "config__algorithm__mark_duplicates": [
+        "True",
         "True",
         "True"
     ],
     "config__algorithm__nomap_split_size": [
         250,
+        250,
         50
     ],
     "config__algorithm__nomap_split_targets": [
         200,
+        200,
         100
     ],
     "config__algorithm__qc": [
+        [
+            "fastqc",
+            "samtools",
+            "qsignature",
+            "coverage",
+            "variants",
+            "picard"
+        ],
         [
             "fastqc",
             "qualimap",
@@ -57,9 +73,11 @@
     ],
     "config__algorithm__recalibrate": [
         "False",
+        "False",
         "False"
     ],
     "config__algorithm__tools_off": [
+        [],
         [
             "gemini"
         ],
@@ -69,6 +87,7 @@
         ]
     ],
     "config__algorithm__tools_on": [
+        [],
         [
             "gatk4",
             "qualimap_full"
@@ -83,9 +102,14 @@
             "class": "File",
             "path": "../../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf"
         },
+        {
+            "class": "File",
+            "path": "../../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf"
+        },
         "null"
     ],
     "config__algorithm__validate_regions": [
+        "null",
         {
             "class": "File",
             "path": "../../testdata/automated/variant_regions-bam.bed"
@@ -93,6 +117,7 @@
         "null"
     ],
     "config__algorithm__variant_regions": [
+        "null",
         {
             "class": "File",
             "path": "../../testdata/automated/variant_regions-bam.bed"
@@ -103,6 +128,7 @@
         }
     ],
     "config__algorithm__variantcaller": [
+        "null",
         [
             "freebayes",
             "vardict",
@@ -115,10 +141,12 @@
         ]
     ],
     "description": [
+        "VarOnly",
         "Test1",
         "Test2"
     ],
     "files": [
+        "null",
         [
             {
                 "class": "File",
@@ -146,17 +174,21 @@
     ],
     "genome_build": [
         "hg19",
+        "hg19",
         "hg19"
     ],
     "genome_resources__aliases__ensembl": [
+        "homo_sapiens_vep_83_GRCh37",
         "homo_sapiens_vep_83_GRCh37",
         "homo_sapiens_vep_83_GRCh37"
     ],
     "genome_resources__aliases__human": [
         "True",
+        "True",
         "True"
     ],
     "genome_resources__aliases__snpeff": [
+        "hg19",
         "hg19",
         "hg19"
     ],
@@ -168,9 +200,23 @@
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
         }
     ],
     "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                }
+            ]
+        },
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
@@ -212,17 +258,30 @@
                     "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
                 }
             ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                }
+            ]
         }
     ],
     "metadata__batch": [
         "b1",
+        "b1",
         "b1"
     ],
     "metadata__phenotype": [
+        "",
         "tumor",
         "normal"
     ],
     "reference__bwa__indexes": [
+        "null",
         "null",
         {
             "class": "File",
@@ -230,6 +289,20 @@
         }
     ],
     "reference__fasta__base": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/seq/hg19.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/seq/hg19.dict"
+                }
+            ]
+        },
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/seq/hg19.fa",
@@ -303,6 +376,28 @@
                     }
                 ]
             }
+        ],
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            }
         ]
     ],
     "reference__rtg": [
@@ -313,9 +408,14 @@
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
         }
     ],
     "reference__snap__indexes": [
+        "null",
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/snap-wf.tar.gz"
@@ -323,6 +423,10 @@
         "null"
     ],
     "reference__snpeff__hg19": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
+        },
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
@@ -340,34 +444,59 @@
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
         }
     ],
     "resources": [
         "{}",
+        "{}",
         "{}"
     ],
     "rgnames__lane": [
+        "VarOnly",
         "Test1",
         "Test2"
     ],
     "rgnames__lb": [
         "null",
+        "null",
         "null"
     ],
     "rgnames__pl": [
         "illumina",
+        "illumina",
         "illumina"
     ],
     "rgnames__pu": [
+        "VarOnly",
         "Test1",
         "Test2"
     ],
     "rgnames__rg": [
+        "VarOnly",
         "Test1",
         "Test2"
     ],
     "rgnames__sample": [
+        "VarOnly",
         "Test1",
         "Test2"
+    ],
+    "vrn_file": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/somatic/inputs/VarOnly/7_100326_FC6107FAAXX-Test1.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/somatic/inputs/VarOnly/7_100326_FC6107FAAXX-Test1.vcf.gz.tbi"
+                }
+            ]
+        },
+        "null",
+        "null"
     ]
 }
