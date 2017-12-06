@@ -1,3 +1,5 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -17,9 +19,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1038
+  outdirMin: 1034
   ramMin: 5120
-  tmpdirMin: 14
+  tmpdirMin: 5
 - class: SoftwareRequirement
   packages:
   - package: sambamba
@@ -43,6 +45,7 @@ hints:
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
+- class: arv:APIRequirement
 inputs:
 - id: postprocess_alignment_rec
   type:
@@ -81,7 +84,9 @@ inputs:
       - File
       - 'null'
     - name: align_bam
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__variant_regions_merged
       type:
       - File
@@ -106,13 +111,21 @@ inputs:
     type: record
 outputs:
 - id: config__algorithm__coverage_interval
-  type: string
+  type:
+  - string
+  - 'null'
 - id: config__algorithm__variant_regions
-  type: File
+  type:
+  - File
+  - 'null'
 - id: config__algorithm__variant_regions_merged
-  type: File
+  type:
+  - File
+  - 'null'
 - id: config__algorithm__variant_regions_orig
-  type: File
+  type:
+  - File
+  - 'null'
 - id: config__algorithm__coverage
   type:
   - File
@@ -130,15 +143,25 @@ outputs:
   - File
   - 'null'
 - id: regions__callable
-  type: File
+  type:
+  - File
+  - 'null'
 - id: regions__sample_callable
-  type: File
+  type:
+  - File
+  - 'null'
 - id: regions__nblock
-  type: File
+  type:
+  - File
+  - 'null'
 - id: depth__variant_regions__regions
-  type: File
+  type:
+  - File
+  - 'null'
 - id: depth__variant_regions__dist
-  type: File
+  type:
+  - File
+  - 'null'
 - id: depth__sv_regions__regions
   type:
   - File
@@ -162,7 +185,9 @@ outputs:
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 requirements:
 - class: InlineJavascriptRequirement
 - class: InitialWorkDirRequirement

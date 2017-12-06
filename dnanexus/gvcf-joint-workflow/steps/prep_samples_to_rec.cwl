@@ -19,7 +19,7 @@ hints:
   coresMin: 1
   outdirMin: 1026
   ramMin: 2048
-  tmpdirMin: 2
+  tmpdirMin: 1
 inputs:
 - id: config__algorithm__coverage
   type:

@@ -49,7 +49,9 @@ outputs:
   outputSource: merge_split_alignments/align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   outputSource: merge_split_alignments/work_bam_plus__disc
   secondaryFiles:

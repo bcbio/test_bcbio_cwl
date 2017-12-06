@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1043
+  outdirMin: 1037
   ramMin: 4096
-  tmpdirMin: 19
+  tmpdirMin: 7
 - class: SoftwareRequirement
   packages:
   - package: bwa
@@ -31,6 +31,9 @@ hints:
   - package: grabix
     specs:
     - https://anaconda.org/bioconda/grabix
+  - package: minimap2
+    specs:
+    - https://anaconda.org/bioconda/minimap2
   - package: novoalign
     specs:
     - https://anaconda.org/bioconda/novoalign
@@ -114,10 +117,13 @@ inputs:
     fields:
     - name: files
       type:
-        items: File
+      - 'null'
+      - items: File
         type: array
     - name: config__algorithm__quality_format
-      type: string
+      type:
+      - string
+      - 'null'
     - name: align_split
       type:
       - string
@@ -128,11 +134,15 @@ outputs:
 - id: work_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: hla__fastq
   type:
   - 'null'

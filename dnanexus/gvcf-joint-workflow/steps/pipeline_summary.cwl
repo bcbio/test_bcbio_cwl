@@ -1,3 +1,5 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -17,9 +19,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1031
+  outdirMin: 1029
   ramMin: 4096
-  tmpdirMin: 7
+  tmpdirMin: 3
 - class: SoftwareRequirement
   packages:
   - package: bcftools
@@ -58,6 +60,8 @@ hints:
   - package: preseq
     specs:
     - https://anaconda.org/bioconda/preseq
+- class: arv:RuntimeConstraints
+  keep_cache: 4096
 inputs:
 - id: qc_rec
   type:
@@ -69,7 +73,9 @@ inputs:
     - name: reference__fasta__base
       type: File
     - name: config__algorithm__coverage_interval
-      type: string
+      type:
+      - string
+      - 'null'
     - name: genome_build
       type: string
     - name: config__algorithm__coverage
@@ -91,19 +97,29 @@ inputs:
         items: string
         type: array
     - name: config__algorithm__variant_regions
-      type: File
+      type:
+      - File
+      - 'null'
     - name: align_bam
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__variant_regions_merged
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__coverage_merged
       type:
       - File
       - 'null'
     - name: depth__variant_regions__regions
-      type: File
+      type:
+      - File
+      - 'null'
     - name: depth__variant_regions__dist
-      type: File
+      type:
+      - File
+      - 'null'
     - name: depth__sv_regions__regions
       type:
       - File
@@ -135,7 +151,9 @@ outputs:
       - File
       - 'null'
     - name: summary__metrics
-      type: string
+      type:
+      - string
+      - 'null'
     - name: description
       type: string
     - name: resources
@@ -143,7 +161,9 @@ outputs:
     - name: reference__fasta__base
       type: File
     - name: config__algorithm__coverage_interval
-      type: string
+      type:
+      - string
+      - 'null'
     - name: genome_build
       type: string
     - name: config__algorithm__coverage
@@ -165,19 +185,29 @@ outputs:
         items: string
         type: array
     - name: config__algorithm__variant_regions
-      type: File
+      type:
+      - File
+      - 'null'
     - name: align_bam
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__variant_regions_merged
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__coverage_merged
       type:
       - File
       - 'null'
     - name: depth__variant_regions__regions
-      type: File
+      type:
+      - File
+      - 'null'
     - name: depth__variant_regions__dist
-      type: File
+      type:
+      - File
+      - 'null'
     - name: depth__sv_regions__regions
       type:
       - File

@@ -38,7 +38,9 @@ inputs:
       - name: config__algorithm__variantcaller
         type: string
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: metadata__batch
         type: string
       - name: metadata__phenotype
@@ -69,10 +71,8 @@ inputs:
         type: File
       - name: reference__genome_context
         type:
-          items:
-          - 'null'
-          - string
-          type: array
+        - 'null'
+        - string
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -80,7 +80,9 @@ inputs:
           items: string
           type: array
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
       - name: reference__rtg
@@ -88,9 +90,13 @@ inputs:
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: jointvc_batch_rec
@@ -134,7 +140,9 @@ outputs:
       - name: config__algorithm__variantcaller
         type: string
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: metadata__batch
         type: string
       - name: metadata__phenotype
@@ -165,10 +173,8 @@ outputs:
         type: File
       - name: reference__genome_context
         type:
-          items:
-          - 'null'
-          - string
-          type: array
+        - 'null'
+        - string
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -176,7 +182,9 @@ outputs:
           items: string
           type: array
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
       - name: reference__rtg
@@ -184,9 +192,13 @@ outputs:
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       - name: vrn_file_joint

@@ -315,5 +315,9 @@
     "rgnames__sample": [
         "Test1",
         "Test2"
+    ],
+    "vrn_file": [
+        "null",
+        "null"
     ]
 }

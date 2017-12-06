@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1047
+  outdirMin: 1040
   ramMin: 4096
-  tmpdirMin: 23
+  tmpdirMin: 8
 - class: SoftwareRequirement
   packages:
   - package: biobambam
@@ -78,13 +78,17 @@ inputs:
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: align_bam_toolinput
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: work_bam_plus__disc_toolinput
   secondaryFiles:
@@ -113,7 +117,9 @@ outputs:
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   secondaryFiles:
   - .bai

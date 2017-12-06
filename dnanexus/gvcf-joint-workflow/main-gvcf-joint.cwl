@@ -155,6 +155,12 @@ inputs:
     - 'null'
     - boolean
     type: array
+- id: vrn_file
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
   - .tbi
@@ -164,10 +170,8 @@ inputs:
 - id: reference__genome_context
   type:
     items:
-      items:
-      - 'null'
-      - string
-      type: array
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__qc
   type:
@@ -213,12 +217,16 @@ outputs:
 - id: align_bam
   outputSource: postprocess_alignment/align_bam
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: regions__sample_callable
   outputSource: postprocess_alignment/regions__sample_callable
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: summary__multiqc
   outputSource: multiqc_summary/summary__multiqc
@@ -411,6 +419,8 @@ steps:
     source: postprocess_alignment/regions__callable
   - id: regions__nblock
     source: postprocess_alignment/regions__nblock
+  - id: metadata__batch
+    source: metadata__batch
   - id: config__algorithm__nomap_split_size
     source: config__algorithm__nomap_split_size
   - id: config__algorithm__nomap_split_targets
@@ -498,6 +508,8 @@ steps:
     source: genome_build
   - id: align_bam
     source: postprocess_alignment/align_bam
+  - id: vrn_file
+    source: vrn_file
   - id: config__algorithm__callable_regions
     source: combine_sample_regions/config__algorithm__callable_regions
   - id: metadata__batch
