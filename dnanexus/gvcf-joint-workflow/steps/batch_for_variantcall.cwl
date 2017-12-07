@@ -125,6 +125,10 @@ inputs:
     items:
     - 'null'
     - string
+    - items:
+      - 'null'
+      - string
+      type: array
     type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
@@ -224,6 +228,10 @@ outputs:
           type:
           - 'null'
           - string
+          - items:
+            - 'null'
+            - string
+            type: array
         - name: analysis
           type: string
         - name: config__algorithm__tools_on

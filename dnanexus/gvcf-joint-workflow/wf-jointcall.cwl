@@ -73,6 +73,10 @@ inputs:
         type:
         - 'null'
         - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -175,6 +179,10 @@ outputs:
         type:
         - 'null'
         - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on

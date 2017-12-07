@@ -172,6 +172,10 @@ inputs:
     items:
     - 'null'
     - string
+    - items:
+      - 'null'
+      - string
+      type: array
     type: array
 - id: config__algorithm__qc
   type:
