@@ -72,6 +72,13 @@ inputs:
   type:
     items: File
     type: array
+- id: config__algorithm__bam_clean
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
 - id: config__algorithm__nomap_split_size
   type:
     items: long
@@ -297,6 +304,8 @@ steps:
     source: reference__bwa__indexes
   - id: config__algorithm__aligner
     source: config__algorithm__aligner
+  - id: config__algorithm__bam_clean
+    source: config__algorithm__bam_clean
   - id: config__algorithm__mark_duplicates
     source: config__algorithm__mark_duplicates
   - id: description

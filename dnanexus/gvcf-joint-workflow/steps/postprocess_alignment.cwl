@@ -45,6 +45,9 @@ hints:
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
+  - package: sentieon
+    specs:
+    - https://anaconda.org/bioconda/sentieon
 - class: arv:APIRequirement
 inputs:
 - id: postprocess_alignment_rec

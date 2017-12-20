@@ -33,6 +33,9 @@ hints:
   - package: gvcftools
     specs:
     - https://anaconda.org/bioconda/gvcftools
+  - package: sentieon
+    specs:
+    - https://anaconda.org/bioconda/sentieon
 - class: arv:APIRequirement
 inputs:
 - id: jointvc_batch_rec

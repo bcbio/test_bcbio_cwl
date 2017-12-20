@@ -1,3 +1,5 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -20,6 +22,7 @@ hints:
   outdirMin: 1026
   ramMin: 2048
   tmpdirMin: 1
+- class: dx:SkipInputDownload
 inputs:
 - id: config__algorithm__coverage
   type:

@@ -11,6 +11,10 @@
         "bwa",
         "bwa"
     ],
+    "config__algorithm__bam_clean": [
+        "False",
+        "False"
+    ],
     "config__algorithm__coverage": [
         {
             "class": "File",

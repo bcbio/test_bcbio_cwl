@@ -1,3 +1,5 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -69,6 +71,7 @@ hints:
   - package: variantbam
     specs:
     - https://anaconda.org/bioconda/variantbam
+- class: arv:APIRequirement
 inputs:
 - id: alignment_rec
   type:
@@ -93,6 +96,11 @@ inputs:
       type: string
     - name: reference__bwa__indexes
       type: File
+    - name: config__algorithm__bam_clean
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: files
       type:
         items: File

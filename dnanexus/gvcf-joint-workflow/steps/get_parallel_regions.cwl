@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1029
+  outdirMin: 1031
   ramMin: 2048
-  tmpdirMin: 3
+  tmpdirMin: 4
 inputs:
 - id: batch_rec
   type:
