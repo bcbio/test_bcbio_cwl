@@ -1,6 +1,9 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=$(runtime)
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+- sentinel_parallel=single-merge
+- sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq
+- sentinel_inputs=alignment_rec:record,work_bam:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,hla__fastq:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -9,51 +12,84 @@ baseCommand:
 class: CommandLineTool
 cwlVersion: v1.0
 hints:
+- class: DockerRequirement
+  dockerImageId: quay.io/bcbio/bcbio-vc
+  dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 4
-  ramMin: 4096
-  tmpdirMin: 9
+  outdirMin: 1039
+  ramMin: 8192
+  tmpdirMin: 8
+- class: SoftwareRequirement
+  packages:
+  - package: biobambam
+    specs:
+    - https://anaconda.org/bioconda/biobambam
+  - package: samtools
+    specs:
+    - https://anaconda.org/bioconda/samtools
+  - package: variantbam
+    specs:
+    - https://anaconda.org/bioconda/variantbam
 inputs:
-- default: single-merge
-  id: sentinel-parallel
-  inputBinding:
-    itemSeparator: ;;
-    position: 0
-    prefix: sentinel-parallel=
-    separate: false
-  type: string
-- default: '["align_bam","work_bam_plus__disc","work_bam_plus__sr","hla__fastq"]'
-  id: sentinel-outputs
-  inputBinding:
-    itemSeparator: ;;
-    position: 1
-    prefix: sentinel-outputs=
-    separate: false
-  type: string
+- id: alignment_rec
+  type:
+    fields:
+    - name: description
+      type: string
+    - name: resources
+      type: string
+    - name: config__algorithm__align_split_size
+      type:
+      - 'null'
+      - string
+    - name: reference__fasta__base
+      type: File
+    - name: reference__snap__indexes
+      type:
+      - 'null'
+      - string
+      - File
+    - name: rgnames__lb
+      type:
+      - 'null'
+      - string
+    - name: rgnames__rg
+      type: string
+    - name: rgnames__lane
+      type: string
+    - name: reference__bwa__indexes
+      type:
+      - File
+      - 'null'
+      - string
+    - name: config__algorithm__bam_clean
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__aligner
+      type: string
+    - name: rgnames__pl
+      type: string
+    - name: rgnames__pu
+      type: string
+    - name: config__algorithm__mark_duplicates
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: analysis
+      type: string
+    - name: rgnames__sample
+      type: string
+    name: alignment_rec
+    type: record
 - id: work_bam
-  inputBinding:
-    itemSeparator: ;;
-    position: 2
-    prefix: work_bam=
-    separate: false
-  type:
-    items: File
-    type: array
-- id: align_bam
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: align_bam=
-    separate: false
-  type:
-    items: File
-    type: array
-- id: work_bam_plus__disc
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: work_bam_plus__disc=
-    separate: false
   secondaryFiles:
   - .bai
   type:
@@ -61,12 +97,7 @@ inputs:
     - File
     - 'null'
     type: array
-- id: work_bam_plus__sr
-  inputBinding:
-    itemSeparator: ;;
-    position: 5
-    prefix: work_bam_plus__sr=
-    separate: false
+- id: align_bam_toolinput
   secondaryFiles:
   - .bai
   type:
@@ -74,29 +105,36 @@ inputs:
     - File
     - 'null'
     type: array
-- id: hla__fastq
-  inputBinding:
-    itemSeparator: ;;
-    position: 6
-    prefix: hla__fastq=
-    separate: false
+- id: work_bam_plus__disc_toolinput
+  secondaryFiles:
+  - .bai
   type:
     items:
     - File
     - 'null'
     type: array
-- id: description
-  inputBinding:
-    itemSeparator: ;;
-    position: 7
-    prefix: description=
-    separate: false
-  type: string
+- id: work_bam_plus__sr_toolinput
+  secondaryFiles:
+  - .bai
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: hla__fastq_toolinput
+  type:
+    items:
+    - 'null'
+    - items: File
+      type: array
+    type: array
 outputs:
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   secondaryFiles:
   - .bai
@@ -111,5 +149,12 @@ outputs:
   - 'null'
 - id: hla__fastq
   type:
-  - File
   - 'null'
+  - items: File
+    type: array
+requirements:
+- class: InlineJavascriptRequirement
+- class: InitialWorkDirRequirement
+  listing:
+  - entry: $(JSON.stringify(inputs))
+    entryname: cwl.inputs.json

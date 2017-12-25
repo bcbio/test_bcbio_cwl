@@ -7,6 +7,7 @@ inputs:
     items:
     - 'null'
     - string
+    - boolean
     - long
     type: array
 - id: config__algorithm__validate
@@ -15,6 +16,16 @@ inputs:
     - File
     - 'null'
     - string
+    type: array
+- id: reference__minimap2__indexes
+  type:
+    items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
+      - string
+      type: array
     type: array
 - id: reference__fasta__base
   secondaryFiles:
@@ -30,13 +41,6 @@ inputs:
     - string
     - items: string
       type: array
-    type: array
-- id: reference__snap__indexes
-  type:
-    items:
-    - 'null'
-    - string
-    - File
     type: array
 - id: config__algorithm__coverage_interval
   type:
@@ -74,24 +78,22 @@ inputs:
   type:
     items: long
     type: array
-- id: reference__bwa__indexes
-  type:
-    items:
-    - 'null'
-    - string
-    - File
-    type: array
 - id: reference__twobit
   type:
     items: File
+    type: array
+- id: config__algorithm__bam_clean
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: config__algorithm__nomap_split_size
   type:
     items: long
     type: array
 - id: files
-  secondaryFiles:
-  - .bai
   type:
     items:
     - 'null'
@@ -119,6 +121,7 @@ inputs:
     items:
     - 'null'
     - string
+    - boolean
     type: array
 - id: rgnames__pl
   type:
@@ -158,7 +161,9 @@ inputs:
     items:
     - 'null'
     - string
-    - items: string
+    - items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: genome_resources__variation__dbsnp
@@ -175,8 +180,6 @@ inputs:
     - boolean
     type: array
 - id: vrn_file
-  secondaryFiles:
-  - .tbi
   type:
     items:
     - File
@@ -216,7 +219,9 @@ inputs:
     items:
     - 'null'
     - string
-    - items: string
+    - items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: config__algorithm__variant_regions
@@ -302,6 +307,8 @@ steps:
   in:
   - id: files
     source: files
+  - id: analysis
+    source: analysis
   - id: config__algorithm__align_split_size
     source: config__algorithm__align_split_size
   - id: reference__fasta__base
@@ -318,12 +325,12 @@ steps:
     source: rgnames__rg
   - id: rgnames__lb
     source: rgnames__lb
-  - id: reference__snap__indexes
-    source: reference__snap__indexes
-  - id: reference__bwa__indexes
-    source: reference__bwa__indexes
+  - id: reference__minimap2__indexes
+    source: reference__minimap2__indexes
   - id: config__algorithm__aligner
     source: config__algorithm__aligner
+  - id: config__algorithm__bam_clean
+    source: config__algorithm__bam_clean
   - id: config__algorithm__mark_duplicates
     source: config__algorithm__mark_duplicates
   - id: description

@@ -26,7 +26,8 @@ inputs:
   - .bai
   type:
     items:
-      items: File
+      items:
+      - File
       type: array
     type: array
 - id: config__algorithm__align_split_size
@@ -118,7 +119,8 @@ outputs:
         type: File
       - name: files
         type:
-          items: File
+          items:
+          - File
           type: array
       - name: config__algorithm__aligner
         type: string

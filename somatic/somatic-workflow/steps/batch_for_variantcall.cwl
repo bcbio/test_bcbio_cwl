@@ -17,9 +17,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1029
+  outdirMin: 1031
   ramMin: 2048
-  tmpdirMin: 3
+  tmpdirMin: 4
 inputs:
 - id: analysis
   type:
@@ -38,8 +38,6 @@ inputs:
     - 'null'
     type: array
 - id: vrn_file
-  secondaryFiles:
-  - .tbi
   type:
     items:
     - File
@@ -103,7 +101,9 @@ inputs:
     items:
     - 'null'
     - string
-    - items: string
+    - items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: config__algorithm__tools_off
@@ -111,7 +111,9 @@ inputs:
     items:
     - 'null'
     - string
-    - items: string
+    - items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: reference__fasta__base
@@ -225,7 +227,9 @@ outputs:
           type:
           - 'null'
           - string
-          - items: string
+          - items:
+            - 'null'
+            - string
             type: array
         - name: genome_resources__variation__dbsnp
           type: File
@@ -246,7 +250,9 @@ outputs:
           type:
           - 'null'
           - string
-          - items: string
+          - items:
+            - 'null'
+            - string
             type: array
         - name: config__algorithm__variant_regions
           type:

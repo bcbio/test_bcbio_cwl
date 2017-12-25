@@ -4,8 +4,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=alignment_rec:description;resources;config__algorithm__align_split_size;reference__minimap2__indexes;reference__fasta__base;rgnames__lb;rgnames__rg;rgnames__lane;config__algorithm__bam_clean;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;analysis;rgnames__sample
-- sentinel_inputs=files:var,analysis:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__minimap2__indexes:var,config__algorithm__aligner:var,config__algorithm__bam_clean:var,config__algorithm__mark_duplicates:var,description:var,resources:var
+- sentinel_outputs=alignment_rec:description;resources;config__algorithm__align_split_size;reference__fasta__base;reference__snap__indexes;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;config__algorithm__bam_clean;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;analysis;rgnames__sample
+- sentinel_inputs=files:var,analysis:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__snap__indexes:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__bam_clean:var,config__algorithm__mark_duplicates:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,17 +19,17 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1033
+  outdirMin: 1032
   ramMin: 2048
-  tmpdirMin: 5
+  tmpdirMin: 4
 - class: dx:SkipInputDownload
 inputs:
 - id: files
+  secondaryFiles:
+  - .bai
   type:
     items:
-    - 'null'
-    - string
-    - items: File
+      items: File
       type: array
     type: array
 - id: analysis
@@ -41,8 +41,6 @@ inputs:
     items:
     - 'null'
     - string
-    - boolean
-    - long
     type: array
 - id: reference__fasta__base
   secondaryFiles:
@@ -77,22 +75,23 @@ inputs:
     - 'null'
     - string
     type: array
-- id: reference__minimap2__indexes
+- id: reference__snap__indexes
   type:
     items:
     - 'null'
     - string
-    - items:
-      - 'null'
-      - string
-      type: array
+    - File
+    type: array
+- id: reference__bwa__indexes
+  type:
+    items:
+    - File
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__aligner
   type:
-    items:
-    - 'null'
-    - string
-    - boolean
+    items: string
     type: array
 - id: config__algorithm__bam_clean
   type:
@@ -129,18 +128,13 @@ outputs:
         type:
         - 'null'
         - string
-        - boolean
-        - long
-      - name: reference__minimap2__indexes
+      - name: reference__fasta__base
+        type: File
+      - name: reference__snap__indexes
         type:
         - 'null'
         - string
-        - items:
-          - 'null'
-          - string
-          type: array
-      - name: reference__fasta__base
-        type: File
+        - File
       - name: rgnames__lb
         type:
         - 'null'
@@ -149,6 +143,11 @@ outputs:
         type: string
       - name: rgnames__lane
         type: string
+      - name: reference__bwa__indexes
+        type:
+        - File
+        - 'null'
+        - string
       - name: config__algorithm__bam_clean
         type:
         - string
@@ -156,15 +155,10 @@ outputs:
         - boolean
       - name: files
         type:
-        - 'null'
-        - string
-        - items: File
+          items: File
           type: array
       - name: config__algorithm__aligner
-        type:
-        - 'null'
-        - string
-        - boolean
+        type: string
       - name: rgnames__pl
         type: string
       - name: rgnames__pu

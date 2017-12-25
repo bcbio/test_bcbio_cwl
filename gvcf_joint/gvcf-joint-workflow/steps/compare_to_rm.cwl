@@ -60,7 +60,8 @@ inputs:
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__variantcaller
-        type: string
+        type:
+        - string
       - name: config__algorithm__coverage_interval
         type:
         - string
@@ -87,7 +88,8 @@ inputs:
         - boolean
       - name: config__algorithm__tools_off
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
@@ -99,13 +101,15 @@ inputs:
         type: File
       - name: reference__genome_context
         type:
-          items: File
+          items:
+          - File
           type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:
@@ -169,7 +173,8 @@ outputs:
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__variantcaller
-        type: string
+        type:
+        - string
       - name: config__algorithm__coverage_interval
         type:
         - string
@@ -196,7 +201,8 @@ outputs:
         - boolean
       - name: config__algorithm__tools_off
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
@@ -204,13 +210,15 @@ outputs:
         type: File
       - name: reference__genome_context
         type:
-          items: File
+          items:
+          - File
           type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:

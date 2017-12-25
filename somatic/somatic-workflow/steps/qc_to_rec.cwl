@@ -1,3 +1,5 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -17,9 +19,10 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1029
+  outdirMin: 1030
   ramMin: 2048
   tmpdirMin: 3
+- class: dx:SkipInputDownload
 inputs:
 - id: align_bam
   secondaryFiles:
@@ -55,7 +58,9 @@ inputs:
     items:
     - 'null'
     - string
-    - items: string
+    - items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: config__algorithm__tools_off
@@ -63,7 +68,9 @@ inputs:
     items:
     - 'null'
     - string
-    - items: string
+    - items:
+      - 'null'
+      - string
       type: array
     type: array
 - id: config__algorithm__qc
@@ -171,7 +178,9 @@ outputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: config__algorithm__qc
         type:
@@ -183,7 +192,9 @@ outputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:

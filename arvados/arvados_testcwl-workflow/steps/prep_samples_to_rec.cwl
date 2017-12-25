@@ -4,8 +4,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=prep_samples_rec:description;resources;reference__fasta__base;config__algorithm__coverage;config__algorithm__variant_regions
-- sentinel_inputs=config__algorithm__coverage:var,config__algorithm__variant_regions:var,reference__fasta__base:var,description:var,resources:var
+- sentinel_outputs=prep_samples_rec:description;resources;reference__fasta__base;config__algorithm__variant_regions
+- sentinel_inputs=config__algorithm__variant_regions:var,reference__fasta__base:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -24,19 +24,9 @@ hints:
   tmpdirMin: 1
 - class: dx:SkipInputDownload
 inputs:
-- id: config__algorithm__coverage
-  type:
-    items:
-    - 'null'
-    - string
-    - File
-    type: array
 - id: config__algorithm__variant_regions
   type:
-    items:
-    - 'null'
-    - string
-    - File
+    items: File
     type: array
 - id: reference__fasta__base
   secondaryFiles:
@@ -64,16 +54,8 @@ outputs:
         type: string
       - name: reference__fasta__base
         type: File
-      - name: config__algorithm__coverage
-        type:
-        - 'null'
-        - string
-        - File
       - name: config__algorithm__variant_regions
-        type:
-        - 'null'
-        - string
-        - File
+        type: File
       name: prep_samples_rec
       type: record
     type: array

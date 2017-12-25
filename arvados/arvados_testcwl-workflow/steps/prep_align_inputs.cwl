@@ -1,6 +1,9 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=$(runtime)
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+- sentinel_parallel=single-split
+- sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split
+- sentinel_inputs=alignment_rec:record
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -9,73 +12,107 @@ baseCommand:
 class: CommandLineTool
 cwlVersion: v1.0
 hints:
+- class: DockerRequirement
+  dockerImageId: quay.io/bcbio/bcbio-vc
+  dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 4
-  ramMin: 4096
+  outdirMin: 1032
+  ramMin: 8192
   tmpdirMin: 4
+- class: SoftwareRequirement
+  packages:
+  - package: grabix
+    specs:
+    - https://anaconda.org/bioconda/grabix
+  - package: htslib
+    specs:
+    - https://anaconda.org/bioconda/htslib
+  - package: biobambam
+    specs:
+    - https://anaconda.org/bioconda/biobambam
 inputs:
-- default: single-split
-  id: sentinel-parallel
-  inputBinding:
-    itemSeparator: ;;
-    position: 0
-    prefix: sentinel-parallel=
-    separate: false
-  type: string
-- default: '["files","config__algorithm__quality_format","align_split"]'
-  id: sentinel-outputs
-  inputBinding:
-    itemSeparator: ;;
-    position: 1
-    prefix: sentinel-outputs=
-    separate: false
-  type: string
-- id: files
-  inputBinding:
-    itemSeparator: ;;
-    position: 2
-    prefix: files=
-    separate: false
+- id: alignment_rec
   type:
-    items: File
-    type: array
-- id: config__algorithm__align_split_size
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: config__algorithm__align_split_size=
-    separate: false
-  type: long
-- id: config__algorithm__aligner
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: config__algorithm__aligner=
-    separate: false
-  type: string
-- id: description
-  inputBinding:
-    itemSeparator: ;;
-    position: 5
-    prefix: description=
-    separate: false
-  type: string
+    fields:
+    - name: description
+      type: string
+    - name: resources
+      type: string
+    - name: config__algorithm__align_split_size
+      type:
+      - 'null'
+      - string
+    - name: reference__fasta__base
+      type: File
+    - name: reference__snap__indexes
+      type:
+      - 'null'
+      - string
+      - File
+    - name: rgnames__lb
+      type:
+      - 'null'
+      - string
+    - name: rgnames__rg
+      type: string
+    - name: rgnames__lane
+      type: string
+    - name: reference__bwa__indexes
+      type:
+      - File
+      - 'null'
+      - string
+    - name: config__algorithm__bam_clean
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__aligner
+      type: string
+    - name: rgnames__pl
+      type: string
+    - name: rgnames__pu
+      type: string
+    - name: config__algorithm__mark_duplicates
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: analysis
+      type: string
+    - name: rgnames__sample
+      type: string
+    name: alignment_rec
+    type: record
 outputs:
-- id: files
-  secondaryFiles:
-  - .gbi
+- id: process_alignment_rec
   type:
     items:
-      items: File
-      type: array
+      fields:
+      - name: files
+        type:
+        - 'null'
+        - items: File
+          type: array
+      - name: config__algorithm__quality_format
+        type:
+        - string
+        - 'null'
+      - name: align_split
+        type:
+        - string
+        - 'null'
+      name: process_alignment_rec
+      type: record
     type: array
-- id: config__algorithm__quality_format
-  type:
-    items: string
-    type: array
-- id: align_split
-  type:
-    items:
-    - string
-    - 'null'
-    type: array
+requirements:
+- class: InlineJavascriptRequirement
+- class: InitialWorkDirRequirement
+  listing:
+  - entry: $(JSON.stringify(inputs))
+    entryname: cwl.inputs.json

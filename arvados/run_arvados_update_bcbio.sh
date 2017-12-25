@@ -6,4 +6,5 @@ set -eu -o pipefail
 #export ARVADOS_API_HOST=
 unset ARVADOS_API_HOST_INSECURE
 
-/home/chapmanb/install/bio/arvados/sdk/cwl/miniconda/bin/arv-keepdocker bcbio/bcbio
+docker pull quay.io/bcbio/bcbio-vc
+arv-keepdocker --project-uuid qr1hi-j7d0g-7t73h4hrau3l063 quay.io/bcbio/bcbio-vc

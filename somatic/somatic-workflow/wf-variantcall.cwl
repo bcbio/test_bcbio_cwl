@@ -49,7 +49,9 @@ inputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
@@ -70,7 +72,9 @@ inputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:
@@ -162,7 +166,9 @@ outputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
@@ -178,7 +184,9 @@ outputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:

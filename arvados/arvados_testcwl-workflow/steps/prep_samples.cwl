@@ -1,6 +1,9 @@
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=$(runtime)
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+- sentinel_parallel=multi-parallel
+- sentinel_outputs=config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready
+- sentinel_inputs=prep_samples_rec:record
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -9,50 +12,44 @@ baseCommand:
 class: CommandLineTool
 cwlVersion: v1.0
 hints:
+- class: DockerRequirement
+  dockerImageId: quay.io/bcbio/bcbio-vc
+  dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
-  coresMin: 4
-  ramMin: 4096
+  coresMin: 1
+  outdirMin: 1026
+  ramMin: 2048
+  tmpdirMin: 1
+- class: SoftwareRequirement
+  packages:
+  - package: htslib
+    specs:
+    - https://anaconda.org/bioconda/htslib
+  - package: bedtools
+    specs:
+    - https://anaconda.org/bioconda/bedtools
+  - package: pythonpy
+    specs:
+    - https://anaconda.org/bioconda/pythonpy
 inputs:
-- default: multi-parallel
-  id: sentinel-parallel
-  inputBinding:
-    itemSeparator: ;;
-    position: 0
-    prefix: sentinel-parallel=
-    separate: false
-  type: string
-- default: '["config__algorithm__variant_regions","config__algorithm__variant_regions_merged","config__algorithm__variant_regions_orig","config__algorithm__coverage","config__algorithm__coverage_merged","config__algorithm__coverage_orig","config__algorithm__seq2c_bed_ready"]'
-  id: sentinel-outputs
-  inputBinding:
-    itemSeparator: ;;
-    position: 1
-    prefix: sentinel-outputs=
-    separate: false
-  type: string
-- id: config__algorithm__variant_regions
-  inputBinding:
-    itemSeparator: ;;
-    position: 2
-    prefix: config__algorithm__variant_regions=
-    separate: false
-  type: File
-- id: reference__fasta__base
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: reference__fasta__base=
-    separate: false
-  type: File
-- id: description
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: description=
-    separate: false
-  type: string
+- id: prep_samples_rec
+  type:
+    fields:
+    - name: description
+      type: string
+    - name: resources
+      type: string
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__variant_regions
+      type: File
+    name: prep_samples_rec
+    type: record
 outputs:
 - id: config__algorithm__variant_regions
-  type: File
+  type:
+  - File
+  - 'null'
 - id: config__algorithm__variant_regions_merged
   type:
   - File
@@ -77,3 +74,9 @@ outputs:
   type:
   - File
   - 'null'
+requirements:
+- class: InlineJavascriptRequirement
+- class: InitialWorkDirRequirement
+  listing:
+  - entry: $(JSON.stringify(inputs))
+    entryname: cwl.inputs.json

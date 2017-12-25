@@ -19,9 +19,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1034
+  outdirMin: 1035
   ramMin: 5120
-  tmpdirMin: 5
+  tmpdirMin: 6
 - class: SoftwareRequirement
   packages:
   - package: sambamba
@@ -45,6 +45,9 @@ hints:
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
+  - package: sentieon
+    specs:
+    - https://anaconda.org/bioconda/sentieon
 - class: arv:APIRequirement
 inputs:
 - id: postprocess_alignment_rec
@@ -79,7 +82,9 @@ inputs:
       type:
       - 'null'
       - string
-      - items: string
+      - items:
+        - 'null'
+        - string
         type: array
     - name: config__algorithm__variant_regions
       type:

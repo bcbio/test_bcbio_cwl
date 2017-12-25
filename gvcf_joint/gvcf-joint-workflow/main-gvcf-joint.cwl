@@ -25,7 +25,8 @@ inputs:
 - id: config__algorithm__variantcaller
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: config__algorithm__coverage_interval
@@ -81,7 +82,8 @@ inputs:
   - .bai
   type:
     items:
-      items: File
+      items:
+      - File
       type: array
     type: array
 - id: reference__snpeff__hg19
@@ -139,7 +141,8 @@ inputs:
 - id: config__algorithm__tools_off
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: genome_resources__variation__dbsnp
@@ -172,13 +175,15 @@ inputs:
   - .tbi
   type:
     items:
-      items: File
+      items:
+      - File
       type: array
     type: array
 - id: config__algorithm__qc
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: analysis
@@ -192,7 +197,8 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: config__algorithm__variant_regions

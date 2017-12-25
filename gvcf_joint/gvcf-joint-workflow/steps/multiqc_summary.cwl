@@ -59,17 +59,20 @@ inputs:
         - 'null'
       - name: config__algorithm__tools_off
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: config__algorithm__qc
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:

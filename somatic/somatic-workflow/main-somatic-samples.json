@@ -6,13 +6,18 @@
     ],
     "config__algorithm__align_split_size": [
         "null",
-        "null",
+        "False",
         25000
     ],
     "config__algorithm__aligner": [
         "null",
-        "snap",
-        "bwa"
+        "minimap2",
+        "False"
+    ],
+    "config__algorithm__bam_clean": [
+        "False",
+        "False",
+        "False"
     ],
     "config__algorithm__coverage": [
         "null",
@@ -30,7 +35,7 @@
     "config__algorithm__mark_duplicates": [
         "True",
         "True",
-        "True"
+        "False"
     ],
     "config__algorithm__nomap_split_size": [
         250,
@@ -142,19 +147,29 @@
     ],
     "description": [
         "VarOnly",
-        "Test1",
-        "Test2"
+        "Test2",
+        "Test1"
     ],
     "files": [
         "null",
         [
             {
                 "class": "File",
-                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam",
+                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam.bai"
+                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz.gbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz.gbi"
                     }
                 ]
             }
@@ -280,14 +295,6 @@
         "tumor",
         "normal"
     ],
-    "reference__bwa__indexes": [
-        "null",
-        "null",
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/bwa-wf.tar.gz"
-        }
-    ],
     "reference__fasta__base": [
         {
             "class": "File",
@@ -400,6 +407,11 @@
             }
         ]
     ],
+    "reference__minimap2__indexes": [
+        "null",
+        [],
+        "null"
+    ],
     "reference__rtg": [
         {
             "class": "File",
@@ -413,14 +425,6 @@
             "class": "File",
             "path": "../../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
         }
-    ],
-    "reference__snap__indexes": [
-        "null",
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/snap-wf.tar.gz"
-        },
-        "null"
     ],
     "reference__snpeff__hg19": [
         {
@@ -451,14 +455,14 @@
         }
     ],
     "resources": [
-        "{}",
-        "{}",
-        "{}"
+        "{\"sentieon\": {\"keyfile\": \"example:8080\"}}",
+        "{\"sentieon\": {\"keyfile\": \"example:8080\"}}",
+        "{\"sentieon\": {\"keyfile\": \"example:8080\"}}"
     ],
     "rgnames__lane": [
         "VarOnly",
-        "Test1",
-        "Test2"
+        "Test2",
+        "Test1"
     ],
     "rgnames__lb": [
         "null",
@@ -472,18 +476,18 @@
     ],
     "rgnames__pu": [
         "VarOnly",
-        "Test1",
-        "Test2"
+        "Test2",
+        "Test1"
     ],
     "rgnames__rg": [
         "VarOnly",
-        "Test1",
-        "Test2"
+        "Test2",
+        "Test1"
     ],
     "rgnames__sample": [
         "VarOnly",
-        "Test1",
-        "Test2"
+        "Test2",
+        "Test1"
     ],
     "vrn_file": [
         {

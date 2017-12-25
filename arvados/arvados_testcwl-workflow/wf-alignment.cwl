@@ -1,50 +1,72 @@
 class: Workflow
 cwlVersion: v1.0
-hints:
-- class: DockerRequirement
-  dockerImageId: bcbio/bcbio
-  dockerPull: bcbio/bcbio
+hints: []
 inputs:
-- id: files
+- id: alignment_rec
   type:
-    items: File
-    type: array
-- id: config__algorithm__align_split_size
-  type: long
-- id: config__algorithm__aligner
-  type: string
-- id: description
-  type: string
-- id: reference__fasta__base
-  type: File
-- id: rgnames__pl
-  type: string
-- id: rgnames__sample
-  type: string
-- id: rgnames__pu
-  type: string
-- id: rgnames__lane
-  type: string
-- id: rgnames__rg
-  type: string
-- id: rgnames__lb
-  type: 'null'
-- id: reference__snap__indexes
-  type:
-  - 'null'
-  - File
-- id: reference__bwa__indexes
-  type:
-  - File
-  - 'null'
-- id: config__algorithm__mark_duplicates
-  type: string
+    fields:
+    - name: description
+      type: string
+    - name: resources
+      type: string
+    - name: config__algorithm__align_split_size
+      type:
+      - 'null'
+      - string
+    - name: reference__fasta__base
+      type: File
+    - name: reference__snap__indexes
+      type:
+      - 'null'
+      - string
+      - File
+    - name: rgnames__lb
+      type:
+      - 'null'
+      - string
+    - name: rgnames__rg
+      type: string
+    - name: rgnames__lane
+      type: string
+    - name: reference__bwa__indexes
+      type:
+      - File
+      - 'null'
+      - string
+    - name: config__algorithm__bam_clean
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__aligner
+      type: string
+    - name: rgnames__pl
+      type: string
+    - name: rgnames__pu
+      type: string
+    - name: config__algorithm__mark_duplicates
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: analysis
+      type: string
+    - name: rgnames__sample
+      type: string
+    name: alignment_rec
+    type: record
 outputs:
 - id: align_bam
   outputSource: merge_split_alignments/align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   outputSource: merge_split_alignments/work_bam_plus__disc
   secondaryFiles:
@@ -62,65 +84,30 @@ outputs:
 - id: hla__fastq
   outputSource: merge_split_alignments/hla__fastq
   type:
-  - File
   - 'null'
+  - items: File
+    type: array
 requirements:
 - class: EnvVarRequirement
   envDef:
   - envName: MPLCONFIGDIR
     envValue: .
 - class: ScatterFeatureRequirement
-- class: StepInputExpressionRequirement
 - class: SubworkflowFeatureRequirement
-- class: InlineJavascriptRequirement
 steps:
 - id: prep_align_inputs
   in:
-  - id: files
-    source: files
-  - id: config__algorithm__align_split_size
-    source: config__algorithm__align_split_size
-  - id: config__algorithm__aligner
-    source: config__algorithm__aligner
-  - id: description
-    source: description
+  - id: alignment_rec
+    source: alignment_rec
   out:
-  - id: files
-  - id: config__algorithm__quality_format
-  - id: align_split
+  - id: process_alignment_rec
   run: steps/prep_align_inputs.cwl
 - id: process_alignment
   in:
-  - id: files
-    source: prep_align_inputs/files
-  - id: reference__fasta__base
-    source: reference__fasta__base
-  - id: align_split
-    source: prep_align_inputs/align_split
-  - id: rgnames__pl
-    source: rgnames__pl
-  - id: rgnames__sample
-    source: rgnames__sample
-  - id: rgnames__pu
-    source: rgnames__pu
-  - id: rgnames__lane
-    source: rgnames__lane
-  - id: rgnames__rg
-    source: rgnames__rg
-  - id: rgnames__lb
-    source: rgnames__lb
-  - id: reference__snap__indexes
-    source: reference__snap__indexes
-  - id: reference__bwa__indexes
-    source: reference__bwa__indexes
-  - id: config__algorithm__aligner
-    source: config__algorithm__aligner
-  - id: config__algorithm__mark_duplicates
-    source: config__algorithm__mark_duplicates
-  - id: config__algorithm__quality_format
-    source: prep_align_inputs/config__algorithm__quality_format
-  - id: description
-    source: description
+  - id: alignment_rec
+    source: alignment_rec
+  - id: process_alignment_rec
+    source: prep_align_inputs/process_alignment_rec
   out:
   - id: work_bam
   - id: align_bam
@@ -129,24 +116,22 @@ steps:
   - id: work_bam_plus__sr
   run: steps/process_alignment.cwl
   scatter:
-  - files
-  - align_split
-  - config__algorithm__quality_format
+  - process_alignment_rec
   scatterMethod: dotproduct
 - id: merge_split_alignments
   in:
+  - id: alignment_rec
+    source: alignment_rec
   - id: work_bam
     source: process_alignment/work_bam
-  - id: align_bam
+  - id: align_bam_toolinput
     source: process_alignment/align_bam
-  - id: work_bam_plus__disc
+  - id: work_bam_plus__disc_toolinput
     source: process_alignment/work_bam_plus__disc
-  - id: work_bam_plus__sr
+  - id: work_bam_plus__sr_toolinput
     source: process_alignment/work_bam_plus__sr
-  - id: hla__fastq
+  - id: hla__fastq_toolinput
     source: process_alignment/hla__fastq
-  - id: description
-    source: description
   out:
   - id: align_bam
   - id: work_bam_plus__disc

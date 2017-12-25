@@ -19,9 +19,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1029
+  outdirMin: 1031
   ramMin: 5120
-  tmpdirMin: 3
+  tmpdirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: bcftools
@@ -41,6 +41,9 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
+  - package: sentieon
+    specs:
+    - https://anaconda.org/bioconda/sentieon
   - package: gatk-framework
     specs:
     - https://anaconda.org/bioconda/gatk-framework
@@ -139,7 +142,9 @@ inputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
@@ -160,7 +165,9 @@ inputs:
         type:
         - 'null'
         - string
-        - items: string
+        - items:
+          - 'null'
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:

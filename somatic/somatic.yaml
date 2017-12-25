@@ -4,38 +4,52 @@
 # and SV calling.
 ---
 details:
- - algorithm:
-     aligner: snap
-     recalibrate: false
-     realign: false
-     variantcaller: [freebayes, vardict, strelka2]
-     tools_on: [gatk4, qualimap_full]
-     tools_off: [gemini]
-     validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
-     validate_regions: ../testdata/automated/variant_regions-bam.bed
-     variant_regions: ../testdata/automated/variant_regions-bam.bed
-     coverage: ../testdata/automated/coverage_transcripts-bam.bed
-   metadata:
-     batch: b1
-     phenotype: tumor
-   analysis: variant2
-   description: Test1
-   genome_build: hg19
-   files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
- - algorithm:
-     aligner: bwa
-     align_split_size: 25000
-     #variantcaller: gatk-haplotype
-     variantcaller: [freebayes, vardict, strelka2]
-     tools_on: [gatk4, qualimap_full]
-     tools_off: [gemini, vqsr]
-     nomap_split_size: 50
-     nomap_split_targets: 100
-     variant_regions: ../testdata/automated/variant_regions-bam.bed
-   metadata:
-     batch: b1
-     phenotype: normal
-   analysis: variant2
-   description: Test2
-   genome_build: hg19
-   files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
+  - description: VarOnly
+    analysis: variant2
+    vrn_file: ../testdata/reference_material/7_100326_FC6107FAAXX-Test1.vcf.gz
+    genome_build: hg19
+    algorithm:
+      validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
+    metadata:
+      batch: b1
+  - algorithm:
+      aligner: minimap2
+      align_split_size: false
+      recalibrate: false
+      realign: false
+      variantcaller: [freebayes, vardict, strelka2]
+      tools_on: [gatk4, qualimap_full]
+      tools_off: [gemini]
+      validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
+      validate_regions: ../testdata/automated/variant_regions-bam.bed
+      variant_regions: ../testdata/automated/variant_regions-bam.bed
+      coverage: ../testdata/automated/coverage_transcripts-bam.bed
+    metadata:
+      batch: b1
+      phenotype: tumor
+    analysis: variant2
+    description: Test2
+    genome_build: hg19
+    files: [../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz, ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz]
+  - algorithm:
+      aligner: false
+      mark_duplicates: false
+      #bam_clean: remove_extracontigs
+      align_split_size: 25000
+      #variantcaller: gatk-haplotype
+      variantcaller: [freebayes, vardict, strelka2]
+      tools_on: [gatk4, qualimap_full]
+      tools_off: [gemini, vqsr]
+      nomap_split_size: 50
+      nomap_split_targets: 100
+      variant_regions: ../testdata/automated/variant_regions-bam.bed
+    metadata:
+      batch: b1
+      phenotype: normal
+    analysis: variant2
+    description: Test1
+    genome_build: hg19
+    files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
+resources:
+  sentieon:
+    keyfile: example:8080

@@ -1,8 +1,10 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=postprocess_alignment_rec:description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;reference__twobit;config__algorithm__recalibrate;config__algorithm__coverage;genome_resources__variation__dbsnp;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__variant_regions_orig;config__algorithm__coverage_merged;config__algorithm__coverage_orig;config__algorithm__seq2c_bed_ready
+- sentinel_outputs=postprocess_alignment_rec:description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;reference__twobit;config__algorithm__recalibrate;genome_resources__variation__dbsnp;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__variant_regions_orig;config__algorithm__coverage;config__algorithm__coverage_merged;config__algorithm__coverage_orig;config__algorithm__seq2c_bed_ready
 - sentinel_inputs=align_bam:var,config__algorithm__coverage_interval:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__variant_regions_orig:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,config__algorithm__coverage_orig:var,config__algorithm__seq2c_bed_ready:var,config__algorithm__recalibrate:var,config__algorithm__tools_on:var,genome_resources__rnaseq__gene_bed:var,genome_resources__variation__dbsnp:var,reference__twobit:var,reference__fasta__base:var,description:var,resources:var
 baseCommand:
 - bcbio_nextgen.py
@@ -20,6 +22,7 @@ hints:
   outdirMin: 1029
   ramMin: 2048
   tmpdirMin: 3
+- class: dx:SkipInputDownload
 inputs:
 - id: align_bam
   secondaryFiles:
@@ -87,7 +90,10 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
       - string
       type: array
     type: array
@@ -144,15 +150,14 @@ outputs:
         - string
         - 'null'
         - boolean
-      - name: config__algorithm__coverage
-        type:
-        - File
-        - 'null'
       - name: genome_resources__variation__dbsnp
         type: File
       - name: config__algorithm__tools_on
         type:
-          items:
+        - 'null'
+        - string
+        - items:
+          - 'null'
           - string
           type: array
       - name: config__algorithm__variant_regions
@@ -168,6 +173,10 @@ outputs:
         - File
         - 'null'
       - name: config__algorithm__variant_regions_orig
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__coverage
         type:
         - File
         - 'null'

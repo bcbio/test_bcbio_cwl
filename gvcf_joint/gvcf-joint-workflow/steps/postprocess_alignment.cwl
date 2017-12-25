@@ -77,7 +77,8 @@ inputs:
       type: File
     - name: config__algorithm__tools_on
       type:
-        items: string
+        items:
+        - string
         type: array
     - name: config__algorithm__variant_regions
       type:

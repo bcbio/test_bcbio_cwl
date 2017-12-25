@@ -3,7 +3,7 @@ arguments:
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
 - sentinel_outputs=variants__calls,variants__gvcf,validate__grading_summary,validate__grading_plots
-- sentinel_inputs=jointvc_rec:record
+- sentinel_inputs=vc_rec:record
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,19 +17,15 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1029
+  outdirMin: 1026
   ramMin: 2048
-  tmpdirMin: 3
+  tmpdirMin: 1
 inputs:
-- id: jointvc_rec
+- id: vc_rec
   type:
     items:
       items:
         fields:
-        - name: description
-          type: string
-        - name: resources
-          type: string
         - name: validate__summary
           type:
           - File
@@ -46,25 +42,26 @@ inputs:
           type:
           - File
           - 'null'
+        - name: description
+          type: string
+        - name: resources
+          type: string
         - name: vrn_file
           type: File
         - name: config__algorithm__validate
           type:
-          - File
           - 'null'
           - string
+          - File
         - name: reference__fasta__base
           type: File
         - name: config__algorithm__variantcaller
-          type:
-          - string
+          type: string
         - name: config__algorithm__coverage_interval
           type:
           - string
           - 'null'
         - name: metadata__batch
-          type: string
-        - name: metadata__phenotype
           type: string
         - name: reference__twobit
           type: File
@@ -72,10 +69,12 @@ inputs:
           type: File
         - name: config__algorithm__validate_regions
           type:
-          - File
           - 'null'
           - string
+          - File
         - name: genome_build
+          type: string
+        - name: metadata__phenotype
           type: string
         - name: genome_resources__aliases__human
           type:
@@ -84,8 +83,7 @@ inputs:
           - boolean
         - name: config__algorithm__tools_off
           type:
-            items:
-            - string
+            items: string
             type: array
         - name: genome_resources__variation__dbsnp
           type: File
@@ -93,14 +91,16 @@ inputs:
           type: File
         - name: reference__genome_context
           type:
-            items:
-            - File
+            items: File
             type: array
         - name: analysis
           type: string
         - name: config__algorithm__tools_on
           type:
-            items:
+          - 'null'
+          - string
+          - items:
+            - 'null'
             - string
             type: array
         - name: config__algorithm__variant_regions
@@ -123,9 +123,7 @@ inputs:
           - 'null'
         - name: config__algorithm__callable_regions
           type: File
-        - name: vrn_file_joint
-          type: File
-        name: jointvc_rec
+        name: vc_rec
         type: record
       type: array
     type: array

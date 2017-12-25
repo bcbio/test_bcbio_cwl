@@ -57,7 +57,8 @@ inputs:
       type: File
     - name: files
       type:
-        items: File
+        items:
+        - File
         type: array
     - name: config__algorithm__aligner
       type: string

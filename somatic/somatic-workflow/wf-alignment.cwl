@@ -13,14 +13,18 @@ inputs:
       type:
       - 'null'
       - string
+      - boolean
       - long
-    - name: reference__fasta__base
-      type: File
-    - name: reference__snap__indexes
+    - name: reference__minimap2__indexes
       type:
       - 'null'
       - string
-      - File
+      - items:
+        - 'null'
+        - string
+        type: array
+    - name: reference__fasta__base
+      type: File
     - name: rgnames__lb
       type:
       - 'null'
@@ -29,11 +33,11 @@ inputs:
       type: string
     - name: rgnames__lane
       type: string
-    - name: reference__bwa__indexes
+    - name: config__algorithm__bam_clean
       type:
-      - 'null'
       - string
-      - File
+      - 'null'
+      - boolean
     - name: files
       type:
       - 'null'
@@ -44,6 +48,7 @@ inputs:
       type:
       - 'null'
       - string
+      - boolean
     - name: rgnames__pl
       type: string
     - name: rgnames__pu
@@ -53,6 +58,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec

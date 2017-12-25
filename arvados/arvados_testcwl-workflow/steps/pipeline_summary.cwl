@@ -1,6 +1,11 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
 arguments:
 - position: 0
-  valueFrom: sentinel-runtime=$(runtime)
+  valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
+- sentinel_parallel=multi-parallel
+- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage;config__algorithm__coverage_merged;depth__variant_regions__regions;depth__variant_regions__dist;depth__sv_regions__regions;depth__sv_regions__dist;depth__coverage__regions;depth__coverage__dist;depth__coverage__thresholds
+- sentinel_inputs=qc_rec:record
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -9,159 +14,233 @@ baseCommand:
 class: CommandLineTool
 cwlVersion: v1.0
 hints:
+- class: DockerRequirement
+  dockerImageId: quay.io/bcbio/bcbio-vc
+  dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 4
-  ramMin: 4096
+  outdirMin: 1031
+  ramMin: 8192
+  tmpdirMin: 4
+- class: SoftwareRequirement
+  packages:
+  - package: bcftools
+    specs:
+    - https://anaconda.org/bioconda/bcftools
+  - package: bedtools
+    specs:
+    - https://anaconda.org/bioconda/bedtools
+  - package: fastqc
+    specs:
+    - https://anaconda.org/bioconda/fastqc
+  - package: goleft
+    specs:
+    - https://anaconda.org/bioconda/goleft
+  - package: mosdepth
+    specs:
+    - https://anaconda.org/bioconda/mosdepth
+  - package: picard
+    specs:
+    - https://anaconda.org/bioconda/picard
+  - package: pythonpy
+    specs:
+    - https://anaconda.org/bioconda/pythonpy
+  - package: qsignature
+    specs:
+    - https://anaconda.org/bioconda/qsignature
+  - package: qualimap
+    specs:
+    - https://anaconda.org/bioconda/qualimap
+  - package: sambamba
+    specs:
+    - https://anaconda.org/bioconda/sambamba
+  - package: samtools
+    specs:
+    - https://anaconda.org/bioconda/samtools
+  - package: preseq
+    specs:
+    - https://anaconda.org/bioconda/preseq
+- class: arv:RuntimeConstraints
+  keep_cache: 4096
 inputs:
-- default: multi-parallel
-  id: sentinel-parallel
-  inputBinding:
-    itemSeparator: ;;
-    position: 0
-    prefix: sentinel-parallel=
-    separate: false
-  type: string
-- default: '["summary__qc","summary__metrics"]'
-  id: sentinel-outputs
-  inputBinding:
-    itemSeparator: ;;
-    position: 1
-    prefix: sentinel-outputs=
-    separate: false
-  type: string
-- id: description
-  inputBinding:
-    itemSeparator: ;;
-    position: 2
-    prefix: description=
-    separate: false
+- id: qc_rec
   type:
-    items: string
-    type: array
-- id: reference__fasta__base
-  inputBinding:
-    itemSeparator: ;;
-    position: 3
-    prefix: reference__fasta__base=
-    separate: false
-  type:
-    items: File
-    type: array
-- id: config__algorithm__coverage_interval
-  inputBinding:
-    itemSeparator: ;;
-    position: 4
-    prefix: config__algorithm__coverage_interval=
-    separate: false
-  type:
-    items: string
-    type: array
-- id: genome_build
-  inputBinding:
-    itemSeparator: ;;
-    position: 5
-    prefix: genome_build=
-    separate: false
-  type:
-    items: string
-    type: array
-- id: config__algorithm__tools_off
-  inputBinding:
-    itemSeparator: ;;
-    position: 6
-    prefix: config__algorithm__tools_off=
-    separate: false
-  type:
-    items:
-      items: string
-      type: array
-    type: array
-- id: config__algorithm__qc
-  inputBinding:
-    itemSeparator: ;;
-    position: 7
-    prefix: config__algorithm__qc=
-    separate: false
-  type:
-    items:
-      items: string
-      type: array
-    type: array
-- id: analysis
-  inputBinding:
-    itemSeparator: ;;
-    position: 8
-    prefix: analysis=
-    separate: false
-  type:
-    items: string
-    type: array
-- id: config__algorithm__tools_on
-  inputBinding:
-    itemSeparator: ;;
-    position: 9
-    prefix: config__algorithm__tools_on=
-    separate: false
-  type:
-    items:
-      items: 'null'
-      type: array
-    type: array
-- id: config__algorithm__variant_regions
-  inputBinding:
-    itemSeparator: ;;
-    position: 10
-    prefix: config__algorithm__variant_regions=
-    separate: false
-  type:
-    items: File
-    type: array
-- id: align_bam
-  inputBinding:
-    itemSeparator: ;;
-    position: 11
-    prefix: align_bam=
-    separate: false
-  type:
-    items: File
-    type: array
-- id: config__algorithm__variant_regions_merged
-  inputBinding:
-    itemSeparator: ;;
-    position: 12
-    prefix: config__algorithm__variant_regions_merged=
-    separate: false
-  type:
-    items:
-    - File
-    - 'null'
-    type: array
-- id: config__algorithm__coverage
-  inputBinding:
-    itemSeparator: ;;
-    position: 13
-    prefix: config__algorithm__coverage=
-    separate: false
-  type:
-    items:
-    - File
-    - 'null'
-    type: array
-- id: config__algorithm__coverage_merged
-  inputBinding:
-    itemSeparator: ;;
-    position: 14
-    prefix: config__algorithm__coverage_merged=
-    separate: false
-  type:
-    items:
-    - File
-    - 'null'
-    type: array
+    fields:
+    - name: description
+      type: string
+    - name: resources
+      type: string
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__coverage_interval
+      type:
+      - string
+      - 'null'
+    - name: genome_build
+      type: string
+    - name: config__algorithm__tools_off
+      type:
+        items: string
+        type: array
+    - name: config__algorithm__qc
+      type:
+        items: string
+        type: array
+    - name: analysis
+      type: string
+    - name: config__algorithm__tools_on
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
+    - name: config__algorithm__variant_regions
+      type:
+      - File
+      - 'null'
+    - name: align_bam
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__variant_regions_merged
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__coverage
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__coverage_merged
+      type:
+      - File
+      - 'null'
+    - name: depth__variant_regions__regions
+      type:
+      - File
+      - 'null'
+    - name: depth__variant_regions__dist
+      type:
+      - File
+      - 'null'
+    - name: depth__sv_regions__regions
+      type:
+      - File
+      - 'null'
+    - name: depth__sv_regions__dist
+      type:
+      - File
+      - 'null'
+    - name: depth__coverage__regions
+      type:
+      - File
+      - 'null'
+    - name: depth__coverage__dist
+      type:
+      - File
+      - 'null'
+    - name: depth__coverage__thresholds
+      type:
+      - File
+      - 'null'
+    name: qc_rec
+    type: record
 outputs:
-- id: summary__qc
+- id: qcout_rec
   type:
-  - File
-  - 'null'
-- id: summary__metrics
-  type: string
+    fields:
+    - name: summary__qc
+      type:
+      - File
+      - 'null'
+    - name: summary__metrics
+      type:
+      - string
+      - 'null'
+    - name: description
+      type: string
+    - name: resources
+      type: string
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__coverage_interval
+      type:
+      - string
+      - 'null'
+    - name: genome_build
+      type: string
+    - name: config__algorithm__tools_off
+      type:
+        items: string
+        type: array
+    - name: config__algorithm__qc
+      type:
+        items: string
+        type: array
+    - name: analysis
+      type: string
+    - name: config__algorithm__tools_on
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
+    - name: config__algorithm__variant_regions
+      type:
+      - File
+      - 'null'
+    - name: align_bam
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__variant_regions_merged
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__coverage
+      type:
+      - File
+      - 'null'
+    - name: config__algorithm__coverage_merged
+      type:
+      - File
+      - 'null'
+    - name: depth__variant_regions__regions
+      type:
+      - File
+      - 'null'
+    - name: depth__variant_regions__dist
+      type:
+      - File
+      - 'null'
+    - name: depth__sv_regions__regions
+      type:
+      - File
+      - 'null'
+    - name: depth__sv_regions__dist
+      type:
+      - File
+      - 'null'
+    - name: depth__coverage__regions
+      type:
+      - File
+      - 'null'
+    - name: depth__coverage__dist
+      type:
+      - File
+      - 'null'
+    - name: depth__coverage__thresholds
+      type:
+      - File
+      - 'null'
+    name: qcout_rec
+    type: record
+requirements:
+- class: InlineJavascriptRequirement
+- class: InitialWorkDirRequirement
+  listing:
+  - entry: $(JSON.stringify(inputs))
+    entryname: cwl.inputs.json

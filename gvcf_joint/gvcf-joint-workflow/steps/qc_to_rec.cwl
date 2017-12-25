@@ -53,19 +53,22 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: config__algorithm__tools_off
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: config__algorithm__qc
   type:
     items:
-      items: string
+      items:
+      - string
       type: array
     type: array
 - id: depth__variant_regions__regions
@@ -165,17 +168,20 @@ outputs:
         - 'null'
       - name: config__algorithm__tools_off
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: config__algorithm__qc
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
         type:
-          items: string
+          items:
+          - string
           type: array
       - name: config__algorithm__variant_regions
         type:
