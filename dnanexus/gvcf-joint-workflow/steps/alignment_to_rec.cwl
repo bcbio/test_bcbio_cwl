@@ -23,7 +23,7 @@ hints:
   ramMin: 2048
   tmpdirMin: 2
 - class: dx:InputResourceRequirement
-  indirMin: 7
+  indirMin: 0
 inputs:
 - id: files
   secondaryFiles:

@@ -23,7 +23,7 @@ hints:
   ramMin: 2048
   tmpdirMin: 2
 - class: dx:InputResourceRequirement
-  indirMin: 1
+  indirMin: 0
 inputs:
 - id: align_bam
   secondaryFiles:

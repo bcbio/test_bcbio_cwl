@@ -239,13 +239,6 @@ outputs:
     - File
     - 'null'
     type: array
-- id: summary__multiqc
-  outputSource: multiqc_summary/summary__multiqc
-  type:
-    items:
-    - File
-    - 'null'
-    type: array
 - id: validate__grading_summary
   outputSource: summarize_vc/validate__grading_summary
   type:
@@ -271,6 +264,13 @@ outputs:
       - File
       - 'null'
       type: array
+    type: array
+- id: summary__multiqc
+  outputSource: multiqc_summary/summary__multiqc
+  type:
+    items:
+    - File
+    - 'null'
     type: array
 requirements:
 - class: EnvVarRequirement
@@ -416,6 +416,8 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
+  - id: depth__samtools__stats
+  - id: depth__samtools__idxstats
   - id: depth__variant_regions__regions
   - id: depth__variant_regions__dist
   - id: depth__sv_regions__regions
@@ -451,70 +453,6 @@ steps:
   - id: config__algorithm__non_callable_regions
   - id: config__algorithm__callable_count
   run: steps/combine_sample_regions.cwl
-- id: qc_to_rec
-  in:
-  - id: align_bam
-    source: postprocess_alignment/align_bam
-  - id: analysis
-    source: analysis
-  - id: reference__fasta__base
-    source: reference__fasta__base
-  - id: genome_build
-    source: genome_build
-  - id: config__algorithm__coverage_interval
-    source: postprocess_alignment/config__algorithm__coverage_interval
-  - id: config__algorithm__tools_on
-    source: config__algorithm__tools_on
-  - id: config__algorithm__tools_off
-    source: config__algorithm__tools_off
-  - id: config__algorithm__qc
-    source: config__algorithm__qc
-  - id: depth__variant_regions__regions
-    source: postprocess_alignment/depth__variant_regions__regions
-  - id: depth__variant_regions__dist
-    source: postprocess_alignment/depth__variant_regions__dist
-  - id: depth__sv_regions__regions
-    source: postprocess_alignment/depth__sv_regions__regions
-  - id: depth__sv_regions__dist
-    source: postprocess_alignment/depth__sv_regions__dist
-  - id: depth__coverage__regions
-    source: postprocess_alignment/depth__coverage__regions
-  - id: depth__coverage__dist
-    source: postprocess_alignment/depth__coverage__dist
-  - id: depth__coverage__thresholds
-    source: postprocess_alignment/depth__coverage__thresholds
-  - id: config__algorithm__variant_regions
-    source: postprocess_alignment/config__algorithm__variant_regions
-  - id: config__algorithm__variant_regions_merged
-    source: postprocess_alignment/config__algorithm__variant_regions_merged
-  - id: config__algorithm__coverage
-    source: postprocess_alignment/config__algorithm__coverage
-  - id: config__algorithm__coverage_merged
-    source: postprocess_alignment/config__algorithm__coverage_merged
-  - id: description
-    source: description
-  - id: resources
-    source: resources
-  out:
-  - id: qc_rec
-  run: steps/qc_to_rec.cwl
-- id: pipeline_summary
-  in:
-  - id: qc_rec
-    source: qc_to_rec/qc_rec
-  out:
-  - id: qcout_rec
-  run: steps/pipeline_summary.cwl
-  scatter:
-  - qc_rec
-  scatterMethod: dotproduct
-- id: multiqc_summary
-  in:
-  - id: qcout_rec
-    source: pipeline_summary/qcout_rec
-  out:
-  - id: summary__multiqc
-  run: steps/multiqc_summary.cwl
 - id: batch_for_variantcall
   in:
   - id: analysis
@@ -609,6 +547,77 @@ steps:
   out:
   - id: variants__calls
   - id: variants__gvcf
+  - id: variants__samples
   - id: validate__grading_summary
   - id: validate__grading_plots
   run: steps/summarize_vc.cwl
+- id: qc_to_rec
+  in:
+  - id: align_bam
+    source: postprocess_alignment/align_bam
+  - id: analysis
+    source: analysis
+  - id: reference__fasta__base
+    source: reference__fasta__base
+  - id: config__algorithm__tools_on
+    source: config__algorithm__tools_on
+  - id: config__algorithm__tools_off
+    source: config__algorithm__tools_off
+  - id: genome_build
+    source: genome_build
+  - id: config__algorithm__qc
+    source: config__algorithm__qc
+  - id: config__algorithm__coverage_interval
+    source: postprocess_alignment/config__algorithm__coverage_interval
+  - id: depth__variant_regions__regions
+    source: postprocess_alignment/depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+    source: postprocess_alignment/depth__variant_regions__dist
+  - id: depth__samtools__stats
+    source: postprocess_alignment/depth__samtools__stats
+  - id: depth__samtools__idxstats
+    source: postprocess_alignment/depth__samtools__idxstats
+  - id: depth__sv_regions__regions
+    source: postprocess_alignment/depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+    source: postprocess_alignment/depth__sv_regions__dist
+  - id: depth__coverage__regions
+    source: postprocess_alignment/depth__coverage__regions
+  - id: depth__coverage__dist
+    source: postprocess_alignment/depth__coverage__dist
+  - id: depth__coverage__thresholds
+    source: postprocess_alignment/depth__coverage__thresholds
+  - id: config__algorithm__variant_regions
+    source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
+  - id: config__algorithm__coverage
+    source: postprocess_alignment/config__algorithm__coverage
+  - id: config__algorithm__coverage_merged
+    source: postprocess_alignment/config__algorithm__coverage_merged
+  - id: variants__samples
+    source: summarize_vc/variants__samples
+  - id: description
+    source: description
+  - id: resources
+    source: resources
+  out:
+  - id: qc_rec
+  run: steps/qc_to_rec.cwl
+- id: pipeline_summary
+  in:
+  - id: qc_rec
+    source: qc_to_rec/qc_rec
+  out:
+  - id: qcout_rec
+  run: steps/pipeline_summary.cwl
+  scatter:
+  - qc_rec
+  scatterMethod: dotproduct
+- id: multiqc_summary
+  in:
+  - id: qcout_rec
+    source: pipeline_summary/qcout_rec
+  out:
+  - id: summary__multiqc
+  run: steps/multiqc_summary.cwl

@@ -5,7 +5,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged;depth__variant_regions__regions;depth__variant_regions__dist;depth__sv_regions__regions;depth__sv_regions__dist;depth__coverage__regions;depth__coverage__dist;depth__coverage__thresholds
+- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;genome_build;config__algorithm__tools_off;config__algorithm__qc;config__algorithm__tools_on
 - sentinel_inputs=qc_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -39,6 +39,9 @@ hints:
   - package: goleft
     specs:
     - https://anaconda.org/bioconda/goleft
+  - package: hts-nim-tools
+    specs:
+    - https://anaconda.org/bioconda/hts-nim-tools
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
@@ -118,6 +121,14 @@ inputs:
       type:
       - File
       - 'null'
+    - name: depth__samtools__stats
+      type:
+      - File
+      - 'null'
+    - name: depth__samtools__idxstats
+      type:
+      - File
+      - 'null'
     - name: depth__variant_regions__regions
       type:
       - File
@@ -146,6 +157,14 @@ inputs:
       type:
       - File
       - 'null'
+    - name: variants__samples
+      type:
+        items:
+          items:
+          - File
+          - 'null'
+          type: array
+        type: array
     name: qc_rec
     type: record
 outputs:
@@ -162,20 +181,8 @@ outputs:
       - 'null'
     - name: description
       type: string
-    - name: resources
-      type: string
-    - name: reference__fasta__base
-      type: File
-    - name: config__algorithm__coverage_interval
-      type:
-      - string
-      - 'null'
     - name: genome_build
       type: string
-    - name: config__algorithm__coverage
-      type:
-      - File
-      - 'null'
     - name: config__algorithm__tools_off
       type:
         items: string
@@ -184,56 +191,10 @@ outputs:
       type:
         items: string
         type: array
-    - name: analysis
-      type: string
     - name: config__algorithm__tools_on
       type:
         items: string
         type: array
-    - name: config__algorithm__variant_regions
-      type:
-      - File
-      - 'null'
-    - name: align_bam
-      type:
-      - File
-      - 'null'
-    - name: config__algorithm__variant_regions_merged
-      type:
-      - File
-      - 'null'
-    - name: config__algorithm__coverage_merged
-      type:
-      - File
-      - 'null'
-    - name: depth__variant_regions__regions
-      type:
-      - File
-      - 'null'
-    - name: depth__variant_regions__dist
-      type:
-      - File
-      - 'null'
-    - name: depth__sv_regions__regions
-      type:
-      - File
-      - 'null'
-    - name: depth__sv_regions__dist
-      type:
-      - File
-      - 'null'
-    - name: depth__coverage__regions
-      type:
-      - File
-      - 'null'
-    - name: depth__coverage__dist
-      type:
-      - File
-      - 'null'
-    - name: depth__coverage__thresholds
-      type:
-      - File
-      - 'null'
     name: qcout_rec
     type: record
 requirements:

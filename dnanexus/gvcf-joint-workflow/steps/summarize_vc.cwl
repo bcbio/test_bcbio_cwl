@@ -4,7 +4,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=variants__calls,variants__gvcf,validate__grading_summary,validate__grading_plots
+- sentinel_outputs=variants__calls,variants__gvcf,variants__samples,validate__grading_summary,validate__grading_plots
 - sentinel_inputs=jointvc_rec:record
 baseCommand:
 - bcbio_nextgen.py
@@ -34,6 +34,10 @@ inputs:
           type: string
         - name: resources
           type: string
+        - name: batch_samples
+          type:
+            items: string
+            type: array
         - name: validate__summary
           type:
           - File
@@ -149,6 +153,16 @@ outputs:
     - items:
       - File
       - 'null'
+      type: array
+    type: array
+- id: variants__samples
+  type:
+    items:
+      items:
+        items:
+        - File
+        - 'null'
+        type: array
       type: array
     type: array
 - id: validate__grading_summary

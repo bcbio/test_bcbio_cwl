@@ -45,7 +45,8 @@
             "qsignature",
             "coverage",
             "variants",
-            "picard"
+            "picard",
+            "peddy"
         ],
         [
             "fastqc",
@@ -53,7 +54,8 @@
             "qsignature",
             "coverage",
             "variants",
-            "picard"
+            "picard",
+            "peddy"
         ]
     ],
     "config__algorithm__recalibrate": [

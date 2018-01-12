@@ -98,6 +98,10 @@ outputs:
   type:
     items:
       fields:
+      - name: batch_samples
+        type:
+          items: string
+          type: array
       - name: validate__summary
         type:
         - File

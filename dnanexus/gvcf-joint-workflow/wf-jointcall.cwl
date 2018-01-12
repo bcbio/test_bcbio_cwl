@@ -10,6 +10,10 @@ inputs:
         type: string
       - name: resources
         type: string
+      - name: batch_samples
+        type:
+          items: string
+          type: array
       - name: validate__summary
         type:
         - File
@@ -116,6 +120,10 @@ outputs:
         type: string
       - name: resources
         type: string
+      - name: batch_samples
+        type:
+          items: string
+          type: array
       - name: validate__summary
         type:
         - File
