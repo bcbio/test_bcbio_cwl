@@ -45,6 +45,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec

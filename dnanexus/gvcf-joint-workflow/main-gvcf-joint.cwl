@@ -284,6 +284,8 @@ steps:
   in:
   - id: files
     source: files
+  - id: analysis
+    source: analysis
   - id: config__algorithm__align_split_size
     source: config__algorithm__align_split_size
   - id: reference__fasta__base

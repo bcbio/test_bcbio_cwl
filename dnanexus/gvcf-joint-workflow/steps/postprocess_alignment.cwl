@@ -1,5 +1,6 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -19,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1034
+  outdirMin: 1033
   ramMin: 5120
   tmpdirMin: 5
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: sambamba

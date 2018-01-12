@@ -1,5 +1,6 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -19,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1037
+  outdirMin: 1030
   ramMin: 4096
-  tmpdirMin: 7
+  tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 7
 - class: SoftwareRequirement
   packages:
   - package: bwa
@@ -116,6 +119,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec
