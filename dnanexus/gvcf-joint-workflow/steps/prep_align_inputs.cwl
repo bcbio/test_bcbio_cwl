@@ -1,3 +1,5 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -17,9 +19,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1032
+  outdirMin: 1028
   ramMin: 4096
-  tmpdirMin: 4
+  tmpdirMin: 2
+- class: dx:InputResourceRequirement
+  indirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: grabix
@@ -75,6 +79,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec

@@ -1,5 +1,6 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -19,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1031
+  outdirMin: 1030
   ramMin: 5120
-  tmpdirMin: 4
+  tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: bcftools

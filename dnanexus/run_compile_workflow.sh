@@ -6,4 +6,4 @@ set -eu -o pipefail
 DX_PROJECT_ID=project-F6vf5fj0BV9650154B13Vk9j
 PNAME=gvcf-joint
 
-bcbiovm_python ~/drive/az/nexus/dx-cwl/dx-cwl compile-workflow $PNAME-workflow/main-$PNAME.cwl --project $DX_PROJECT_ID --token $DX_AUTH_TOKEN
+bcbiovm_python ~/drive/az/nexus/dx-cwl/dx-cwl compile-workflow $PNAME-workflow/main-$PNAME.cwl --project $DX_PROJECT_ID --token $DX_AUTH_TOKEN --assets record-F8YXfF80BV9Pb2G7P4x9fvB5
