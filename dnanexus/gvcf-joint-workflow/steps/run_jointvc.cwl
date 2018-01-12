@@ -51,7 +51,8 @@ inputs:
         type: string
       - name: batch_samples
         type:
-          items: string
+        - 'null'
+        - items: string
           type: array
       - name: validate__summary
         type:
