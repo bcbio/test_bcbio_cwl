@@ -1,0 +1,193 @@
+{
+    "analysis": [
+        "variant2"
+    ],
+    "config__algorithm__coverage": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/automated/coverage_transcripts-bam.bed"
+        }
+    ],
+    "config__algorithm__coverage_interval": [
+        "null"
+    ],
+    "config__algorithm__effects": [
+        "snpeff"
+    ],
+    "config__algorithm__nomap_split_size": [
+        250
+    ],
+    "config__algorithm__nomap_split_targets": [
+        200
+    ],
+    "config__algorithm__qc": [
+        [
+            "fastqc",
+            "qualimap",
+            "samtools",
+            "qsignature",
+            "coverage",
+            "variants",
+            "picard",
+            "peddy"
+        ]
+    ],
+    "config__algorithm__recalibrate": [
+        "False"
+    ],
+    "config__algorithm__tools_off": [
+        []
+    ],
+    "config__algorithm__tools_on": [
+        [
+            "qualimap_full"
+        ]
+    ],
+    "config__algorithm__validate": [
+        "null"
+    ],
+    "config__algorithm__validate_regions": [
+        "null"
+    ],
+    "config__algorithm__variant_regions": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/automated/variant_regions-bam.bed"
+        }
+    ],
+    "config__algorithm__variantcaller": [
+        "False"
+    ],
+    "description": [
+        "Test1"
+    ],
+    "files": [
+        [
+            {
+                "class": "File",
+                "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam"
+            }
+        ]
+    ],
+    "genome_build": [
+        "hg19"
+    ],
+    "genome_resources__aliases__ensembl": [
+        "homo_sapiens_vep_83_GRCh37"
+    ],
+    "genome_resources__aliases__human": [
+        "True"
+    ],
+    "genome_resources__aliases__snpeff": [
+        "hg19"
+    ],
+    "genome_resources__rnaseq__gene_bed": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        }
+    ],
+    "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__dbsnp": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "metadata__batch": [
+        "null"
+    ],
+    "metadata__phenotype": [
+        ""
+    ],
+    "reference__fasta__base": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/seq/hg19.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/seq/hg19.dict"
+                }
+            ]
+        }
+    ],
+    "reference__genome_context": [
+        [
+            {
+                "class": "File",
+                "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            }
+        ]
+    ],
+    "reference__rtg": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
+        }
+    ],
+    "reference__snpeff__hg19": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
+        }
+    ],
+    "reference__twobit": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/ucsc/hg19.2bit"
+        }
+    ],
+    "resources": [
+        "{}"
+    ],
+    "vrn_file": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/prealign/inputs/Test1/Test1-gatk-haplotype.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/prealign/inputs/Test1/Test1-gatk-haplotype.vcf.gz.tbi"
+                }
+            ]
+        }
+    ]
+}
