@@ -1,7 +1,9 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
-- sentinel_parallel=single-split
+- sentinel_parallel=single-single
 - sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split
 - sentinel_inputs=alignment_rec:record
 baseCommand:
@@ -17,9 +19,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1033
+  outdirMin: 1029
   ramMin: 4096
-  tmpdirMin: 5
+  tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: grabix
@@ -31,13 +35,29 @@ hints:
   - package: biobambam
     specs:
     - https://anaconda.org/bioconda/biobambam
+  - package: atropos;env
+    specs:
+    - https://anaconda.org/bioconda/atropos;env
+    version:
+    - python3
+  - package: optitype
+    specs:
+    - https://anaconda.org/bioconda/optitype
+  - package: razers3
+    specs:
+    - https://anaconda.org/bioconda/razers3
+    version:
+    - 3.5.0
+  - package: coincbc
+    specs:
+    - https://anaconda.org/bioconda/coincbc
 inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
@@ -45,7 +65,20 @@ inputs:
       - string
       - boolean
       - long
-    - name: reference__minimap2__indexes
+    - name: files
+      type:
+      - 'null'
+      - string
+      - items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__adapters
       type:
       - 'null'
       - string
@@ -53,8 +86,6 @@ inputs:
         - 'null'
         - string
         type: array
-    - name: reference__fasta__base
-      type: File
     - name: rgnames__lb
       type:
       - 'null'
@@ -68,17 +99,19 @@ inputs:
       - string
       - 'null'
       - boolean
-    - name: files
-      type:
-      - 'null'
-      - string
-      - items: File
-        type: array
     - name: config__algorithm__aligner
       type:
       - 'null'
       - string
       - boolean
+    - name: reference__minimap2__indexes
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: rgnames__pl
       type: string
     - name: rgnames__pu
@@ -97,24 +130,22 @@ inputs:
 outputs:
 - id: process_alignment_rec
   type:
-    items:
-      fields:
-      - name: files
-        type:
-        - 'null'
-        - items: File
-          type: array
-      - name: config__algorithm__quality_format
-        type:
-        - string
-        - 'null'
-      - name: align_split
-        type:
-        - string
-        - 'null'
-      name: process_alignment_rec
-      type: record
-    type: array
+    fields:
+    - name: files
+      type:
+      - 'null'
+      - items: File
+        type: array
+    - name: config__algorithm__quality_format
+      type:
+      - string
+      - 'null'
+    - name: align_split
+      type:
+      - string
+      - 'null'
+    name: process_alignment_rec
+    type: record
 requirements:
 - class: InlineJavascriptRequirement
 - class: InitialWorkDirRequirement

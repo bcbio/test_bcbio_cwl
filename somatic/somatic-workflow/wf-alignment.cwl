@@ -5,9 +5,9 @@ inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
@@ -15,7 +15,20 @@ inputs:
       - string
       - boolean
       - long
-    - name: reference__minimap2__indexes
+    - name: files
+      type:
+      - 'null'
+      - string
+      - items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__adapters
       type:
       - 'null'
       - string
@@ -23,8 +36,6 @@ inputs:
         - 'null'
         - string
         type: array
-    - name: reference__fasta__base
-      type: File
     - name: rgnames__lb
       type:
       - 'null'
@@ -38,17 +49,19 @@ inputs:
       - string
       - 'null'
       - boolean
-    - name: files
-      type:
-      - 'null'
-      - string
-      - items: File
-        type: array
     - name: config__algorithm__aligner
       type:
       - 'null'
       - string
       - boolean
+    - name: reference__minimap2__indexes
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: rgnames__pl
       type: string
     - name: rgnames__pu
@@ -66,32 +79,32 @@ inputs:
     type: record
 outputs:
 - id: align_bam
-  outputSource: merge_split_alignments/align_bam
-  secondaryFiles:
-  - .bai
-  type:
-  - File
-  - 'null'
-- id: work_bam_plus__disc
-  outputSource: merge_split_alignments/work_bam_plus__disc
-  secondaryFiles:
-  - .bai
-  type:
-  - File
-  - 'null'
-- id: work_bam_plus__sr
-  outputSource: merge_split_alignments/work_bam_plus__sr
+  outputSource: process_alignment/align_bam
   secondaryFiles:
   - .bai
   type:
   - File
   - 'null'
 - id: hla__fastq
-  outputSource: merge_split_alignments/hla__fastq
+  outputSource: process_alignment/hla__fastq
   type:
   - 'null'
   - items: File
     type: array
+- id: work_bam_plus__disc
+  outputSource: process_alignment/work_bam_plus__disc
+  secondaryFiles:
+  - .bai
+  type:
+  - File
+  - 'null'
+- id: work_bam_plus__sr
+  outputSource: process_alignment/work_bam_plus__sr
+  secondaryFiles:
+  - .bai
+  type:
+  - File
+  - 'null'
 requirements:
 - class: EnvVarRequirement
   envDef:
@@ -120,26 +133,3 @@ steps:
   - id: work_bam_plus__disc
   - id: work_bam_plus__sr
   run: steps/process_alignment.cwl
-  scatter:
-  - process_alignment_rec
-  scatterMethod: dotproduct
-- id: merge_split_alignments
-  in:
-  - id: alignment_rec
-    source: alignment_rec
-  - id: work_bam
-    source: process_alignment/work_bam
-  - id: align_bam_toolinput
-    source: process_alignment/align_bam
-  - id: work_bam_plus__disc_toolinput
-    source: process_alignment/work_bam_plus__disc
-  - id: work_bam_plus__sr_toolinput
-    source: process_alignment/work_bam_plus__sr
-  - id: hla__fastq_toolinput
-    source: process_alignment/hla__fastq
-  out:
-  - id: align_bam
-  - id: work_bam_plus__disc
-  - id: work_bam_plus__sr
-  - id: hla__fastq
-  run: steps/merge_split_alignments.cwl

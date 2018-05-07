@@ -1,11 +1,12 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
 - sentinel_outputs=config__algorithm__callable_regions,config__algorithm__non_callable_regions,config__algorithm__callable_count
-- sentinel_inputs=regions__callable:var,regions__nblock:var,metadata__batch:var,config__algorithm__nomap_split_size:var,config__algorithm__nomap_split_targets:var,reference__fasta__base:var,description:var,resources:var
+- sentinel_inputs=regions__callable:var,regions__nblock:var,metadata__batch:var,config__algorithm__nomap_split_size:var,config__algorithm__nomap_split_targets:var,reference__fasta__base:var,resources:var,description:var
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1026
-  ramMin: 2560
+  outdirMin: 1025
+  ramMin: 2048
   tmpdirMin: 1
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: bedtools
@@ -33,9 +36,8 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
-  - package: gatk
-    specs:
-    - https://anaconda.org/bioconda/gatk
+    version:
+    - 4.0.3.0
 - class: arv:APIRequirement
 inputs:
 - id: regions__callable
@@ -69,11 +71,11 @@ inputs:
   type:
     items: File
     type: array
-- id: description
+- id: resources
   type:
     items: string
     type: array
-- id: resources
+- id: description
   type:
     items: string
     type: array

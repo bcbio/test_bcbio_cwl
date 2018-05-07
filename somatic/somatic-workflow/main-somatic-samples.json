@@ -4,6 +4,11 @@
         "variant2",
         "variant2"
     ],
+    "config__algorithm__adapters": [
+        [],
+        [],
+        []
+    ],
     "config__algorithm__align_split_size": [
         "null",
         "False",
@@ -32,8 +37,18 @@
         "null",
         "null"
     ],
+    "config__algorithm__effects": [
+        "snpeff",
+        "snpeff",
+        "snpeff"
+    ],
+    "config__algorithm__exclude_regions": [
+        [],
+        [],
+        []
+    ],
     "config__algorithm__mark_duplicates": [
-        "True",
+        "False",
         "True",
         "False"
     ],
@@ -51,29 +66,32 @@
         [
             "fastqc",
             "samtools",
-            "qsignature",
             "coverage",
+            "picard",
+            "qsignature",
             "variants",
-            "picard"
+            "peddy"
         ],
         [
             "fastqc",
             "qualimap",
             "samtools",
-            "qsignature",
             "coverage",
-            "variants",
             "picard",
+            "qsignature",
+            "variants",
+            "peddy",
             "viral"
         ],
         [
             "fastqc",
             "qualimap",
             "samtools",
-            "qsignature",
             "coverage",
+            "picard",
+            "qsignature",
             "variants",
-            "picard"
+            "peddy"
         ]
     ],
     "config__algorithm__recalibrate": [
@@ -101,6 +119,11 @@
             "gatk4",
             "qualimap_full"
         ]
+    ],
+    "config__algorithm__trim_reads": [
+        "False",
+        "False",
+        "False"
     ],
     "config__algorithm__validate": [
         {
@@ -155,35 +178,17 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz.gbi"
-                    }
-                ]
+                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz"
             },
             {
                 "class": "File",
-                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz.gbi"
-                    }
-                ]
+                "path": "../../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz"
             }
         ],
         [
             {
                 "class": "File",
-                "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam.bai"
-                    }
-                ]
+                "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam"
             }
         ]
     ],
@@ -285,6 +290,85 @@
             ]
         }
     ],
+    "genome_resources__variation__encode_blacklist": [
+        "null",
+        "null",
+        "null"
+    ],
+    "genome_resources__variation__lcr": [
+        "null",
+        "null",
+        "null"
+    ],
+    "genome_resources__variation__polyx": [
+        "null",
+        "null",
+        "null"
+    ],
+    "genome_resources__variation__train_hapmap": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_indels": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
     "metadata__batch": [
         "b1",
         "b1",
@@ -343,21 +427,21 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
-                    }
-                ]
-            },
-            {
-                "class": "File",
                 "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
                         "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
                     }
                 ]
             }
@@ -365,21 +449,21 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
-                    }
-                ]
-            },
-            {
-                "class": "File",
                 "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
                         "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
                     }
                 ]
             }
@@ -387,21 +471,21 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
-                    }
-                ]
-            },
-            {
-                "class": "File",
                 "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
                         "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
                     }
                 ]
             }
@@ -492,11 +576,11 @@
     "vrn_file": [
         {
             "class": "File",
-            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/somatic/inputs/VarOnly/7_100326_FC6107FAAXX-Test1.vcf.gz",
+            "path": "../../testdata/reference_material/7_100326_FC6107FAAXX-Test1.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/somatic/inputs/VarOnly/7_100326_FC6107FAAXX-Test1.vcf.gz.tbi"
+                    "path": "../../testdata/reference_material/7_100326_FC6107FAAXX-Test1.vcf.gz.tbi"
                 }
             ]
         },

@@ -1,3 +1,5 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -17,9 +19,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1026
+  outdirMin: 1025
   ramMin: 2048
   tmpdirMin: 1
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: htslib
@@ -35,9 +39,9 @@ inputs:
 - id: prep_samples_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File

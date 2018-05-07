@@ -1,9 +1,10 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
-- sentinel_parallel=single-parallel
+- sentinel_parallel=single-single
 - sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr
 - sentinel_inputs=alignment_rec:record,process_alignment_rec:record
 baseCommand:
@@ -19,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1037
+  outdirMin: 1030
   ramMin: 4096
-  tmpdirMin: 7
+  tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 7
 - class: SoftwareRequirement
   packages:
   - package: bwa
@@ -50,6 +53,11 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
+  - package: pysam>
+    specs:
+    - https://anaconda.org/bioconda/pysam>
+    version:
+    - 0.13.0
   - package: sambamba
     specs:
     - https://anaconda.org/bioconda/sambamba
@@ -76,9 +84,9 @@ inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
@@ -86,7 +94,20 @@ inputs:
       - string
       - boolean
       - long
-    - name: reference__minimap2__indexes
+    - name: files
+      type:
+      - 'null'
+      - string
+      - items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
+    - name: reference__fasta__base
+      type: File
+    - name: config__algorithm__adapters
       type:
       - 'null'
       - string
@@ -94,8 +115,6 @@ inputs:
         - 'null'
         - string
         type: array
-    - name: reference__fasta__base
-      type: File
     - name: rgnames__lb
       type:
       - 'null'
@@ -109,17 +128,19 @@ inputs:
       - string
       - 'null'
       - boolean
-    - name: files
-      type:
-      - 'null'
-      - string
-      - items: File
-        type: array
     - name: config__algorithm__aligner
       type:
       - 'null'
       - string
       - boolean
+    - name: reference__minimap2__indexes
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: rgnames__pl
       type: string
     - name: rgnames__pu

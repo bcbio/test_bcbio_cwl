@@ -1,5 +1,6 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
@@ -19,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1030
+  outdirMin: 1029
   ramMin: 2048
   tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: bcftools
@@ -33,21 +36,18 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
+    version:
+    - 4.0.3.0
 - class: arv:APIRequirement
 inputs:
 - id: batch_rec
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
         type: string
-      - name: config__algorithm__validate
-        type:
-        - File
-        - 'null'
-        - string
+      - name: description
+        type: string
       - name: reference__fasta__base
         type: File
       - name: config__algorithm__variantcaller
@@ -58,12 +58,32 @@ inputs:
         type:
         - string
         - 'null'
+      - name: genome_resources__variation__train_hapmap
+        type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
       - name: metadata__phenotype
         type: string
+      - name: vrn_file
+        type:
+        - File
+        - 'null'
+        - string
       - name: reference__twobit
         type: File
+      - name: config__algorithm__validate
+        type:
+        - File
+        - 'null'
+        - string
       - name: reference__snpeff__hg19
         type: File
       - name: config__algorithm__validate_regions
@@ -88,9 +108,8 @@ inputs:
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
-      - name: vrn_file
+      - name: genome_resources__variation__polyx
         type:
-        - File
         - 'null'
         - string
       - name: genome_resources__variation__cosmic
@@ -109,13 +128,25 @@ inputs:
           - 'null'
           - string
           type: array
+      - name: config__algorithm__effects
+        type: string
       - name: config__algorithm__variant_regions
         type:
         - File
         - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: reference__rtg
+        type: File
+      - name: genome_resources__variation__train_indels
         type: File
       - name: genome_resources__aliases__snpeff
         type: string
