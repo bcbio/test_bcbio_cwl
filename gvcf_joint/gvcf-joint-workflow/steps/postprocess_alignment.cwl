@@ -1,11 +1,13 @@
 $namespaces:
   arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,depth__variant_regions__regions,depth__variant_regions__dist,depth__sv_regions__regions,depth__sv_regions__dist,depth__coverage__regions,depth__coverage__dist,depth__coverage__thresholds,align_bam
+- sentinel_outputs=config__algorithm__coverage_interval,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready,regions__callable,regions__sample_callable,regions__nblock,depth__samtools__stats,depth__samtools__idxstats,depth__variant_regions__regions,depth__variant_regions__dist,depth__sv_regions__regions,depth__sv_regions__dist,depth__coverage__regions,depth__coverage__dist,depth__coverage__thresholds,align_bam
 - sentinel_inputs=postprocess_alignment_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,9 +21,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1034
-  ramMin: 5120
+  outdirMin: 1033
+  ramMin: 4096
   tmpdirMin: 5
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: sambamba
@@ -36,23 +40,25 @@ hints:
   - package: htslib
     specs:
     - https://anaconda.org/bioconda/htslib
-  - package: gatk
-    specs:
-    - https://anaconda.org/bioconda/gatk
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
+    version:
+    - 4.0.3.0
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
+  - package: sentieon
+    specs:
+    - https://anaconda.org/bioconda/sentieon
 - class: arv:APIRequirement
 inputs:
 - id: postprocess_alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File
@@ -62,6 +68,14 @@ inputs:
       - string
     - name: genome_resources__rnaseq__gene_bed
       type: File
+    - name: genome_resources__variation__encode_blacklist
+      type:
+      - 'null'
+      - string
+    - name: genome_resources__variation__lcr
+      type:
+      - 'null'
+      - string
     - name: reference__twobit
       type: File
     - name: config__algorithm__recalibrate
@@ -75,15 +89,26 @@ inputs:
       - 'null'
     - name: genome_resources__variation__dbsnp
       type: File
+    - name: genome_resources__variation__polyx
+      type:
+      - 'null'
+      - string
     - name: config__algorithm__tools_on
       type:
-        items:
-        - string
+        items: string
         type: array
     - name: config__algorithm__variant_regions
       type:
       - File
       - 'null'
+    - name: config__algorithm__exclude_regions
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: align_bam
       type:
       - File
@@ -152,6 +177,14 @@ outputs:
   - File
   - 'null'
 - id: regions__nblock
+  type:
+  - File
+  - 'null'
+- id: depth__samtools__stats
+  type:
+  - File
+  - 'null'
+- id: depth__samtools__idxstats
   type:
   - File
   - 'null'
