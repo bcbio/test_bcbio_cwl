@@ -6,27 +6,41 @@ inputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
       - name: config__algorithm__variantcaller
         type:
-        - null
+        - boolean
         - 'null'
         - string
       - name: config__algorithm__coverage_interval
         type:
         - string
         - 'null'
+      - name: genome_resources__variation__train_hapmap
+        type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
+      - name: config__algorithm__min_allele_fraction
+        type: long
+      - name: vrn_file
+        type: File
       - name: reference__twobit
         type: File
       - name: config__algorithm__validate
@@ -56,8 +70,10 @@ inputs:
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
-      - name: vrn_file
-        type: File
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: genome_resources__variation__cosmic
         type: File
       - name: reference__genome_context
@@ -78,11 +94,25 @@ inputs:
         - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: reference__rtg
+        type: File
+      - name: genome_resources__variation__train_indels
         type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__variant_regions_merged
         type:
         - File
         - 'null'
@@ -122,17 +152,19 @@ outputs:
         type:
         - File
         - 'null'
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: vrn_file
         type: File
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
       - name: config__algorithm__variantcaller
         type:
-        - null
+        - boolean
         - 'null'
         - string
       - name: config__algorithm__coverage_interval
@@ -143,16 +175,12 @@ outputs:
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
-      - name: reference__twobit
-        type: File
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: config__algorithm__validate
         type:
         - 'null'
         - string
-      - name: reference__snpeff__hg19
-        type: File
       - name: config__algorithm__validate_regions
         type:
         - 'null'
@@ -172,10 +200,6 @@ outputs:
           - 'null'
           - string
           type: array
-      - name: genome_resources__variation__dbsnp
-        type: File
-      - name: genome_resources__variation__cosmic
-        type: File
       - name: reference__genome_context
         type:
           items: File
@@ -194,11 +218,17 @@ outputs:
         - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
-      - name: reference__rtg
-        type: File
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: genome_resources__aliases__snpeff
         type: string
-      - name: align_bam
+      - name: config__algorithm__variant_regions_merged
         type:
         - File
         - 'null'

@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-combined
 - sentinel_outputs=summary__multiqc
 - sentinel_inputs=qcout_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn

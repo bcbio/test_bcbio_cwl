@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready
 - sentinel_inputs=prep_samples_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -39,9 +40,9 @@ inputs:
 - id: prep_samples_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File

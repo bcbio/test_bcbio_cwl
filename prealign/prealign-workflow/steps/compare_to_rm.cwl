@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-single
-- sentinel_outputs=vc_rec:batch_samples;validate__summary;validate__tp;validate__fp;validate__fn;description;resources;vrn_file;reference__fasta__base;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;reference__twobit;config__algorithm__validate;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;genome_resources__variation__dbsnp;genome_resources__variation__cosmic;reference__genome_context;analysis;config__algorithm__tools_on;config__algorithm__effects;config__algorithm__variant_regions;genome_resources__aliases__ensembl;reference__rtg;genome_resources__aliases__snpeff;align_bam;regions__sample_callable;config__algorithm__callable_regions
+- sentinel_outputs=vc_rec:batch_samples;validate__summary;validate__tp;validate__fp;validate__fn;resources;description;vrn_file;reference__fasta__base;metadata__phenotype;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;config__algorithm__min_allele_fraction;config__algorithm__validate;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;reference__genome_context;analysis;config__algorithm__tools_on;config__algorithm__effects;config__algorithm__variant_regions;genome_resources__aliases__ensembl;config__algorithm__exclude_regions;genome_resources__aliases__snpeff;config__algorithm__variant_regions_merged;regions__sample_callable;config__algorithm__callable_regions
 - sentinel_inputs=batch_rec:record,vrn_file:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -52,27 +53,41 @@ inputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
       - name: config__algorithm__variantcaller
         type:
-        - null
+        - boolean
         - 'null'
         - string
       - name: config__algorithm__coverage_interval
         type:
         - string
         - 'null'
+      - name: genome_resources__variation__train_hapmap
+        type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
+      - name: config__algorithm__min_allele_fraction
+        type: long
+      - name: vrn_file
+        type: File
       - name: reference__twobit
         type: File
       - name: config__algorithm__validate
@@ -102,8 +117,10 @@ inputs:
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
-      - name: vrn_file
-        type: File
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: genome_resources__variation__cosmic
         type: File
       - name: reference__genome_context
@@ -124,11 +141,25 @@ inputs:
         - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: reference__rtg
+        type: File
+      - name: genome_resources__variation__train_indels
         type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__variant_regions_merged
         type:
         - File
         - 'null'
@@ -171,17 +202,19 @@ outputs:
         type:
         - File
         - 'null'
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: vrn_file
         type: File
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
       - name: config__algorithm__variantcaller
         type:
-        - null
+        - boolean
         - 'null'
         - string
       - name: config__algorithm__coverage_interval
@@ -192,16 +225,12 @@ outputs:
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
-      - name: reference__twobit
-        type: File
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: config__algorithm__validate
         type:
         - 'null'
         - string
-      - name: reference__snpeff__hg19
-        type: File
       - name: config__algorithm__validate_regions
         type:
         - 'null'
@@ -221,10 +250,6 @@ outputs:
           - 'null'
           - string
           type: array
-      - name: genome_resources__variation__dbsnp
-        type: File
-      - name: genome_resources__variation__cosmic
-        type: File
       - name: reference__genome_context
         type:
           items: File
@@ -243,11 +268,17 @@ outputs:
         - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
-      - name: reference__rtg
-        type: File
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: genome_resources__aliases__snpeff
         type: string
-      - name: align_bam
+      - name: config__algorithm__variant_regions_merged
         type:
         - File
         - 'null'

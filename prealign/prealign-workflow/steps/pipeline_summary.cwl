@@ -7,6 +7,7 @@ arguments:
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;genome_build;config__algorithm__tools_off;config__algorithm__qc;config__algorithm__tools_on
 - sentinel_inputs=qc_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -69,15 +70,18 @@ hints:
   - package: peddy
     specs:
     - https://anaconda.org/bioconda/peddy
+  - package: verifybamid2
+    specs:
+    - https://anaconda.org/bioconda/verifybamid2
 - class: arv:RuntimeConstraints
   keep_cache: 4096
 inputs:
 - id: qc_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File
@@ -85,6 +89,10 @@ inputs:
       type:
       - string
       - 'null'
+    - name: metadata__batch
+      type:
+      - 'null'
+      - string
     - name: genome_build
       type: string
     - name: config__algorithm__coverage
@@ -104,6 +112,8 @@ inputs:
         items: string
         type: array
     - name: analysis
+      type: string
+    - name: rgnames__sample
       type: string
     - name: config__algorithm__tools_on
       type:

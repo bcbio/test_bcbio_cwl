@@ -5,7 +5,8 @@ arguments:
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq
-- sentinel_inputs=files:var,description:var,resources:var
+- sentinel_inputs=files:var,resources:var,description:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -29,9 +30,9 @@ inputs:
   type:
     items: File
     type: array
-- id: description
-  type: string
 - id: resources
+  type: string
+- id: description
   type: string
 outputs:
 - id: align_bam
@@ -39,11 +40,17 @@ outputs:
   - .bai
   type: File
 - id: work_bam_plus__disc
-  type: 'null'
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__sr
-  type: 'null'
+  type:
+  - File
+  - 'null'
 - id: hla__fastq
-  type: 'null'
+  type:
+  - File
+  - 'null'
 requirements:
 - class: InlineJavascriptRequirement
 - class: InitialWorkDirRequirement

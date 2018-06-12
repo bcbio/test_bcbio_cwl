@@ -12,3 +12,14 @@ details:
     genome_build: hg19
     files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
     vrn_file: ../testdata/100326_FC6107FAAXX/Test1-gatk-haplotype.vcf.gz
+  - algorithm:
+      aligner: false
+      variantcaller: false
+      tools_on: [qualimap_full]
+      coverage: ../testdata/automated/coverage_transcripts-bam.bed
+      variant_regions: ../testdata/automated/variant_regions-bam.bed
+    analysis: variant2
+    description: Test2
+    genome_build: hg19
+    files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX_2.bam
+    vrn_file: ../testdata/100326_FC6107FAAXX/Test2-gatk-haplotype.vcf.gz

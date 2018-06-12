@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-combined
 - sentinel_outputs=variants__calls,variants__gvcf,variants__samples,validate__grading_summary,validate__grading_plots
 - sentinel_inputs=vc_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -51,17 +52,19 @@ inputs:
           type:
           - File
           - 'null'
-        - name: description
-          type: string
         - name: resources
+          type: string
+        - name: description
           type: string
         - name: vrn_file
           type: File
         - name: reference__fasta__base
           type: File
+        - name: metadata__phenotype
+          type: string
         - name: config__algorithm__variantcaller
           type:
-          - null
+          - boolean
           - 'null'
           - string
         - name: config__algorithm__coverage_interval
@@ -72,16 +75,12 @@ inputs:
           type:
           - 'null'
           - string
-        - name: metadata__phenotype
-          type: string
-        - name: reference__twobit
-          type: File
+        - name: config__algorithm__min_allele_fraction
+          type: long
         - name: config__algorithm__validate
           type:
           - 'null'
           - string
-        - name: reference__snpeff__hg19
-          type: File
         - name: config__algorithm__validate_regions
           type:
           - 'null'
@@ -101,10 +100,6 @@ inputs:
             - 'null'
             - string
             type: array
-        - name: genome_resources__variation__dbsnp
-          type: File
-        - name: genome_resources__variation__cosmic
-          type: File
         - name: reference__genome_context
           type:
             items: File
@@ -123,11 +118,17 @@ inputs:
           - 'null'
         - name: genome_resources__aliases__ensembl
           type: string
-        - name: reference__rtg
-          type: File
+        - name: config__algorithm__exclude_regions
+          type:
+          - 'null'
+          - string
+          - items:
+            - 'null'
+            - string
+            type: array
         - name: genome_resources__aliases__snpeff
           type: string
-        - name: align_bam
+        - name: config__algorithm__variant_regions_merged
           type:
           - File
           - 'null'

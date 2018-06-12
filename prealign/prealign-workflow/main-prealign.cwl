@@ -15,6 +15,14 @@ inputs:
   type:
     items: File
     type: array
+- id: metadata__phenotype
+  type:
+    items: string
+    type: array
+- id: resources
+  type:
+    items: string
+    type: array
 - id: config__algorithm__variantcaller
   type:
     items:
@@ -32,19 +40,43 @@ inputs:
   type:
     items: File
     type: array
+- id: genome_resources__variation__train_hapmap
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
+- id: genome_resources__variation__encode_blacklist
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: metadata__batch
   type:
     items:
     - 'null'
     - string
     type: array
-- id: metadata__phenotype
+- id: genome_resources__variation__lcr
   type:
-    items: string
+    items:
+    - 'null'
+    - string
+    type: array
+- id: config__algorithm__min_allele_fraction
+  type:
+    items: long
     type: array
 - id: config__algorithm__nomap_split_targets
   type:
     items: long
+    type: array
+- id: vrn_file
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
     type: array
 - id: reference__twobit
   type:
@@ -112,11 +144,11 @@ inputs:
   type:
     items: File
     type: array
-- id: vrn_file
-  secondaryFiles:
-  - .tbi
+- id: genome_resources__variation__polyx
   type:
-    items: File
+    items:
+    - 'null'
+    - string
     type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
@@ -142,6 +174,10 @@ inputs:
   type:
     items: string
     type: array
+- id: rgnames__sample
+  type:
+    items: string
+    type: array
 - id: config__algorithm__tools_on
   type:
     items:
@@ -156,15 +192,27 @@ inputs:
   type:
     items: File
     type: array
-- id: resources
-  type:
-    items: string
-    type: array
 - id: genome_resources__aliases__ensembl
   type:
     items: string
     type: array
+- id: config__algorithm__exclude_regions
+  type:
+    items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
+      - string
+      type: array
+    type: array
 - id: reference__rtg
+  type:
+    items: File
+    type: array
+- id: genome_resources__variation__train_indels
+  secondaryFiles:
+  - .tbi
   type:
     items: File
     type: array
@@ -220,6 +268,11 @@ outputs:
     - File
     - 'null'
     type: array
+- id: rgnames__sample_out
+  outputSource: rgnames__sample
+  type:
+    items: string
+    type: array
 requirements:
 - class: EnvVarRequirement
   envDef:
@@ -232,10 +285,10 @@ steps:
   in:
   - id: files
     source: files
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: align_bam
   - id: work_bam_plus__disc
@@ -244,8 +297,8 @@ steps:
   run: steps/organize_noalign.cwl
   scatter:
   - files
-  - description
   - resources
+  - description
   scatterMethod: dotproduct
 - id: prep_samples_to_rec
   in:
@@ -255,10 +308,10 @@ steps:
     source: config__algorithm__variant_regions
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: prep_samples_rec
   run: steps/prep_samples_to_rec.cwl
@@ -284,6 +337,8 @@ steps:
     source: organize_noalign/align_bam
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
+  - id: config__algorithm__exclude_regions
+    source: config__algorithm__exclude_regions
   - id: config__algorithm__variant_regions
     source: prep_samples/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
@@ -306,14 +361,20 @@ steps:
     source: genome_resources__rnaseq__gene_bed
   - id: genome_resources__variation__dbsnp
     source: genome_resources__variation__dbsnp
+  - id: genome_resources__variation__lcr
+    source: genome_resources__variation__lcr
+  - id: genome_resources__variation__polyx
+    source: genome_resources__variation__polyx
+  - id: genome_resources__variation__encode_blacklist
+    source: genome_resources__variation__encode_blacklist
   - id: reference__twobit
     source: reference__twobit
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: postprocess_alignment_rec
   run: steps/postprocess_alignment_to_rec.cwl
@@ -361,10 +422,10 @@ steps:
     source: config__algorithm__nomap_split_targets
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: config__algorithm__callable_regions
   - id: config__algorithm__non_callable_regions
@@ -394,8 +455,14 @@ steps:
     source: postprocess_alignment/config__algorithm__coverage_interval
   - id: config__algorithm__effects
     source: config__algorithm__effects
+  - id: config__algorithm__min_allele_fraction
+    source: config__algorithm__min_allele_fraction
+  - id: config__algorithm__exclude_regions
+    source: config__algorithm__exclude_regions
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
   - id: config__algorithm__validate
     source: config__algorithm__validate
   - id: config__algorithm__validate_regions
@@ -416,6 +483,16 @@ steps:
     source: genome_resources__variation__cosmic
   - id: genome_resources__variation__dbsnp
     source: genome_resources__variation__dbsnp
+  - id: genome_resources__variation__lcr
+    source: genome_resources__variation__lcr
+  - id: genome_resources__variation__polyx
+    source: genome_resources__variation__polyx
+  - id: genome_resources__variation__encode_blacklist
+    source: genome_resources__variation__encode_blacklist
+  - id: genome_resources__variation__train_hapmap
+    source: genome_resources__variation__train_hapmap
+  - id: genome_resources__variation__train_indels
+    source: genome_resources__variation__train_indels
   - id: genome_resources__aliases__ensembl
     source: genome_resources__aliases__ensembl
   - id: genome_resources__aliases__human
@@ -424,10 +501,10 @@ steps:
     source: genome_resources__aliases__snpeff
   - id: reference__snpeff__hg19
     source: reference__snpeff__hg19
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: batch_rec
   run: steps/batch_for_variantcall.cwl
@@ -460,6 +537,8 @@ steps:
     source: analysis
   - id: reference__fasta__base
     source: reference__fasta__base
+  - id: rgnames__sample
+    source: rgnames__sample
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
   - id: config__algorithm__tools_off
@@ -468,6 +547,8 @@ steps:
     source: genome_build
   - id: config__algorithm__qc
     source: config__algorithm__qc
+  - id: metadata__batch
+    source: metadata__batch
   - id: config__algorithm__coverage_interval
     source: postprocess_alignment/config__algorithm__coverage_interval
   - id: depth__variant_regions__regions
@@ -498,10 +579,10 @@ steps:
     source: postprocess_alignment/config__algorithm__coverage_merged
   - id: variants__samples
     source: summarize_vc/variants__samples
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: qc_rec
   run: steps/qc_to_rec.cwl

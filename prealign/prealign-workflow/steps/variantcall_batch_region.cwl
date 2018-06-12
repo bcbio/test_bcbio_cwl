@@ -7,6 +7,7 @@ arguments:
 - sentinel_parallel=batch-parallel
 - sentinel_outputs=vrn_file_region,region_block
 - sentinel_inputs=batch_rec:record,region_block:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -21,7 +22,7 @@ hints:
 - class: ResourceRequirement
   coresMin: 2
   outdirMin: 1030
-  ramMin: 5120
+  ramMin: 4096
   tmpdirMin: 3
 - class: dx:InputResourceRequirement
   indirMin: 1
@@ -38,12 +39,17 @@ hints:
     - https://anaconda.org/bioconda/freebayes
     version:
     - 1.1.0.46
-  - package: gatk
-    specs:
-    - https://anaconda.org/bioconda/gatk
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
+    version:
+    - 4.0.3.0
+  - package: vqsr_cnn
+    specs:
+    - https://anaconda.org/bioconda/vqsr_cnn
+  - package: deepvariant
+    specs:
+    - https://anaconda.org/bioconda/deepvariant
   - package: sentieon
     specs:
     - https://anaconda.org/bioconda/sentieon
@@ -104,27 +110,41 @@ inputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
       - name: config__algorithm__variantcaller
         type:
-        - null
+        - boolean
         - 'null'
         - string
       - name: config__algorithm__coverage_interval
         type:
         - string
         - 'null'
+      - name: genome_resources__variation__train_hapmap
+        type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
+      - name: config__algorithm__min_allele_fraction
+        type: long
+      - name: vrn_file
+        type: File
       - name: reference__twobit
         type: File
       - name: config__algorithm__validate
@@ -154,8 +174,10 @@ inputs:
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
-      - name: vrn_file
-        type: File
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: genome_resources__variation__cosmic
         type: File
       - name: reference__genome_context
@@ -176,11 +198,25 @@ inputs:
         - 'null'
       - name: genome_resources__aliases__ensembl
         type: string
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: reference__rtg
+        type: File
+      - name: genome_resources__variation__train_indels
         type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__variant_regions_merged
         type:
         - File
         - 'null'
