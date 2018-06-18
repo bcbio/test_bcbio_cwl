@@ -221,6 +221,11 @@ inputs:
     items: string
     type: array
 outputs:
+- id: rgnames__sample_out
+  outputSource: prep_samples/rgnames__sample
+  type:
+    items: string
+    type: array
 - id: align_bam
   outputSource: postprocess_alignment/align_bam
   type:
@@ -268,11 +273,6 @@ outputs:
     - File
     - 'null'
     type: array
-- id: rgnames__sample_out
-  outputSource: rgnames__sample
-  type:
-    items: string
-    type: array
 requirements:
 - class: EnvVarRequirement
   envDef:
@@ -304,6 +304,8 @@ steps:
   in:
   - id: config__algorithm__coverage
     source: config__algorithm__coverage
+  - id: rgnames__sample
+    source: rgnames__sample
   - id: config__algorithm__variant_regions
     source: config__algorithm__variant_regions
   - id: reference__fasta__base
@@ -320,6 +322,7 @@ steps:
   - id: prep_samples_rec
     source: prep_samples_to_rec/prep_samples_rec
   out:
+  - id: rgnames__sample
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
@@ -537,8 +540,6 @@ steps:
     source: analysis
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: rgnames__sample
-    source: rgnames__sample
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
   - id: config__algorithm__tools_off

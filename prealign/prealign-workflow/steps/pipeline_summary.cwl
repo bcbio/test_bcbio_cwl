@@ -113,8 +113,6 @@ inputs:
         type: array
     - name: analysis
       type: string
-    - name: rgnames__sample
-      type: string
     - name: config__algorithm__tools_on
       type:
         items: string
