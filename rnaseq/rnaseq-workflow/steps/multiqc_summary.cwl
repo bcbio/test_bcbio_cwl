@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-combined
 - sentinel_outputs=summary__multiqc
 - sentinel_inputs=qcout_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -24,6 +25,14 @@ hints:
   tmpdirMin: 0
 - class: dx:InputResourceRequirement
   indirMin: 1
+- class: SoftwareRequirement
+  packages:
+  - package: multiqc
+    specs:
+    - https://anaconda.org/bioconda/multiqc
+  - package: multiqc-bcbio
+    specs:
+    - https://anaconda.org/bioconda/multiqc-bcbio
 inputs:
 - id: qcout_rec
   type:
@@ -37,9 +46,9 @@ inputs:
         type:
         - string
         - 'null'
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: reference__fasta__base
         type: File

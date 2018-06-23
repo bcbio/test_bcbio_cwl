@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=work_bam
 - sentinel_inputs=trim_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -48,9 +49,9 @@ inputs:
 - id: trim_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: files
       type:

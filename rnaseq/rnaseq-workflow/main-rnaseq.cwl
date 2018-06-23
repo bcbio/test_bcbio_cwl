@@ -21,6 +21,10 @@ inputs:
       items: string
       type: array
     type: array
+- id: resources
+  type:
+    items: string
+    type: array
 - id: config__algorithm__coverage_interval
   type:
     items:
@@ -62,6 +66,8 @@ inputs:
     items: string
     type: array
 - id: genome_resources__rnaseq__transcripts
+  secondaryFiles:
+  - .db
   type:
     items: File
     type: array
@@ -103,15 +109,16 @@ inputs:
       - string
       type: array
     type: array
-- id: resources
-  type:
-    items: string
-    type: array
 - id: rgnames__lane
   type:
     items: string
     type: array
 outputs:
+- id: rgnames__sample_out
+  outputSource: rgnames__sample
+  type:
+    items: string
+    type: array
 - id: work_bam
   outputSource: process_alignment/work_bam
   type:
@@ -169,10 +176,10 @@ steps:
     source: config__algorithm__expression_caller
   - id: config__algorithm__quality_format
     source: config__algorithm__quality_format
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: prep_rec
   run: steps/prepare_sample.cwl
@@ -192,8 +199,8 @@ steps:
   - config__algorithm__aligner
   - config__algorithm__expression_caller
   - config__algorithm__quality_format
-  - description
   - resources
+  - description
   scatterMethod: dotproduct
 - id: trim_sample
   in:
@@ -250,10 +257,10 @@ steps:
     source: config__algorithm__tools_off
   - id: config__algorithm__qc
     source: config__algorithm__qc
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: qc_rec
   run: steps/qc_to_rec.cwl

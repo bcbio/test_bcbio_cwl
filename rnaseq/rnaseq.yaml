@@ -4,7 +4,8 @@ details:
       aligner: hisat2
       trim_reads: read_through
       adapters: [truseq, polya]
-      expression_caller: [salmon, kallisto, sailfish]
+      expression_caller: [salmon, kallisto]
+      variantcaller: gatk-haplotype
     description: Test1
     files: [../testdata/test_fusion/fusion-1_1.fq.gz, ../testdata/test_fusion/fusion-1_2.fq.gz]
     genome_build: hg19

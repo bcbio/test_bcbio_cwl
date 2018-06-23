@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=count_file,quant__tsv,quant__hdf5
 - sentinel_inputs=trim_rec:record,work_bam:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -32,16 +33,32 @@ hints:
   - package: salmon
     specs:
     - https://anaconda.org/bioconda/salmon
-  - package: kallisto
+  - package: kallisto>
     specs:
-    - https://anaconda.org/bioconda/kallisto
+    - https://anaconda.org/bioconda/kallisto>
+    version:
+    - 0.43.1
+  - package: subread
+    specs:
+    - https://anaconda.org/bioconda/subread
+  - package: gffread
+    specs:
+    - https://anaconda.org/bioconda/gffread
+  - package: r
+    specs:
+    - https://anaconda.org/bioconda/r
+    version:
+    - 3.4.1
+  - package: r-wasabi
+    specs:
+    - https://anaconda.org/bioconda/r-wasabi
 inputs:
 - id: trim_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: files
       type:

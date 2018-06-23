@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=qc_rec:description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;work_bam
-- sentinel_inputs=work_bam:var,analysis:var,reference__fasta__base:var,genome_resources__rnaseq__transcripts:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,description:var,resources:var
+- sentinel_outputs=qc_rec:resources;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;work_bam
+- sentinel_inputs=work_bam:var,analysis:var,reference__fasta__base:var,genome_resources__rnaseq__transcripts:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,resources:var,description:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -23,7 +24,7 @@ hints:
   ramMin: 2048
   tmpdirMin: 2
 - class: dx:InputResourceRequirement
-  indirMin: 1
+  indirMin: 0
 inputs:
 - id: work_bam
   secondaryFiles:
@@ -43,6 +44,8 @@ inputs:
     items: File
     type: array
 - id: genome_resources__rnaseq__transcripts
+  secondaryFiles:
+  - .db
   type:
     items: File
     type: array
@@ -82,11 +85,11 @@ inputs:
       items: string
       type: array
     type: array
-- id: description
+- id: resources
   type:
     items: string
     type: array
-- id: resources
+- id: description
   type:
     items: string
     type: array
@@ -95,9 +98,9 @@ outputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: reference__fasta__base
         type: File

@@ -11,8 +11,7 @@
     "config__algorithm__expression_caller": [
         [
             "salmon",
-            "kallisto",
-            "sailfish"
+            "kallisto"
         ]
     ],
     "config__algorithm__qc": [
@@ -52,7 +51,13 @@
     "genome_resources__rnaseq__transcripts": [
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.gtf"
+            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.gtf",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.gtf.db"
+                }
+            ]
         }
     ],
     "reference__fasta__base": [

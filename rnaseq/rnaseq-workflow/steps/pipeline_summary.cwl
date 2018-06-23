@@ -5,8 +5,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;work_bam
+- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;resources;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;work_bam
 - sentinel_inputs=qc_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -36,6 +37,9 @@ hints:
   - package: goleft
     specs:
     - https://anaconda.org/bioconda/goleft
+  - package: hts-nim-tools
+    specs:
+    - https://anaconda.org/bioconda/hts-nim-tools
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
@@ -51,6 +55,9 @@ hints:
   - package: qualimap
     specs:
     - https://anaconda.org/bioconda/qualimap
+  - package: sambamba
+    specs:
+    - https://anaconda.org/bioconda/sambamba
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
@@ -60,9 +67,9 @@ inputs:
 - id: qc_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File
@@ -112,9 +119,9 @@ outputs:
       type:
       - string
       - 'null'
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File

@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=prep_rec:description;resources;files;reference__fasta__base;config__algorithm__expression_caller;rgnames__lb;rgnames__rg;reference__hisat2__indexes;config__algorithm__aligner;rgnames__pl;genome_build;rgnames__pu;genome_resources__rnaseq__transcripts;config__algorithm__quality_format;analysis;rgnames__sample;rgnames__lane
-- sentinel_inputs=files:var,rgnames__sample:var,reference__fasta__base:var,genome_build:var,genome_resources__rnaseq__transcripts:var,analysis:var,rgnames__pl:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__hisat2__indexes:var,config__algorithm__aligner:var,config__algorithm__expression_caller:var,config__algorithm__quality_format:var,description:var,resources:var
+- sentinel_outputs=prep_rec:resources;description;files;reference__fasta__base;config__algorithm__expression_caller;rgnames__lb;rgnames__rg;reference__hisat2__indexes;config__algorithm__aligner;rgnames__pl;genome_build;rgnames__pu;genome_resources__rnaseq__transcripts;config__algorithm__quality_format;analysis;rgnames__sample;rgnames__lane
+- sentinel_inputs=files:var,rgnames__sample:var,reference__fasta__base:var,genome_build:var,genome_resources__rnaseq__transcripts:var,analysis:var,rgnames__pl:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__hisat2__indexes:var,config__algorithm__aligner:var,config__algorithm__expression_caller:var,config__algorithm__quality_format:var,resources:var,description:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -32,6 +33,11 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
+  - package: pysam>
+    specs:
+    - https://anaconda.org/bioconda/pysam>
+    version:
+    - 0.13.0
 inputs:
 - id: files
   type:
@@ -47,6 +53,8 @@ inputs:
 - id: genome_build
   type: string
 - id: genome_resources__rnaseq__transcripts
+  secondaryFiles:
+  - .db
   type: File
 - id: analysis
   type: string
@@ -72,17 +80,17 @@ inputs:
     type: array
 - id: config__algorithm__quality_format
   type: string
-- id: description
-  type: string
 - id: resources
+  type: string
+- id: description
   type: string
 outputs:
 - id: prep_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: files
       type:

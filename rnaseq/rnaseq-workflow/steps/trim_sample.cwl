@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=trim_rec:description;resources;files;reference__fasta__base;config__algorithm__expression_caller;rgnames__lb;rgnames__rg;reference__hisat2__indexes;config__algorithm__aligner;rgnames__pl;genome_build;rgnames__pu;genome_resources__rnaseq__transcripts;config__algorithm__quality_format;analysis;rgnames__sample;rgnames__lane
+- sentinel_outputs=trim_rec:resources;description;files;reference__fasta__base;config__algorithm__expression_caller;rgnames__lb;rgnames__rg;reference__hisat2__indexes;config__algorithm__aligner;rgnames__pl;genome_build;rgnames__pu;genome_resources__rnaseq__transcripts;config__algorithm__quality_format;analysis;rgnames__sample;rgnames__lane
 - sentinel_inputs=prep_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -35,9 +36,9 @@ inputs:
 - id: prep_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: files
       type:
@@ -81,9 +82,9 @@ outputs:
 - id: trim_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: files
       type:
