@@ -7,6 +7,7 @@ arguments:
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;genome_build;config__algorithm__tools_off;config__algorithm__qc;config__algorithm__tools_on
 - sentinel_inputs=qc_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -20,9 +21,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1030
+  outdirMin: 1033
   ramMin: 4096
-  tmpdirMin: 3
+  tmpdirMin: 5
 - class: dx:InputResourceRequirement
   indirMin: 1
 - class: SoftwareRequirement
@@ -69,6 +70,9 @@ hints:
   - package: peddy
     specs:
     - https://anaconda.org/bioconda/peddy
+  - package: verifybamid2
+    specs:
+    - https://anaconda.org/bioconda/verifybamid2
 - class: arv:RuntimeConstraints
   keep_cache: 4096
 inputs:
@@ -87,6 +91,10 @@ inputs:
       - 'null'
     - name: metadata__batch
       type: string
+    - name: config__algorithm__umi_type
+      type:
+      - 'null'
+      - string
     - name: genome_build
       type: string
     - name: config__algorithm__coverage
@@ -120,6 +128,10 @@ inputs:
       - File
       - 'null'
     - name: align_bam
+      type:
+      - File
+      - 'null'
+    - name: umi_bam
       type:
       - File
       - 'null'

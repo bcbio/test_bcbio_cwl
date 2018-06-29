@@ -4,9 +4,10 @@ $namespaces:
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
-- sentinel_parallel=single-single
-- sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr
+- sentinel_parallel=single-parallel
+- sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr,umi_bam
 - sentinel_inputs=alignment_rec:record,process_alignment_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -20,11 +21,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1030
+  outdirMin: 1033
   ramMin: 4096
-  tmpdirMin: 3
+  tmpdirMin: 5
 - class: dx:InputResourceRequirement
-  indirMin: 7
+  indirMin: 10
 - class: SoftwareRequirement
   packages:
   - package: bwa
@@ -121,8 +122,17 @@ inputs:
       - string
     - name: rgnames__rg
       type: string
+    - name: config__algorithm__umi_type
+      type:
+      - 'null'
+      - string
     - name: rgnames__lane
       type: string
+    - name: reference__bwa__indexes
+      type:
+      - 'null'
+      - string
+      - File
     - name: config__algorithm__bam_clean
       type:
       - string
@@ -199,6 +209,12 @@ outputs:
   - File
   - 'null'
 - id: work_bam_plus__sr
+  secondaryFiles:
+  - .bai
+  type:
+  - File
+  - 'null'
+- id: umi_bam
   secondaryFiles:
   - .bai
   type:

@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=batch-single
 - sentinel_outputs=vrn_file
 - sentinel_inputs=batch_rec:record,vrn_file:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,7 +20,7 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1025
+  outdirMin: 1026
   ramMin: 4096
   tmpdirMin: 1
 - class: dx:InputResourceRequirement
@@ -42,6 +43,12 @@ inputs:
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - string
@@ -62,8 +69,8 @@ inputs:
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: vrn_file
         type:
         - File
@@ -143,6 +150,10 @@ inputs:
       - name: genome_resources__aliases__snpeff
         type: string
       - name: align_bam
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__variant_regions_merged
         type:
         - File
         - 'null'

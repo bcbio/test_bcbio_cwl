@@ -5,7 +5,7 @@
 ---
 details:
   - description: VarOnly
-    analysis: variant2
+    analysis: variant
     vrn_file: ../testdata/reference_material/7_100326_FC6107FAAXX-Test1.vcf.gz
     genome_build: hg19
     algorithm:
@@ -13,7 +13,7 @@ details:
     metadata:
       batch: b1
   - algorithm:
-      aligner: minimap2
+      aligner: bwa
       align_split_size: false
       recalibrate: false
       realign: false
@@ -27,7 +27,7 @@ details:
     metadata:
       batch: b1
       phenotype: tumor
-    analysis: variant2
+    analysis: variant
     description: Test2
     genome_build: hg19
     files: [../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_1.fq.gz, ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX_2.fq.gz]
@@ -36,20 +36,32 @@ details:
       mark_duplicates: false
       #bam_clean: remove_extracontigs
       align_split_size: 25000
-      #variantcaller: gatk-haplotype
       variantcaller: [freebayes, vardict, strelka2]
       tools_on: [gatk4, qualimap_full]
       tools_off: [gemini, vqsr]
       nomap_split_size: 50
       nomap_split_targets: 100
-      variant_regions: ../testdata/automated/variant_regions-bam.bed
+      #variant_regions: ../testdata/automated/variant_regions-bam.bed
     metadata:
       batch: b1
       phenotype: normal
-    analysis: variant2
+    analysis: variant
     description: Test1
     genome_build: hg19
     files: ../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
-resources:
-  sentieon:
-    keyfile: example:8080
+  - description: Umi1
+    files: [../testdata/100326_FC6107FAAXX/7_wumis_R1.fq.gz, ../testdata/100326_FC6107FAAXX/7_wumis_R2.fq.gz]
+    genome_build: hg19
+    analysis: variant
+    algorithm:
+      aligner: minimap2
+      umi_type: fastq_name
+      variantcaller: [vardict]
+    metadata:
+      batch: b2
+      phenotype: tumor
+# resources:
+#   tmp:
+#     dir: /home/chapmanb/drive/work/cwl/test_bcbio_cwl/somatic/bcbiotx/tmptest
+#   sentieon:
+#     keyfile: example:8078

@@ -6,6 +6,7 @@ arguments:
 - sentinel_parallel=multi-combined
 - sentinel_outputs=summary__multiqc
 - sentinel_inputs=qcout_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,9 +20,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1030
+  outdirMin: 1033
   ramMin: 2048
-  tmpdirMin: 3
+  tmpdirMin: 5
 - class: dx:InputResourceRequirement
   indirMin: 1
 - class: SoftwareRequirement

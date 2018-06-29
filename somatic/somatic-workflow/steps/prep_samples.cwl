@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready
+- sentinel_outputs=rgnames__sample,config__algorithm__variant_regions,config__algorithm__variant_regions_merged,config__algorithm__variant_regions_orig,config__algorithm__coverage,config__algorithm__coverage_merged,config__algorithm__coverage_orig,config__algorithm__seq2c_bed_ready
 - sentinel_inputs=prep_samples_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,7 +20,7 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1025
+  outdirMin: 1026
   ramMin: 2048
   tmpdirMin: 1
 - class: dx:InputResourceRequirement
@@ -50,6 +51,8 @@ inputs:
       - 'null'
       - string
       - File
+    - name: rgnames__sample
+      type: string
     - name: config__algorithm__variant_regions
       type:
       - 'null'
@@ -58,6 +61,8 @@ inputs:
     name: prep_samples_rec
     type: record
 outputs:
+- id: rgnames__sample
+  type: string
 - id: config__algorithm__variant_regions
   type:
   - File

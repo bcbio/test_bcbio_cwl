@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-single
-- sentinel_outputs=vc_rec:batch_samples;validate__summary;validate__tp;validate__fp;validate__fn;resources;description;vrn_file;reference__fasta__base;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;metadata__phenotype;config__algorithm__validate;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;reference__genome_context;analysis;config__algorithm__tools_on;config__algorithm__effects;config__algorithm__variant_regions;genome_resources__aliases__ensembl;config__algorithm__exclude_regions;genome_resources__aliases__snpeff;regions__sample_callable;config__algorithm__callable_regions
+- sentinel_outputs=vc_rec:batch_samples;validate__summary;validate__tp;validate__fp;validate__fn;resources;description;vrn_file;reference__fasta__base;metadata__phenotype;config__algorithm__vcfanno;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;config__algorithm__min_allele_fraction;config__algorithm__validate;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;reference__genome_context;analysis;config__algorithm__tools_on;config__algorithm__effects;config__algorithm__variant_regions;genome_resources__aliases__ensembl;config__algorithm__exclude_regions;genome_resources__aliases__snpeff;config__algorithm__variant_regions_merged;regions__sample_callable;config__algorithm__callable_regions
 - sentinel_inputs=batch_rec:record,vrn_file:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,9 +20,9 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1029
+  outdirMin: 1031
   ramMin: 4096
-  tmpdirMin: 3
+  tmpdirMin: 4
 - class: dx:InputResourceRequirement
   indirMin: 1
 - class: SoftwareRequirement
@@ -58,6 +59,12 @@ inputs:
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - string
@@ -78,8 +85,8 @@ inputs:
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: vrn_file
         type:
         - File
@@ -162,6 +169,10 @@ inputs:
         type:
         - File
         - 'null'
+      - name: config__algorithm__variant_regions_merged
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
         type:
         - File
@@ -209,6 +220,12 @@ outputs:
         type: File
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - string
@@ -219,8 +236,8 @@ outputs:
         - 'null'
       - name: metadata__batch
         type: string
-      - name: metadata__phenotype
-        type: string
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: config__algorithm__validate
         type:
         - File
@@ -278,6 +295,10 @@ outputs:
           type: array
       - name: genome_resources__aliases__snpeff
         type: string
+      - name: config__algorithm__variant_regions_merged
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
         type:
         - File

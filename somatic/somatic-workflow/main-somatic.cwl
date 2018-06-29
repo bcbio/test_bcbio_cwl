@@ -32,6 +32,16 @@ inputs:
   type:
     items: File
     type: array
+- id: metadata__phenotype
+  type:
+    items: string
+    type: array
+- id: config__algorithm__vcfanno
+  type:
+    items:
+      items: string
+      type: array
+    type: array
 - id: resources
   type:
     items: string
@@ -90,6 +100,12 @@ inputs:
   type:
     items: string
     type: array
+- id: config__algorithm__umi_type
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: rgnames__lane
   type:
     items: string
@@ -100,13 +116,20 @@ inputs:
     - 'null'
     - string
     type: array
-- id: metadata__phenotype
+- id: config__algorithm__min_allele_fraction
   type:
-    items: string
+    items: long
     type: array
 - id: config__algorithm__nomap_split_targets
   type:
     items: long
+    type: array
+- id: reference__bwa__indexes
+  type:
+    items:
+    - 'null'
+    - string
+    - File
     type: array
 - id: vrn_file
   type:
@@ -309,8 +332,20 @@ inputs:
     items: string
     type: array
 outputs:
+- id: rgnames__sample_out
+  outputSource: prep_samples/rgnames__sample
+  type:
+    items: string
+    type: array
 - id: align_bam
   outputSource: postprocess_alignment/align_bam
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: umi_bam
+  outputSource: alignment/umi_bam
   type:
     items:
     - File
@@ -386,6 +421,8 @@ steps:
     source: rgnames__rg
   - id: rgnames__lb
     source: rgnames__lb
+  - id: reference__bwa__indexes
+    source: reference__bwa__indexes
   - id: reference__minimap2__indexes
     source: reference__minimap2__indexes
   - id: config__algorithm__aligner
@@ -398,6 +435,8 @@ steps:
     source: config__algorithm__bam_clean
   - id: config__algorithm__mark_duplicates
     source: config__algorithm__mark_duplicates
+  - id: config__algorithm__umi_type
+    source: config__algorithm__umi_type
   - id: resources
     source: resources
   - id: description
@@ -411,9 +450,10 @@ steps:
     source: alignment_to_rec/alignment_rec
   out:
   - id: align_bam
-  - id: hla__fastq
   - id: work_bam_plus__disc
   - id: work_bam_plus__sr
+  - id: hla__fastq
+  - id: umi_bam
   run: wf-alignment.cwl
   scatter:
   - alignment_rec
@@ -422,6 +462,8 @@ steps:
   in:
   - id: config__algorithm__coverage
     source: config__algorithm__coverage
+  - id: rgnames__sample
+    source: rgnames__sample
   - id: config__algorithm__variant_regions
     source: config__algorithm__variant_regions
   - id: reference__fasta__base
@@ -438,6 +480,7 @@ steps:
   - id: prep_samples_rec
     source: prep_samples_to_rec/prep_samples_rec
   out:
+  - id: rgnames__sample
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
@@ -559,24 +602,30 @@ steps:
     source: postprocess_alignment/align_bam
   - id: vrn_file
     source: vrn_file
-  - id: config__algorithm__callable_regions
-    source: combine_sample_regions/config__algorithm__callable_regions
   - id: metadata__batch
     source: metadata__batch
   - id: metadata__phenotype
     source: metadata__phenotype
+  - id: config__algorithm__callable_regions
+    source: combine_sample_regions/config__algorithm__callable_regions
   - id: regions__sample_callable
     source: postprocess_alignment/regions__sample_callable
   - id: config__algorithm__variantcaller
     source: config__algorithm__variantcaller
+  - id: config__algorithm__vcfanno
+    source: config__algorithm__vcfanno
   - id: config__algorithm__coverage_interval
     source: postprocess_alignment/config__algorithm__coverage_interval
   - id: config__algorithm__effects
     source: config__algorithm__effects
+  - id: config__algorithm__min_allele_fraction
+    source: config__algorithm__min_allele_fraction
   - id: config__algorithm__exclude_regions
     source: config__algorithm__exclude_regions
   - id: config__algorithm__variant_regions
     source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
   - id: config__algorithm__validate
     source: config__algorithm__validate
   - id: config__algorithm__validate_regions
@@ -603,10 +652,6 @@ steps:
     source: genome_resources__variation__polyx
   - id: genome_resources__variation__encode_blacklist
     source: genome_resources__variation__encode_blacklist
-  - id: genome_resources__variation__train_hapmap
-    source: genome_resources__variation__train_hapmap
-  - id: genome_resources__variation__train_indels
-    source: genome_resources__variation__train_indels
   - id: genome_resources__aliases__ensembl
     source: genome_resources__aliases__ensembl
   - id: genome_resources__aliases__human
@@ -615,6 +660,10 @@ steps:
     source: genome_resources__aliases__snpeff
   - id: reference__snpeff__hg19
     source: reference__snpeff__hg19
+  - id: genome_resources__variation__train_hapmap
+    source: genome_resources__variation__train_hapmap
+  - id: genome_resources__variation__train_indels
+    source: genome_resources__variation__train_indels
   - id: resources
     source: resources
   - id: description
@@ -691,6 +740,10 @@ steps:
     source: postprocess_alignment/config__algorithm__coverage_merged
   - id: variants__samples
     source: summarize_vc/variants__samples
+  - id: config__algorithm__umi_type
+    source: config__algorithm__umi_type
+  - id: umi_bam
+    source: alignment/umi_bam
   - id: resources
     source: resources
   - id: description

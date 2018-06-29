@@ -12,6 +12,12 @@ inputs:
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - string
@@ -32,8 +38,8 @@ inputs:
         type:
         - 'null'
         - string
-      - name: metadata__phenotype
-        type: string
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: vrn_file
         type:
         - File
@@ -116,6 +122,10 @@ inputs:
         type:
         - File
         - 'null'
+      - name: config__algorithm__variant_regions_merged
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
         type:
         - File
@@ -160,6 +170,12 @@ outputs:
         type: File
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - string
@@ -170,8 +186,8 @@ outputs:
         - 'null'
       - name: metadata__batch
         type: string
-      - name: metadata__phenotype
-        type: string
+      - name: config__algorithm__min_allele_fraction
+        type: long
       - name: config__algorithm__validate
         type:
         - File
@@ -229,6 +245,10 @@ outputs:
           type: array
       - name: genome_resources__aliases__snpeff
         type: string
+      - name: config__algorithm__variant_regions_merged
+        type:
+        - File
+        - 'null'
       - name: regions__sample_callable
         type:
         - File

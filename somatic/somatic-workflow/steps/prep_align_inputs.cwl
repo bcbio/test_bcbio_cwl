@@ -3,9 +3,10 @@ $namespaces:
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
-- sentinel_parallel=single-single
+- sentinel_parallel=single-split
 - sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split
 - sentinel_inputs=alignment_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,11 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1029
+  outdirMin: 1031
   ramMin: 4096
-  tmpdirMin: 3
+  tmpdirMin: 4
 - class: dx:InputResourceRequirement
-  indirMin: 4
+  indirMin: 5
 - class: SoftwareRequirement
   packages:
   - package: grabix
@@ -92,8 +93,17 @@ inputs:
       - string
     - name: rgnames__rg
       type: string
+    - name: config__algorithm__umi_type
+      type:
+      - 'null'
+      - string
     - name: rgnames__lane
       type: string
+    - name: reference__bwa__indexes
+      type:
+      - 'null'
+      - string
+      - File
     - name: config__algorithm__bam_clean
       type:
       - string
@@ -130,22 +140,24 @@ inputs:
 outputs:
 - id: process_alignment_rec
   type:
-    fields:
-    - name: files
-      type:
-      - 'null'
-      - items: File
-        type: array
-    - name: config__algorithm__quality_format
-      type:
-      - string
-      - 'null'
-    - name: align_split
-      type:
-      - string
-      - 'null'
-    name: process_alignment_rec
-    type: record
+    items:
+      fields:
+      - name: files
+        type:
+        - 'null'
+        - items: File
+          type: array
+      - name: config__algorithm__quality_format
+        type:
+        - string
+        - 'null'
+      - name: align_split
+        type:
+        - string
+        - 'null'
+      name: process_alignment_rec
+      type: record
+    type: array
 requirements:
 - class: InlineJavascriptRequirement
 - class: InitialWorkDirRequirement
