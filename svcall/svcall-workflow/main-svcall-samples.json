@@ -3,6 +3,10 @@
         "variant",
         "variant"
     ],
+    "config__algorithm__adapters": [
+        [],
+        []
+    ],
     "config__algorithm__align_split_size": [
         "null",
         "null"
@@ -11,9 +15,17 @@
         "bwa",
         "bwa"
     ],
+    "config__algorithm__bam_clean": [
+        "False",
+        "False"
+    ],
     "config__algorithm__coverage_interval": [
         "null",
         "null"
+    ],
+    "config__algorithm__exclude_regions": [
+        [],
+        []
     ],
     "config__algorithm__mark_duplicates": [
         "True",
@@ -24,8 +36,8 @@
         250
     ],
     "config__algorithm__nomap_split_targets": [
-        200,
-        200
+        20,
+        20
     ],
     "config__algorithm__qc": [
         [
@@ -61,13 +73,34 @@
             "cnvkit"
         ]
     ],
+    "config__algorithm__svvalidate": [
+        {
+            "class": "File",
+            "path": "../../testdata/reference_material/Test1-grade.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/reference_material/Test1-grade.vcf.gz.tbi"
+                }
+            ]
+        },
+        "null"
+    ],
     "config__algorithm__tools_off": [
         [],
         []
     ],
     "config__algorithm__tools_on": [
-        [],
-        []
+        [
+            "coverage_perbase"
+        ],
+        [
+            "coverage_perbase"
+        ]
+    ],
+    "config__algorithm__trim_reads": [
+        "False",
+        "False"
     ],
     "config__algorithm__variant_regions": [
         "null",
@@ -107,6 +140,10 @@
         "hg19",
         "hg19"
     ],
+    "genome_resources__aliases__snpeff": [
+        "hg19",
+        "hg19"
+    ],
     "genome_resources__rnaseq__gene_bed": [
         {
             "class": "File",
@@ -138,6 +175,18 @@
                 }
             ]
         }
+    ],
+    "genome_resources__variation__encode_blacklist": [
+        "null",
+        "null"
+    ],
+    "genome_resources__variation__lcr": [
+        "null",
+        "null"
+    ],
+    "genome_resources__variation__polyx": [
+        "null",
+        "null"
     ],
     "metadata__batch": [
         "b1",
@@ -185,6 +234,16 @@
                     "path": "../../testdata/genomes/hg19/seq/hg19.dict"
                 }
             ]
+        }
+    ],
+    "reference__snpeff__hg19": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
         }
     ],
     "reference__twobit": [

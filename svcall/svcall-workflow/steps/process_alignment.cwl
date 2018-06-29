@@ -1,9 +1,13 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=single-parallel
 - sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr
 - sentinel_inputs=alignment_rec:record,process_alignment_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,9 +21,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1043
+  outdirMin: 1030
   ramMin: 4096
-  tmpdirMin: 19
+  tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 7
 - class: SoftwareRequirement
   packages:
   - package: bwa
@@ -31,6 +37,9 @@ hints:
   - package: grabix
     specs:
     - https://anaconda.org/bioconda/grabix
+  - package: minimap2
+    specs:
+    - https://anaconda.org/bioconda/minimap2
   - package: novoalign
     specs:
     - https://anaconda.org/bioconda/novoalign
@@ -45,6 +54,11 @@ hints:
   - package: samtools
     specs:
     - https://anaconda.org/bioconda/samtools
+  - package: pysam>
+    specs:
+    - https://anaconda.org/bioconda/pysam>
+    version:
+    - 0.13.0
   - package: sambamba
     specs:
     - https://anaconda.org/bioconda/sambamba
@@ -66,20 +80,38 @@ hints:
   - package: variantbam
     specs:
     - https://anaconda.org/bioconda/variantbam
+- class: arv:APIRequirement
 inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
       - 'null'
       - string
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: reference__fasta__base
       type: File
+    - name: config__algorithm__adapters
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: rgnames__lb
       type:
       - 'null'
@@ -90,10 +122,11 @@ inputs:
       type: string
     - name: reference__bwa__indexes
       type: File
-    - name: files
+    - name: config__algorithm__bam_clean
       type:
-        items: File
-        type: array
+      - string
+      - 'null'
+      - boolean
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
@@ -105,6 +138,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec
@@ -114,10 +149,13 @@ inputs:
     fields:
     - name: files
       type:
-        items: File
+      - 'null'
+      - items: File
         type: array
     - name: config__algorithm__quality_format
-      type: string
+      type:
+      - string
+      - 'null'
     - name: align_split
       type:
       - string
@@ -128,11 +166,15 @@ outputs:
 - id: work_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: hla__fastq
   type:
   - 'null'

@@ -6,15 +6,19 @@ inputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
         type: string
+      - name: description
+        type: string
+      - name: reference__snpeff__hg19
+        type: File
       - name: genome_build
         type: string
       - name: config__algorithm__tools_off
         type:
-          items:
+        - 'null'
+        - string
+        - items:
           - 'null'
           - string
           type: array
@@ -22,10 +26,15 @@ inputs:
         type: string
       - name: config__algorithm__tools_on
         type:
-          items:
-          - 'null'
-          - string
+          items: string
           type: array
+      - name: config__algorithm__svvalidate
+        type:
+        - File
+        - 'null'
+        - string
+      - name: genome_resources__aliases__snpeff
+        type: string
       - name: work_bam_plus__disc
         type:
         - File
@@ -34,7 +43,15 @@ inputs:
         type:
         - File
         - 'null'
+      - name: regions__sample_callable
+        type:
+        - File
+        - 'null'
       - name: depth__bins__normalized
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__background
         type:
         - File
         - 'null'
@@ -63,23 +80,53 @@ inputs:
       - name: config__algorithm__svcaller
         type: string
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: genome_resources__rnaseq__gene_bed
         type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
       - name: metadata__phenotype
         type: string
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: config__algorithm__sv_regions
         type: File
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__variant_regions_merged
-        type: File
+        type:
+        - File
+        - 'null'
       - name: depth__variant_regions__regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: sv_batch_rec
@@ -99,15 +146,21 @@ outputs:
         type:
         - File
         - 'null'
-      - name: description
-        type: string
+      - name: svvalidate__summary
+        type:
+        - File
+        - 'null'
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: genome_build
         type: string
       - name: config__algorithm__tools_off
         type:
-          items:
+        - 'null'
+        - string
+        - items:
           - 'null'
           - string
           type: array
@@ -115,19 +168,24 @@ outputs:
         type: string
       - name: config__algorithm__tools_on
         type:
-          items:
-          - 'null'
-          - string
+          items: string
           type: array
-      - name: work_bam_plus__disc
+      - name: config__algorithm__svvalidate
         type:
         - File
         - 'null'
-      - name: work_bam_plus__sr
+        - string
+      - name: genome_resources__aliases__snpeff
+        type: string
+      - name: regions__sample_callable
         type:
         - File
         - 'null'
       - name: depth__bins__normalized
+        type:
+        - File
+        - 'null'
+      - name: depth__bins__background
         type:
         - File
         - 'null'
@@ -156,23 +214,49 @@ outputs:
       - name: config__algorithm__svcaller
         type: string
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: genome_resources__rnaseq__gene_bed
         type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
       - name: metadata__phenotype
         type: string
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: config__algorithm__sv_regions
         type: File
       - name: config__algorithm__variant_regions
-        type: File
-      - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: config__algorithm__variant_regions_merged
-        type: File
+        type:
+        - File
+        - 'null'
       - name: depth__variant_regions__regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: sv_rec

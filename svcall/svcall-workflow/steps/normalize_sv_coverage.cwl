@@ -1,9 +1,12 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=sv_coverage_rec:depth__bins__normalized;description;resources;depth__bins__target;depth__bins__antitarget;regions__bins__target;regions__bins__antitarget;regions__bins__group;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;metadata__phenotype;config__algorithm__sv_regions;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;depth__variant_regions__regions;config__algorithm__callable_regions
+- sentinel_outputs=sv_coverage_rec:depth__bins__normalized;depth__bins__background;resources;description;depth__bins__target;depth__bins__antitarget;regions__bins__target;regions__bins__antitarget;regions__bins__group;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;genome_resources__variation__encode_blacklist;metadata__batch;genome_resources__variation__lcr;metadata__phenotype;genome_resources__variation__polyx;config__algorithm__sv_regions;config__algorithm__variant_regions;config__algorithm__exclude_regions;align_bam;config__algorithm__variant_regions_merged;depth__variant_regions__regions;config__algorithm__callable_regions
 - sentinel_inputs=sv_rawcoverage_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1031
+  outdirMin: 1028
   ramMin: 4096
-  tmpdirMin: 7
+  tmpdirMin: 2
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: cnvkit
@@ -38,9 +43,9 @@ inputs:
         type:
         - File
         - 'null'
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: regions__bins__target
         type:
@@ -61,23 +66,53 @@ inputs:
           items: string
           type: array
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: genome_resources__rnaseq__gene_bed
         type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
       - name: metadata__phenotype
         type: string
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: config__algorithm__sv_regions
         type: File
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__variant_regions_merged
-        type: File
+        type:
+        - File
+        - 'null'
       - name: depth__variant_regions__regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: sv_rawcoverage_rec
@@ -92,9 +127,13 @@ outputs:
         type:
         - File
         - 'null'
-      - name: description
-        type: string
+      - name: depth__bins__background
+        type:
+        - File
+        - 'null'
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: depth__bins__target
         type:
@@ -123,23 +162,53 @@ outputs:
           items: string
           type: array
       - name: config__algorithm__coverage_interval
-        type: string
+        type:
+        - string
+        - 'null'
       - name: genome_resources__rnaseq__gene_bed
         type: File
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: metadata__batch
         type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
       - name: metadata__phenotype
         type: string
+      - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
       - name: config__algorithm__sv_regions
         type: File
       - name: config__algorithm__variant_regions
-        type: File
+        type:
+        - File
+        - 'null'
+      - name: config__algorithm__exclude_regions
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: align_bam
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__variant_regions_merged
-        type: File
+        type:
+        - File
+        - 'null'
       - name: depth__variant_regions__regions
-        type: File
+        type:
+        - File
+        - 'null'
       - name: config__algorithm__callable_regions
         type: File
       name: sv_coverage_rec

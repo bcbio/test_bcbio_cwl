@@ -7,4 +7,4 @@
 set -eu -o pipefail
 
 PNAME=svcall
-bcbio_vm.py cwlrun cromwell --no-container -q short -s slurm -r timelimit=0-12:00 $PNAME-workflow
+bcbio_vm.py cwlrun cromwell --no-container -q short -s slurm -r timelimit=0-12:00 -r account=tester $PNAME-workflow

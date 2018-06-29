@@ -1,9 +1,12 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=single-merge
 - sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq
 - sentinel_inputs=alignment_rec:record,work_bam:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,hla__fastq:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1047
+  outdirMin: 1035
   ramMin: 4096
-  tmpdirMin: 23
+  tmpdirMin: 6
+- class: dx:InputResourceRequirement
+  indirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: biobambam
@@ -35,16 +40,33 @@ inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
       - 'null'
       - string
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: reference__fasta__base
       type: File
+    - name: config__algorithm__adapters
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: rgnames__lb
       type:
       - 'null'
@@ -55,10 +77,11 @@ inputs:
       type: string
     - name: reference__bwa__indexes
       type: File
-    - name: files
+    - name: config__algorithm__bam_clean
       type:
-        items: File
-        type: array
+      - string
+      - 'null'
+      - boolean
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
@@ -70,6 +93,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec
@@ -78,13 +103,17 @@ inputs:
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: align_bam_toolinput
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: work_bam_plus__disc_toolinput
   secondaryFiles:
@@ -113,7 +142,9 @@ outputs:
 - id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 - id: work_bam_plus__disc
   secondaryFiles:
   - .bai

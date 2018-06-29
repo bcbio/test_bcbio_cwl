@@ -3,9 +3,12 @@
 details:
  - algorithm:
      aligner: bwa
+     # hlacaller: optitype
      svcaller: [manta, lumpy, cnvkit]
      sv_regions: ../testdata/automated/variant_regions-bam.bed
+     svvalidate: ../testdata/reference_material/Test1-grade.vcf.gz
      qc: [samtools]
+     tools_on: [coverage_perbase]
    metadata:
      batch: b1
      phenotype: tumor
@@ -15,9 +18,11 @@ details:
    files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
  - algorithm:
      aligner: bwa
+     # hlacaller: optitype
      svcaller: [manta, lumpy, cnvkit]
      sv_regions: ../testdata/automated/variant_regions-bam.bed
      qc: [samtools]
+     tools_on: [coverage_perbase]
    metadata:
      batch: b1
      phenotype: normal

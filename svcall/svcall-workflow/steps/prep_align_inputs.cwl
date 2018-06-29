@@ -1,9 +1,12 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=single-split
 - sentinel_outputs=process_alignment_rec:files;config__algorithm__quality_format;align_split
 - sentinel_inputs=alignment_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -16,10 +19,12 @@ hints:
   dockerImageId: quay.io/bcbio/bcbio-vc
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
-  coresMin: 1
-  outdirMin: 1035
-  ramMin: 2048
-  tmpdirMin: 11
+  coresMin: 2
+  outdirMin: 1028
+  ramMin: 4096
+  tmpdirMin: 2
+- class: dx:InputResourceRequirement
+  indirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: grabix
@@ -31,20 +36,53 @@ hints:
   - package: biobambam
     specs:
     - https://anaconda.org/bioconda/biobambam
+  - package: atropos;env
+    specs:
+    - https://anaconda.org/bioconda/atropos;env
+    version:
+    - python3
+  - package: optitype
+    specs:
+    - https://anaconda.org/bioconda/optitype
+  - package: razers3
+    specs:
+    - https://anaconda.org/bioconda/razers3
+    version:
+    - 3.5.0
+  - package: coincbc
+    specs:
+    - https://anaconda.org/bioconda/coincbc
 inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
       - 'null'
       - string
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: reference__fasta__base
       type: File
+    - name: config__algorithm__adapters
+      type:
+      - 'null'
+      - string
+      - items:
+        - 'null'
+        - string
+        type: array
     - name: rgnames__lb
       type:
       - 'null'
@@ -55,10 +93,11 @@ inputs:
       type: string
     - name: reference__bwa__indexes
       type: File
-    - name: files
+    - name: config__algorithm__bam_clean
       type:
-        items: File
-        type: array
+      - string
+      - 'null'
+      - boolean
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
@@ -70,6 +109,8 @@ inputs:
       - string
       - 'null'
       - boolean
+    - name: analysis
+      type: string
     - name: rgnames__sample
       type: string
     name: alignment_rec
@@ -81,10 +122,13 @@ outputs:
       fields:
       - name: files
         type:
-          items: File
+        - 'null'
+        - items: File
           type: array
       - name: config__algorithm__quality_format
-        type: string
+        type:
+        - string
+        - 'null'
       - name: align_split
         type:
         - string

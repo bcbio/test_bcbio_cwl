@@ -8,12 +8,41 @@ inputs:
     - 'null'
     - string
     type: array
+- id: files
+  secondaryFiles:
+  - .bai
+  type:
+    items:
+      items: File
+      type: array
+    type: array
+- id: config__algorithm__trim_reads
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
 - id: reference__fasta__base
   secondaryFiles:
   - .fai
   - ^.dict
   type:
     items: File
+    type: array
+- id: resources
+  type:
+    items: string
+    type: array
+- id: config__algorithm__adapters
+  type:
+    items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
+      - string
+      type: array
     type: array
 - id: config__algorithm__svcaller
   type:
@@ -37,6 +66,12 @@ inputs:
     - 'null'
     - string
     type: array
+- id: genome_resources__variation__encode_blacklist
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: rgnames__rg
   type:
     items: string
@@ -48,6 +83,12 @@ inputs:
 - id: rgnames__lane
   type:
     items: string
+    type: array
+- id: genome_resources__variation__lcr
+  type:
+    items:
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__nomap_split_targets
   type:
@@ -61,17 +102,20 @@ inputs:
   type:
     items: File
     type: array
+- id: config__algorithm__bam_clean
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
 - id: config__algorithm__nomap_split_size
   type:
     items: long
     type: array
-- id: files
-  secondaryFiles:
-  - .bai
+- id: reference__snpeff__hg19
   type:
-    items:
-      items: File
-      type: array
+    items: File
     type: array
 - id: description
   type:
@@ -107,7 +151,9 @@ inputs:
 - id: config__algorithm__tools_off
   type:
     items:
-      items:
+    - 'null'
+    - string
+    - items:
       - 'null'
       - string
       type: array
@@ -124,6 +170,12 @@ inputs:
     - string
     - 'null'
     - boolean
+    type: array
+- id: genome_resources__variation__polyx
+  type:
+    items:
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__qc
   type:
@@ -146,9 +198,7 @@ inputs:
 - id: config__algorithm__tools_on
   type:
     items:
-      items:
-      - 'null'
-      - string
+      items: string
       type: array
     type: array
 - id: config__algorithm__variant_regions
@@ -157,23 +207,42 @@ inputs:
     - 'null'
     - string
     type: array
-- id: resources
+- id: config__algorithm__svvalidate
+  type:
+    items:
+    - File
+    - 'null'
+    - string
+    type: array
+- id: config__algorithm__exclude_regions
+  type:
+    items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
+      - string
+      type: array
+    type: array
+- id: genome_resources__aliases__snpeff
   type:
     items: string
     type: array
 outputs:
+- id: rgnames__sample_out
+  outputSource: prep_samples/rgnames__sample
+  type:
+    items: string
+    type: array
 - id: align_bam
   outputSource: postprocess_alignment/align_bam
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: regions__sample_callable
   outputSource: postprocess_alignment/regions__sample_callable
-  type:
-    items: File
-    type: array
-- id: summary__multiqc
-  outputSource: multiqc_summary/summary__multiqc
   type:
     items:
     - File
@@ -188,6 +257,20 @@ outputs:
       - 'null'
       type: array
     type: array
+- id: svvalidate__grading_summary
+  outputSource: summarize_sv/svvalidate__grading_summary
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: summary__multiqc
+  outputSource: multiqc_summary/summary__multiqc
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
 requirements:
 - class: EnvVarRequirement
   envDef:
@@ -200,6 +283,8 @@ steps:
   in:
   - id: files
     source: files
+  - id: analysis
+    source: analysis
   - id: config__algorithm__align_split_size
     source: config__algorithm__align_split_size
   - id: reference__fasta__base
@@ -220,12 +305,18 @@ steps:
     source: reference__bwa__indexes
   - id: config__algorithm__aligner
     source: config__algorithm__aligner
+  - id: config__algorithm__trim_reads
+    source: config__algorithm__trim_reads
+  - id: config__algorithm__adapters
+    source: config__algorithm__adapters
+  - id: config__algorithm__bam_clean
+    source: config__algorithm__bam_clean
   - id: config__algorithm__mark_duplicates
     source: config__algorithm__mark_duplicates
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: alignment_rec
   run: steps/alignment_to_rec.cwl
@@ -244,14 +335,16 @@ steps:
   scatterMethod: dotproduct
 - id: prep_samples_to_rec
   in:
+  - id: rgnames__sample
+    source: rgnames__sample
   - id: config__algorithm__variant_regions
     source: config__algorithm__variant_regions
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: prep_samples_rec
   run: steps/prep_samples_to_rec.cwl
@@ -260,6 +353,7 @@ steps:
   - id: prep_samples_rec
     source: prep_samples_to_rec/prep_samples_rec
   out:
+  - id: rgnames__sample
   - id: config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
   - id: config__algorithm__variant_regions_orig
@@ -277,6 +371,8 @@ steps:
     source: alignment/align_bam
   - id: config__algorithm__coverage_interval
     source: config__algorithm__coverage_interval
+  - id: config__algorithm__exclude_regions
+    source: config__algorithm__exclude_regions
   - id: config__algorithm__variant_regions
     source: prep_samples/config__algorithm__variant_regions
   - id: config__algorithm__variant_regions_merged
@@ -299,14 +395,20 @@ steps:
     source: genome_resources__rnaseq__gene_bed
   - id: genome_resources__variation__dbsnp
     source: genome_resources__variation__dbsnp
+  - id: genome_resources__variation__lcr
+    source: genome_resources__variation__lcr
+  - id: genome_resources__variation__polyx
+    source: genome_resources__variation__polyx
+  - id: genome_resources__variation__encode_blacklist
+    source: genome_resources__variation__encode_blacklist
   - id: reference__twobit
     source: reference__twobit
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: postprocess_alignment_rec
   run: steps/postprocess_alignment_to_rec.cwl
@@ -326,6 +428,8 @@ steps:
   - id: regions__callable
   - id: regions__sample_callable
   - id: regions__nblock
+  - id: depth__samtools__stats
+  - id: depth__samtools__idxstats
   - id: depth__variant_regions__regions
   - id: depth__variant_regions__dist
   - id: depth__sv_regions__regions
@@ -344,85 +448,23 @@ steps:
     source: postprocess_alignment/regions__callable
   - id: regions__nblock
     source: postprocess_alignment/regions__nblock
+  - id: metadata__batch
+    source: metadata__batch
   - id: config__algorithm__nomap_split_size
     source: config__algorithm__nomap_split_size
   - id: config__algorithm__nomap_split_targets
     source: config__algorithm__nomap_split_targets
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: config__algorithm__callable_regions
   - id: config__algorithm__non_callable_regions
   - id: config__algorithm__callable_count
   run: steps/combine_sample_regions.cwl
-- id: qc_to_rec
-  in:
-  - id: align_bam
-    source: postprocess_alignment/align_bam
-  - id: analysis
-    source: analysis
-  - id: reference__fasta__base
-    source: reference__fasta__base
-  - id: genome_build
-    source: genome_build
-  - id: config__algorithm__coverage_interval
-    source: postprocess_alignment/config__algorithm__coverage_interval
-  - id: config__algorithm__tools_on
-    source: config__algorithm__tools_on
-  - id: config__algorithm__tools_off
-    source: config__algorithm__tools_off
-  - id: config__algorithm__qc
-    source: config__algorithm__qc
-  - id: depth__variant_regions__regions
-    source: postprocess_alignment/depth__variant_regions__regions
-  - id: depth__variant_regions__dist
-    source: postprocess_alignment/depth__variant_regions__dist
-  - id: depth__sv_regions__regions
-    source: postprocess_alignment/depth__sv_regions__regions
-  - id: depth__sv_regions__dist
-    source: postprocess_alignment/depth__sv_regions__dist
-  - id: depth__coverage__regions
-    source: postprocess_alignment/depth__coverage__regions
-  - id: depth__coverage__dist
-    source: postprocess_alignment/depth__coverage__dist
-  - id: depth__coverage__thresholds
-    source: postprocess_alignment/depth__coverage__thresholds
-  - id: config__algorithm__variant_regions
-    source: postprocess_alignment/config__algorithm__variant_regions
-  - id: config__algorithm__variant_regions_merged
-    source: postprocess_alignment/config__algorithm__variant_regions_merged
-  - id: config__algorithm__coverage
-    source: postprocess_alignment/config__algorithm__coverage
-  - id: config__algorithm__coverage_merged
-    source: postprocess_alignment/config__algorithm__coverage_merged
-  - id: description
-    source: description
-  - id: resources
-    source: resources
-  out:
-  - id: qc_rec
-  run: steps/qc_to_rec.cwl
-- id: pipeline_summary
-  in:
-  - id: qc_rec
-    source: qc_to_rec/qc_rec
-  out:
-  - id: qcout_rec
-  run: steps/pipeline_summary.cwl
-  scatter:
-  - qc_rec
-  scatterMethod: dotproduct
-- id: multiqc_summary
-  in:
-  - id: qcout_rec
-    source: pipeline_summary/qcout_rec
-  out:
-  - id: summary__multiqc
-  run: steps/multiqc_summary.cwl
 - id: calculate_sv_bins
   in:
   - id: align_bam
@@ -437,6 +479,8 @@ steps:
     source: combine_sample_regions/config__algorithm__callable_regions
   - id: config__algorithm__coverage_interval
     source: postprocess_alignment/config__algorithm__coverage_interval
+  - id: config__algorithm__exclude_regions
+    source: config__algorithm__exclude_regions
   - id: config__algorithm__sv_regions
     source: config__algorithm__sv_regions
   - id: config__algorithm__variant_regions
@@ -447,12 +491,18 @@ steps:
     source: config__algorithm__svcaller
   - id: depth__variant_regions__regions
     source: postprocess_alignment/depth__variant_regions__regions
+  - id: genome_resources__variation__lcr
+    source: genome_resources__variation__lcr
+  - id: genome_resources__variation__polyx
+    source: genome_resources__variation__polyx
+  - id: genome_resources__variation__encode_blacklist
+    source: genome_resources__variation__encode_blacklist
   - id: genome_resources__rnaseq__gene_bed
     source: genome_resources__rnaseq__gene_bed
-  - id: description
-    source: description
   - id: resources
     source: resources
+  - id: description
+    source: description
   out:
   - id: sv_bin_rec
   run: steps/calculate_sv_bins.cwl
@@ -487,6 +537,14 @@ steps:
     source: config__algorithm__tools_on
   - id: config__algorithm__tools_off
     source: config__algorithm__tools_off
+  - id: config__algorithm__svvalidate
+    source: config__algorithm__svvalidate
+  - id: regions__sample_callable
+    source: postprocess_alignment/regions__sample_callable
+  - id: genome_resources__aliases__snpeff
+    source: genome_resources__aliases__snpeff
+  - id: reference__snpeff__hg19
+    source: reference__snpeff__hg19
   - id: sv_coverage_rec
     source: normalize_sv_coverage/sv_coverage_rec
   out:
@@ -508,4 +566,76 @@ steps:
     source: svcall/sv_rec
   out:
   - id: sv__calls
+  - id: svvalidate__grading_summary
+  - id: svvalidate__grading_plots
   run: steps/summarize_sv.cwl
+- id: qc_to_rec
+  in:
+  - id: align_bam
+    source: postprocess_alignment/align_bam
+  - id: analysis
+    source: analysis
+  - id: reference__fasta__base
+    source: reference__fasta__base
+  - id: config__algorithm__tools_on
+    source: config__algorithm__tools_on
+  - id: config__algorithm__tools_off
+    source: config__algorithm__tools_off
+  - id: genome_build
+    source: genome_build
+  - id: config__algorithm__qc
+    source: config__algorithm__qc
+  - id: metadata__batch
+    source: metadata__batch
+  - id: config__algorithm__coverage_interval
+    source: postprocess_alignment/config__algorithm__coverage_interval
+  - id: depth__variant_regions__regions
+    source: postprocess_alignment/depth__variant_regions__regions
+  - id: depth__variant_regions__dist
+    source: postprocess_alignment/depth__variant_regions__dist
+  - id: depth__samtools__stats
+    source: postprocess_alignment/depth__samtools__stats
+  - id: depth__samtools__idxstats
+    source: postprocess_alignment/depth__samtools__idxstats
+  - id: depth__sv_regions__regions
+    source: postprocess_alignment/depth__sv_regions__regions
+  - id: depth__sv_regions__dist
+    source: postprocess_alignment/depth__sv_regions__dist
+  - id: depth__coverage__regions
+    source: postprocess_alignment/depth__coverage__regions
+  - id: depth__coverage__dist
+    source: postprocess_alignment/depth__coverage__dist
+  - id: depth__coverage__thresholds
+    source: postprocess_alignment/depth__coverage__thresholds
+  - id: config__algorithm__variant_regions
+    source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
+  - id: config__algorithm__coverage
+    source: postprocess_alignment/config__algorithm__coverage
+  - id: config__algorithm__coverage_merged
+    source: postprocess_alignment/config__algorithm__coverage_merged
+  - id: resources
+    source: resources
+  - id: description
+    source: description
+  out:
+  - id: qc_rec
+  run: steps/qc_to_rec.cwl
+- id: pipeline_summary
+  in:
+  - id: qc_rec
+    source: qc_to_rec/qc_rec
+  out:
+  - id: qcout_rec
+  run: steps/pipeline_summary.cwl
+  scatter:
+  - qc_rec
+  scatterMethod: dotproduct
+- id: multiqc_summary
+  in:
+  - id: qcout_rec
+    source: pipeline_summary/qcout_rec
+  out:
+  - id: summary__multiqc
+  run: steps/multiqc_summary.cwl

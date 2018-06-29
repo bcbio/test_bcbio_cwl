@@ -1,9 +1,12 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=alignment_rec:description;resources;config__algorithm__align_split_size;reference__fasta__base;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;rgnames__sample
-- sentinel_inputs=files:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__mark_duplicates:var,description:var,resources:var
+- sentinel_outputs=alignment_rec:resources;description;config__algorithm__align_split_size;files;config__algorithm__trim_reads;reference__fasta__base;config__algorithm__adapters;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;config__algorithm__bam_clean;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;analysis;rgnames__sample
+- sentinel_inputs=files:var,analysis:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__trim_reads:var,config__algorithm__adapters:var,config__algorithm__bam_clean:var,config__algorithm__mark_duplicates:var,resources:var,description:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1029
+  outdirMin: 1028
   ramMin: 2048
-  tmpdirMin: 5
+  tmpdirMin: 2
+- class: dx:InputResourceRequirement
+  indirMin: 0
 inputs:
 - id: files
   secondaryFiles:
@@ -28,6 +33,10 @@ inputs:
     items:
       items: File
       type: array
+    type: array
+- id: analysis
+  type:
+    items: string
     type: array
 - id: config__algorithm__align_split_size
   type:
@@ -76,6 +85,30 @@ inputs:
   type:
     items: string
     type: array
+- id: config__algorithm__trim_reads
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
+- id: config__algorithm__adapters
+  type:
+    items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
+      - string
+      type: array
+    type: array
+- id: config__algorithm__bam_clean
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
 - id: config__algorithm__mark_duplicates
   type:
     items:
@@ -83,11 +116,11 @@ inputs:
     - 'null'
     - boolean
     type: array
-- id: description
+- id: resources
   type:
     items: string
     type: array
-- id: resources
+- id: description
   type:
     items: string
     type: array
@@ -96,16 +129,33 @@ outputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: config__algorithm__align_split_size
         type:
         - 'null'
         - string
+      - name: files
+        type:
+          items: File
+          type: array
+      - name: config__algorithm__trim_reads
+        type:
+        - string
+        - 'null'
+        - boolean
       - name: reference__fasta__base
         type: File
+      - name: config__algorithm__adapters
+        type:
+        - 'null'
+        - string
+        - items:
+          - 'null'
+          - string
+          type: array
       - name: rgnames__lb
         type:
         - 'null'
@@ -116,10 +166,11 @@ outputs:
         type: string
       - name: reference__bwa__indexes
         type: File
-      - name: files
+      - name: config__algorithm__bam_clean
         type:
-          items: File
-          type: array
+        - string
+        - 'null'
+        - boolean
       - name: config__algorithm__aligner
         type: string
       - name: rgnames__pl
@@ -131,6 +182,8 @@ outputs:
         - string
         - 'null'
         - boolean
+      - name: analysis
+        type: string
       - name: rgnames__sample
         type: string
       name: alignment_rec

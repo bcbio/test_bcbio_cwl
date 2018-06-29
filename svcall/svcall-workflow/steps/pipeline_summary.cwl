@@ -1,9 +1,13 @@
+$namespaces:
+  arv: http://arvados.org/cwl#
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;resources;reference__fasta__base;config__algorithm__coverage_interval;genome_build;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage;config__algorithm__coverage_merged;depth__variant_regions__regions;depth__variant_regions__dist;depth__sv_regions__regions;depth__sv_regions__dist;depth__coverage__regions;depth__coverage__dist;depth__coverage__thresholds
+- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;description;genome_build;config__algorithm__tools_off;config__algorithm__qc;config__algorithm__tools_on
 - sentinel_inputs=qc_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,9 +21,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1031
+  outdirMin: 1030
   ramMin: 4096
-  tmpdirMin: 7
+  tmpdirMin: 3
+- class: dx:InputResourceRequirement
+  indirMin: 1
 - class: SoftwareRequirement
   packages:
   - package: bcftools
@@ -34,6 +40,9 @@ hints:
   - package: goleft
     specs:
     - https://anaconda.org/bioconda/goleft
+  - package: hts-nim-tools
+    specs:
+    - https://anaconda.org/bioconda/hts-nim-tools
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
@@ -58,23 +67,37 @@ hints:
   - package: preseq
     specs:
     - https://anaconda.org/bioconda/preseq
+  - package: peddy
+    specs:
+    - https://anaconda.org/bioconda/peddy
+  - package: verifybamid2
+    specs:
+    - https://anaconda.org/bioconda/verifybamid2
+- class: arv:RuntimeConstraints
+  keep_cache: 4096
 inputs:
 - id: qc_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: reference__fasta__base
       type: File
     - name: config__algorithm__coverage_interval
+      type:
+      - string
+      - 'null'
+    - name: metadata__batch
       type: string
     - name: genome_build
       type: string
     - name: config__algorithm__tools_off
       type:
-        items:
+      - 'null'
+      - string
+      - items:
         - 'null'
         - string
         type: array
@@ -86,16 +109,20 @@ inputs:
       type: string
     - name: config__algorithm__tools_on
       type:
-        items:
-        - 'null'
-        - string
+        items: string
         type: array
     - name: config__algorithm__variant_regions
-      type: File
+      type:
+      - File
+      - 'null'
     - name: align_bam
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__variant_regions_merged
-      type: File
+      type:
+      - File
+      - 'null'
     - name: config__algorithm__coverage
       type:
       - File
@@ -104,10 +131,22 @@ inputs:
       type:
       - File
       - 'null'
+    - name: depth__samtools__stats
+      type:
+      - File
+      - 'null'
+    - name: depth__samtools__idxstats
+      type:
+      - File
+      - 'null'
     - name: depth__variant_regions__regions
-      type: File
+      type:
+      - File
+      - 'null'
     - name: depth__variant_regions__dist
-      type: File
+      type:
+      - File
+      - 'null'
     - name: depth__sv_regions__regions
       type:
       - File
@@ -139,20 +178,18 @@ outputs:
       - File
       - 'null'
     - name: summary__metrics
-      type: string
+      type:
+      - string
+      - 'null'
     - name: description
-      type: string
-    - name: resources
-      type: string
-    - name: reference__fasta__base
-      type: File
-    - name: config__algorithm__coverage_interval
       type: string
     - name: genome_build
       type: string
     - name: config__algorithm__tools_off
       type:
-        items:
+      - 'null'
+      - string
+      - items:
         - 'null'
         - string
         type: array
@@ -160,52 +197,10 @@ outputs:
       type:
         items: string
         type: array
-    - name: analysis
-      type: string
     - name: config__algorithm__tools_on
       type:
-        items:
-        - 'null'
-        - string
+        items: string
         type: array
-    - name: config__algorithm__variant_regions
-      type: File
-    - name: align_bam
-      type: File
-    - name: config__algorithm__variant_regions_merged
-      type: File
-    - name: config__algorithm__coverage
-      type:
-      - File
-      - 'null'
-    - name: config__algorithm__coverage_merged
-      type:
-      - File
-      - 'null'
-    - name: depth__variant_regions__regions
-      type: File
-    - name: depth__variant_regions__dist
-      type: File
-    - name: depth__sv_regions__regions
-      type:
-      - File
-      - 'null'
-    - name: depth__sv_regions__dist
-      type:
-      - File
-      - 'null'
-    - name: depth__coverage__regions
-      type:
-      - File
-      - 'null'
-    - name: depth__coverage__dist
-      type:
-      - File
-      - 'null'
-    - name: depth__coverage__thresholds
-      type:
-      - File
-      - 'null'
     name: qcout_rec
     type: record
 requirements:
