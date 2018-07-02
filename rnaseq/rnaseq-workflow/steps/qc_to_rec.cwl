@@ -4,8 +4,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=qc_rec:resources;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;work_bam
-- sentinel_inputs=work_bam:var,analysis:var,reference__fasta__base:var,genome_resources__rnaseq__transcripts:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,resources:var,description:var
+- sentinel_outputs=qc_rec:resources;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;align_bam
+- sentinel_inputs=align_bam:var,analysis:var,reference__fasta__base:var,genome_resources__rnaseq__transcripts:var,genome_build:var,config__algorithm__coverage_interval:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,config__algorithm__qc:var,resources:var,description:var
 - run_number=0
 baseCommand:
 - bcbio_nextgen.py
@@ -26,11 +26,13 @@ hints:
 - class: dx:InputResourceRequirement
   indirMin: 0
 inputs:
-- id: work_bam
+- id: align_bam
   secondaryFiles:
   - .bai
   type:
-    items: File
+    items:
+    - File
+    - 'null'
     type: array
 - id: analysis
   type:
@@ -56,8 +58,8 @@ inputs:
 - id: config__algorithm__coverage_interval
   type:
     items:
-    - 'null'
     - string
+    - 'null'
     type: array
 - id: config__algorithm__tools_on
   type:
@@ -106,8 +108,8 @@ outputs:
         type: File
       - name: config__algorithm__coverage_interval
         type:
-        - 'null'
         - string
+        - 'null'
       - name: genome_build
         type: string
       - name: genome_resources__rnaseq__transcripts
@@ -134,8 +136,10 @@ outputs:
           - 'null'
           - string
           type: array
-      - name: work_bam
-        type: File
+      - name: align_bam
+        type:
+        - File
+        - 'null'
       name: qc_rec
       type: record
     type: array

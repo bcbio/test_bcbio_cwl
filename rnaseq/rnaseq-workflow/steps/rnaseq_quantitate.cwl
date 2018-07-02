@@ -5,7 +5,7 @@ arguments:
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
 - sentinel_outputs=count_file,quant__tsv,quant__hdf5
-- sentinel_inputs=trim_rec:record,work_bam:var
+- sentinel_inputs=trim_rec:record,align_bam:var
 - run_number=0
 baseCommand:
 - bcbio_nextgen.py
@@ -98,10 +98,12 @@ inputs:
       type: string
     name: trim_rec
     type: record
-- id: work_bam
+- id: align_bam
   secondaryFiles:
   - .bai
-  type: File
+  type:
+  - File
+  - 'null'
 outputs:
 - id: count_file
   type: File

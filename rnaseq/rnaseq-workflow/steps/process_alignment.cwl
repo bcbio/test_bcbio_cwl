@@ -4,7 +4,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=work_bam
+- sentinel_outputs=align_bam
 - sentinel_inputs=trim_rec:record
 - run_number=0
 baseCommand:
@@ -92,7 +92,7 @@ inputs:
     name: trim_rec
     type: record
 outputs:
-- id: work_bam
+- id: align_bam
   secondaryFiles:
   - .bai
   type: File

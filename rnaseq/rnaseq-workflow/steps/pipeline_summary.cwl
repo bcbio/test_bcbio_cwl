@@ -5,7 +5,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;resources;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;work_bam
+- sentinel_outputs=qcout_rec:summary__qc;summary__metrics;resources;description;reference__fasta__base;config__algorithm__coverage_interval;genome_build;genome_resources__rnaseq__transcripts;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;align_bam
 - sentinel_inputs=qc_rec:record
 - run_number=0
 baseCommand:
@@ -75,8 +75,8 @@ inputs:
       type: File
     - name: config__algorithm__coverage_interval
       type:
-      - 'null'
       - string
+      - 'null'
     - name: genome_build
       type: string
     - name: genome_resources__rnaseq__transcripts
@@ -103,8 +103,10 @@ inputs:
         - 'null'
         - string
         type: array
-    - name: work_bam
-      type: File
+    - name: align_bam
+      type:
+      - File
+      - 'null'
     name: qc_rec
     type: record
 outputs:
@@ -127,8 +129,8 @@ outputs:
       type: File
     - name: config__algorithm__coverage_interval
       type:
-      - 'null'
       - string
+      - 'null'
     - name: genome_build
       type: string
     - name: genome_resources__rnaseq__transcripts
@@ -155,8 +157,10 @@ outputs:
         - 'null'
         - string
         type: array
-    - name: work_bam
-      type: File
+    - name: align_bam
+      type:
+      - File
+      - 'null'
     name: qcout_rec
     type: record
 requirements:
