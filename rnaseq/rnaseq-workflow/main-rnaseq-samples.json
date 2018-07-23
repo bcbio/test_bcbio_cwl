@@ -8,26 +8,11 @@
     "config__algorithm__coverage_interval": [
         "null"
     ],
-    "config__algorithm__effects": [
-        "snpeff"
-    ],
-    "config__algorithm__exclude_regions": [
-        []
-    ],
     "config__algorithm__expression_caller": [
         [
             "salmon",
             "kallisto"
         ]
-    ],
-    "config__algorithm__min_allele_fraction": [
-        10
-    ],
-    "config__algorithm__nomap_split_size": [
-        250
-    ],
-    "config__algorithm__nomap_split_targets": [
-        50
     ],
     "config__algorithm__qc": [
         [
@@ -39,33 +24,11 @@
     "config__algorithm__quality_format": [
         "standard"
     ],
-    "config__algorithm__recalibrate": [
-        "False"
-    ],
     "config__algorithm__tools_off": [
         []
     ],
     "config__algorithm__tools_on": [
         []
-    ],
-    "config__algorithm__validate": [
-        "null"
-    ],
-    "config__algorithm__validate_regions": [
-        "null"
-    ],
-    "config__algorithm__variant_regions": [
-        "null"
-    ],
-    "config__algorithm__variantcaller": [
-        [
-            "gatk-haplotype"
-        ]
-    ],
-    "config__algorithm__vcfanno": [
-        [
-            "gemini"
-        ]
     ],
     "description": [
         "Test1"
@@ -85,21 +48,6 @@
     "genome_build": [
         "hg19"
     ],
-    "genome_resources__aliases__ensembl": [
-        "homo_sapiens_vep_83_GRCh37"
-    ],
-    "genome_resources__aliases__human": [
-        "True"
-    ],
-    "genome_resources__aliases__snpeff": [
-        "hg19"
-    ],
-    "genome_resources__rnaseq__gene_bed": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
-        }
-    ],
     "genome_resources__rnaseq__transcripts": [
         {
             "class": "File",
@@ -111,48 +59,6 @@
                 }
             ]
         }
-    ],
-    "genome_resources__variation__cosmic": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
-                }
-            ]
-        }
-    ],
-    "genome_resources__variation__dbsnp": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
-            "secondaryFiles": [
-                {
-                    "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
-                }
-            ]
-        }
-    ],
-    "genome_resources__variation__editing": [
-        "null"
-    ],
-    "genome_resources__variation__encode_blacklist": [
-        "null"
-    ],
-    "genome_resources__variation__lcr": [
-        "null"
-    ],
-    "genome_resources__variation__polyx": [
-        "null"
-    ],
-    "metadata__batch": [
-        "null"
-    ],
-    "metadata__phenotype": [
-        ""
     ],
     "reference__fasta__base": [
         {
@@ -170,52 +76,10 @@
             ]
         }
     ],
-    "reference__genome_context": [
-        [
-            {
-                "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
-                    }
-                ]
-            },
-            {
-                "class": "File",
-                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
-                    }
-                ]
-            }
-        ]
-    ],
     "reference__hisat2__indexes": [
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/hisat2-wf.tar.gz"
-        }
-    ],
-    "reference__rtg": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
-        }
-    ],
-    "reference__snpeff__hg19": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
-        }
-    ],
-    "reference__twobit": [
-        {
-            "class": "File",
-            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
         }
     ],
     "resources": [
@@ -238,8 +102,5 @@
     ],
     "rgnames__sample": [
         "Test1"
-    ],
-    "vrn_file": [
-        "null"
     ]
 }

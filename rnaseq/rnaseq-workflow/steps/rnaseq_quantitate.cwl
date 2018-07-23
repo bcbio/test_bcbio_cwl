@@ -101,9 +101,7 @@ inputs:
 - id: align_bam
   secondaryFiles:
   - .bai
-  type:
-  - File
-  - 'null'
+  type: File
 outputs:
 - id: count_file
   type: File

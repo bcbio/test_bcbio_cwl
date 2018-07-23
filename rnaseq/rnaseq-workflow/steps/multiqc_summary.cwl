@@ -54,8 +54,8 @@ inputs:
         type: File
       - name: config__algorithm__coverage_interval
         type:
-        - string
         - 'null'
+        - string
       - name: genome_build
         type: string
       - name: genome_resources__rnaseq__transcripts
@@ -83,9 +83,7 @@ inputs:
           - string
           type: array
       - name: align_bam
-        type:
-        - File
-        - 'null'
+        type: File
       name: qcout_rec
       type: record
     type: array

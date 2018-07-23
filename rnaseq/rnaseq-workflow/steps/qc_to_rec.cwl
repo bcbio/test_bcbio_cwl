@@ -30,9 +30,7 @@ inputs:
   secondaryFiles:
   - .bai
   type:
-    items:
-    - File
-    - 'null'
+    items: File
     type: array
 - id: analysis
   type:
@@ -58,8 +56,8 @@ inputs:
 - id: config__algorithm__coverage_interval
   type:
     items:
-    - string
     - 'null'
+    - string
     type: array
 - id: config__algorithm__tools_on
   type:
@@ -108,8 +106,8 @@ outputs:
         type: File
       - name: config__algorithm__coverage_interval
         type:
-        - string
         - 'null'
+        - string
       - name: genome_build
         type: string
       - name: genome_resources__rnaseq__transcripts
@@ -137,9 +135,7 @@ outputs:
           - string
           type: array
       - name: align_bam
-        type:
-        - File
-        - 'null'
+        type: File
       name: qc_rec
       type: record
     type: array
