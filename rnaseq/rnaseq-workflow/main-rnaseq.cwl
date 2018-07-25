@@ -45,6 +45,12 @@ inputs:
   type:
     items: File
     type: array
+- id: config__algorithm__fusion_caller
+  type:
+    items:
+      items: string
+      type: array
+    type: array
 - id: description
   type:
     items: string
@@ -174,6 +180,8 @@ steps:
     source: config__algorithm__aligner
   - id: config__algorithm__expression_caller
     source: config__algorithm__expression_caller
+  - id: config__algorithm__fusion_caller
+    source: config__algorithm__fusion_caller
   - id: config__algorithm__quality_format
     source: config__algorithm__quality_format
   - id: resources
@@ -198,6 +206,7 @@ steps:
   - reference__hisat2__indexes
   - config__algorithm__aligner
   - config__algorithm__expression_caller
+  - config__algorithm__fusion_caller
   - config__algorithm__quality_format
   - resources
   - description
@@ -232,6 +241,7 @@ steps:
   - id: count_file
   - id: quant__tsv
   - id: quant__hdf5
+  - id: quant__fusion
   run: steps/rnaseq_quantitate.cwl
   scatter:
   - trim_rec
@@ -281,3 +291,20 @@ steps:
   out:
   - id: summary__multiqc
   run: steps/multiqc_summary.cwl
+- id: detect_fusions
+  in:
+  - id: quant__fusion
+    source: rnaseq_quantitate/quant__fusion
+  - id: quant__hdf5
+    source: rnaseq_quantitate/quant__hdf5
+  - id: trim_rec
+    source: trim_sample/trim_rec
+  out:
+  - id: fusion__fasta
+  - id: fusion__json
+  run: steps/detect_fusions.cwl
+  scatter:
+  - quant__fusion
+  - quant__hdf5
+  - trim_rec
+  scatterMethod: dotproduct

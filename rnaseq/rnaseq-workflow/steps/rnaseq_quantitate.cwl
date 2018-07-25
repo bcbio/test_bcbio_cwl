@@ -4,7 +4,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=count_file,quant__tsv,quant__hdf5
+- sentinel_outputs=count_file,quant__tsv,quant__hdf5,quant__fusion
 - sentinel_inputs=trim_rec:record,align_bam:var
 - run_number=0
 baseCommand:
@@ -78,6 +78,10 @@ inputs:
       type: string
     - name: reference__hisat2__indexes
       type: File
+    - name: config__algorithm__fusion_caller
+      type:
+        items: string
+        type: array
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
@@ -108,6 +112,8 @@ outputs:
 - id: quant__tsv
   type: File
 - id: quant__hdf5
+  type: File
+- id: quant__fusion
   type: File
 requirements:
 - class: InlineJavascriptRequirement

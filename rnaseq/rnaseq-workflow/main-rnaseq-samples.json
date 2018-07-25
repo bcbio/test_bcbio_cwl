@@ -14,6 +14,11 @@
             "kallisto"
         ]
     ],
+    "config__algorithm__fusion_caller": [
+        [
+            "pizzly"
+        ]
+    ],
     "config__algorithm__qc": [
         [
             "fastqc",

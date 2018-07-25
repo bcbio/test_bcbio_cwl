@@ -4,13 +4,13 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-parallel
-- sentinel_outputs=align_bam
-- sentinel_inputs=trim_rec:record
+- sentinel_outputs=fusion__fasta,fusion__json
+- sentinel_inputs=quant__fusion:var,quant__hdf5:var,trim_rec:record
 - run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
-- process_alignment
+- detect_fusions
 - cwl
 class: CommandLineTool
 cwlVersion: v1.0
@@ -20,32 +20,21 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-rnaseq
 - class: ResourceRequirement
   coresMin: 2
-  outdirMin: 1028
+  outdirMin: 1024
   ramMin: 4096
-  tmpdirMin: 2
+  tmpdirMin: 0
 - class: dx:InputResourceRequirement
   indirMin: 4
 - class: SoftwareRequirement
   packages:
-  - package: star
+  - package: pizzly
     specs:
-    - https://anaconda.org/bioconda/star
-  - package: hisat2
-    specs:
-    - https://anaconda.org/bioconda/hisat2
-  - package: tophat
-    specs:
-    - https://anaconda.org/bioconda/tophat
-  - package: samtools
-    specs:
-    - https://anaconda.org/bioconda/samtools
-  - package: sambamba
-    specs:
-    - https://anaconda.org/bioconda/sambamba
-  - package: seqtk
-    specs:
-    - https://anaconda.org/bioconda/seqtk
+    - https://anaconda.org/bioconda/pizzly
 inputs:
+- id: quant__fusion
+  type: File
+- id: quant__hdf5
+  type: File
 - id: trim_rec
   type:
     fields:
@@ -96,9 +85,9 @@ inputs:
     name: trim_rec
     type: record
 outputs:
-- id: align_bam
-  secondaryFiles:
-  - .bai
+- id: fusion__fasta
+  type: File
+- id: fusion__json
   type: File
 requirements:
 - class: InlineJavascriptRequirement
