@@ -1,7 +1,6 @@
 *-workflow/*.bak
 *.swp
 *_work
-Test*
 *.R
 *.Rmd
 *.bak
@@ -9,3 +8,5 @@ seqbuster_*
 target_info.yaml
 grading-summary*.csv
 list*files.txt
+*/dx-cwl-run
+inputs

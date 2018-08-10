@@ -34,9 +34,9 @@ hints:
   - package: bedtools
     specs:
     - https://anaconda.org/bioconda/bedtools
-  - package: fastqc
+  - package: fastqc=0.11.7=4
     specs:
-    - https://anaconda.org/bioconda/fastqc
+    - https://anaconda.org/bioconda/fastqc=0.11.7=4
   - package: goleft
     specs:
     - https://anaconda.org/bioconda/goleft

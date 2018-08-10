@@ -23,6 +23,14 @@
         "null",
         "null"
     ],
+    "config__algorithm__effects": [
+        "snpeff",
+        "snpeff"
+    ],
+    "config__algorithm__ensemble": [
+        "null",
+        "null"
+    ],
     "config__algorithm__exclude_regions": [
         [],
         []
@@ -30,6 +38,10 @@
     "config__algorithm__mark_duplicates": [
         "True",
         "True"
+    ],
+    "config__algorithm__min_allele_fraction": [
+        10,
+        10
     ],
     "config__algorithm__nomap_split_size": [
         250,
@@ -65,12 +77,16 @@
         [
             "manta",
             "lumpy",
-            "cnvkit"
+            "cnvkit",
+            "delly",
+            "titancna"
         ],
         [
             "manta",
             "lumpy",
-            "cnvkit"
+            "cnvkit",
+            "delly",
+            "titancna"
         ]
     ],
     "config__algorithm__svvalidate": [
@@ -102,9 +118,31 @@
         "False",
         "False"
     ],
+    "config__algorithm__validate": [
+        "null",
+        "null"
+    ],
+    "config__algorithm__validate_regions": [
+        "null",
+        "null"
+    ],
     "config__algorithm__variant_regions": [
         "null",
         "null"
+    ],
+    "config__algorithm__variantcaller": [
+        [
+            "vardict",
+            "mutect2"
+        ],
+        [
+            "vardict",
+            "mutect2"
+        ]
+    ],
+    "config__algorithm__vcfanno": [
+        [],
+        []
     ],
     "description": [
         "Test1",
@@ -140,6 +178,14 @@
         "hg19",
         "hg19"
     ],
+    "genome_resources__aliases__ensembl": [
+        "homo_sapiens_vep_83_GRCh37",
+        "homo_sapiens_vep_83_GRCh37"
+    ],
+    "genome_resources__aliases__human": [
+        "True",
+        "True"
+    ],
     "genome_resources__aliases__snpeff": [
         "hg19",
         "hg19"
@@ -152,6 +198,32 @@
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
+        }
+    ],
+    "genome_resources__variation__clinvar": [
+        "null",
+        "null"
+    ],
+    "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                }
+            ]
         }
     ],
     "genome_resources__variation__dbsnp": [
@@ -188,6 +260,50 @@
         "null",
         "null"
     ],
+    "genome_resources__variation__train_hapmap": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_indels": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
     "metadata__batch": [
         "b1",
         "b1"
@@ -199,11 +315,47 @@
     "reference__bwa__indexes": [
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/bwa-wf.tar.gz"
+            "path": "../../testdata/genomes/hg19/bwa/hg19.fa.amb",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.ann"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.bwt"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.pac"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.sa"
+                }
+            ]
         },
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/bwa-wf.tar.gz"
+            "path": "../../testdata/genomes/hg19/bwa/hg19.fa.amb",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.ann"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.bwt"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.pac"
+                },
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/bwa/hg19.fa.sa"
+                }
+            ]
         }
     ],
     "reference__fasta__base": [
@@ -234,6 +386,62 @@
                     "path": "../../testdata/genomes/hg19/seq/hg19.dict"
                 }
             ]
+        }
+    ],
+    "reference__genome_context": [
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                    }
+                ]
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/genomes/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                    }
+                ]
+            }
+        ]
+    ],
+    "reference__rtg": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/rtg--hg19.sdf-wf.tar.gz"
         }
     ],
     "reference__snpeff__hg19": [
@@ -283,5 +491,9 @@
     "rgnames__sample": [
         "Test1",
         "Test2"
+    ],
+    "vrn_file": [
+        "null",
+        "null"
     ]
 }

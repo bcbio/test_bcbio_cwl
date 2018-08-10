@@ -5,7 +5,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=batch-single
-- sentinel_outputs=sv_rec:sv__variantcaller;sv__vrn_file;svvalidate__summary;resources;description;genome_build;config__algorithm__tools_off;analysis;config__algorithm__tools_on;config__algorithm__svvalidate;genome_resources__aliases__snpeff;regions__sample_callable;depth__bins__normalized;depth__bins__background;depth__bins__target;depth__bins__antitarget;regions__bins__target;regions__bins__antitarget;regions__bins__group;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;genome_resources__variation__encode_blacklist;metadata__batch;genome_resources__variation__lcr;metadata__phenotype;genome_resources__variation__polyx;config__algorithm__sv_regions;config__algorithm__variant_regions;config__algorithm__exclude_regions;config__algorithm__variant_regions_merged;depth__variant_regions__regions;config__algorithm__callable_regions
+- sentinel_outputs=sv_rec:sv__variantcaller;sv__vrn_file;svvalidate__summary;resources;description;genome_build;config__algorithm__tools_off;analysis;config__algorithm__tools_on;config__algorithm__svvalidate;genome_resources__aliases__snpeff;regions__sample_callable;variants__samples;depth__bins__normalized;depth__bins__background;depth__bins__target;depth__bins__antitarget;regions__bins__target;regions__bins__antitarget;regions__bins__group;reference__fasta__base;config__algorithm__svcaller;config__algorithm__coverage_interval;genome_resources__rnaseq__gene_bed;metadata__batch;genome_resources__variation__lcr;metadata__phenotype;genome_resources__variation__polyx;genome_resources__variation__encode_blacklist;config__algorithm__sv_regions;config__algorithm__variant_regions;config__algorithm__exclude_regions;config__algorithm__variant_regions_merged;depth__variant_regions__regions;config__algorithm__callable_regions
 - sentinel_inputs=sv_batch_rec:record
 - run_number=0
 baseCommand:
@@ -134,6 +134,14 @@ inputs:
         type:
         - File
         - 'null'
+      - name: variants__samples
+        type:
+          items:
+            items:
+            - File
+            - 'null'
+            type: array
+          type: array
       - name: depth__bins__normalized
         type:
         - File
@@ -172,10 +180,6 @@ inputs:
         - 'null'
       - name: genome_resources__rnaseq__gene_bed
         type: File
-      - name: genome_resources__variation__encode_blacklist
-        type:
-        - 'null'
-        - string
       - name: metadata__batch
         type: string
       - name: genome_resources__variation__lcr
@@ -185,6 +189,10 @@ inputs:
       - name: metadata__phenotype
         type: string
       - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
+      - name: genome_resources__variation__encode_blacklist
         type:
         - 'null'
         - string
@@ -267,6 +275,14 @@ outputs:
         type:
         - File
         - 'null'
+      - name: variants__samples
+        type:
+          items:
+            items:
+            - File
+            - 'null'
+            type: array
+          type: array
       - name: depth__bins__normalized
         type:
         - File
@@ -305,10 +321,6 @@ outputs:
         - 'null'
       - name: genome_resources__rnaseq__gene_bed
         type: File
-      - name: genome_resources__variation__encode_blacklist
-        type:
-        - 'null'
-        - string
       - name: metadata__batch
         type: string
       - name: genome_resources__variation__lcr
@@ -318,6 +330,10 @@ outputs:
       - name: metadata__phenotype
         type: string
       - name: genome_resources__variation__polyx
+        type:
+        - 'null'
+        - string
+      - name: genome_resources__variation__encode_blacklist
         type:
         - 'null'
         - string

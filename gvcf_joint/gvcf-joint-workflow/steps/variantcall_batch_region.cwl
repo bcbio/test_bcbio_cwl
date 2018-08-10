@@ -42,8 +42,6 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
-    version:
-    - 4.0.3.0
   - package: vqsr_cnn
     specs:
     - https://anaconda.org/bioconda/vqsr_cnn
@@ -56,6 +54,9 @@ hints:
   - package: htslib
     specs:
     - https://anaconda.org/bioconda/htslib
+  - package: octopus
+    specs:
+    - https://anaconda.org/bioconda/octopus
   - package: picard
     specs:
     - https://anaconda.org/bioconda/picard
@@ -118,18 +119,24 @@ inputs:
         type: File
       - name: metadata__phenotype
         type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: File
+          type: array
       - name: config__algorithm__variantcaller
         type: string
+      - name: genome_resources__variation__1000g
+        type: File
       - name: config__algorithm__coverage_interval
         type:
         - string
         - 'null'
       - name: genome_resources__variation__train_hapmap
         type: File
-      - name: genome_resources__variation__encode_blacklist
-        type:
-        - 'null'
-        - string
+      - name: genome_resources__variation__clinvar
+        type: File
+      - name: genome_resources__variation__esp
+        type: File
       - name: metadata__batch
         type: string
       - name: genome_resources__variation__lcr
@@ -144,6 +151,10 @@ inputs:
         - string
       - name: reference__twobit
         type: File
+      - name: reference__genome_context
+        type:
+          items: File
+          type: array
       - name: config__algorithm__validate
         type:
         - File
@@ -158,6 +169,8 @@ inputs:
         - string
       - name: genome_build
         type: string
+      - name: genome_resources__variation__exac
+        type: File
       - name: genome_resources__aliases__human
         type:
         - string
@@ -173,12 +186,16 @@ inputs:
         type:
         - 'null'
         - string
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
       - name: genome_resources__variation__cosmic
         type: File
-      - name: reference__genome_context
+      - name: config__algorithm__ensemble
         type:
-          items: File
-          type: array
+        - 'null'
+        - string
       - name: analysis
         type: string
       - name: config__algorithm__tools_on

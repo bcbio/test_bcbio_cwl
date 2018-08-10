@@ -5,7 +5,7 @@ arguments:
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
 - sentinel_outputs=variants__calls,variants__gvcf,variants__samples,validate__grading_summary,validate__grading_plots
-- sentinel_inputs=vc_rec:record
+- sentinel_inputs=vc_rec:record,ensemble_rec:record
 - run_number=0
 baseCommand:
 - bcbio_nextgen.py
@@ -64,7 +64,12 @@ inputs:
           type: string
         - name: config__algorithm__vcfanno
           type:
-            items: string
+          - 'null'
+          - string
+          - items:
+            - File
+            - 'null'
+            - string
             type: array
         - name: config__algorithm__variantcaller
           type:
@@ -77,12 +82,20 @@ inputs:
         - name: metadata__batch
           type: string
         - name: config__algorithm__min_allele_fraction
-          type: long
+          type:
+          - long
+          - double
+        - name: reference__genome_context
+          type:
+            items: File
+            type: array
         - name: config__algorithm__validate
           type:
           - File
           - 'null'
           - string
+        - name: reference__snpeff__hg19
+          type: File
         - name: config__algorithm__validate_regions
           type:
           - 'null'
@@ -103,10 +116,10 @@ inputs:
             - 'null'
             - string
             type: array
-        - name: reference__genome_context
+        - name: config__algorithm__ensemble
           type:
-            items: File
-            type: array
+          - 'null'
+          - string
         - name: analysis
           type: string
         - name: config__algorithm__tools_on
@@ -133,6 +146,8 @@ inputs:
             - 'null'
             - string
             type: array
+        - name: reference__rtg
+          type: File
         - name: genome_resources__aliases__snpeff
           type: string
         - name: config__algorithm__variant_regions_merged
@@ -148,6 +163,27 @@ inputs:
         name: vc_rec
         type: record
       type: array
+    type: array
+- id: ensemble_rec
+  type:
+    items:
+      fields:
+      - name: ensemble__vrn_file
+        type:
+        - File
+        - 'null'
+      - name: ensemble__validate__summary
+        type:
+        - File
+        - 'null'
+      - name: ensemble__batch_samples
+        type:
+          items: string
+          type: array
+      - name: ensemble__batch_id
+        type: string
+      name: ensemble_rec
+      type: record
     type: array
 outputs:
 - id: variants__calls

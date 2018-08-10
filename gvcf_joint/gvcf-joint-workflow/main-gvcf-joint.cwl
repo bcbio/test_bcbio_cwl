@@ -33,6 +33,12 @@ inputs:
   type:
     items: string
     type: array
+- id: config__algorithm__vcfanno
+  type:
+    items:
+      items: File
+      type: array
+    type: array
 - id: resources
   type:
     items: string
@@ -52,6 +58,12 @@ inputs:
       - 'null'
       - string
       type: array
+    type: array
+- id: genome_resources__variation__1000g
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
     type: array
 - id: config__algorithm__coverage_interval
   type:
@@ -75,11 +87,17 @@ inputs:
     - 'null'
     - string
     type: array
-- id: genome_resources__variation__encode_blacklist
+- id: genome_resources__variation__clinvar
+  secondaryFiles:
+  - .tbi
   type:
-    items:
-    - 'null'
-    - string
+    items: File
+    type: array
+- id: genome_resources__variation__esp
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
     type: array
 - id: rgnames__rg
   type:
@@ -108,6 +126,11 @@ inputs:
     items: long
     type: array
 - id: reference__bwa__indexes
+  secondaryFiles:
+  - ^.ann
+  - ^.pac
+  - ^.sa
+  - ^.bwt
   type:
     items: File
     type: array
@@ -120,6 +143,14 @@ inputs:
 - id: reference__twobit
   type:
     items: File
+    type: array
+- id: reference__genome_context
+  secondaryFiles:
+  - .tbi
+  type:
+    items:
+      items: File
+      type: array
     type: array
 - id: config__algorithm__bam_clean
   type:
@@ -170,6 +201,12 @@ inputs:
   type:
     items: string
     type: array
+- id: genome_resources__variation__exac
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
 - id: config__algorithm__recalibrate
   type:
     items:
@@ -216,19 +253,23 @@ inputs:
     - 'null'
     - string
     type: array
+- id: genome_resources__variation__encode_blacklist
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
   - .tbi
   type:
     items: File
     type: array
-- id: reference__genome_context
-  secondaryFiles:
-  - .tbi
+- id: config__algorithm__ensemble
   type:
     items:
-      items: File
-      type: array
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__qc
   type:
@@ -548,16 +589,20 @@ steps:
     source: postprocess_alignment/align_bam
   - id: vrn_file
     source: vrn_file
-  - id: config__algorithm__callable_regions
-    source: combine_sample_regions/config__algorithm__callable_regions
   - id: metadata__batch
     source: metadata__batch
   - id: metadata__phenotype
     source: metadata__phenotype
+  - id: config__algorithm__callable_regions
+    source: combine_sample_regions/config__algorithm__callable_regions
   - id: regions__sample_callable
     source: postprocess_alignment/regions__sample_callable
   - id: config__algorithm__variantcaller
     source: config__algorithm__variantcaller
+  - id: config__algorithm__ensemble
+    source: config__algorithm__ensemble
+  - id: config__algorithm__vcfanno
+    source: config__algorithm__vcfanno
   - id: config__algorithm__coverage_interval
     source: postprocess_alignment/config__algorithm__coverage_interval
   - id: config__algorithm__effects
@@ -586,20 +631,24 @@ steps:
     source: reference__rtg
   - id: reference__genome_context
     source: reference__genome_context
+  - id: genome_resources__variation__clinvar
+    source: genome_resources__variation__clinvar
   - id: genome_resources__variation__cosmic
     source: genome_resources__variation__cosmic
   - id: genome_resources__variation__dbsnp
     source: genome_resources__variation__dbsnp
+  - id: genome_resources__variation__esp
+    source: genome_resources__variation__esp
+  - id: genome_resources__variation__exac
+    source: genome_resources__variation__exac
+  - id: genome_resources__variation__1000g
+    source: genome_resources__variation__1000g
   - id: genome_resources__variation__lcr
     source: genome_resources__variation__lcr
   - id: genome_resources__variation__polyx
     source: genome_resources__variation__polyx
   - id: genome_resources__variation__encode_blacklist
     source: genome_resources__variation__encode_blacklist
-  - id: genome_resources__variation__train_hapmap
-    source: genome_resources__variation__train_hapmap
-  - id: genome_resources__variation__train_indels
-    source: genome_resources__variation__train_indels
   - id: genome_resources__aliases__ensembl
     source: genome_resources__aliases__ensembl
   - id: genome_resources__aliases__human
@@ -608,6 +657,10 @@ steps:
     source: genome_resources__aliases__snpeff
   - id: reference__snpeff__hg19
     source: reference__snpeff__hg19
+  - id: genome_resources__variation__train_hapmap
+    source: genome_resources__variation__train_hapmap
+  - id: genome_resources__variation__train_indels
+    source: genome_resources__variation__train_indels
   - id: resources
     source: resources
   - id: description

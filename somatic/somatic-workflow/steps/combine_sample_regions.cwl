@@ -37,8 +37,6 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
-    version:
-    - 4.0.3.0
 - class: arv:APIRequirement
 inputs:
 - id: regions__callable

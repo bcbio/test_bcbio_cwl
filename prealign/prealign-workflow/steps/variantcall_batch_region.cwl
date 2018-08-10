@@ -42,8 +42,6 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
-    version:
-    - 4.0.3.0
   - package: vqsr_cnn
     specs:
     - https://anaconda.org/bioconda/vqsr_cnn
@@ -118,6 +116,10 @@ inputs:
         type: File
       - name: metadata__phenotype
         type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - boolean

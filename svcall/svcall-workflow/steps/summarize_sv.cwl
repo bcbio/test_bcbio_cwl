@@ -74,6 +74,14 @@ inputs:
           type:
           - File
           - 'null'
+        - name: variants__samples
+          type:
+            items:
+              items:
+              - File
+              - 'null'
+              type: array
+            type: array
         - name: depth__bins__normalized
           type:
           - File
@@ -112,10 +120,6 @@ inputs:
           - 'null'
         - name: genome_resources__rnaseq__gene_bed
           type: File
-        - name: genome_resources__variation__encode_blacklist
-          type:
-          - 'null'
-          - string
         - name: metadata__batch
           type: string
         - name: genome_resources__variation__lcr
@@ -125,6 +129,10 @@ inputs:
         - name: metadata__phenotype
           type: string
         - name: genome_resources__variation__polyx
+          type:
+          - 'null'
+          - string
+        - name: genome_resources__variation__encode_blacklist
           type:
           - 'null'
           - string

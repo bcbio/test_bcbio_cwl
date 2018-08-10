@@ -43,8 +43,6 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
-    version:
-    - 4.0.3.0
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth

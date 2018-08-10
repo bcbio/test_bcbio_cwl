@@ -77,6 +77,11 @@ inputs:
     - string
     type: array
 - id: reference__bwa__indexes
+  secondaryFiles:
+  - ^.ann
+  - ^.pac
+  - ^.sa
+  - ^.bwt
   type:
     items: File
     type: array

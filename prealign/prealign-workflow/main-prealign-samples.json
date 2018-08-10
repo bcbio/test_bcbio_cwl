@@ -99,6 +99,14 @@
         "False",
         "False"
     ],
+    "config__algorithm__vcfanno": [
+        [
+            "gemini"
+        ],
+        [
+            "gemini"
+        ]
+    ],
     "description": [
         "Test1",
         "Test2"

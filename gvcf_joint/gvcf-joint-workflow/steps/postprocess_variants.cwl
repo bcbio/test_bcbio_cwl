@@ -68,21 +68,43 @@ inputs:
         type: File
       - name: metadata__phenotype
         type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: File
+          type: array
       - name: config__algorithm__variantcaller
         type: string
+      - name: genome_resources__variation__1000g
+        type: File
       - name: config__algorithm__coverage_interval
         type:
         - string
         - 'null'
+      - name: genome_resources__variation__train_hapmap
+        type: File
+      - name: genome_resources__variation__clinvar
+        type: File
+      - name: genome_resources__variation__esp
+        type: File
       - name: metadata__batch
         type: string
+      - name: genome_resources__variation__lcr
+        type:
+        - 'null'
+        - string
       - name: config__algorithm__min_allele_fraction
         type: long
+      - name: reference__genome_context
+        type:
+          items: File
+          type: array
       - name: config__algorithm__validate
         type:
         - File
         - 'null'
         - string
+      - name: reference__snpeff__hg19
+        type: File
       - name: config__algorithm__validate_regions
         type:
         - File
@@ -90,6 +112,8 @@ inputs:
         - string
       - name: genome_build
         type: string
+      - name: genome_resources__variation__exac
+        type: File
       - name: genome_resources__aliases__human
         type:
         - string
@@ -99,10 +123,22 @@ inputs:
         type:
           items: string
           type: array
-      - name: reference__genome_context
+      - name: genome_resources__variation__dbsnp
+        type: File
+      - name: genome_resources__variation__polyx
         type:
-          items: File
-          type: array
+        - 'null'
+        - string
+      - name: genome_resources__variation__encode_blacklist
+        type:
+        - 'null'
+        - string
+      - name: genome_resources__variation__cosmic
+        type: File
+      - name: config__algorithm__ensemble
+        type:
+        - 'null'
+        - string
       - name: analysis
         type: string
       - name: config__algorithm__tools_on
@@ -128,6 +164,10 @@ inputs:
           - 'null'
           - string
           type: array
+      - name: reference__rtg
+        type: File
+      - name: genome_resources__variation__train_indels
+        type: File
       - name: genome_resources__aliases__snpeff
         type: string
       - name: config__algorithm__variant_regions_merged

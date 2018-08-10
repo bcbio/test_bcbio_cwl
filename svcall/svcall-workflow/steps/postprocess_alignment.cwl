@@ -43,8 +43,6 @@ hints:
   - package: gatk4
     specs:
     - https://anaconda.org/bioconda/gatk4
-    version:
-    - 4.0.3.0
   - package: mosdepth
     specs:
     - https://anaconda.org/bioconda/mosdepth
@@ -68,10 +66,6 @@ inputs:
       - string
     - name: genome_resources__rnaseq__gene_bed
       type: File
-    - name: genome_resources__variation__encode_blacklist
-      type:
-      - 'null'
-      - string
     - name: genome_resources__variation__lcr
       type:
       - 'null'
@@ -86,6 +80,10 @@ inputs:
     - name: genome_resources__variation__dbsnp
       type: File
     - name: genome_resources__variation__polyx
+      type:
+      - 'null'
+      - string
+    - name: genome_resources__variation__encode_blacklist
       type:
       - 'null'
       - string

@@ -17,9 +17,14 @@ details:
       align_split_size: false
       recalibrate: false
       realign: false
-      variantcaller: [freebayes, vardict, strelka2]
-      tools_on: [gatk4, qualimap_full]
-      tools_off: [gemini]
+      variantcaller:
+        somatic: [vardict, strelka2, mutect2]
+        germline: gatk-haplotype
+      ensemble:
+        numpass: 2
+      tools_on: [qualimap_full]
+      tools_off: [vqsr]
+      min_allele_fraction: 0.5
       validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
       validate_regions: ../testdata/automated/variant_regions-bam.bed
       variant_regions: ../testdata/automated/variant_regions-bam.bed
@@ -36,9 +41,13 @@ details:
       mark_duplicates: false
       #bam_clean: remove_extracontigs
       align_split_size: 25000
-      variantcaller: [freebayes, vardict, strelka2]
-      tools_on: [gatk4, qualimap_full]
-      tools_off: [gemini, vqsr]
+      variantcaller:
+        somatic: [vardict, strelka2, mutect2]
+        germline: gatk-haplotype
+      ensemble:
+        numpass: 2
+      tools_on: [qualimap_full]
+      tools_off: [vqsr]
       nomap_split_size: 50
       nomap_split_targets: 100
       #variant_regions: ../testdata/automated/variant_regions-bam.bed

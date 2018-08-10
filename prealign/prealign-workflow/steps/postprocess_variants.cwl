@@ -45,6 +45,10 @@ inputs:
         type: File
       - name: metadata__phenotype
         type: string
+      - name: config__algorithm__vcfanno
+        type:
+          items: string
+          type: array
       - name: config__algorithm__variantcaller
         type:
         - boolean

@@ -19,6 +19,12 @@ inputs:
   type:
     items: string
     type: array
+- id: config__algorithm__vcfanno
+  type:
+    items:
+      items: string
+      type: array
+    type: array
 - id: resources
   type:
     items: string
@@ -444,16 +450,18 @@ steps:
     source: postprocess_alignment/align_bam
   - id: vrn_file
     source: vrn_file
-  - id: config__algorithm__callable_regions
-    source: combine_sample_regions/config__algorithm__callable_regions
   - id: metadata__batch
     source: metadata__batch
   - id: metadata__phenotype
     source: metadata__phenotype
+  - id: config__algorithm__callable_regions
+    source: combine_sample_regions/config__algorithm__callable_regions
   - id: regions__sample_callable
     source: postprocess_alignment/regions__sample_callable
   - id: config__algorithm__variantcaller
     source: config__algorithm__variantcaller
+  - id: config__algorithm__vcfanno
+    source: config__algorithm__vcfanno
   - id: config__algorithm__coverage_interval
     source: postprocess_alignment/config__algorithm__coverage_interval
   - id: config__algorithm__effects
@@ -492,10 +500,6 @@ steps:
     source: genome_resources__variation__polyx
   - id: genome_resources__variation__encode_blacklist
     source: genome_resources__variation__encode_blacklist
-  - id: genome_resources__variation__train_hapmap
-    source: genome_resources__variation__train_hapmap
-  - id: genome_resources__variation__train_indels
-    source: genome_resources__variation__train_indels
   - id: genome_resources__aliases__ensembl
     source: genome_resources__aliases__ensembl
   - id: genome_resources__aliases__human
@@ -504,6 +508,10 @@ steps:
     source: genome_resources__aliases__snpeff
   - id: reference__snpeff__hg19
     source: reference__snpeff__hg19
+  - id: genome_resources__variation__train_hapmap
+    source: genome_resources__variation__train_hapmap
+  - id: genome_resources__variation__train_indels
+    source: genome_resources__variation__train_indels
   - id: resources
     source: resources
   - id: description

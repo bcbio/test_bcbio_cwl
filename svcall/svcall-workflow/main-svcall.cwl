@@ -30,9 +30,25 @@ inputs:
   type:
     items: File
     type: array
+- id: config__algorithm__vcfanno
+  type:
+    items:
+    - 'null'
+    - string
+    - items:
+      - 'null'
+      - string
+      type: array
+    type: array
 - id: resources
   type:
     items: string
+    type: array
+- id: config__algorithm__variantcaller
+  type:
+    items:
+      items: string
+      type: array
     type: array
 - id: config__algorithm__adapters
   type:
@@ -60,13 +76,19 @@ inputs:
   type:
     items: File
     type: array
+- id: genome_resources__variation__train_hapmap
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
 - id: rgnames__lb
   type:
     items:
     - 'null'
     - string
     type: array
-- id: genome_resources__variation__encode_blacklist
+- id: genome_resources__variation__clinvar
   type:
     items:
     - 'null'
@@ -90,17 +112,40 @@ inputs:
     - 'null'
     - string
     type: array
+- id: config__algorithm__min_allele_fraction
+  type:
+    items: long
+    type: array
 - id: config__algorithm__nomap_split_targets
   type:
     items: long
     type: array
 - id: reference__bwa__indexes
+  secondaryFiles:
+  - ^.ann
+  - ^.pac
+  - ^.sa
+  - ^.bwt
   type:
     items: File
+    type: array
+- id: vrn_file
+  type:
+    items:
+    - 'null'
+    - string
     type: array
 - id: reference__twobit
   type:
     items: File
+    type: array
+- id: reference__genome_context
+  secondaryFiles:
+  - .tbi
+  type:
+    items:
+      items: File
+      type: array
     type: array
 - id: config__algorithm__bam_clean
   type:
@@ -113,6 +158,12 @@ inputs:
   type:
     items: long
     type: array
+- id: config__algorithm__validate
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: reference__snpeff__hg19
   type:
     items: File
@@ -120,6 +171,12 @@ inputs:
 - id: description
   type:
     items: string
+    type: array
+- id: config__algorithm__validate_regions
+  type:
+    items:
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__aligner
   type:
@@ -147,6 +204,13 @@ inputs:
 - id: metadata__phenotype
   type:
     items: string
+    type: array
+- id: genome_resources__aliases__human
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
     type: array
 - id: config__algorithm__tools_off
   type:
@@ -177,6 +241,24 @@ inputs:
     - 'null'
     - string
     type: array
+- id: genome_resources__variation__encode_blacklist
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
+- id: genome_resources__variation__cosmic
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
+- id: config__algorithm__ensemble
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: config__algorithm__qc
   type:
     items:
@@ -201,6 +283,10 @@ inputs:
       items: string
       type: array
     type: array
+- id: config__algorithm__effects
+  type:
+    items: string
+    type: array
 - id: config__algorithm__variant_regions
   type:
     items:
@@ -208,11 +294,17 @@ inputs:
     - string
     type: array
 - id: config__algorithm__svvalidate
+  secondaryFiles:
+  - .tbi
   type:
     items:
     - File
     - 'null'
     - string
+    type: array
+- id: genome_resources__aliases__ensembl
+  type:
+    items: string
     type: array
 - id: config__algorithm__exclude_regions
   type:
@@ -223,6 +315,16 @@ inputs:
       - 'null'
       - string
       type: array
+    type: array
+- id: reference__rtg
+  type:
+    items: File
+    type: array
+- id: genome_resources__variation__train_indels
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
     type: array
 - id: genome_resources__aliases__snpeff
   type:
@@ -247,6 +349,32 @@ outputs:
     items:
     - File
     - 'null'
+    type: array
+- id: validate__grading_summary
+  outputSource: summarize_vc/validate__grading_summary
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: variants__calls
+  outputSource: summarize_vc/variants__calls
+  type:
+    items:
+      items:
+      - File
+      - 'null'
+      type: array
+    type: array
+- id: variants__gvcf
+  outputSource: summarize_vc/variants__gvcf
+  type:
+    items:
+    - 'null'
+    - items:
+      - File
+      - 'null'
+      type: array
     type: array
 - id: sv__calls
   outputSource: summarize_sv/sv__calls
@@ -465,6 +593,110 @@ steps:
   - id: config__algorithm__non_callable_regions
   - id: config__algorithm__callable_count
   run: steps/combine_sample_regions.cwl
+- id: batch_for_variantcall
+  in:
+  - id: analysis
+    source: analysis
+  - id: genome_build
+    source: genome_build
+  - id: align_bam
+    source: postprocess_alignment/align_bam
+  - id: vrn_file
+    source: vrn_file
+  - id: metadata__batch
+    source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
+  - id: config__algorithm__callable_regions
+    source: combine_sample_regions/config__algorithm__callable_regions
+  - id: regions__sample_callable
+    source: postprocess_alignment/regions__sample_callable
+  - id: config__algorithm__variantcaller
+    source: config__algorithm__variantcaller
+  - id: config__algorithm__ensemble
+    source: config__algorithm__ensemble
+  - id: config__algorithm__vcfanno
+    source: config__algorithm__vcfanno
+  - id: config__algorithm__coverage_interval
+    source: postprocess_alignment/config__algorithm__coverage_interval
+  - id: config__algorithm__effects
+    source: config__algorithm__effects
+  - id: config__algorithm__min_allele_fraction
+    source: config__algorithm__min_allele_fraction
+  - id: config__algorithm__exclude_regions
+    source: config__algorithm__exclude_regions
+  - id: config__algorithm__variant_regions
+    source: postprocess_alignment/config__algorithm__variant_regions
+  - id: config__algorithm__variant_regions_merged
+    source: postprocess_alignment/config__algorithm__variant_regions_merged
+  - id: config__algorithm__validate
+    source: config__algorithm__validate
+  - id: config__algorithm__validate_regions
+    source: config__algorithm__validate_regions
+  - id: config__algorithm__tools_on
+    source: config__algorithm__tools_on
+  - id: config__algorithm__tools_off
+    source: config__algorithm__tools_off
+  - id: reference__fasta__base
+    source: reference__fasta__base
+  - id: reference__twobit
+    source: reference__twobit
+  - id: reference__rtg
+    source: reference__rtg
+  - id: reference__genome_context
+    source: reference__genome_context
+  - id: genome_resources__variation__cosmic
+    source: genome_resources__variation__cosmic
+  - id: genome_resources__variation__dbsnp
+    source: genome_resources__variation__dbsnp
+  - id: genome_resources__variation__clinvar
+    source: genome_resources__variation__clinvar
+  - id: genome_resources__variation__lcr
+    source: genome_resources__variation__lcr
+  - id: genome_resources__variation__polyx
+    source: genome_resources__variation__polyx
+  - id: genome_resources__variation__encode_blacklist
+    source: genome_resources__variation__encode_blacklist
+  - id: genome_resources__aliases__ensembl
+    source: genome_resources__aliases__ensembl
+  - id: genome_resources__aliases__human
+    source: genome_resources__aliases__human
+  - id: genome_resources__aliases__snpeff
+    source: genome_resources__aliases__snpeff
+  - id: reference__snpeff__hg19
+    source: reference__snpeff__hg19
+  - id: genome_resources__variation__train_hapmap
+    source: genome_resources__variation__train_hapmap
+  - id: genome_resources__variation__train_indels
+    source: genome_resources__variation__train_indels
+  - id: resources
+    source: resources
+  - id: description
+    source: description
+  out:
+  - id: batch_rec
+  run: steps/batch_for_variantcall.cwl
+- id: variantcall
+  in:
+  - id: batch_rec
+    source: batch_for_variantcall/batch_rec
+  out:
+  - id: vc_rec
+  run: wf-variantcall.cwl
+  scatter:
+  - batch_rec
+  scatterMethod: dotproduct
+- id: summarize_vc
+  in:
+  - id: vc_rec
+    source: variantcall/vc_rec
+  out:
+  - id: variants__calls
+  - id: variants__gvcf
+  - id: variants__samples
+  - id: validate__grading_summary
+  - id: validate__grading_plots
+  run: steps/summarize_vc.cwl
 - id: calculate_sv_bins
   in:
   - id: align_bam
@@ -547,6 +779,8 @@ steps:
     source: reference__snpeff__hg19
   - id: sv_coverage_rec
     source: normalize_sv_coverage/sv_coverage_rec
+  - id: variants__samples
+    source: summarize_vc/variants__samples
   out:
   - id: sv_batch_rec
   run: steps/batch_for_sv.cwl
@@ -615,6 +849,8 @@ steps:
     source: postprocess_alignment/config__algorithm__coverage
   - id: config__algorithm__coverage_merged
     source: postprocess_alignment/config__algorithm__coverage_merged
+  - id: variants__samples
+    source: summarize_vc/variants__samples
   - id: resources
     source: resources
   - id: description
