@@ -98,10 +98,7 @@ inputs:
     - name: config__algorithm__exclude_regions
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: align_bam
       type:

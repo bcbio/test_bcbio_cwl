@@ -49,7 +49,6 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: metadata__batch
   type:
@@ -73,7 +72,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items: string
       type: array
     type: array
@@ -87,11 +85,9 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - File
       - 'null'
-      - string
       type: array
     type: array
 - id: config__algorithm__coverage_interval
@@ -114,10 +110,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: config__algorithm__variant_regions
@@ -137,20 +130,17 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: config__algorithm__validate_regions
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: config__algorithm__tools_on
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -160,7 +150,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -299,11 +288,9 @@ outputs:
         - name: config__algorithm__vcfanno
           type:
           - 'null'
-          - string
           - items:
             - File
             - 'null'
-            - string
             type: array
         - name: config__algorithm__variantcaller
           type:
@@ -335,7 +322,6 @@ outputs:
           type:
           - File
           - 'null'
-          - string
         - name: reference__twobit
           type: File
         - name: reference__genome_context
@@ -346,13 +332,11 @@ outputs:
           type:
           - File
           - 'null'
-          - string
         - name: reference__snpeff__hg19
           type: File
         - name: config__algorithm__validate_regions
           type:
           - 'null'
-          - string
           - File
         - name: genome_build
           type: string
@@ -366,7 +350,6 @@ outputs:
         - name: config__algorithm__tools_off
           type:
           - 'null'
-          - string
           - items:
             - 'null'
             - string
@@ -392,7 +375,6 @@ outputs:
         - name: config__algorithm__tools_on
           type:
           - 'null'
-          - string
           - items:
             - 'null'
             - string
@@ -408,10 +390,7 @@ outputs:
         - name: config__algorithm__exclude_regions
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: reference__rtg
           type: File

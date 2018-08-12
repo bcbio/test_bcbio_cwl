@@ -6,7 +6,7 @@
         "hisat2"
     ],
     "config__algorithm__coverage_interval": [
-        "null"
+        null
     ],
     "config__algorithm__expression_caller": [
         [
@@ -94,7 +94,7 @@
         "Test1"
     ],
     "rgnames__lb": [
-        "null"
+        null
     ],
     "rgnames__pl": [
         "illumina"

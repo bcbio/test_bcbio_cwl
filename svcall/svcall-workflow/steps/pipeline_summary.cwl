@@ -96,10 +96,7 @@ inputs:
     - name: config__algorithm__tools_off
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: config__algorithm__qc
       type:
@@ -196,10 +193,7 @@ outputs:
     - name: config__algorithm__tools_off
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: config__algorithm__qc
       type:

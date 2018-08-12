@@ -53,7 +53,6 @@ inputs:
     - name: files
       type:
       - 'null'
-      - string
       - items: File
         type: array
     - name: config__algorithm__trim_reads
@@ -66,10 +65,7 @@ inputs:
     - name: config__algorithm__adapters
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: rgnames__lb
       type:
@@ -86,7 +82,6 @@ inputs:
     - name: reference__bwa__indexes
       type:
       - 'null'
-      - string
       - File
     - name: config__algorithm__bam_clean
       type:
@@ -101,10 +96,7 @@ inputs:
     - name: reference__minimap2__indexes
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: rgnames__pl
       type: string

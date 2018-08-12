@@ -62,11 +62,7 @@ inputs:
           type: File
         - name: config__algorithm__vcfanno
           type:
-          - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+            items: File
             type: array
         - name: config__algorithm__variantcaller
           type: string
@@ -104,10 +100,7 @@ inputs:
         - name: config__algorithm__tools_off
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: config__algorithm__ensemble
           type:
@@ -130,10 +123,7 @@ inputs:
         - name: config__algorithm__exclude_regions
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: reference__rtg
           type: File

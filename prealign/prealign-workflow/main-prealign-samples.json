@@ -14,12 +14,16 @@
         }
     ],
     "config__algorithm__coverage_interval": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__effects": [
         "snpeff",
         "snpeff"
+    ],
+    "config__algorithm__ensemble": [
+        null,
+        null
     ],
     "config__algorithm__exclude_regions": [
         [],
@@ -39,26 +43,26 @@
     ],
     "config__algorithm__qc": [
         [
-            "fastqc",
-            "qualimap",
-            "samtools",
+            "contamination",
             "coverage",
+            "fastqc",
+            "peddy",
             "picard",
             "qsignature",
-            "variants",
-            "contamination",
-            "peddy"
+            "qualimap",
+            "samtools",
+            "variants"
         ],
         [
-            "fastqc",
-            "qualimap",
-            "samtools",
+            "contamination",
             "coverage",
+            "fastqc",
+            "peddy",
             "picard",
             "qsignature",
-            "variants",
-            "contamination",
-            "peddy"
+            "qualimap",
+            "samtools",
+            "variants"
         ]
     ],
     "config__algorithm__recalibrate": [
@@ -78,12 +82,12 @@
         ]
     ],
     "config__algorithm__validate": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__validate_regions": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__variant_regions": [
         {
@@ -100,12 +104,8 @@
         "False"
     ],
     "config__algorithm__vcfanno": [
-        [
-            "gemini"
-        ],
-        [
-            "gemini"
-        ]
+        [],
+        []
     ],
     "description": [
         "Test1",
@@ -151,24 +151,68 @@
             "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
         }
     ],
-    "genome_resources__variation__cosmic": [
+    "genome_resources__variation__1000g": [
         {
             "class": "File",
-            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/1000g.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/1000g.vcf.gz.tbi"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/1000g.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/1000g.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__clinvar": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/clinvar.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/clinvar.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/clinvar.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/clinvar.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/cosmic.vcf.gz.tbi"
                 }
             ]
         }
@@ -176,36 +220,80 @@
     "genome_resources__variation__dbsnp": [
         {
             "class": "File",
-            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp.vcf.gz.tbi"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/dbsnp.vcf.gz.tbi"
                 }
             ]
         }
     ],
     "genome_resources__variation__encode_blacklist": [
-        "null",
-        "null"
+        null,
+        null
+    ],
+    "genome_resources__variation__esp": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/esp.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/esp.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/esp.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/esp.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__exac": [
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/exac.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/exac.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/genomes/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        }
     ],
     "genome_resources__variation__lcr": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__polyx": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__train_hapmap": [
         {
@@ -252,8 +340,8 @@
         }
     ],
     "metadata__batch": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "metadata__phenotype": [
         "",

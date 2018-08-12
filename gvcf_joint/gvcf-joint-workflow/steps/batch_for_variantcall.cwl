@@ -105,10 +105,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: config__algorithm__variant_regions
@@ -128,14 +125,12 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: config__algorithm__validate_regions
   type:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: config__algorithm__tools_on
   type:
@@ -319,14 +314,12 @@ outputs:
           type:
           - File
           - 'null'
-          - string
         - name: reference__snpeff__hg19
           type: File
         - name: config__algorithm__validate_regions
           type:
           - File
           - 'null'
-          - string
         - name: genome_build
           type: string
         - name: genome_resources__variation__exac
@@ -376,10 +369,7 @@ outputs:
         - name: config__algorithm__exclude_regions
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: reference__rtg
           type: File

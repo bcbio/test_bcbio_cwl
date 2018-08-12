@@ -31,7 +31,6 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: rgnames__sample
   type:
@@ -71,7 +70,6 @@ outputs:
         type:
         - File
         - 'null'
-        - string
       - name: rgnames__sample
         type: string
       - name: config__algorithm__variant_regions

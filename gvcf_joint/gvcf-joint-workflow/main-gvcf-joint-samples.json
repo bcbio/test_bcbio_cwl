@@ -26,19 +26,19 @@
             "class": "File",
             "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/automated/coverage_transcripts-bam.bed"
         },
-        "null"
+        null
     ],
     "config__algorithm__coverage_interval": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__effects": [
         "False",
         "False"
     ],
     "config__algorithm__ensemble": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__exclude_regions": [
         [],
@@ -111,14 +111,14 @@
             "class": "File",
             "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf"
         },
-        "null"
+        null
     ],
     "config__algorithm__validate_regions": [
         {
             "class": "File",
             "path": "/home/chapmanb/drive/work/cwl/test_bcbio_cwl/testdata/automated/variant_regions-bam.bed"
         },
-        "null"
+        null
     ],
     "config__algorithm__variant_regions": [
         {
@@ -301,8 +301,8 @@
         }
     ],
     "genome_resources__variation__encode_blacklist": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__esp": [
         {
@@ -349,12 +349,12 @@
         }
     ],
     "genome_resources__variation__lcr": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__polyx": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__train_hapmap": [
         {
@@ -569,8 +569,8 @@
         "Test2"
     ],
     "rgnames__lb": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "rgnames__pl": [
         "illumina",
@@ -589,7 +589,7 @@
         "Test2"
     ],
     "vrn_file": [
-        "null",
-        "null"
+        null,
+        null
     ]
 }

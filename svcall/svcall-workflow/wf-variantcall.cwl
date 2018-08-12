@@ -14,11 +14,7 @@ inputs:
         type: File
       - name: config__algorithm__vcfanno
         type:
-        - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+          items: File
           type: array
       - name: config__algorithm__variantcaller
         type: string
@@ -29,15 +25,17 @@ inputs:
       - name: genome_resources__variation__train_hapmap
         type: File
       - name: genome_resources__variation__clinvar
-        type:
-        - 'null'
-        - string
+        type: File
+      - name: genome_resources__variation__esp
+        type: File
       - name: metadata__batch
         type: string
       - name: genome_resources__variation__lcr
         type:
         - 'null'
         - string
+      - name: genome_resources__variation__1000g
+        type: File
       - name: config__algorithm__min_allele_fraction
         type: long
       - name: vrn_file
@@ -62,6 +60,8 @@ inputs:
         - string
       - name: genome_build
         type: string
+      - name: genome_resources__variation__exac
+        type: File
       - name: metadata__phenotype
         type: string
       - name: genome_resources__aliases__human
@@ -72,10 +72,7 @@ inputs:
       - name: config__algorithm__tools_off
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: genome_resources__variation__dbsnp
         type: File
@@ -110,10 +107,7 @@ inputs:
       - name: config__algorithm__exclude_regions
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: reference__rtg
         type: File
@@ -175,11 +169,7 @@ outputs:
         type: File
       - name: config__algorithm__vcfanno
         type:
-        - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+          items: File
           type: array
       - name: config__algorithm__variantcaller
         type: string
@@ -217,10 +207,7 @@ outputs:
       - name: config__algorithm__tools_off
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: config__algorithm__ensemble
         type:
@@ -243,10 +230,7 @@ outputs:
       - name: config__algorithm__exclude_regions
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: reference__rtg
         type: File

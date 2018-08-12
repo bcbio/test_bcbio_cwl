@@ -60,10 +60,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: config__algorithm__svvalidate
@@ -73,7 +70,6 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: regions__sample_callable
   type:
@@ -162,10 +158,7 @@ inputs:
       - name: config__algorithm__exclude_regions
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: align_bam
         type:
@@ -211,10 +204,7 @@ outputs:
         - name: config__algorithm__tools_off
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: analysis
           type: string
@@ -226,7 +216,6 @@ outputs:
           type:
           - File
           - 'null'
-          - string
         - name: genome_resources__aliases__snpeff
           type: string
         - name: work_bam_plus__disc
@@ -312,10 +301,7 @@ outputs:
         - name: config__algorithm__exclude_regions
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: align_bam
           type:

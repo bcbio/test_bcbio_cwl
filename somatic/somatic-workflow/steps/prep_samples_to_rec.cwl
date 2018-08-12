@@ -30,7 +30,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: rgnames__sample
@@ -41,7 +40,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: reference__fasta__base
@@ -73,14 +71,12 @@ outputs:
       - name: config__algorithm__coverage
         type:
         - 'null'
-        - string
         - File
       - name: rgnames__sample
         type: string
       - name: config__algorithm__variant_regions
         type:
         - 'null'
-        - string
         - File
       name: prep_samples_rec
       type: record

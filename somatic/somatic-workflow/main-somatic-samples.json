@@ -12,13 +12,13 @@
         []
     ],
     "config__algorithm__align_split_size": [
-        "null",
+        null,
         "False",
         25000,
-        "null"
+        null
     ],
     "config__algorithm__aligner": [
-        "null",
+        null,
         "bwa",
         "False",
         "minimap2"
@@ -30,19 +30,19 @@
         "False"
     ],
     "config__algorithm__coverage": [
-        "null",
+        null,
         {
             "class": "File",
             "path": "../../testdata/automated/coverage_transcripts-bam.bed"
         },
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__coverage_interval": [
-        "null",
-        "null",
-        "null",
-        "null"
+        null,
+        null,
+        null,
+        null
     ],
     "config__algorithm__effects": [
         "snpeff",
@@ -51,10 +51,10 @@
         "snpeff"
     ],
     "config__algorithm__ensemble": [
-        "null",
+        null,
         "{\"numpass\": 2}",
         "{\"numpass\": 2}",
-        "null"
+        null
     ],
     "config__algorithm__exclude_regions": [
         [],
@@ -166,9 +166,9 @@
         "False"
     ],
     "config__algorithm__umi_type": [
-        "null",
-        "null",
-        "null",
+        null,
+        null,
+        null,
         "fastq_name"
     ],
     "config__algorithm__validate": [
@@ -180,29 +180,29 @@
             "class": "File",
             "path": "../../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf"
         },
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__validate_regions": [
-        "null",
+        null,
         {
             "class": "File",
             "path": "../../testdata/automated/variant_regions-bam.bed"
         },
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__variant_regions": [
-        "null",
+        null,
         {
             "class": "File",
             "path": "../../testdata/automated/variant_regions-bam.bed"
         },
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__variantcaller": [
-        "null",
+        null,
         [
             "germline:gatk-haplotype",
             "somatic:vardict",
@@ -267,7 +267,7 @@
         "Umi1"
     ],
     "files": [
-        "null",
+        null,
         [
             {
                 "class": "File",
@@ -506,10 +506,10 @@
         }
     ],
     "genome_resources__variation__encode_blacklist": [
-        "null",
-        "null",
-        "null",
-        "null"
+        null,
+        null,
+        null,
+        null
     ],
     "genome_resources__variation__esp": [
         {
@@ -596,16 +596,16 @@
         }
     ],
     "genome_resources__variation__lcr": [
-        "null",
-        "null",
-        "null",
-        "null"
+        null,
+        null,
+        null,
+        null
     ],
     "genome_resources__variation__polyx": [
-        "null",
-        "null",
-        "null",
-        "null"
+        null,
+        null,
+        null,
+        null
     ],
     "genome_resources__variation__train_hapmap": [
         {
@@ -704,7 +704,7 @@
         "tumor"
     ],
     "reference__bwa__indexes": [
-        "null",
+        null,
         {
             "class": "File",
             "path": "../../testdata/genomes/hg19/bwa/hg19.fa.amb",
@@ -727,8 +727,8 @@
                 }
             ]
         },
-        "null",
-        "null"
+        null,
+        null
     ],
     "reference__fasta__base": [
         {
@@ -879,9 +879,9 @@
         ]
     ],
     "reference__minimap2__indexes": [
-        "null",
-        "null",
-        "null",
+        null,
+        null,
+        null,
         []
     ],
     "reference__rtg": [
@@ -951,10 +951,10 @@
         "Umi1"
     ],
     "rgnames__lb": [
-        "null",
-        "null",
-        "null",
-        "null"
+        null,
+        null,
+        null,
+        null
     ],
     "rgnames__pl": [
         "illumina",
@@ -991,8 +991,8 @@
                 }
             ]
         },
-        "null",
-        "null",
-        "null"
+        null,
+        null,
+        null
     ]
 }

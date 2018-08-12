@@ -14,7 +14,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items: File
       type: array
     type: array
@@ -40,11 +39,9 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - File
       - 'null'
-      - string
       type: array
     type: array
 - id: resources
@@ -55,7 +52,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items: string
       type: array
     type: array
@@ -63,10 +59,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: genome_resources__variation__1000g
@@ -152,7 +145,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: vrn_file
@@ -162,7 +154,6 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: reference__twobit
   type:
@@ -192,7 +183,6 @@ inputs:
     items:
     - File
     - 'null'
-    - string
     type: array
 - id: reference__snpeff__hg19
   type:
@@ -206,7 +196,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: config__algorithm__aligner
@@ -220,10 +209,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: rgnames__pl
@@ -255,7 +241,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: genome_resources__aliases__human
@@ -269,7 +254,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -330,7 +314,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -344,7 +327,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: genome_resources__aliases__ensembl
@@ -355,10 +337,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: reference__rtg

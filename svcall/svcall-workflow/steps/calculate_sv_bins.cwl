@@ -71,10 +71,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: config__algorithm__sv_regions
@@ -193,10 +190,7 @@ outputs:
       - name: config__algorithm__exclude_regions
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: align_bam
         type:

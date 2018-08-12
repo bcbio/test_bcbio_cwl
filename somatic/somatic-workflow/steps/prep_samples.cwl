@@ -49,14 +49,12 @@ inputs:
     - name: config__algorithm__coverage
       type:
       - 'null'
-      - string
       - File
     - name: rgnames__sample
       type: string
     - name: config__algorithm__variant_regions
       type:
       - 'null'
-      - string
       - File
     name: prep_samples_rec
     type: record

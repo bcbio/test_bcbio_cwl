@@ -8,8 +8,8 @@
         []
     ],
     "config__algorithm__align_split_size": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__aligner": [
         "bwa",
@@ -20,16 +20,16 @@
         "False"
     ],
     "config__algorithm__coverage_interval": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__effects": [
         "snpeff",
         "snpeff"
     ],
     "config__algorithm__ensemble": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__exclude_regions": [
         [],
@@ -100,7 +100,7 @@
                 }
             ]
         },
-        "null"
+        null
     ],
     "config__algorithm__tools_off": [
         [],
@@ -119,16 +119,16 @@
         "False"
     ],
     "config__algorithm__validate": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__validate_regions": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__variant_regions": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__variantcaller": [
         [
@@ -141,8 +141,30 @@
         ]
     ],
     "config__algorithm__vcfanno": [
-        [],
-        []
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/gemini.conf"
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/gemini.lua"
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/somatic.conf"
+            }
+        ],
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/gemini.conf"
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/gemini.lua"
+            }
+        ]
     ],
     "description": [
         "Test1",
@@ -200,28 +222,68 @@
             "path": "../../testdata/genomes/hg19/rnaseq/ref-transcripts.bed"
         }
     ],
-    "genome_resources__variation__clinvar": [
-        "null",
-        "null"
-    ],
-    "genome_resources__variation__cosmic": [
+    "genome_resources__variation__1000g": [
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "path": "../../testdata/genomes/hg19/variation/1000g.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                    "path": "../../testdata/genomes/hg19/variation/1000g.vcf.gz.tbi"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "path": "../../testdata/genomes/hg19/variation/1000g.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                    "path": "../../testdata/genomes/hg19/variation/1000g.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__clinvar": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/clinvar.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/clinvar.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/clinvar.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/clinvar.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/cosmic.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/cosmic.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/cosmic.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/cosmic.vcf.gz.tbi"
                 }
             ]
         }
@@ -229,36 +291,80 @@
     "genome_resources__variation__dbsnp": [
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "path": "../../testdata/genomes/hg19/variation/dbsnp.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                    "path": "../../testdata/genomes/hg19/variation/dbsnp.vcf.gz.tbi"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz",
+            "path": "../../testdata/genomes/hg19/variation/dbsnp.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "../../testdata/genomes/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                    "path": "../../testdata/genomes/hg19/variation/dbsnp.vcf.gz.tbi"
                 }
             ]
         }
     ],
     "genome_resources__variation__encode_blacklist": [
-        "null",
-        "null"
+        null,
+        null
+    ],
+    "genome_resources__variation__esp": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/esp.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/esp.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/esp.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/esp.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__exac": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/exac.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/exac.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        }
     ],
     "genome_resources__variation__lcr": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__polyx": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "genome_resources__variation__train_hapmap": [
         {
@@ -473,8 +579,8 @@
         "Test2"
     ],
     "rgnames__lb": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "rgnames__pl": [
         "illumina",
@@ -493,7 +599,7 @@
         "Test2"
     ],
     "vrn_file": [
-        "null",
-        "null"
+        null,
+        null
     ]
 }

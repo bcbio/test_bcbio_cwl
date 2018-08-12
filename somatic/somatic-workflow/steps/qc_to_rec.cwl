@@ -49,7 +49,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -59,7 +58,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -225,7 +223,6 @@ outputs:
       - name: config__algorithm__tools_off
         type:
         - 'null'
-        - string
         - items:
           - 'null'
           - string
@@ -239,7 +236,6 @@ outputs:
       - name: config__algorithm__tools_on
         type:
         - 'null'
-        - string
         - items:
           - 'null'
           - string

@@ -22,7 +22,8 @@ inputs:
 - id: config__algorithm__vcfanno
   type:
     items:
-      items: string
+    - 'null'
+    - items: 'null'
       type: array
     type: array
 - id: resources
@@ -35,6 +36,12 @@ inputs:
     - string
     - 'null'
     - boolean
+    type: array
+- id: genome_resources__variation__1000g
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
     type: array
 - id: config__algorithm__coverage_interval
   type:
@@ -52,11 +59,17 @@ inputs:
   type:
     items: File
     type: array
-- id: genome_resources__variation__encode_blacklist
+- id: genome_resources__variation__clinvar
+  secondaryFiles:
+  - .tbi
   type:
-    items:
-    - 'null'
-    - string
+    items: File
+    type: array
+- id: genome_resources__variation__esp
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
     type: array
 - id: metadata__batch
   type:
@@ -88,6 +101,14 @@ inputs:
   type:
     items: File
     type: array
+- id: reference__genome_context
+  secondaryFiles:
+  - .tbi
+  type:
+    items:
+      items: File
+      type: array
+    type: array
 - id: config__algorithm__nomap_split_size
   type:
     items: long
@@ -116,6 +137,12 @@ inputs:
   type:
     items: string
     type: array
+- id: genome_resources__variation__exac
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
 - id: config__algorithm__recalibrate
   type:
     items:
@@ -138,10 +165,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: genome_resources__variation__dbsnp
@@ -156,19 +180,23 @@ inputs:
     - 'null'
     - string
     type: array
+- id: genome_resources__variation__encode_blacklist
+  type:
+    items:
+    - 'null'
+    - string
+    type: array
 - id: genome_resources__variation__cosmic
   secondaryFiles:
   - .tbi
   type:
     items: File
     type: array
-- id: reference__genome_context
-  secondaryFiles:
-  - .tbi
+- id: config__algorithm__ensemble
   type:
     items:
-      items: File
-      type: array
+    - 'null'
+    - string
     type: array
 - id: config__algorithm__qc
   type:
@@ -206,10 +234,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: reference__rtg
@@ -460,6 +485,8 @@ steps:
     source: postprocess_alignment/regions__sample_callable
   - id: config__algorithm__variantcaller
     source: config__algorithm__variantcaller
+  - id: config__algorithm__ensemble
+    source: config__algorithm__ensemble
   - id: config__algorithm__vcfanno
     source: config__algorithm__vcfanno
   - id: config__algorithm__coverage_interval
@@ -490,10 +517,18 @@ steps:
     source: reference__rtg
   - id: reference__genome_context
     source: reference__genome_context
+  - id: genome_resources__variation__clinvar
+    source: genome_resources__variation__clinvar
   - id: genome_resources__variation__cosmic
     source: genome_resources__variation__cosmic
   - id: genome_resources__variation__dbsnp
     source: genome_resources__variation__dbsnp
+  - id: genome_resources__variation__esp
+    source: genome_resources__variation__esp
+  - id: genome_resources__variation__exac
+    source: genome_resources__variation__exac
+  - id: genome_resources__variation__1000g
+    source: genome_resources__variation__1000g
   - id: genome_resources__variation__lcr
     source: genome_resources__variation__lcr
   - id: genome_resources__variation__polyx

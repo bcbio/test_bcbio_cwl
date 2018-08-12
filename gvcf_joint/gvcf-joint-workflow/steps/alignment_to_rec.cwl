@@ -100,7 +100,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items:
       - 'null'
       - string
@@ -156,7 +155,6 @@ outputs:
       - name: config__algorithm__adapters
         type:
         - 'null'
-        - string
         - items:
           - 'null'
           - string

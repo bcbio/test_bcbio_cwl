@@ -34,9 +34,9 @@ hints:
   - package: bedtools
     specs:
     - https://anaconda.org/bioconda/bedtools
-  - package: fastqc
+  - package: fastqc=0.11.7=4
     specs:
-    - https://anaconda.org/bioconda/fastqc
+    - https://anaconda.org/bioconda/fastqc=0.11.7=4
   - package: goleft
     specs:
     - https://anaconda.org/bioconda/goleft
@@ -102,10 +102,7 @@ inputs:
     - name: config__algorithm__tools_off
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: config__algorithm__qc
       type:
@@ -198,10 +195,7 @@ outputs:
     - name: config__algorithm__tools_off
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: config__algorithm__qc
       type:

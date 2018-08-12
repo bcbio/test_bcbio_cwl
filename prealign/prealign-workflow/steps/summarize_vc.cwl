@@ -64,7 +64,8 @@ inputs:
           type: string
         - name: config__algorithm__vcfanno
           type:
-            items: string
+          - 'null'
+          - items: 'null'
             type: array
         - name: config__algorithm__variantcaller
           type:
@@ -81,10 +82,16 @@ inputs:
           - string
         - name: config__algorithm__min_allele_fraction
           type: long
+        - name: reference__genome_context
+          type:
+            items: File
+            type: array
         - name: config__algorithm__validate
           type:
           - 'null'
           - string
+        - name: reference__snpeff__hg19
+          type: File
         - name: config__algorithm__validate_regions
           type:
           - 'null'
@@ -99,15 +106,12 @@ inputs:
         - name: config__algorithm__tools_off
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
-        - name: reference__genome_context
+        - name: config__algorithm__ensemble
           type:
-            items: File
-            type: array
+          - 'null'
+          - string
         - name: analysis
           type: string
         - name: config__algorithm__tools_on
@@ -125,11 +129,10 @@ inputs:
         - name: config__algorithm__exclude_regions
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
+        - name: reference__rtg
+          type: File
         - name: genome_resources__aliases__snpeff
           type: string
         - name: config__algorithm__variant_regions_merged

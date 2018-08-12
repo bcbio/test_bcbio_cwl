@@ -52,10 +52,7 @@ inputs:
         - name: config__algorithm__tools_off
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: analysis
           type: string
@@ -67,7 +64,6 @@ inputs:
           type:
           - File
           - 'null'
-          - string
         - name: genome_resources__aliases__snpeff
           type: string
         - name: regions__sample_callable
@@ -145,10 +141,7 @@ inputs:
         - name: config__algorithm__exclude_regions
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
         - name: config__algorithm__variant_regions_merged
           type:

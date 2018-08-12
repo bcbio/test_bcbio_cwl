@@ -27,10 +27,7 @@ inputs:
     - name: config__algorithm__adapters
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: rgnames__lb
       type:

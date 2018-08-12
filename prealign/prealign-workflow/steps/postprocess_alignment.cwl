@@ -66,10 +66,6 @@ inputs:
       - string
     - name: genome_resources__rnaseq__gene_bed
       type: File
-    - name: genome_resources__variation__encode_blacklist
-      type:
-      - 'null'
-      - string
     - name: genome_resources__variation__lcr
       type:
       - 'null'
@@ -91,6 +87,10 @@ inputs:
       type:
       - 'null'
       - string
+    - name: genome_resources__variation__encode_blacklist
+      type:
+      - 'null'
+      - string
     - name: config__algorithm__tools_on
       type:
         items: string
@@ -102,10 +102,7 @@ inputs:
     - name: config__algorithm__exclude_regions
       type:
       - 'null'
-      - string
-      - items:
-        - 'null'
-        - string
+      - items: 'null'
         type: array
     - name: align_bam
       type: File

@@ -30,7 +30,6 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - items: File
       type: array
     type: array
@@ -88,17 +87,13 @@ inputs:
   type:
     items:
     - 'null'
-    - string
     - File
     type: array
 - id: reference__minimap2__indexes
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: config__algorithm__aligner
@@ -119,10 +114,7 @@ inputs:
   type:
     items:
     - 'null'
-    - string
-    - items:
-      - 'null'
-      - string
+    - items: 'null'
       type: array
     type: array
 - id: config__algorithm__bam_clean
@@ -171,7 +163,6 @@ outputs:
       - name: files
         type:
         - 'null'
-        - string
         - items: File
           type: array
       - name: config__algorithm__trim_reads
@@ -184,10 +175,7 @@ outputs:
       - name: config__algorithm__adapters
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: rgnames__lb
         type:
@@ -204,7 +192,6 @@ outputs:
       - name: reference__bwa__indexes
         type:
         - 'null'
-        - string
         - File
       - name: config__algorithm__bam_clean
         type:
@@ -219,10 +206,7 @@ outputs:
       - name: reference__minimap2__indexes
         type:
         - 'null'
-        - string
-        - items:
-          - 'null'
-          - string
+        - items: 'null'
           type: array
       - name: rgnames__pl
         type: string
