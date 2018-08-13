@@ -204,13 +204,13 @@
     "config__algorithm__variantcaller": [
         null,
         [
-            "germline:gatk-haplotype",
+            "germline:freebayes",
             "somatic:vardict",
             "somatic:strelka2",
             "somatic:mutect2"
         ],
         [
-            "germline:gatk-haplotype",
+            "germline:freebayes",
             "somatic:vardict",
             "somatic:strelka2",
             "somatic:mutect2"

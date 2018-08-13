@@ -19,7 +19,7 @@ details:
       realign: false
       variantcaller:
         somatic: [vardict, strelka2, mutect2]
-        germline: gatk-haplotype
+        germline: freebayes
       ensemble:
         numpass: 2
       tools_on: [qualimap_full]
@@ -43,7 +43,7 @@ details:
       align_split_size: 25000
       variantcaller:
         somatic: [vardict, strelka2, mutect2]
-        germline: gatk-haplotype
+        germline: freebayes
       ensemble:
         numpass: 2
       tools_on: [qualimap_full]
