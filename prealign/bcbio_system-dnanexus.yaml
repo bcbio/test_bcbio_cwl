@@ -1,0 +1,9 @@
+dnanexus:
+  project: bcbio_resources
+  ref:
+    project: bcbio_resources
+    folder: /testdata/genomes/hg19
+  inputs:
+    - /testdata
+resources:
+  default: {cores: 8, memory: 3000M, jvm_opts: [-Xms1g, -Xmx3000m]}
