@@ -58,3 +58,8 @@ or can't use Docker. To install the wrapper scripts, and optionally bcbio tools:
 
   These scripts use bcbio wrappers around the CWL running tools. You can also
   run the tools directly without any wrappers.
+
+## License
+
+All CWL workflows, scripts and documentation are freely available for all uses
+under the [MIT license](https://opensource.org/licenses/MIT).
