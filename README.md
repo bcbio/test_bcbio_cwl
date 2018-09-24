@@ -49,7 +49,7 @@ or can't use Docker. To install the wrapper scripts, and optionally bcbio tools:
 - Optionally, re-generate the CWL. This is generally not needed unless you
   explicitly want to test CWL generation:
 
-        bash run_general_cwl.sh
+        bash run_generate_cwl.sh
 
 - Run a test case, you'll likely have to edit the `run_$TOOL.sh` scripts to
   match the type of environment you want to run in (Docker, local, cluster):
