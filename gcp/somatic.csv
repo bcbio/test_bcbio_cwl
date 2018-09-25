@@ -1,0 +1,3 @@
+samplename,description,batch,phenotype,validate,validate_regions
+7_100326_FC6107FAAXX.bam,Test1,b1,tumor,Test1-grade.vcf.gz,variant_regions-bam.bed
+6_100326_FC6107FAAXX.bam,Test2,b1,normal,,

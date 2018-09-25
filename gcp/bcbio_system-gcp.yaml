@@ -1,0 +1,9 @@
+# In google storage bucket
+gs:
+  ref: gs://bcbiodata/test_bcbio_cwl/testdata/genomes
+  inputs:
+    - gs://bcbiodata/test_bcbio_cwl/testdata/100326_FC6107FAAXX
+    - gs://bcbiodata/test_bcbio_cwl/testdata/automated
+    - gs://bcbiodata/test_bcbio_cwl/testdata/reference_material
+resources:
+  default: {cores: 2, memory: 2G, jvm_opts: [-Xms750m, -Xmx2500m]}
