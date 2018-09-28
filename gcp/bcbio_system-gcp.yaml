@@ -1,5 +1,6 @@
 # In google storage bucket
 gs:
+  #input_type: http
   ref: gs://bcbiodata/test_bcbio_cwl/testdata/genomes
   inputs:
     - gs://bcbiodata/test_bcbio_cwl/testdata/100326_FC6107FAAXX
