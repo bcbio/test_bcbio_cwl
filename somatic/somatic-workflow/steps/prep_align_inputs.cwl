@@ -127,6 +127,10 @@ inputs:
       type: string
     - name: rgnames__sample
       type: string
+    - name: config__algorithm__variant_regions
+      type:
+      - 'null'
+      - File
     name: alignment_rec
     type: record
 outputs:

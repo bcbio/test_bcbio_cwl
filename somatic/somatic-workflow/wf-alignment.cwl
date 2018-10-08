@@ -76,6 +76,10 @@ inputs:
       type: string
     - name: rgnames__sample
       type: string
+    - name: config__algorithm__variant_regions
+      type:
+      - 'null'
+      - File
     name: alignment_rec
     type: record
 outputs:
@@ -113,6 +117,11 @@ outputs:
   type:
   - File
   - 'null'
+- id: config__algorithm__rawumi_avg_cov
+  outputSource: merge_split_alignments/config__algorithm__rawumi_avg_cov
+  type:
+  - int
+  - 'null'
 requirements:
 - class: EnvVarRequirement
   envDef:
@@ -140,6 +149,7 @@ steps:
   - id: hla__fastq
   - id: work_bam_plus__disc
   - id: work_bam_plus__sr
+  - id: config__algorithm__rawumi_avg_cov
   - id: umi_bam
   run: steps/process_alignment.cwl
   scatter:
@@ -161,10 +171,13 @@ steps:
     source: process_alignment/hla__fastq
   - id: umi_bam_toolinput
     source: process_alignment/umi_bam
+  - id: config__algorithm__rawumi_avg_cov_toolinput
+    source: process_alignment/config__algorithm__rawumi_avg_cov
   out:
   - id: align_bam
   - id: work_bam_plus__disc
   - id: work_bam_plus__sr
   - id: hla__fastq
   - id: umi_bam
+  - id: config__algorithm__rawumi_avg_cov
   run: steps/merge_split_alignments.cwl

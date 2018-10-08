@@ -69,10 +69,10 @@
         "True"
     ],
     "config__algorithm__min_allele_fraction": [
-        10,
+        10.0,
         0.5,
-        10,
-        10
+        10.0,
+        10.0
     ],
     "config__algorithm__nomap_split_size": [
         250,
@@ -118,7 +118,8 @@
             "qsignature",
             "qualimap",
             "samtools",
-            "variants"
+            "variants",
+            "viral"
         ],
         [
             "contamination",
@@ -220,7 +221,16 @@
         ]
     ],
     "config__algorithm__vcfanno": [
-        [],
+        [
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/gemini.conf"
+            },
+            {
+                "class": "File",
+                "path": "../../testdata/genomes/hg19/config/vcfanno/gemini.lua"
+            }
+        ],
         [
             {
                 "class": "File",
@@ -281,7 +291,13 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam"
+                "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam",
+                "secondaryFiles": [
+                    {
+                        "class": "File",
+                        "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam.bai"
+                    }
+                ]
             }
         ],
         [
@@ -920,22 +936,22 @@
             "path": "../../testdata/genomes/hg19/snpeff--hg19-wf.tar.gz"
         }
     ],
-    "reference__twobit": [
+    "reference__versions": [
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+            "path": "../../testdata/genomes/hg19/versions.csv"
         },
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+            "path": "../../testdata/genomes/hg19/versions.csv"
         },
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+            "path": "../../testdata/genomes/hg19/versions.csv"
         },
         {
             "class": "File",
-            "path": "../../testdata/genomes/hg19/ucsc/hg19.2bit"
+            "path": "../../testdata/genomes/hg19/versions.csv"
         }
     ],
     "resources": [

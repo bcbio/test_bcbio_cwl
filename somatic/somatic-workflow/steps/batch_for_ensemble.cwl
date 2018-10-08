@@ -4,7 +4,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=ensemble_prep_rec:batch_id;variants__calls;variants__variantcallers;resources;description;batch_samples;validate__summary;validate__tp;validate__fp;validate__fn;vrn_file;reference__fasta__base;metadata__phenotype;config__algorithm__vcfanno;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;config__algorithm__min_allele_fraction;reference__genome_context;config__algorithm__validate;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;config__algorithm__ensemble;analysis;config__algorithm__tools_on;config__algorithm__effects;config__algorithm__variant_regions;genome_resources__aliases__ensembl;config__algorithm__exclude_regions;reference__rtg;genome_resources__aliases__snpeff;config__algorithm__variant_regions_merged;regions__sample_callable;config__algorithm__callable_regions
+- sentinel_outputs=ensemble_prep_rec:batch_id;variants__calls;variants__variantcallers;resources;description;batch_samples;validate__summary;validate__tp;validate__fp;validate__fn;vrn_file;reference__fasta__base;metadata__phenotype;config__algorithm__vcfanno;config__algorithm__variantcaller;config__algorithm__coverage_interval;metadata__batch;config__algorithm__umi_type;config__algorithm__min_allele_fraction;reference__genome_context;config__algorithm__validate;reference__snpeff__hg19;config__algorithm__validate_regions;genome_build;genome_resources__aliases__human;config__algorithm__tools_off;config__algorithm__ensemble;analysis;config__algorithm__tools_on;config__algorithm__effects;config__algorithm__variant_regions;genome_resources__aliases__ensembl;config__algorithm__exclude_regions;reference__rtg;genome_resources__aliases__snpeff;config__algorithm__variant_regions_merged;regions__sample_callable;config__algorithm__callable_regions
 - sentinel_inputs=vc_rec:record
 - run_number=0
 baseCommand:
@@ -64,10 +64,7 @@ inputs:
           type: string
         - name: config__algorithm__vcfanno
           type:
-          - 'null'
-          - items:
-            - File
-            - 'null'
+            items: File
             type: array
         - name: config__algorithm__variantcaller
           type:
@@ -79,10 +76,12 @@ inputs:
           - 'null'
         - name: metadata__batch
           type: string
-        - name: config__algorithm__min_allele_fraction
+        - name: config__algorithm__umi_type
           type:
-          - long
-          - double
+          - 'null'
+          - string
+        - name: config__algorithm__min_allele_fraction
+          type: double
         - name: reference__genome_context
           type:
             items: File
@@ -203,10 +202,7 @@ outputs:
         type: string
       - name: config__algorithm__vcfanno
         type:
-        - 'null'
-        - items:
-          - File
-          - 'null'
+          items: File
           type: array
       - name: config__algorithm__variantcaller
         type:
@@ -218,10 +214,12 @@ outputs:
         - 'null'
       - name: metadata__batch
         type: string
-      - name: config__algorithm__min_allele_fraction
+      - name: config__algorithm__umi_type
         type:
-        - long
-        - double
+        - 'null'
+        - string
+      - name: config__algorithm__min_allele_fraction
+        type: double
       - name: reference__genome_context
         type:
           items: File

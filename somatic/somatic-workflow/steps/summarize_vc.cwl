@@ -64,10 +64,7 @@ inputs:
           type: string
         - name: config__algorithm__vcfanno
           type:
-          - 'null'
-          - items:
-            - File
-            - 'null'
+            items: File
             type: array
         - name: config__algorithm__variantcaller
           type:
@@ -79,10 +76,12 @@ inputs:
           - 'null'
         - name: metadata__batch
           type: string
-        - name: config__algorithm__min_allele_fraction
+        - name: config__algorithm__umi_type
           type:
-          - long
-          - double
+          - 'null'
+          - string
+        - name: config__algorithm__min_allele_fraction
+          type: double
         - name: reference__genome_context
           type:
             items: File

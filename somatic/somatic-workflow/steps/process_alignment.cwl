@@ -5,7 +5,7 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=single-parallel
-- sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr,umi_bam
+- sentinel_outputs=work_bam,align_bam,hla__fastq,work_bam_plus__disc,work_bam_plus__sr,config__algorithm__rawumi_avg_cov,umi_bam
 - sentinel_inputs=alignment_rec:record,process_alignment_rec:record
 - run_number=0
 baseCommand:
@@ -156,6 +156,10 @@ inputs:
       type: string
     - name: rgnames__sample
       type: string
+    - name: config__algorithm__variant_regions
+      type:
+      - 'null'
+      - File
     name: alignment_rec
     type: record
 - id: process_alignment_rec
@@ -205,6 +209,10 @@ outputs:
   - .bai
   type:
   - File
+  - 'null'
+- id: config__algorithm__rawumi_avg_cov
+  type:
+  - int
   - 'null'
 - id: umi_bam
   secondaryFiles:

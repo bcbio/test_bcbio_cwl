@@ -53,10 +53,7 @@ inputs:
         type: string
       - name: config__algorithm__vcfanno
         type:
-        - 'null'
-        - items:
-          - File
-          - 'null'
+          items: File
           type: array
       - name: config__algorithm__variantcaller
         type:
@@ -76,20 +73,20 @@ inputs:
         type: File
       - name: metadata__batch
         type: string
+      - name: config__algorithm__umi_type
+        type:
+        - 'null'
+        - string
       - name: genome_resources__variation__lcr
         type:
         - 'null'
         - string
       - name: config__algorithm__min_allele_fraction
-        type:
-        - long
-        - double
+        type: double
       - name: vrn_file
         type:
         - File
         - 'null'
-      - name: reference__twobit
-        type: File
       - name: reference__genome_context
         type:
           items: File

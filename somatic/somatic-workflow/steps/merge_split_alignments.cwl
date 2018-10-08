@@ -4,8 +4,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=single-merge
-- sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq,umi_bam
-- sentinel_inputs=alignment_rec:record,work_bam:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,hla__fastq:var,umi_bam:var
+- sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq,umi_bam,config__algorithm__rawumi_avg_cov
+- sentinel_inputs=alignment_rec:record,work_bam:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,hla__fastq:var,umi_bam:var,config__algorithm__rawumi_avg_cov:var
 - run_number=0
 baseCommand:
 - bcbio_nextgen.py
@@ -111,6 +111,10 @@ inputs:
       type: string
     - name: rgnames__sample
       type: string
+    - name: config__algorithm__variant_regions
+      type:
+      - 'null'
+      - File
     name: alignment_rec
     type: record
 - id: work_bam
@@ -160,6 +164,12 @@ inputs:
     - File
     - 'null'
     type: array
+- id: config__algorithm__rawumi_avg_cov_toolinput
+  type:
+    items:
+    - int
+    - 'null'
+    type: array
 outputs:
 - id: align_bam
   secondaryFiles:
@@ -189,6 +199,10 @@ outputs:
   - .bai
   type:
   - File
+  - 'null'
+- id: config__algorithm__rawumi_avg_cov
+  type:
+  - int
   - 'null'
 requirements:
 - class: InlineJavascriptRequirement

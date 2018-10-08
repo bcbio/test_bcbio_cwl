@@ -38,10 +38,7 @@ inputs:
 - id: config__algorithm__vcfanno
   type:
     items:
-    - 'null'
-    - items:
-      - File
-      - 'null'
+      items: File
       type: array
     type: array
 - id: resources
@@ -128,13 +125,15 @@ inputs:
     type: array
 - id: config__algorithm__min_allele_fraction
   type:
-    items:
-    - long
-    - double
+    items: double
     type: array
 - id: config__algorithm__nomap_split_targets
   type:
     items: long
+    type: array
+- id: reference__versions
+  type:
+    items: File
     type: array
 - id: reference__bwa__indexes
   secondaryFiles:
@@ -154,10 +153,6 @@ inputs:
     items:
     - File
     - 'null'
-    type: array
-- id: reference__twobit
-  type:
-    items: File
     type: array
 - id: reference__genome_context
   secondaryFiles:
@@ -414,6 +409,20 @@ outputs:
     - File
     - 'null'
     type: array
+- id: versions__tools
+  outputSource: multiqc_summary/versions__tools
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
+- id: versions__data
+  outputSource: multiqc_summary/versions__data
+  type:
+    items:
+    - File
+    - 'null'
+    type: array
 requirements:
 - class: EnvVarRequirement
   envDef:
@@ -456,6 +465,8 @@ steps:
     source: config__algorithm__adapters
   - id: config__algorithm__bam_clean
     source: config__algorithm__bam_clean
+  - id: config__algorithm__variant_regions
+    source: config__algorithm__variant_regions
   - id: config__algorithm__mark_duplicates
     source: config__algorithm__mark_duplicates
   - id: config__algorithm__umi_type
@@ -477,6 +488,7 @@ steps:
   - id: work_bam_plus__sr
   - id: hla__fastq
   - id: umi_bam
+  - id: config__algorithm__rawumi_avg_cov
   run: wf-alignment.cwl
   scatter:
   - alignment_rec
@@ -551,8 +563,6 @@ steps:
     source: genome_resources__variation__polyx
   - id: genome_resources__variation__encode_blacklist
     source: genome_resources__variation__encode_blacklist
-  - id: reference__twobit
-    source: reference__twobit
   - id: reference__fasta__base
     source: reference__fasta__base
   - id: resources
@@ -661,8 +671,6 @@ steps:
     source: config__algorithm__tools_off
   - id: reference__fasta__base
     source: reference__fasta__base
-  - id: reference__twobit
-    source: reference__twobit
   - id: reference__rtg
     source: reference__rtg
   - id: reference__genome_context
@@ -693,6 +701,8 @@ steps:
     source: genome_resources__aliases__snpeff
   - id: reference__snpeff__hg19
     source: reference__snpeff__hg19
+  - id: config__algorithm__umi_type
+    source: config__algorithm__umi_type
   - id: genome_resources__variation__train_hapmap
     source: genome_resources__variation__train_hapmap
   - id: genome_resources__variation__train_indels
@@ -752,6 +762,8 @@ steps:
     source: analysis
   - id: reference__fasta__base
     source: reference__fasta__base
+  - id: reference__versions
+    source: reference__versions
   - id: config__algorithm__tools_on
     source: config__algorithm__tools_on
   - id: config__algorithm__tools_off
@@ -794,6 +806,8 @@ steps:
     source: summarize_vc/variants__samples
   - id: config__algorithm__umi_type
     source: config__algorithm__umi_type
+  - id: config__algorithm__rawumi_avg_cov
+    source: alignment/config__algorithm__rawumi_avg_cov
   - id: umi_bam
     source: alignment/umi_bam
   - id: resources
@@ -819,4 +833,6 @@ steps:
     source: pipeline_summary/qcout_rec
   out:
   - id: summary__multiqc
+  - id: versions__tools
+  - id: versions__data
   run: steps/multiqc_summary.cwl
