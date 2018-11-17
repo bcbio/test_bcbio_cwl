@@ -4,8 +4,9 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=alignment_rec:description;resources;config__algorithm__align_split_size;reference__fasta__base;reference__snap__indexes;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;config__algorithm__bam_clean;files;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;analysis;rgnames__sample
-- sentinel_inputs=files:var,analysis:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__snap__indexes:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__bam_clean:var,config__algorithm__mark_duplicates:var,description:var,resources:var
+- sentinel_outputs=alignment_rec:resources;description;config__algorithm__align_split_size;files;config__algorithm__trim_reads;reference__fasta__base;config__algorithm__adapters;rgnames__lb;rgnames__rg;rgnames__lane;reference__bwa__indexes;config__algorithm__bam_clean;config__algorithm__aligner;rgnames__pl;rgnames__pu;config__algorithm__mark_duplicates;analysis;rgnames__sample;config__algorithm__variant_regions
+- sentinel_inputs=files:var,analysis:var,config__algorithm__align_split_size:var,reference__fasta__base:var,rgnames__pl:var,rgnames__sample:var,rgnames__pu:var,rgnames__lane:var,rgnames__rg:var,rgnames__lb:var,reference__bwa__indexes:var,config__algorithm__aligner:var,config__algorithm__trim_reads:var,config__algorithm__adapters:var,config__algorithm__bam_clean:var,config__algorithm__variant_regions:var,config__algorithm__mark_duplicates:var,resources:var,description:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -19,10 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1032
+  outdirMin: 10244
   ramMin: 2048
-  tmpdirMin: 4
-- class: dx:SkipInputDownload
+  tmpdirMin: 2
+- class: dx:InputResourceRequirement
+  indirMin: 0
 inputs:
 - id: files
   secondaryFiles:
@@ -75,23 +77,32 @@ inputs:
     - 'null'
     - string
     type: array
-- id: reference__snap__indexes
-  type:
-    items:
-    - 'null'
-    - string
-    - File
-    type: array
 - id: reference__bwa__indexes
+  secondaryFiles:
+  - ^.ann
+  - ^.pac
+  - ^.sa
+  - ^.bwt
   type:
-    items:
-    - File
-    - 'null'
-    - string
+    items: File
     type: array
 - id: config__algorithm__aligner
   type:
     items: string
+    type: array
+- id: config__algorithm__trim_reads
+  type:
+    items:
+    - string
+    - 'null'
+    - boolean
+    type: array
+- id: config__algorithm__adapters
+  type:
+    items:
+    - 'null'
+    - items: 'null'
+      type: array
     type: array
 - id: config__algorithm__bam_clean
   type:
@@ -100,6 +111,10 @@ inputs:
     - 'null'
     - boolean
     type: array
+- id: config__algorithm__variant_regions
+  type:
+    items: File
+    type: array
 - id: config__algorithm__mark_duplicates
   type:
     items:
@@ -107,11 +122,11 @@ inputs:
     - 'null'
     - boolean
     type: array
-- id: description
+- id: resources
   type:
     items: string
     type: array
-- id: resources
+- id: description
   type:
     items: string
     type: array
@@ -120,21 +135,30 @@ outputs:
   type:
     items:
       fields:
-      - name: description
-        type: string
       - name: resources
+        type: string
+      - name: description
         type: string
       - name: config__algorithm__align_split_size
         type:
         - 'null'
         - string
+      - name: files
+        type:
+          items: File
+          type: array
+      - name: config__algorithm__trim_reads
+        type:
+        - string
+        - 'null'
+        - boolean
       - name: reference__fasta__base
         type: File
-      - name: reference__snap__indexes
+      - name: config__algorithm__adapters
         type:
         - 'null'
-        - string
-        - File
+        - items: 'null'
+          type: array
       - name: rgnames__lb
         type:
         - 'null'
@@ -144,19 +168,12 @@ outputs:
       - name: rgnames__lane
         type: string
       - name: reference__bwa__indexes
-        type:
-        - File
-        - 'null'
-        - string
+        type: File
       - name: config__algorithm__bam_clean
         type:
         - string
         - 'null'
         - boolean
-      - name: files
-        type:
-          items: File
-          type: array
       - name: config__algorithm__aligner
         type: string
       - name: rgnames__pl
@@ -172,6 +189,8 @@ outputs:
         type: string
       - name: rgnames__sample
         type: string
+      - name: config__algorithm__variant_regions
+        type: File
       name: alignment_rec
       type: record
     type: array

@@ -1,38 +1,32 @@
 details:
 - algorithm:
     aligner: bwa
-    nomap_split_size: 50
-    nomap_split_targets: 100
-    tools_off:
-    - gemini
-    variant_regions: keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed
+    svcaller:
+    - manta
+    variant_regions: keep:8454ebf775359dbccecdc5193c0442c3+974/automated/variant_regions-bam.bed
     variantcaller:
-    - freebayes
     - vardict
   analysis: variant2
   description: Test2
   files:
-  - keep:a1d976bc7bcba2b523713fa67695d715+464/6_100326_FC6107FAAXX.bam
+  - keep:8454ebf775359dbccecdc5193c0442c3+974/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam
   genome_build: hg19
   metadata:
     batch: b1
     phenotype: normal
 - algorithm:
-    aligner: snap
-    nomap_split_size: 50
-    nomap_split_targets: 100
-    tools_off:
-    - gemini
-    validate: keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX-grade.vcf
-    validate_regions: keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed
-    variant_regions: keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed
+    aligner: bwa
+    svcaller:
+    - manta
+    validate: keep:8454ebf775359dbccecdc5193c0442c3+974/reference_material/7_100326_FC6107FAAXX-grade.vcf
+    validate_regions: keep:8454ebf775359dbccecdc5193c0442c3+974/automated/variant_regions-bam.bed
+    variant_regions: keep:8454ebf775359dbccecdc5193c0442c3+974/automated/variant_regions-bam.bed
     variantcaller:
-    - freebayes
     - vardict
   analysis: variant2
   description: Test1
   files:
-  - keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX.bam
+  - keep:8454ebf775359dbccecdc5193c0442c3+974/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
   genome_build: hg19
   metadata:
     batch: b1

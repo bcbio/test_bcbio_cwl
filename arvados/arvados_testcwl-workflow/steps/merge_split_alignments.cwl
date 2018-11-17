@@ -1,9 +1,12 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=single-merge
 - sentinel_outputs=align_bam,work_bam_plus__disc,work_bam_plus__sr,hla__fastq
 - sentinel_inputs=alignment_rec:record,work_bam:var,align_bam:var,work_bam_plus__disc:var,work_bam_plus__sr:var,hla__fastq:var
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,9 +20,11 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 4
-  outdirMin: 1039
+  outdirMin: 10251
   ramMin: 8192
-  tmpdirMin: 8
+  tmpdirMin: 6
+- class: dx:InputResourceRequirement
+  indirMin: 4
 - class: SoftwareRequirement
   packages:
   - package: biobambam
@@ -35,21 +40,30 @@ inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
       - 'null'
       - string
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: reference__fasta__base
       type: File
-    - name: reference__snap__indexes
+    - name: config__algorithm__adapters
       type:
       - 'null'
-      - string
-      - File
+      - items: 'null'
+        type: array
     - name: rgnames__lb
       type:
       - 'null'
@@ -59,19 +73,12 @@ inputs:
     - name: rgnames__lane
       type: string
     - name: reference__bwa__indexes
-      type:
-      - File
-      - 'null'
-      - string
+      type: File
     - name: config__algorithm__bam_clean
       type:
       - string
       - 'null'
       - boolean
-    - name: files
-      type:
-        items: File
-        type: array
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
@@ -87,6 +94,8 @@ inputs:
       type: string
     - name: rgnames__sample
       type: string
+    - name: config__algorithm__variant_regions
+      type: File
     name: alignment_rec
     type: record
 - id: work_bam

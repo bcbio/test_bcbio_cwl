@@ -3,50 +3,75 @@
         "variant2",
         "variant2"
     ],
+    "config__algorithm__adapters": [
+        [],
+        []
+    ],
     "config__algorithm__align_split_size": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "config__algorithm__aligner": [
         "bwa",
-        "snap"
+        "bwa"
     ],
     "config__algorithm__bam_clean": [
         "False",
         "False"
     ],
     "config__algorithm__coverage_interval": [
-        "null",
-        "null"
+        null,
+        null
+    ],
+    "config__algorithm__effects": [
+        "snpeff",
+        "snpeff"
+    ],
+    "config__algorithm__ensemble": [
+        null,
+        null
+    ],
+    "config__algorithm__exclude_regions": [
+        [],
+        []
     ],
     "config__algorithm__mark_duplicates": [
         "True",
         "True"
     ],
+    "config__algorithm__min_allele_fraction": [
+        10.0,
+        10.0
+    ],
     "config__algorithm__nomap_split_size": [
-        50,
-        50
+        250,
+        250
     ],
     "config__algorithm__nomap_split_targets": [
-        100,
-        100
+        20,
+        20
     ],
     "config__algorithm__qc": [
         [
-            "fastqc",
-            "samtools",
-            "qsignature",
+            "contamination",
             "coverage",
+            "fastqc",
+            "peddy",
+            "picard",
+            "qsignature",
+            "samtools",
             "variants",
-            "picard"
+            "viral"
         ],
         [
-            "fastqc",
-            "samtools",
-            "qsignature",
+            "contamination",
             "coverage",
-            "variants",
+            "fastqc",
+            "peddy",
             "picard",
+            "qsignature",
+            "samtools",
+            "variants",
             "viral"
         ]
     ],
@@ -54,51 +79,69 @@
         "False",
         "False"
     ],
-    "config__algorithm__tools_off": [
+    "config__algorithm__svcaller": [
         [
-            "gemini"
+            "manta"
         ],
         [
-            "gemini"
+            "manta"
         ]
+    ],
+    "config__algorithm__svprioritize": [
+        null,
+        null
+    ],
+    "config__algorithm__svvalidate": [
+        null,
+        null
+    ],
+    "config__algorithm__tools_off": [
+        [],
+        []
     ],
     "config__algorithm__tools_on": [
         [],
         []
     ],
+    "config__algorithm__trim_reads": [
+        "False",
+        "False"
+    ],
     "config__algorithm__validate": [
-        "null",
+        null,
         {
             "class": "File",
-            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX-grade.vcf"
+            "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/reference_material/7_100326_FC6107FAAXX-grade.vcf"
         }
     ],
     "config__algorithm__validate_regions": [
-        "null",
+        null,
         {
             "class": "File",
-            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed"
+            "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/automated/variant_regions-bam.bed"
         }
     ],
     "config__algorithm__variant_regions": [
         {
             "class": "File",
-            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed"
+            "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/automated/variant_regions-bam.bed"
         },
         {
             "class": "File",
-            "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/variant_regions-bam.bed"
+            "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/automated/variant_regions-bam.bed"
         }
     ],
     "config__algorithm__variantcaller": [
         [
-            "freebayes",
             "vardict"
         ],
         [
-            "freebayes",
             "vardict"
         ]
+    ],
+    "config__algorithm__vcfanno": [
+        [],
+        []
     ],
     "description": [
         "Test2",
@@ -108,11 +151,11 @@
         [
             {
                 "class": "File",
-                "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/6_100326_FC6107FAAXX.bam",
+                "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/6_100326_FC6107FAAXX.bam.bai"
+                        "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam.bai"
                     }
                 ]
             }
@@ -120,11 +163,11 @@
         [
             {
                 "class": "File",
-                "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX.bam",
+                "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "keep:a1d976bc7bcba2b523713fa67695d715+464/7_100326_FC6107FAAXX.bam.bai"
+                        "path": "keep:8454ebf775359dbccecdc5193c0442c3+974/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam.bai"
                     }
                 ]
             }
@@ -149,31 +192,75 @@
     "genome_resources__rnaseq__gene_bed": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/rnaseq/ref-transcripts.bed"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/rnaseq/ref-transcripts.bed"
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/rnaseq/ref-transcripts.bed"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/rnaseq/ref-transcripts.bed"
         }
     ],
-    "genome_resources__variation__cosmic": [
+    "genome_resources__variation__1000g": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/1000g.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/1000g.vcf.gz.tbi"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/cosmic-v68-hg19.vcf.gz",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/1000g.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/cosmic-v68-hg19.vcf.gz.tbi"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/1000g.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__clinvar": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/clinvar.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/clinvar.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/clinvar.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/clinvar.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__cosmic": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/cosmic.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/cosmic.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/cosmic.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/cosmic.vcf.gz.tbi"
                 }
             ]
         }
@@ -181,21 +268,135 @@
     "genome_resources__variation__dbsnp": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/dbsnp_132.vcf.gz",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/dbsnp.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/dbsnp.vcf.gz.tbi"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/dbsnp_132.vcf.gz",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/dbsnp.vcf.gz",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/variation/dbsnp_132.vcf.gz.tbi"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/dbsnp.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__encode_blacklist": [
+        null,
+        null
+    ],
+    "genome_resources__variation__esp": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/esp.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/esp.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/esp.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/esp.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__exac": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/exac.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/exac.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__gc_profile": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/gc/GC_profile.1000bp.cnp"
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/gc/GC_profile.1000bp.cnp"
+        }
+    ],
+    "genome_resources__variation__germline_het_pon": [
+        null,
+        null
+    ],
+    "genome_resources__variation__lcr": [
+        null,
+        null
+    ],
+    "genome_resources__variation__polyx": [
+        null,
+        null
+    ],
+    "genome_resources__variation__train_hapmap": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/hapmap_3.3.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/hapmap_3.3.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__train_indels": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/Mills_Devine_2hit.indels.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/variation/Mills_Devine_2hit.indels.vcf.gz.tbi"
                 }
             ]
         }
@@ -211,36 +412,75 @@
     "reference__bwa__indexes": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/bwa-wf.tar.gz"
-        },
-        "null"
-    ],
-    "reference__fasta__base": [
-        {
-            "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/seq/hg19.fa",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.amb",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/seq/hg19.fa.fai"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.ann"
                 },
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/seq/hg19.dict"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.bwt"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.pac"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.sa"
                 }
             ]
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/seq/hg19.fa",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.amb",
             "secondaryFiles": [
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/seq/hg19.fa.fai"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.ann"
                 },
                 {
                     "class": "File",
-                    "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/seq/hg19.dict"
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.bwt"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.pac"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/bwa/hg19.fa.sa"
+                }
+            ]
+        }
+    ],
+    "reference__fasta__base": [
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/seq/hg19.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/seq/hg19.dict"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/seq/hg19.fa",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/seq/hg19.fa.fai"
+                },
+                {
+                    "class": "File",
+                    "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/seq/hg19.dict"
                 }
             ]
         }
@@ -249,21 +489,21 @@
         [
             {
                 "class": "File",
-                "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                        "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
                     }
                 ]
             },
             {
                 "class": "File",
-                "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                        "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
                     }
                 ]
             }
@@ -271,21 +511,21 @@
         [
             {
                 "class": "File",
-                "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
+                "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
+                        "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test.bed.gz.tbi"
                     }
                 ]
             },
             {
                 "class": "File",
-                "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
+                "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test2.bed.gz",
                 "secondaryFiles": [
                     {
                         "class": "File",
-                        "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
+                        "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/coverage/problem_regions/GA4GH/test2.bed.gz.tbi"
                     }
                 ]
             }
@@ -294,38 +534,31 @@
     "reference__rtg": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/rtg--hg19.sdf-wf.tar.gz"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/rtg--hg19.sdf-wf.tar.gz"
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/rtg--hg19.sdf-wf.tar.gz"
-        }
-    ],
-    "reference__snap__indexes": [
-        "null",
-        {
-            "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/snap-wf.tar.gz"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/rtg--hg19.sdf-wf.tar.gz"
         }
     ],
     "reference__snpeff__hg19": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/snpeff--hg19-wf.tar.gz"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/snpeff--hg19-wf.tar.gz"
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/snpeff--hg19-wf.tar.gz"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/snpeff--hg19-wf.tar.gz"
         }
     ],
-    "reference__twobit": [
+    "reference__versions": [
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/ucsc/hg19.2bit"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/versions.csv"
         },
         {
             "class": "File",
-            "path": "keep:9127147c168e27e26738524cbd3a59c6+1633/hg19/ucsc/hg19.2bit"
+            "path": "keep:14fe416449ea50907da809d43f1e3bd1+2322/hg19/versions.csv"
         }
     ],
     "resources": [
@@ -337,8 +570,8 @@
         "Test1"
     ],
     "rgnames__lb": [
-        "null",
-        "null"
+        null,
+        null
     ],
     "rgnames__pl": [
         "illumina",
@@ -357,7 +590,7 @@
         "Test1"
     ],
     "vrn_file": [
-        "null",
-        "null"
+        null,
+        null
     ]
 }

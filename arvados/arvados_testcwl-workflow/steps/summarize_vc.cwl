@@ -1,9 +1,12 @@
+$namespaces:
+  dx: https://www.dnanexus.com/cwl#
 arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=variants__calls,variants__gvcf,validate__grading_summary,validate__grading_plots
+- sentinel_outputs=variants__calls,variants__gvcf,variants__samples,validate__grading_summary,validate__grading_plots
 - sentinel_inputs=vc_rec:record
+- run_number=0
 baseCommand:
 - bcbio_nextgen.py
 - runfn
@@ -17,15 +20,22 @@ hints:
   dockerPull: quay.io/bcbio/bcbio-vc
 - class: ResourceRequirement
   coresMin: 1
-  outdirMin: 1026
+  outdirMin: 10241
   ramMin: 2048
   tmpdirMin: 1
+- class: dx:InputResourceRequirement
+  indirMin: 1
 inputs:
 - id: vc_rec
   type:
     items:
       items:
         fields:
+        - name: batch_samples
+          type:
+          - 'null'
+          - items: string
+            type: array
         - name: validate__summary
           type:
           - File
@@ -42,19 +52,19 @@ inputs:
           type:
           - File
           - 'null'
-        - name: description
-          type: string
         - name: resources
+          type: string
+        - name: description
           type: string
         - name: vrn_file
           type: File
-        - name: config__algorithm__validate
-          type:
-          - 'null'
-          - string
-          - File
         - name: reference__fasta__base
           type: File
+        - name: config__algorithm__vcfanno
+          type:
+          - 'null'
+          - items: 'null'
+            type: array
         - name: config__algorithm__variantcaller
           type: string
         - name: config__algorithm__coverage_interval
@@ -63,14 +73,21 @@ inputs:
           - 'null'
         - name: metadata__batch
           type: string
-        - name: reference__twobit
-          type: File
+        - name: config__algorithm__min_allele_fraction
+          type: double
+        - name: reference__genome_context
+          type:
+            items: File
+            type: array
+        - name: config__algorithm__validate
+          type:
+          - 'null'
+          - File
         - name: reference__snpeff__hg19
           type: File
         - name: config__algorithm__validate_regions
           type:
           - 'null'
-          - string
           - File
         - name: genome_build
           type: string
@@ -83,37 +100,38 @@ inputs:
           - boolean
         - name: config__algorithm__tools_off
           type:
-            items: string
+          - 'null'
+          - items: 'null'
             type: array
-        - name: genome_resources__variation__dbsnp
-          type: File
-        - name: genome_resources__variation__cosmic
-          type: File
-        - name: reference__genome_context
+        - name: config__algorithm__ensemble
           type:
-            items: File
-            type: array
+          - 'null'
+          - string
         - name: analysis
           type: string
         - name: config__algorithm__tools_on
           type:
           - 'null'
-          - string
-          - items:
-            - 'null'
-            - string
+          - items: 'null'
             type: array
+        - name: config__algorithm__effects
+          type: string
         - name: config__algorithm__variant_regions
           type:
           - File
           - 'null'
         - name: genome_resources__aliases__ensembl
           type: string
+        - name: config__algorithm__exclude_regions
+          type:
+          - 'null'
+          - items: 'null'
+            type: array
         - name: reference__rtg
           type: File
         - name: genome_resources__aliases__snpeff
           type: string
-        - name: align_bam
+        - name: config__algorithm__variant_regions_merged
           type:
           - File
           - 'null'
@@ -143,6 +161,16 @@ outputs:
     - items:
       - File
       - 'null'
+      type: array
+    type: array
+- id: variants__samples
+  type:
+    items:
+      items:
+        items:
+        - File
+        - 'null'
+        type: array
       type: array
     type: array
 - id: validate__grading_summary

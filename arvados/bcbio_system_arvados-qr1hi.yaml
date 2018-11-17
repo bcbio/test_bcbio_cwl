@@ -1,0 +1,7 @@
+# arvados runs
+# qr1hi project, bcbio_resources: https://workbench.qr1hi.arvadosapi.com/projects/qr1hi-j7d0g-8g1u4lh8mwev36n
+arvados:
+  reference: qr1hi-4zz18-zfc0f9sgs7f9b0z
+  input: [qr1hi-4zz18-abv0fynl61ht4z9]
+resources:
+  default: {cores: 4, memory: 2G, jvm_opts: [-Xms750m, -Xmx2500m]}

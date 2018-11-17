@@ -5,21 +5,30 @@ inputs:
 - id: alignment_rec
   type:
     fields:
-    - name: description
-      type: string
     - name: resources
+      type: string
+    - name: description
       type: string
     - name: config__algorithm__align_split_size
       type:
       - 'null'
       - string
+    - name: files
+      type:
+        items: File
+        type: array
+    - name: config__algorithm__trim_reads
+      type:
+      - string
+      - 'null'
+      - boolean
     - name: reference__fasta__base
       type: File
-    - name: reference__snap__indexes
+    - name: config__algorithm__adapters
       type:
       - 'null'
-      - string
-      - File
+      - items: 'null'
+        type: array
     - name: rgnames__lb
       type:
       - 'null'
@@ -29,19 +38,12 @@ inputs:
     - name: rgnames__lane
       type: string
     - name: reference__bwa__indexes
-      type:
-      - File
-      - 'null'
-      - string
+      type: File
     - name: config__algorithm__bam_clean
       type:
       - string
       - 'null'
       - boolean
-    - name: files
-      type:
-        items: File
-        type: array
     - name: config__algorithm__aligner
       type: string
     - name: rgnames__pl
@@ -57,6 +59,8 @@ inputs:
       type: string
     - name: rgnames__sample
       type: string
+    - name: config__algorithm__variant_regions
+      type: File
     name: alignment_rec
     type: record
 outputs:

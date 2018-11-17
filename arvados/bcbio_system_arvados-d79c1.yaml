@@ -1,0 +1,7 @@
+# arvados runs
+# d79c1 project, bcbio_resources: https://workbench.d79c1.arvadosapi.com/projects/d79c1-j7d0g-ezhz962cz3b3wuc
+arvados:
+  reference: d79c1-4zz18-2feudj7znabtr0c
+  input: [d79c1-4zz18-blrgywhk6748nxb]
+resources:
+  default: {cores: 4, memory: 2G, jvm_opts: [-Xms750m, -Xmx2500m]}
