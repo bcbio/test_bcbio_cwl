@@ -85,6 +85,8 @@ inputs:
       type: string
     - name: reference__fasta__base
       type: File
+    - name: metadata__phenotype
+      type: string
     - name: config__algorithm__coverage_interval
       type:
       - string

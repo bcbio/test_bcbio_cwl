@@ -4,8 +4,8 @@ arguments:
 - position: 0
   valueFrom: sentinel_runtime=cores,$(runtime['cores']),ram,$(runtime['ram'])
 - sentinel_parallel=multi-combined
-- sentinel_outputs=qc_rec:resources;description;reference__fasta__base;config__algorithm__coverage_interval;metadata__batch;config__algorithm__umi_type;reference__versions;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__rawumi_avg_cov;umi_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged;depth__samtools__stats;depth__samtools__idxstats;depth__variant_regions__regions;depth__variant_regions__dist;depth__sv_regions__regions;depth__sv_regions__dist;depth__coverage__regions;depth__coverage__dist;depth__coverage__thresholds;variants__samples
-- sentinel_inputs=align_bam:var,analysis:var,reference__fasta__base:var,reference__versions:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,genome_build:var,config__algorithm__qc:var,metadata__batch:var,config__algorithm__coverage_interval:var,depth__variant_regions__regions:var,depth__variant_regions__dist:var,depth__samtools__stats:var,depth__samtools__idxstats:var,depth__sv_regions__regions:var,depth__sv_regions__dist:var,depth__coverage__regions:var,depth__coverage__dist:var,depth__coverage__thresholds:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,variants__samples:var,config__algorithm__umi_type:var,config__algorithm__rawumi_avg_cov:var,umi_bam:var,resources:var,description:var
+- sentinel_outputs=qc_rec:resources;description;reference__fasta__base;metadata__phenotype;config__algorithm__coverage_interval;metadata__batch;config__algorithm__umi_type;reference__versions;genome_build;config__algorithm__coverage;config__algorithm__tools_off;config__algorithm__qc;analysis;config__algorithm__tools_on;config__algorithm__variant_regions;align_bam;config__algorithm__rawumi_avg_cov;umi_bam;config__algorithm__variant_regions_merged;config__algorithm__coverage_merged;depth__samtools__stats;depth__samtools__idxstats;depth__variant_regions__regions;depth__variant_regions__dist;depth__sv_regions__regions;depth__sv_regions__dist;depth__coverage__regions;depth__coverage__dist;depth__coverage__thresholds;variants__samples
+- sentinel_inputs=align_bam:var,analysis:var,reference__fasta__base:var,reference__versions:var,config__algorithm__tools_on:var,config__algorithm__tools_off:var,genome_build:var,config__algorithm__qc:var,metadata__batch:var,metadata__phenotype:var,config__algorithm__coverage_interval:var,depth__variant_regions__regions:var,depth__variant_regions__dist:var,depth__samtools__stats:var,depth__samtools__idxstats:var,depth__sv_regions__regions:var,depth__sv_regions__dist:var,depth__coverage__regions:var,depth__coverage__dist:var,depth__coverage__thresholds:var,config__algorithm__variant_regions:var,config__algorithm__variant_regions_merged:var,config__algorithm__coverage:var,config__algorithm__coverage_merged:var,variants__samples:var,config__algorithm__umi_type:var,config__algorithm__rawumi_avg_cov:var,umi_bam:var,resources:var,description:var
 - run_number=0
 baseCommand:
 - bcbio_nextgen.py
@@ -78,6 +78,10 @@ inputs:
       type: array
     type: array
 - id: metadata__batch
+  type:
+    items: string
+    type: array
+- id: metadata__phenotype
   type:
     items: string
     type: array
@@ -214,6 +218,8 @@ outputs:
         type: string
       - name: reference__fasta__base
         type: File
+      - name: metadata__phenotype
+        type: string
       - name: config__algorithm__coverage_interval
         type:
         - string

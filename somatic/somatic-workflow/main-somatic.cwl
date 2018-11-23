@@ -75,12 +75,6 @@ inputs:
   type:
     items: File
     type: array
-- id: genome_resources__variation__train_hapmap
-  secondaryFiles:
-  - .tbi
-  type:
-    items: File
-    type: array
 - id: rgnames__lb
   type:
     items:
@@ -154,6 +148,12 @@ inputs:
     - File
     - 'null'
     type: array
+- id: genome_resources__variation__train_hapmap
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
 - id: reference__genome_context
   secondaryFiles:
   - .tbi
@@ -220,6 +220,12 @@ inputs:
     items: string
     type: array
 - id: genome_resources__variation__exac
+  secondaryFiles:
+  - .tbi
+  type:
+    items: File
+    type: array
+- id: genome_resources__variation__gnomad_exome
   secondaryFiles:
   - .tbi
   type:
@@ -685,6 +691,8 @@ steps:
     source: genome_resources__variation__esp
   - id: genome_resources__variation__exac
     source: genome_resources__variation__exac
+  - id: genome_resources__variation__gnomad_exome
+    source: genome_resources__variation__gnomad_exome
   - id: genome_resources__variation__1000g
     source: genome_resources__variation__1000g
   - id: genome_resources__variation__lcr
@@ -774,6 +782,8 @@ steps:
     source: config__algorithm__qc
   - id: metadata__batch
     source: metadata__batch
+  - id: metadata__phenotype
+    source: metadata__phenotype
   - id: config__algorithm__coverage_interval
     source: postprocess_alignment/config__algorithm__coverage_interval
   - id: depth__variant_regions__regions

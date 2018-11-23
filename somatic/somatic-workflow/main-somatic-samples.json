@@ -291,13 +291,7 @@
         [
             {
                 "class": "File",
-                "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam",
-                "secondaryFiles": [
-                    {
-                        "class": "File",
-                        "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam.bai"
-                    }
-                ]
+                "path": "../../testdata/100326_FC6107FAAXX/6_100326_FC6107FAAXX.bam"
             }
         ],
         [
@@ -607,6 +601,48 @@
                 {
                     "class": "File",
                     "path": "../../testdata/genomes/hg19/variation/exac.vcf.gz.tbi"
+                }
+            ]
+        }
+    ],
+    "genome_resources__variation__gnomad_exome": [
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz.tbi"
+                }
+            ]
+        },
+        {
+            "class": "File",
+            "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz",
+            "secondaryFiles": [
+                {
+                    "class": "File",
+                    "path": "../../testdata/genomes/hg19/variation/gnomad_exome.vcf.gz.tbi"
                 }
             ]
         }
