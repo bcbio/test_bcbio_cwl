@@ -5,12 +5,9 @@ details:
      trim_reads: read_through
      adapters: polyx
      aligner: bwa
-     align_split_size: false
      recalibrate: true
      variantcaller: [gatk-haplotype, strelka2]
      tools_on: [gvcf]
-     tools_off: [gemini]
-     effects: false
      validate: ../testdata/reference_material/7_100326_FC6107FAAXX-grade.vcf
      validate_regions: ../testdata/automated/variant_regions-bam.bed
      variant_regions: ../testdata/automated/variant_regions-bam.bed
@@ -23,12 +20,9 @@ details:
    files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
  - algorithm:
      aligner: bwa
-     align_split_size: false
      recalibrate: true
      variantcaller: [gatk-haplotype, strelka2]
-     effects: false
      tools_on: [gvcf]
-     tools_off: [gemini]
      variant_regions: ../testdata/automated/variant_regions-bam.bed
    metadata:
      batch: b1
