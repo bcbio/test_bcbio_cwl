@@ -98,10 +98,7 @@ inputs:
 - id: config__algorithm__adapters
   type:
     items:
-    - 'null'
-    - items:
-      - 'null'
-      - string
+      items: string
       type: array
     type: array
 - id: config__algorithm__bam_clean
@@ -156,10 +153,7 @@ outputs:
         type: File
       - name: config__algorithm__adapters
         type:
-        - 'null'
-        - items:
-          - 'null'
-          - string
+          items: string
           type: array
       - name: rgnames__lb
         type:

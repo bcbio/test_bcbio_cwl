@@ -20,6 +20,7 @@ details:
    files: ../testdata/100326_FC6107FAAXX/7_100326_FC6107FAAXX.bam
  - algorithm:
      aligner: bwa
+     adapters: polyx
      recalibrate: true
      variantcaller: [gatk-haplotype, strelka2]
      tools_on: [gvcf]

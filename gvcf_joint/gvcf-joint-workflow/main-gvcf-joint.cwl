@@ -51,10 +51,7 @@ inputs:
 - id: config__algorithm__adapters
   type:
     items:
-    - 'null'
-    - items:
-      - 'null'
-      - string
+      items: string
       type: array
     type: array
 - id: genome_resources__variation__1000g

@@ -77,10 +77,7 @@ inputs:
       type: File
     - name: config__algorithm__adapters
       type:
-      - 'null'
-      - items:
-        - 'null'
-        - string
+        items: string
         type: array
     - name: rgnames__lb
       type:
