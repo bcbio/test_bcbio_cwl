@@ -1,8 +1,9 @@
 # local runs
 local:
   ref: ../testdata/genomes
+  inputs:
+    - ../testdata/100326_FC6107FAAXX
+    - ../testdata/100326_FC6107FAAXX/split
+    - ../testdata/automated
 resources:
-  default: {cores: 2, memory: 2G}
-  bwa: {cores: 2, memory: 2G}
-  gatk:
-    jvm_opts: [-Xms750m, -Xmx2500m]
+  default: {cores: 2, memory: 3G, jvm_opts: [-Xms750m, -Xmx3000m]}

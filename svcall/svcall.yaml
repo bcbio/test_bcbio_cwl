@@ -4,10 +4,12 @@ details:
  - algorithm:
      aligner: bwa
      # hlacaller: optitype
-     variantcaller: [vardict, mutect2]
-     svcaller: [manta, lumpy, cnvkit, delly, titancna]
+     variantcaller: [vardict]
+     svcaller: [cnvkit, manta, lumpy]
+     # svcaller: [manta, lumpy, cnvkit, delly, titancna, purple]
      sv_regions: ../testdata/automated/variant_regions-bam.bed
      svvalidate: ../testdata/reference_material/Test1-grade.vcf.gz
+     svprioritize: ../testdata/automated/variant_regions-bam.bed
      qc: [samtools]
      tools_on: [coverage_perbase]
    metadata:
@@ -20,9 +22,11 @@ details:
  - algorithm:
      aligner: bwa
      # hlacaller: optitype
-     variantcaller: [vardict, mutect2]
-     svcaller: [manta, lumpy, cnvkit, delly, titancna]
+     variantcaller: [vardict]
+     svcaller: [cnvkit, manta, lumpy]
+     # svcaller: [manta, lumpy, cnvkit, delly, titancna, purple]
      sv_regions: ../testdata/automated/variant_regions-bam.bed
+     svprioritize: ../testdata/automated/variant_regions-bam.bed
      qc: [samtools]
      tools_on: [coverage_perbase]
    metadata:
